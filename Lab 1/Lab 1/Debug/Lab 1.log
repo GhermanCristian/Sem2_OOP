@@ -1,0 +1,4 @@
+﻿  Lab 1.c
+C:\Users\gherm\Documents\Uni\Sem 2\OOP\Lab 1\Lab 1\Lab 1\Lab 1.c(6,1): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\stdio.h(1274): message : see declaration of 'scanf'
+  Lab 1.vcxproj -> C:\Users\gherm\Documents\Uni\Sem 2\OOP\Lab 1\Lab 1\Debug\Lab 1.exe
