@@ -19,7 +19,17 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="archive.c" />
+    <ClCompile Include="controller.c" />
     <ClCompile Include="mainProgram.c" />
+    <ClCompile Include="repository.c" />
+    <ClCompile Include="userInterface.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="archive.h" />
+    <ClInclude Include="controller.h" />
+    <ClInclude Include="repository.h" />
+    <ClInclude Include="userInterface.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
