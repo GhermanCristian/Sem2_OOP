@@ -14,7 +14,7 @@ Controller* createController() {
 char* addArchive(Controller* commandController, int catalogueNumber, char* stateOfDeterioration, char* archiveType, int yearOfCreation) {
 	Archive newArchive = createArchive(catalogueNumber, stateOfDeterioration, archiveType, yearOfCreation);
 	int successfulOperation = addToRepository(commandController->archiveRepository, newArchive);
-	char* message = "Could not add a new archive\n";
+	char* message = "No!\n";
 	if (successfulOperation == 0) {
 		return message;
 	}
@@ -23,7 +23,7 @@ char* addArchive(Controller* commandController, int catalogueNumber, char* state
 
 char* updateArchive(Controller* commandController, int catalogueNumber, char* newStateOfDeterioration, char* newArchiveType, int newYearOfCreation) {
 	int successfulOperation = updateRepositoryEntry(commandController->archiveRepository, catalogueNumber, newStateOfDeterioration, newArchiveType, newYearOfCreation);
-	char* message = "Could not update the archive\n";
+	char* message = "No!\n";
 	if (successfulOperation == 0) {
 		return message;
 	}
@@ -32,11 +32,28 @@ char* updateArchive(Controller* commandController, int catalogueNumber, char* ne
 
 char* deleteArchive(Controller* commandController, int catalogueNumber) {
 	int successfulOperation = deleteRepositoryEntry(commandController->archiveRepository, catalogueNumber);
-	char* message = "Could not delete the archive\n";
+	char* message = "No!\n";
 	if (successfulOperation == 0) {
 		return message;
 	}
 	return NULL;
+}
+
+Repository* getAllRepositoryEntries(Controller* commandController) {
+	return commandController->archiveRepository;
+}
+
+Repository* filterRepositoryEntries(Controller* commandController, char* fileType) {
+	Repository* filteredRepository = createRepository();
+	Repository* completeRepository = commandController->archiveRepository;
+
+	for (int index = 0; index < completeRepository->numberOfObjects; index++) {
+		if (strcmp(completeRepository->archiveList[index].fileType, fileType) == 0) {
+			addToRepository(filteredRepository, completeRepository->archiveList[index]);
+		}
+	}
+
+	return filteredRepository;
 }
 
 void controllerDestructor(Controller* commandController) {

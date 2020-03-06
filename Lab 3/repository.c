@@ -27,6 +27,9 @@ int findInRepository(Repository* archiveRepository, int archiveCatalogueNumber) 
 }
 
 int isInRepository(Repository* archiveRepository, int archiveCatalogueNumber, int possiblePosition) {
+	if (possiblePosition < 0) {
+		return 0;
+	}
 	return (archiveRepository->archiveList[possiblePosition].catalogueNumber == archiveCatalogueNumber);
 }
 

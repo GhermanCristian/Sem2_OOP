@@ -9,7 +9,5 @@ int main() {
 	startProgram(interface);
 	destroyUserInterface(interface);
 
-	_CrtDumpMemoryLeaks();
-
 	return 0;
 }
