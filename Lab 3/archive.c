@@ -2,7 +2,6 @@
 #include <string.h>
 
 Archive createArchive(int catalogueNumber, char* stateOfDeterioration, char* fileType, int yearOfCreation){
-	//Archive* newArchive = (Archive*)malloc(sizeof(Archive));
 	Archive newArchive;
 
 	newArchive.catalogueNumber = catalogueNumber;

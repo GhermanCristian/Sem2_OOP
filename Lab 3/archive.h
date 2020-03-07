@@ -11,3 +11,13 @@ typedef struct{
 }Archive;
 
 Archive createArchive(int catalogueNumber, char* stateOfDeterioration, char* fileType, int yearOfCreation);
+/*
+	Creates a new Archive with the given parameters
+	Input:
+		- catalogueNumber = integer
+		- stateOfDeterioration = array of characters
+		- fileType = array of characters
+		- yearOfCreation = integer
+	Output:
+		- An "object" of type Archive
+*/

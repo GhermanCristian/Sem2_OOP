@@ -1,6 +1,5 @@
 #include <stdio.h>
-#define _CRTDBG_MAP_ALLOC  
-#include <stdlib.h>  
+#define _CRTDBG_MAP_ALLOC  // used to check for memory leaks
 #include <crtdbg.h> 
 #include "userInterface.h"
 

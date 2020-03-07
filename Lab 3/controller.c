@@ -3,10 +3,12 @@
 Controller* createController() {
 	Controller* newController = (Controller*)malloc(sizeof(Controller));
 
+	// ensure we don't de-reference a NULL pointer
 	if (newController == NULL) {
 		return NULL;
 	}
 
+	// the repository associated to this set of commands
 	newController->archiveRepository = createRepository();
 	return newController;
 }
@@ -47,6 +49,7 @@ Repository* filterRepositoryEntries(Controller* commandController, char* fileTyp
 	Repository* filteredRepository = createRepository();
 	Repository* completeRepository = commandController->archiveRepository;
 
+	// we add to the filteredRepository only the elements which pass the filter
 	for (int index = 0; index < completeRepository->numberOfObjects; index++) {
 		if (strcmp(completeRepository->archiveList[index].fileType, fileType) == 0) {
 			addToRepository(filteredRepository, completeRepository->archiveList[index]);
