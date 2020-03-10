@@ -4,9 +4,9 @@
 #include "userInterface.h"
 
 int main() {
-	UserInterface* interface = createUserInterface();
-	startProgram(interface);
-	destroyUserInterface(interface);
+	UserInterface* currentInterface = createUserInterface();
+	startProgram(currentInterface);
+	userInterfaceDestructor(currentInterface);
 
 	return 0;
 }

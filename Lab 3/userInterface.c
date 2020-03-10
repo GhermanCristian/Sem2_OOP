@@ -178,7 +178,7 @@ void startProgram(UserInterface* interface) {
 	}
 }
 
-void destroyUserInterface(UserInterface* interface) {
+void userInterfaceDestructor(UserInterface* interface) {
 	controllerDestructor(interface->commandController);
 	free(interface);
 }

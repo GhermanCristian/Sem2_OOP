@@ -23,7 +23,7 @@ void startProgram(UserInterface* interface);
 		- None
 */
 
-void destroyUserInterface(UserInterface* interface);
+void userInterfaceDestructor(UserInterface* interface);
 /*
 	De-allocates the memory for a UserInterface
 	Input:

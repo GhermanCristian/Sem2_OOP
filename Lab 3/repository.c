@@ -16,9 +16,9 @@ Repository* createRepository(){
 int findInRepository(Repository* archiveRepository, int archiveCatalogueNumber) {
 	// the objects in the repository are stored in increasing order of their catalogueNumber, hence
 	// why we can search for them using binary search;
-	// this finds the largest element <= given value
-	int leftBound = 0;
-	int rightBound = archiveRepository->numberOfObjects - 1;
+	// this function finds the largest element <= given value
+	int leftBound = 0; // left margin of the current range
+	int rightBound = archiveRepository->numberOfObjects - 1; // right margin of the current range
 	int middleIndex; // the index of the middle of the current range
 	while (leftBound <= rightBound) {
 		middleIndex = (leftBound + rightBound) / 2;
@@ -53,6 +53,8 @@ int addToRepository(Repository* archiveRepository, Archive newArchive){
 		return 1;
 	}
 
+	// check for the position on which the archive should be added, so that we preserve the condition that
+	// the catalogue numbers are in (strictly) increasing order
 	int possiblePosition = findInRepository(archiveRepository, newArchive.catalogueNumber);
 
 	// element already is in the repository
@@ -76,6 +78,8 @@ int updateRepositoryEntry(Repository* archiveRepository, int catalogueNumber, ch
 	if (isInRepository(archiveRepository, catalogueNumber, possiblePosition) == 0) {
 		return 0;
 	}
+
+	// update the content of the archive
 	strcpy(archiveRepository->archiveList[possiblePosition].fileType, newFileType);
 	strcpy(archiveRepository->archiveList[possiblePosition].stateOfDeterioration, newStateOfDeterioration);
 	archiveRepository->archiveList[possiblePosition].yearOfCreation = newYearOfCreation;

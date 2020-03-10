@@ -50,12 +50,12 @@ Repository* filterRepositoryEntries(Controller* commandController, char* fileTyp
 	Repository* completeRepository = commandController->archiveRepository;
 
 	// we add to the filteredRepository only the elements which pass the filter
+	// (whose fileType corresponds to the given one)
 	for (int index = 0; index < completeRepository->numberOfObjects; index++) {
 		if (strcmp(completeRepository->archiveList[index].fileType, fileType) == 0) {
 			addToRepository(filteredRepository, completeRepository->archiveList[index]);
 		}
 	}
-
 	return filteredRepository;
 }
 
