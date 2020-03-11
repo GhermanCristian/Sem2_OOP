@@ -2,7 +2,6 @@
 #define MAX_LENGTH_STATE_OF_DETERIORATION 50
 #define MAX_LENGTH_FILE_TYPE 20
 
-
 typedef struct{
 	int catalogueNumber;
 	char stateOfDeterioration[MAX_LENGTH_STATE_OF_DETERIORATION];
@@ -10,7 +9,7 @@ typedef struct{
 	int yearOfCreation;
 }Archive;
 
-Archive createArchive(int catalogueNumber, char* stateOfDeterioration, char* fileType, int yearOfCreation);
+Archive *createArchive(int catalogueNumber, char* stateOfDeterioration, char* fileType, int yearOfCreation);
 /*
 	Creates a new Archive with the given parameters
 	Input:
@@ -19,5 +18,5 @@ Archive createArchive(int catalogueNumber, char* stateOfDeterioration, char* fil
 		- fileType = array of characters
 		- yearOfCreation = integer
 	Output:
-		- An "object" of type Archive
+		- A pointer to an "object" of type Archive
 */

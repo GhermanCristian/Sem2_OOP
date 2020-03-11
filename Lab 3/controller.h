@@ -53,7 +53,7 @@ char* deleteArchive(Controller* commandController, int catalogueNumber);
 		- NULL, otherwise
 */
 
-Repository* getAllRepositoryEntries(Controller* commandController);
+Container* getAllEntries(Controller* commandController);
 /*
 	Provides access to all the entries in a repository
 	Input:
@@ -62,7 +62,7 @@ Repository* getAllRepositoryEntries(Controller* commandController);
 		- A pointer to an "object" of type Repository
 */
 
-Repository* filterRepositoryEntries(Controller* commandController, char* fileType);
+Container* filterEntries(Controller* commandController, char* fileType);
 /*
 	Provides access to some particular entries in a repository, based on a filter
 	Input:

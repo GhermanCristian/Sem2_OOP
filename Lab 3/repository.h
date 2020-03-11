@@ -6,8 +6,11 @@
 
 typedef struct {
 	int numberOfObjects;
-	Archive archiveList[MAX_LENGTH];
+	Archive* archiveList[MAX_LENGTH];
+}Container;
 
+typedef struct {
+	Container data;
 }Repository;
 
 Repository* createRepository();
@@ -40,7 +43,7 @@ int isInRepository(Repository* archiveRepository, int archiveCatalogueNumber, in
 		- The truth value of the condition = integer
 */
 
-int addToRepository(Repository* archiveRepository, Archive newArchive);
+int addToRepository(Repository* archiveRepository, Archive *newArchive);
 /*
 	Adds an archive to the repository
 	Input:
@@ -75,6 +78,20 @@ int deleteRepositoryEntry(Repository* archiveRepository, int catalogueNumber);
 		- 1, if the operation was successfull
 		- 0, otherwise
 */
+
+Archive* getArchiveAtIndex(Container* data, int archiveIndex);
+/*
+	Determines the archive at a given index
+	Input:
+		- archiveRepository = pointer to an "object" of type Repository
+		- archiveIndex = integer; the (valid) position of the archive in the repository
+	Output:
+		- A pointer to an "object" of type Archive
+*/
+
+int getNumberOfObjects(Container* data);
+
+Container* getAllData(Repository* currentRepo);
 
 void repositoryDestructor(Repository* archiveRepository);
 /*
