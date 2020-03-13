@@ -1,11 +1,19 @@
 #include "repository.h"
 #include <string.h>
 
+#define INITIAL_LENGTH 101
+
 Repository* createRepository(){
 	Repository* newRepository = (Repository*)malloc(sizeof(Repository));
 
 	// ensure we don't de-reference a NULL pointer
 	if (newRepository == NULL) {
+		return NULL;
+	}
+
+	newRepository->data.archiveList = (Archive*)malloc((INITIAL_LENGTH + 1) * sizeof(Archive));
+	// ensure we don't de-reference a NULL pointer
+	if (newRepository->data.archiveList == NULL) {
 		return NULL;
 	}
 
@@ -24,7 +32,7 @@ int findInRepository(Repository* archiveRepository, int archiveCatalogueNumber) 
 		middleIndex = (leftBound + rightBound) / 2;
 
 		// we continue the search in the right half ot the current range
-		if (archiveRepository->data.archiveList[middleIndex]->catalogueNumber <= archiveCatalogueNumber) {
+		if (archiveRepository->data.archiveList[middleIndex].catalogueNumber <= archiveCatalogueNumber) {
 			leftBound = middleIndex + 1;
 		}
 
@@ -43,10 +51,10 @@ int isInRepository(Repository* archiveRepository, int archiveCatalogueNumber, in
 	}
 
 	// check if the element at the given position is the one we actually look for
-	return (archiveRepository->data.archiveList[possiblePosition]->catalogueNumber == archiveCatalogueNumber);
+	return (archiveRepository->data.archiveList[possiblePosition].catalogueNumber == archiveCatalogueNumber);
 }
 
-int addToRepository(Repository* archiveRepository, Archive *newArchive){
+int addToRepository(Repository* archiveRepository, Archive newArchive){
 	// when the repository is empty, there is no need to search for the position on which to insert a new archive
 	if (archiveRepository->data.numberOfObjects == 0) {
 		archiveRepository->data.archiveList[archiveRepository->data.numberOfObjects++] = newArchive;
@@ -55,10 +63,10 @@ int addToRepository(Repository* archiveRepository, Archive *newArchive){
 
 	// check for the position on which the archive should be added, so that we preserve the condition that
 	// the catalogue numbers are in (strictly) increasing order
-	int possiblePosition = findInRepository(archiveRepository, newArchive->catalogueNumber);
+	int possiblePosition = findInRepository(archiveRepository, newArchive.catalogueNumber);
 
 	// element already is in the repository
-	if (isInRepository(archiveRepository, newArchive->catalogueNumber, possiblePosition) == 1) {
+	if (isInRepository(archiveRepository, newArchive.catalogueNumber, possiblePosition) == 1) {
 		return 0;
 	}
 
@@ -80,9 +88,9 @@ int updateRepositoryEntry(Repository* archiveRepository, int catalogueNumber, ch
 	}
 
 	// update the content of the archive
-	strcpy(archiveRepository->data.archiveList[possiblePosition]->fileType, newFileType);
-	strcpy(archiveRepository->data.archiveList[possiblePosition]->stateOfDeterioration, newStateOfDeterioration);
-	archiveRepository->data.archiveList[possiblePosition]->yearOfCreation = newYearOfCreation;
+	strcpy(archiveRepository->data.archiveList[possiblePosition].fileType, newFileType);
+	strcpy(archiveRepository->data.archiveList[possiblePosition].stateOfDeterioration, newStateOfDeterioration);
+	archiveRepository->data.archiveList[possiblePosition].yearOfCreation = newYearOfCreation;
 	return 1;
 }
 
@@ -102,7 +110,7 @@ int deleteRepositoryEntry(Repository* archiveRepository, int catalogueNumber){
 	return 1;
 }
 
-Archive* getArchiveAtIndex(Container* data, int archiveIndex) {
+Archive getArchiveAtIndex(Container* data, int archiveIndex) {
 	// assume the index is valid
 	return data->archiveList[archiveIndex];
 }
@@ -111,11 +119,16 @@ int getNumberOfObjects(Container* data) {
 	return data->numberOfObjects;
 }
 
-Container* getAllData(Repository* currentRepo) {
+Container* getPointerToData(Repository* currentRepo) {
 	return &currentRepo->data;
 }
 
+Container getData(Repository* currentRepo) {
+	return currentRepo->data;
+}
+
 void repositoryDestructor(Repository* archiveRepository) {
+	free(archiveRepository->data.archiveList);
 	free(archiveRepository);
 }
 

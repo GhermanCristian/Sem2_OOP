@@ -9,7 +9,7 @@ typedef struct{
 	int yearOfCreation;
 }Archive;
 
-Archive *createArchive(int catalogueNumber, char* stateOfDeterioration, char* fileType, int yearOfCreation);
+Archive createArchive(int catalogueNumber, char* stateOfDeterioration, char* fileType, int yearOfCreation);
 /*
 	Creates a new Archive with the given parameters
 	Input:

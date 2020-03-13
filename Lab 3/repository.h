@@ -2,11 +2,9 @@
 #include "archive.h"
 #include <stdlib.h>
 
-#define MAX_LENGTH 10001
-
 typedef struct {
 	int numberOfObjects;
-	Archive* archiveList[MAX_LENGTH];
+	Archive *archiveList;
 }Container;
 
 typedef struct {
@@ -43,7 +41,7 @@ int isInRepository(Repository* archiveRepository, int archiveCatalogueNumber, in
 		- The truth value of the condition = integer
 */
 
-int addToRepository(Repository* archiveRepository, Archive *newArchive);
+int addToRepository(Repository* archiveRepository, Archive newArchive);
 /*
 	Adds an archive to the repository
 	Input:
@@ -79,7 +77,7 @@ int deleteRepositoryEntry(Repository* archiveRepository, int catalogueNumber);
 		- 0, otherwise
 */
 
-Archive* getArchiveAtIndex(Container* data, int archiveIndex);
+Archive getArchiveAtIndex(Container* data, int archiveIndex);
 /*
 	Determines the archive at a given index
 	Input:
@@ -91,7 +89,8 @@ Archive* getArchiveAtIndex(Container* data, int archiveIndex);
 
 int getNumberOfObjects(Container* data);
 
-Container* getAllData(Repository* currentRepo);
+Container* getPointerToData(Repository* currentRepo);
+Container getData(Repository* currentRepo);
 
 void repositoryDestructor(Repository* archiveRepository);
 /*

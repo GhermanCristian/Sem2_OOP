@@ -86,17 +86,17 @@ void displayArchiveContent(Archive* currentArchive) {
 void listAllArchives(UserInterface* interface) {
 	Container* data = getAllEntries(interface->commandController);
 	for (int index = 0; index < getNumberOfObjects(data); index++) {
-		displayArchiveContent(getArchiveAtIndex(data, index));
+		Archive currentArchive = getArchiveAtIndex(data, index);
+		displayArchiveContent(&currentArchive);
 	}
 }
 
 void listFilteredArchives(UserInterface* interface, char* fileType) {
 	Container* data = filterEntries(interface->commandController, fileType);
 	for (int index = 0; index < getNumberOfObjects(data); index++) {
-		displayArchiveContent(getArchiveAtIndex(data, index));
+		Archive currentArchive = getArchiveAtIndex(data, index);
+		displayArchiveContent(&currentArchive);
 	}
-	// the filteredRepository is a newly allocated Repository, and we don't use it from here on,
-	// so we have to destroy it
 }
 
 void processCommand(UserInterface* interface, char* command) {

@@ -10,6 +10,12 @@ int main() {
 	userInterfaceDestructor(currentInterface);
 
 	_CrtDumpMemoryLeaks();
+	if (_CrtDumpMemoryLeaks()) {
+		printf("leak\n");
+	}
+	else {
+		printf("no leak\n");
+	}
 
 	return 0;
 }
