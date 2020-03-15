@@ -62,7 +62,7 @@ Container* getAllEntries(Controller* commandController);
 		- A pointer to an "object" of type Repository
 */
 
-Container* filterEntries(Controller* commandController, char* fileType);
+Container filterEntries(Controller* commandController, char* fileType);
 /*
 	Provides access to some particular entries in a repository, based on a filter
 	Input:

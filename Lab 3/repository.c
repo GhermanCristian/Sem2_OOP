@@ -144,8 +144,9 @@ Container* getPointerToData(Repository* currentRepo) {
 }
 
 Container getData(Repository* currentRepo) {
-	/*Container newContainer;
+	Container newContainer;
 	newContainer.numberOfObjects = currentRepo->data.numberOfObjects;
+	newContainer.capacity = currentRepo->data.capacity; // not really required, but it's better to not leave it uninitialised
 	newContainer.archiveList = (Archive*)malloc(sizeof(Archive) * newContainer.numberOfObjects);
 	
 	if (newContainer.archiveList == NULL) {
@@ -156,12 +157,16 @@ Container getData(Repository* currentRepo) {
 		newContainer.archiveList[i] = currentRepo->data.archiveList[i];
 	}
 	
-	return newContainer;*/
-	return currentRepo->data;
+	return newContainer;
+}
+
+void containerDestructor(Container* currentContainer) {
+	free(currentContainer->archiveList);
 }
 
 void repositoryDestructor(Repository* archiveRepository) {
-	free(archiveRepository->data.archiveList); // removing this makes the program work, but with mem leaks
+	containerDestructor(&(archiveRepository->data));
+	//free(archiveRepository->data.archiveList); // removing this makes the program work, but with mem leaks
 	free(archiveRepository);
 }
 

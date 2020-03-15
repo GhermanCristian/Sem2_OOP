@@ -92,6 +92,7 @@ int getNumberOfObjects(Container* data);
 
 Container* getPointerToData(Repository* currentRepo);
 Container getData(Repository* currentRepo);
+void containerDestructor(Container* currentContainer);
 
 void repositoryDestructor(Repository* archiveRepository);
 /*

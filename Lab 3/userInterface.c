@@ -92,11 +92,21 @@ void listAllArchives(UserInterface* interface) {
 }
 
 void listFilteredArchives(UserInterface* interface, char* fileType) {
-	Container* data = filterEntries(interface->commandController, fileType);
-	for (int index = 0; index < getNumberOfObjects(data); index++) {
-		Archive currentArchive = getArchiveAtIndex(data, index);
+	Container data = filterEntries(interface->commandController, fileType);
+
+	// I have to use the actual data here because when doing
+	// Container* data = filterEntries(interface->commandController, fileType); (filterEntries returned a pointer
+	// , now it's modified), getNumberOfObjects would somehow deallocate 'data' (before going in, 'data' was fine, tested
+	// in the debugger), but when entering that function, everything would be undefined, and would stay the same
+	// outside the function
+	// I also don't understand why the same thing doesn't happen to the normal list function (the one with no filters),
+	// where a similar (dare I say identical) approach is used
+
+	for (int index = 0; index < getNumberOfObjects(&data); index++) {
+		Archive currentArchive = getArchiveAtIndex(&data, index);
 		displayArchiveContent(&currentArchive);
 	}
+	containerDestructor(&data);
 }
 
 void processCommand(UserInterface* interface, char* command) {

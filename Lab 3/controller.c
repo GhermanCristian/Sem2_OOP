@@ -46,7 +46,7 @@ Container* getAllEntries(Controller* commandController) {
 	return getPointerToData(commandController->archiveRepository);
 }
 
-Container* filterEntries(Controller* commandController, char* fileType) {
+Container filterEntries(Controller* commandController, char* fileType) {
 	Repository* filteredRepository = createRepository();
 	Container* completeDataPointer = getPointerToData(commandController->archiveRepository);
 	Container completeData;
@@ -66,7 +66,7 @@ Container* filterEntries(Controller* commandController, char* fileType) {
 
 	completeData = getData(filteredRepository);
 	repositoryDestructor(filteredRepository);
-	return &completeData;
+	return completeData;
 }
 
 void controllerDestructor(Controller* commandController) {
