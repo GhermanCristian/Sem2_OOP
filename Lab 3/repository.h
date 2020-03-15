@@ -4,6 +4,7 @@
 
 typedef struct {
 	int numberOfObjects;
+	int capacity;
 	Archive *archiveList;
 }Container;
 

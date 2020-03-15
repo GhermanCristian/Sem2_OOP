@@ -1,7 +1,7 @@
 #include "repository.h"
 #include <string.h>
 
-#define INITIAL_LENGTH 101
+#define INITIAL_LENGTH 100
 
 Repository* createRepository(){
 	Repository* newRepository = (Repository*)malloc(sizeof(Repository));
@@ -11,12 +11,13 @@ Repository* createRepository(){
 		return NULL;
 	}
 
-	newRepository->data.archiveList = (Archive*)malloc((INITIAL_LENGTH + 1) * sizeof(Archive));
+	newRepository->data.archiveList = (Archive*)malloc(INITIAL_LENGTH * sizeof(Archive));
 	// ensure we don't de-reference a NULL pointer
 	if (newRepository->data.archiveList == NULL) {
 		return NULL;
 	}
 
+	newRepository->data.capacity = INITIAL_LENGTH;
 	newRepository->data.numberOfObjects = 0;
 	return newRepository;
 }
@@ -59,6 +60,25 @@ int addToRepository(Repository* archiveRepository, Archive newArchive){
 	if (archiveRepository->data.numberOfObjects == 0) {
 		archiveRepository->data.archiveList[archiveRepository->data.numberOfObjects++] = newArchive;
 		return 1;
+	}
+
+	// the array is full, need to re-allocate
+	if (archiveRepository->data.numberOfObjects + 1 == archiveRepository->data.capacity) {
+		Archive* newArray = (Archive*)malloc(sizeof(Archive) * archiveRepository->data.capacity * 2);
+		
+		// ensure we don't dereference a null pointer
+		if (newArray == NULL) {
+			return 0;
+		}
+		
+		for (int i = 0; i < archiveRepository->data.capacity; i++) {
+			newArray[i] = archiveRepository->data.archiveList[i];
+		}
+
+		archiveRepository->data.capacity *= 2;
+		free(archiveRepository->data.archiveList);
+		archiveRepository->data.archiveList = newArray;
+
 	}
 
 	// check for the position on which the archive should be added, so that we preserve the condition that
@@ -124,11 +144,24 @@ Container* getPointerToData(Repository* currentRepo) {
 }
 
 Container getData(Repository* currentRepo) {
+	/*Container newContainer;
+	newContainer.numberOfObjects = currentRepo->data.numberOfObjects;
+	newContainer.archiveList = (Archive*)malloc(sizeof(Archive) * newContainer.numberOfObjects);
+	
+	if (newContainer.archiveList == NULL) {
+		return ;
+	}
+
+	for (int i = 0; i < newContainer.numberOfObjects; i++) {
+		newContainer.archiveList[i] = currentRepo->data.archiveList[i];
+	}
+	
+	return newContainer;*/
 	return currentRepo->data;
 }
 
 void repositoryDestructor(Repository* archiveRepository) {
-	free(archiveRepository->data.archiveList);
+	free(archiveRepository->data.archiveList); // removing this makes the program work, but with mem leaks
 	free(archiveRepository);
 }
 
