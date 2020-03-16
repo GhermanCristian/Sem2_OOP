@@ -60,7 +60,7 @@ void undo(UndoController* newUndoController) {
 }
 
 void redo(UndoController* newUndoController) {
-	if (newUndoController->currentAction + 1 == newUndoController->upperBound) {
+	if (newUndoController->currentAction == newUndoController->upperBound) {
 		return;
 	}
 	newUndoController->currentAction++;
@@ -72,7 +72,8 @@ Repository* getCurrentRepository(UndoController* newUndoController) {
 
 void undoControllerDestructor(UndoController* newUndoController) {
 	for (int i = 0; i <= newUndoController->maximumPosition; i++) {
-		// the first deallocation here (i = 0) also deallocates the main container
+		// the first deallocation here (i = 0) deallocates the main container (i think, if not, this method as a 
+		// whole does it)
 		printf("undo: %p\n", &newUndoController->repositoryHistory[i]->data.archiveList);
 		repositoryDestructor(newUndoController->repositoryHistory[i]);
 	}
