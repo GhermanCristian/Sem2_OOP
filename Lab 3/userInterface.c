@@ -126,6 +126,14 @@ void listArchivesFilteredByYear(UserInterface* interface, char* yearOfCreation) 
 	containerDestructor(&data);
 }
 
+void undoInterface(UserInterface* interface) {
+	undoLastOperation(interface->commandController);
+}
+
+void redoInterface(UserInterface* interface) {
+	redoLastOperation(interface->commandController);
+}
+
 void processCommand(UserInterface* interface, char* command) {
 	int currentTokenIndex = 0;
 	const char separators[3] = ", ";
@@ -178,6 +186,14 @@ void processCommand(UserInterface* interface, char* command) {
 		//listArchivesFilteredByType(interface, allTokens[ARCHIVE_NUMBER]);
 	}
 
+	else if (strcmp(allTokens[COMMAND_NAME], "undo\n") == 0) {
+		undoInterface(interface);
+	}
+
+	else if (strcmp(allTokens[COMMAND_NAME], "redo\n") == 0) {
+		redoInterface(interface);
+	}
+
 	else {
 		printf("Invalid command\n");
 		return;
@@ -196,7 +212,9 @@ void startProgram(UserInterface* interface) {
 		printf("update catalogueNumber, newStateOfDeterioration, newFileType, newYearOfCreation\n");
 		printf("delete catalogueNumber\n");
 		printf("list\n");
-		printf("list yearOfCreation\n\n");
+		printf("list yearOfCreation\n");
+		printf("undo\n");
+		printf("redo\n\n");
 
 		if (fgets(command, MAX_LENGTH_COMMAND, stdin) == NULL) {
 			printf("Cannot read the command\n");
@@ -213,6 +231,7 @@ void startProgram(UserInterface* interface) {
 }
 
 void userInterfaceDestructor(UserInterface* interface) {
+	printf("main list: %p\n", &interface->commandController->archiveRepository->data.archiveList);
 	controllerDestructor(interface->commandController);
 	free(interface);
 }

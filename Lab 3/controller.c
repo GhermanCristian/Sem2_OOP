@@ -11,6 +11,9 @@ Controller* createController() {
 
 	// the repository associated to this set of commands
 	newController->archiveRepository = createRepository();
+	newController->undoController = createUndoController();
+	// add an empty repository to the list of previous repositories (the initial state of the program is an empty repository)
+	performAction(newController->undoController, newController->archiveRepository);
 	return newController;
 }
 
@@ -21,6 +24,7 @@ char* addArchive(Controller* commandController, int catalogueNumber, char* state
 	if (successfulOperation == 0) {
 		return message;
 	}
+	performAction(commandController->undoController, commandController->archiveRepository);
 	return NULL;
 }
 
@@ -30,6 +34,7 @@ char* updateArchive(Controller* commandController, int catalogueNumber, char* ne
 	if (successfulOperation == 0) {
 		return message;
 	}
+	performAction(commandController->undoController, commandController->archiveRepository);
 	return NULL;
 }
 
@@ -39,6 +44,7 @@ char* deleteArchive(Controller* commandController, int catalogueNumber) {
 	if (successfulOperation == 0) {
 		return message;
 	}
+	performAction(commandController->undoController, commandController->archiveRepository);
 	return NULL;
 }
 
@@ -87,7 +93,18 @@ Container filterEntriesByYear(Controller* commandController, int yearOfCreation)
 	return completeData;
 }
 
+void undoLastOperation(Controller* commandController) {
+	undo(commandController->undoController);
+	commandController->archiveRepository = getCurrentRepository(commandController->undoController);
+}
+
+void redoLastOperation(Controller* commandController) {
+	redo(commandController->undoController);
+	commandController->archiveRepository = getCurrentRepository(commandController->undoController);
+}
+
 void controllerDestructor(Controller* commandController) {
+	undoControllerDestructor(commandController->undoController);
 	repositoryDestructor(commandController->archiveRepository);
 	free(commandController);
 }

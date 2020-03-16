@@ -2,6 +2,8 @@
 #include "archive.h"
 #include <stdlib.h>
 
+#define INITIAL_LENGTH 100
+
 typedef struct {
 	int numberOfObjects;
 	int capacity;

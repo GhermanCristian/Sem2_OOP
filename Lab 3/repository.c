@@ -1,7 +1,6 @@
 #include "repository.h"
 #include <string.h>
-
-#define INITIAL_LENGTH 100
+#include <stdio.h>
 
 Repository* createRepository(){
 	Repository* newRepository = (Repository*)malloc(sizeof(Repository));
@@ -187,7 +186,6 @@ void containerDestructor(Container* currentContainer) {
 
 void repositoryDestructor(Repository* archiveRepository) {
 	containerDestructor(&(archiveRepository->data));
-	//free(archiveRepository->data.archiveList); // removing this makes the program work, but with mem leaks
 	free(archiveRepository);
 }
 

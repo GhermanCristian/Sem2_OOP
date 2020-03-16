@@ -1,8 +1,10 @@
 #pragma once
 #include "repository.h"
+#include "undoController.h"
 
 typedef struct {
 	Repository* archiveRepository;
+	UndoController* undoController;
 }Controller;
 
 Controller* createController();
@@ -72,6 +74,10 @@ Container filterEntriesByType(Controller* commandController, char* fileType);
 */
 
 Container filterEntriesByYear(Controller* commandController, int yearOfCreation);
+
+void undoLastOperation(Controller* commandController);
+
+void redoLastOperation(Controller* commandController);
 
 void controllerDestructor(Controller* commandController);
 /*
