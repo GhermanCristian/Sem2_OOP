@@ -91,7 +91,11 @@ Archive getArchiveAtIndex(Container* data, int archiveIndex);
 int getNumberOfObjects(Container* data);
 
 Container* getPointerToData(Repository* currentRepo);
+
 Container getData(Repository* currentRepo);
+
+void sortIncreasingByStateOfDeterioration(Repository* archiveRepository);
+
 void containerDestructor(Container* currentContainer);
 
 void repositoryDestructor(Repository* archiveRepository);

@@ -46,7 +46,7 @@ Container* getAllEntries(Controller* commandController) {
 	return getPointerToData(commandController->archiveRepository);
 }
 
-Container filterEntries(Controller* commandController, char* fileType) {
+Container filterEntriesByType(Controller* commandController, char* fileType) {
 	Repository* filteredRepository = createRepository();
 	Container* completeDataPointer = getPointerToData(commandController->archiveRepository);
 	Container completeData;
@@ -64,6 +64,24 @@ Container filterEntries(Controller* commandController, char* fileType) {
 	// otherwise, there would've been a memory leak
 	// now I return the actual data, but just where it is needed
 
+	completeData = getData(filteredRepository);
+	repositoryDestructor(filteredRepository);
+	return completeData;
+}
+
+Container filterEntriesByYear(Controller* commandController, int yearOfCreation) {
+	Repository* filteredRepository = createRepository();
+	Container* completeDataPointer = getPointerToData(commandController->archiveRepository);
+	Container completeData;
+
+	// we add to the filteredRepository only the elements which pass the filter
+	for (int index = 0; index < getNumberOfObjects(completeDataPointer); index++) {
+		if (yearOfCreation > getArchiveAtIndex(completeDataPointer, index).yearOfCreation) {
+			addToRepository(filteredRepository, getArchiveAtIndex(completeDataPointer, index));
+		}
+	}
+	
+	sortIncreasingByStateOfDeterioration(filteredRepository);
 	completeData = getData(filteredRepository);
 	repositoryDestructor(filteredRepository);
 	return completeData;

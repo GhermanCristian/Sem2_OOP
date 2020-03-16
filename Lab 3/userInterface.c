@@ -91,8 +91,8 @@ void listAllArchives(UserInterface* interface) {
 	}
 }
 
-void listFilteredArchives(UserInterface* interface, char* fileType) {
-	Container data = filterEntries(interface->commandController, fileType);
+void listArchivesFilteredByType(UserInterface* interface, char* fileType) {
+	Container data = filterEntriesByType(interface->commandController, fileType);
 
 	// I have to use the actual data here because when doing
 	// Container* data = filterEntries(interface->commandController, fileType); (filterEntries returned a pointer
@@ -102,6 +102,23 @@ void listFilteredArchives(UserInterface* interface, char* fileType) {
 	// I also don't understand why the same thing doesn't happen to the normal list function (the one with no filters),
 	// where a similar (dare I say identical) approach is used
 
+	for (int index = 0; index < getNumberOfObjects(&data); index++) {
+		Archive currentArchive = getArchiveAtIndex(&data, index);
+		displayArchiveContent(&currentArchive);
+	}
+	containerDestructor(&data);
+}
+
+void listArchivesFilteredByYear(UserInterface* interface, char* yearOfCreation) {
+	Container data;
+	int integerYearOfCreation = atoi(yearOfCreation); // convert to an integer
+
+	// if we cannot convert to an integer, atoi returns 0
+	if (integerYearOfCreation == 0) {
+		return;
+	}
+
+	data = filterEntriesByYear(interface->commandController, integerYearOfCreation);
 	for (int index = 0; index < getNumberOfObjects(&data); index++) {
 		Archive currentArchive = getArchiveAtIndex(&data, index);
 		displayArchiveContent(&currentArchive);
@@ -157,7 +174,8 @@ void processCommand(UserInterface* interface, char* command) {
 
 		// remove the trailing "\0" so that we can properly compare the strings
 		allTokens[ARCHIVE_NUMBER][strlen(allTokens[ARCHIVE_NUMBER]) - 1] = '\0';
-		listFilteredArchives(interface, allTokens[ARCHIVE_NUMBER]);
+		listArchivesFilteredByYear(interface, allTokens[ARCHIVE_NUMBER]);
+		//listArchivesFilteredByType(interface, allTokens[ARCHIVE_NUMBER]);
 	}
 
 	else {
@@ -178,7 +196,7 @@ void startProgram(UserInterface* interface) {
 		printf("update catalogueNumber, newStateOfDeterioration, newFileType, newYearOfCreation\n");
 		printf("delete catalogueNumber\n");
 		printf("list\n");
-		printf("list fileType\n\n");
+		printf("list yearOfCreation\n\n");
 
 		if (fgets(command, MAX_LENGTH_COMMAND, stdin) == NULL) {
 			printf("Cannot read the command\n");

@@ -160,6 +160,27 @@ Container getData(Repository* currentRepo) {
 	return newContainer;
 }
 
+void swapArchives(Archive* archive1, Archive* archive2) {
+	Archive* temporaryArchive;
+	temporaryArchive = archive1;
+	archive1 = archive2;
+	archive2 = temporaryArchive;
+}
+
+void sortIncreasingByStateOfDeterioration(Repository* archiveRepository) {
+	// bubble sort
+	int sorted = 1;
+	while (sorted == 1) {
+		sorted = 0;
+		for (int index = 0; index < archiveRepository->data.numberOfObjects - 1; index++) {
+			if (strcmp(archiveRepository->data.archiveList[index].stateOfDeterioration, archiveRepository->data.archiveList[index + 1].stateOfDeterioration) < 0) {
+				swapArchives(&archiveRepository->data.archiveList[index], &archiveRepository->data.archiveList[index + 1]);
+				sorted = 0;
+			}
+		}
+	}
+}
+
 void containerDestructor(Container* currentContainer) {
 	free(currentContainer->archiveList);
 }
