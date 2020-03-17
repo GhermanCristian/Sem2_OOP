@@ -13,7 +13,7 @@ typedef struct {
 
 UndoController* createUndoController();
 void performAction(UndoController* newUndoController, Repository* currentRepository);
-void undo(UndoController* newUndoController);
-void redo(UndoController* newUndoController);
+int undo(UndoController* newUndoController);
+int redo(UndoController* newUndoController);
 Repository* getCurrentRepository(UndoController* newUndoController);
 void undoControllerDestructor(UndoController* newUndoController);

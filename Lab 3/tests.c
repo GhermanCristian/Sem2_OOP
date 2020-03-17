@@ -32,10 +32,10 @@ void CreateArchive_InvalidInput_ReturnsError() {
 
 void CreateRepository_ValidInput_RepositoryCreated() {
 	Repository* newRepository;
-	newRepository = createRepository();
+	newRepository = createRepository(INITIAL_CAPACITY);
 	assert(newRepository != NULL);
 	assert(newRepository->data.archiveList != NULL);
-	assert(newRepository->data.capacity == INITIAL_LENGTH);
+	assert(newRepository->data.capacity == INITIAL_CAPACITY);
 	assert(newRepository->data.numberOfObjects == 0);
 	repositoryDestructor(newRepository);
 }

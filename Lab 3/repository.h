@@ -2,7 +2,7 @@
 #include "archive.h"
 #include <stdlib.h>
 
-#define INITIAL_LENGTH 100
+#define INITIAL_CAPACITY 100
 
 typedef struct {
 	int numberOfObjects;
@@ -14,7 +14,7 @@ typedef struct {
 	Container data;
 }Repository;
 
-Repository* createRepository();
+Repository* createRepository(int repositoryCapacity);
 /*
 	Creates a new, empty Repository
 	Input:
@@ -97,6 +97,8 @@ Container* getPointerToData(Repository* currentRepo);
 Container getData(Repository* currentRepo);
 
 void sortIncreasingByStateOfDeterioration(Repository* archiveRepository);
+
+Repository* copyRepository(Repository* originalRepository);
 
 void containerDestructor(Container* currentContainer);
 

@@ -2,21 +2,20 @@
 #include <string.h>
 #include <stdio.h>
 
-Repository* createRepository(){
+Repository* createRepository(int repositoryCapacity){
 	Repository* newRepository = (Repository*)malloc(sizeof(Repository));
 
 	// ensure we don't de-reference a NULL pointer
 	if (newRepository == NULL) {
 		return NULL;
 	}
-
-	newRepository->data.archiveList = (Archive*)malloc(INITIAL_LENGTH * sizeof(Archive));
+	newRepository->data.archiveList = (Archive*)malloc(repositoryCapacity * sizeof(Archive));
 	// ensure we don't de-reference a NULL pointer
 	if (newRepository->data.archiveList == NULL) {
 		return NULL;
 	}
 
-	newRepository->data.capacity = INITIAL_LENGTH;
+	newRepository->data.capacity = repositoryCapacity;
 	newRepository->data.numberOfObjects = 0;
 	return newRepository;
 }
@@ -168,9 +167,9 @@ void swapArchives(Archive* archive1, Archive* archive2) {
 
 void sortIncreasingByStateOfDeterioration(Repository* archiveRepository) {
 	// bubble sort
-	int sorted = 1;
-	while (sorted == 1) {
-		sorted = 0;
+	int sorted = 0;
+	while (sorted == 0) {
+		sorted = 1;
 		for (int index = 0; index < archiveRepository->data.numberOfObjects - 1; index++) {
 			if (strcmp(archiveRepository->data.archiveList[index].stateOfDeterioration, archiveRepository->data.archiveList[index + 1].stateOfDeterioration) < 0) {
 				swapArchives(&archiveRepository->data.archiveList[index], &archiveRepository->data.archiveList[index + 1]);
@@ -178,6 +177,17 @@ void sortIncreasingByStateOfDeterioration(Repository* archiveRepository) {
 			}
 		}
 	}
+}
+
+Repository* copyRepository(Repository* originalRepository) {
+	Repository* newRepository;
+	newRepository = createRepository(originalRepository->data.capacity);
+	newRepository->data.numberOfObjects = originalRepository->data.numberOfObjects;
+	newRepository->data.capacity = originalRepository->data.capacity; // this is pointless, but I still use it to show that we are copying everything
+	for (int i = 0; i < newRepository->data.capacity; i++) {
+		newRepository->data.archiveList[i] = originalRepository->data.archiveList[i];
+	}
+	return newRepository;
 }
 
 void containerDestructor(Container* currentContainer) {

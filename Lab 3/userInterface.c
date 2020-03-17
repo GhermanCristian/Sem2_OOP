@@ -3,7 +3,7 @@
 #include <string.h>
 
 #define MAX_NUMBER_ARGUMENTS 6 // the maximum number of arguments for each command (including the command's name)
-#define MAX_LENGTH_COMMAND 100 // the maximum length of a command
+#define MAX_LENGTH_COMMAND 100 
 #define COMMAND_NAME 0 
 #define ARCHIVE_NUMBER 1
 #define ARCHIVE_STATE_OF_DETERIORATION 2
@@ -231,7 +231,6 @@ void startProgram(UserInterface* interface) {
 }
 
 void userInterfaceDestructor(UserInterface* interface) {
-	printf("main list: %p\n", &interface->commandController->archiveRepository->data.archiveList);
 	controllerDestructor(interface->commandController);
 	free(interface);
 }
