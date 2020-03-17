@@ -74,10 +74,31 @@ Container filterEntriesByType(Controller* commandController, char* fileType);
 */
 
 Container filterEntriesByYear(Controller* commandController, int yearOfCreation);
+/*
+	
+	Input:
+		-
+	Output:
+		-
+*/
 
 void undoLastOperation(Controller* commandController);
+/*
+	
+	Input:
+		-
+	Output:
+		-
+*/
 
 void redoLastOperation(Controller* commandController);
+/*
+	
+	Input:
+		-
+	Output:
+		-
+*/
 
 void controllerDestructor(Controller* commandController);
 /*

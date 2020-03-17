@@ -12,8 +12,9 @@ Controller* createController() {
 	// the repository associated to this set of commands
 	newController->archiveRepository = createRepository(INITIAL_CAPACITY);
 	newController->undoController = createUndoController();
+
 	// add an empty repository to the list of previous repositories (the initial state of the program is an empty repository)
-	performAction(newController->undoController, newController->archiveRepository);
+	saveRepository(newController->undoController, newController->archiveRepository);
 	return newController;
 }
 
@@ -24,7 +25,7 @@ char* addArchive(Controller* commandController, int catalogueNumber, char* state
 	if (successfulOperation == 0) {
 		return message;
 	}
-	performAction(commandController->undoController, commandController->archiveRepository);
+	saveRepository(commandController->undoController, commandController->archiveRepository);
 	return NULL;
 }
 
@@ -34,7 +35,7 @@ char* updateArchive(Controller* commandController, int catalogueNumber, char* ne
 	if (successfulOperation == 0) {
 		return message;
 	}
-	performAction(commandController->undoController, commandController->archiveRepository);
+	saveRepository(commandController->undoController, commandController->archiveRepository);
 	return NULL;
 }
 
@@ -44,7 +45,7 @@ char* deleteArchive(Controller* commandController, int catalogueNumber) {
 	if (successfulOperation == 0) {
 		return message;
 	}
-	performAction(commandController->undoController, commandController->archiveRepository);
+	saveRepository(commandController->undoController, commandController->archiveRepository);
 	return NULL;
 }
 
@@ -55,7 +56,7 @@ Container* getAllEntries(Controller* commandController) {
 Container filterEntriesByType(Controller* commandController, char* fileType) {
 	Repository* filteredRepository = createRepository(INITIAL_CAPACITY);
 	Container* completeDataPointer = getPointerToData(commandController->archiveRepository);
-	Container completeData;
+	Container completeData; 
 
 	// we add to the filteredRepository only the elements which pass the filter
 	// (whose fileType corresponds to the given one)
@@ -64,11 +65,6 @@ Container filterEntriesByType(Controller* commandController, char* fileType) {
 			addToRepository(filteredRepository, getArchiveAtIndex(completeDataPointer, index));
 		}
 	}
-	
-	// why I am using to different getters here is because before I would return a pointer to this
-	// temporary repository (filtered); if I tried to free it, then the result would have also dissapeared
-	// otherwise, there would've been a memory leak
-	// now I return the actual data, but just where it is needed
 
 	completeData = getData(filteredRepository);
 	repositoryDestructor(filteredRepository);
@@ -95,26 +91,26 @@ Container filterEntriesByYear(Controller* commandController, int yearOfCreation)
 
 void undoLastOperation(Controller* commandController) {
 	int actionResult = undo(commandController->undoController);
+	// action was not performed successfully
 	if (actionResult == 0) {
 		return;
 	}
 
-	Repository* temporaryRepository;
-	temporaryRepository = getCurrentRepository(commandController->undoController);
+	// we assign a new, 'deep' copy of the previous repository state to the current archive repository
 	repositoryDestructor(commandController->archiveRepository);
-	commandController->archiveRepository = temporaryRepository;
+	commandController->archiveRepository = getPreviousRepository(commandController->undoController);
 }
 
 void redoLastOperation(Controller* commandController) {
 	int actionResult = redo(commandController->undoController);
+	// action was not performed successfully
 	if (actionResult == 0) {
 		return;
 	}
 
-	Repository* temporaryRepository;
-	temporaryRepository = getCurrentRepository(commandController->undoController);
+	// we assign a new, 'deep' copy of the previous repository state to the current archive repository
 	repositoryDestructor(commandController->archiveRepository);
-	commandController->archiveRepository = temporaryRepository;
+	commandController->archiveRepository = getPreviousRepository(commandController->undoController);
 }
 
 void controllerDestructor(Controller* commandController) {

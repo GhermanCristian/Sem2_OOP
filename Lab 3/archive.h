@@ -18,5 +18,5 @@ Archive createArchive(int catalogueNumber, char* stateOfDeterioration, char* fil
 		- fileType = array of characters
 		- yearOfCreation = integer
 	Output:
-		- A pointer to an "object" of type Archive
+		- A newly-created object of type Archive
 */

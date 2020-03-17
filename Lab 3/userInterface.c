@@ -77,7 +77,6 @@ void deleteArchiveInterface(UserInterface* interface, char* catalogueNumber) {
 	}
 }
 
-// 'private' method
 void displayArchiveContent(Archive* currentArchive) {
 	// displays the content of an archive
 	printf("%d %s %s %d\n", currentArchive->catalogueNumber, currentArchive->stateOfDeterioration, currentArchive->fileType, currentArchive->yearOfCreation);
@@ -95,9 +94,9 @@ void listArchivesFilteredByType(UserInterface* interface, char* fileType) {
 	Container data = filterEntriesByType(interface->commandController, fileType);
 
 	// I have to use the actual data here because when doing
-	// Container* data = filterEntries(interface->commandController, fileType); (filterEntries returned a pointer
+	// Container* data = filterEntries(interface->commandController, fileType); (filterEntries used to return a pointer
 	// , now it's modified), getNumberOfObjects would somehow deallocate 'data' (before going in, 'data' was fine, tested
-	// in the debugger), but when entering that function, everything would be undefined, and would stay the same
+	// in the debugger), but when entering that function, everything would be undefined, and would stay modified
 	// outside the function
 	// I also don't understand why the same thing doesn't happen to the normal list function (the one with no filters),
 	// where a similar (dare I say identical) approach is used
@@ -138,7 +137,6 @@ void processCommand(UserInterface* interface, char* command) {
 	int currentTokenIndex = 0;
 	const char separators[3] = ", ";
 
-	// allTokens[0] will the command's name; the following entries are the command's arguments
 	char** allTokens;
 	allTokens = (char**)malloc(MAX_NUMBER_ARGUMENTS * sizeof(char*));
 

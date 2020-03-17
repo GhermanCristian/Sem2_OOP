@@ -60,7 +60,7 @@ int addToRepository(Repository* archiveRepository, Archive newArchive){
 		return 1;
 	}
 
-	// the array is full, need to re-allocate
+	// the array is full, need to re-allocate it
 	if (archiveRepository->data.numberOfObjects + 1 == archiveRepository->data.capacity) {
 		Archive* newArray = (Archive*)malloc(sizeof(Archive) * archiveRepository->data.capacity * 2);
 		
@@ -76,7 +76,6 @@ int addToRepository(Repository* archiveRepository, Archive newArchive){
 		archiveRepository->data.capacity *= 2;
 		free(archiveRepository->data.archiveList);
 		archiveRepository->data.archiveList = newArray;
-
 	}
 
 	// check for the position on which the archive should be added, so that we preserve the condition that
@@ -147,8 +146,9 @@ Container getData(Repository* currentRepo) {
 	newContainer.capacity = currentRepo->data.capacity; // not really required, but it's better to not leave it uninitialised
 	newContainer.archiveList = (Archive*)malloc(sizeof(Archive) * newContainer.numberOfObjects);
 	
+	// ensure we don't dereference a null pointer
 	if (newContainer.archiveList == NULL) {
-		return ;
+		return;
 	}
 
 	for (int i = 0; i < newContainer.numberOfObjects; i++) {

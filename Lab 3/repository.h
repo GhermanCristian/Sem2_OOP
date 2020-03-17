@@ -87,20 +87,62 @@ Archive getArchiveAtIndex(Container* data, int archiveIndex);
 		- archiveRepository = pointer to an "object" of type Repository
 		- archiveIndex = integer; the (valid) position of the archive in the repository
 	Output:
-		- A pointer to an "object" of type Archive
+		- An Archive object
 */
 
 int getNumberOfObjects(Container* data);
+/*
+	
+	Input:
+		-
+	Output:
+		-
+*/
 
 Container* getPointerToData(Repository* currentRepo);
+/*
+
+	Input:
+		-
+	Output:
+		-
+*/
 
 Container getData(Repository* currentRepo);
+/*
+
+	Input:
+		-
+	Output:
+		-
+*/
 
 void sortIncreasingByStateOfDeterioration(Repository* archiveRepository);
+/*
+
+	Input:
+		-
+	Output:
+		-
+*/
 
 Repository* copyRepository(Repository* originalRepository);
+/*
+
+	Input:
+		-
+	Output:
+		-
+*/
 
 void containerDestructor(Container* currentContainer);
+/*
+
+	Input:
+		-
+	Output:
+		-
+*/
 
 void repositoryDestructor(Repository* archiveRepository);
 /*

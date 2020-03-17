@@ -100,6 +100,54 @@ void FilterEntriesByYear_PassingThroughFilter_CorrectOutput() {
 	;
 }
 
+void UndoAdd_AddExists_UndoesAdd() {
+	;
+}
+
+void UndoAdd_AddNotExisting_ReturnsError() {
+	;
+}
+
+void UndoDelete_DeleteExists_UndoesDelete() {
+	;
+}
+
+void UndoDelete_DeleteNotExisting_ReturnsError() {
+	;
+}
+
+void UndoUpdate_UpdateExists_UndoesUpdate() {
+	;
+}
+
+void UndoUpdate_UpdateNotExisting_ReturnsError() {
+	;
+}
+
+void RedoAdd_AddUndone_RedoesAdd() {
+	;
+}
+
+void RedoAdd_AddNotUndone_ReturnsError() {
+	;
+}
+
+void RedoDelete_DeleteUndone_RedoesDelete() {
+	;
+}
+
+void RedoDelete_DeleteNotUndone_ReturnsError() {
+	;
+}
+
+void RedoUpdate_UpdateUndone_RedoesUpdate() {
+	;
+}
+
+void RedoUpdate_UpdateNotUndone_ReturnsError() {
+	;
+}
+
 void performTests() {
 	CreateArchive_ValidInput_ArchiveCreated();
 	CreateArchive_InvalidInput_ReturnsError();
@@ -119,4 +167,17 @@ void performTests() {
 	FilterEntriesByYear_EmptyRepository_NoOutput();
 	FilterEntriesByYear_NothingThroughFilter_NoOutput();
 	FilterEntriesByYear_PassingThroughFilter_CorrectOutput();
+	UndoAdd_AddExists_UndoesAdd();
+	UndoAdd_AddNotExisting_ReturnsError();
+	UndoDelete_DeleteExists_UndoesDelete();
+	UndoDelete_DeleteNotExisting_ReturnsError();
+	UndoUpdate_UpdateExists_UndoesUpdate();
+	UndoUpdate_UpdateNotExisting_ReturnsError();
+	RedoAdd_AddUndone_RedoesAdd();
+	RedoAdd_AddNotUndone_ReturnsError();
+	RedoDelete_DeleteUndone_RedoesDelete();
+	RedoDelete_DeleteNotUndone_ReturnsError();
+	RedoUpdate_UpdateUndone_RedoesUpdate();
+	RedoUpdate_UpdateNotUndone_ReturnsError();
+	// something for when we add a new operation after doing some undo/ redo (the resetting of the repo list)
 }
