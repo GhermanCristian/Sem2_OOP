@@ -92,56 +92,56 @@ Archive getArchiveAtIndex(Container* data, int archiveIndex);
 
 int getNumberOfObjects(Container* data);
 /*
-	
+	Determines the number of objects from a given Container
 	Input:
-		-
+		- data = pointer to an "object" of type Container
 	Output:
-		-
+		- The number of elements in the Container = integer
 */
 
 Container* getPointerToData(Repository* currentRepo);
 /*
-
+	Returns a pointer to the data of the current Repository
 	Input:
-		-
+		- currentRepo = pointer to an "object" of type Repository
 	Output:
-		-
+		- A pointer to the data of the current Repository, of type Container
 */
 
 Container getData(Repository* currentRepo);
 /*
-
+	Returns a 'deep' copy of the data from current Repository
 	Input:
-		-
+		- currentRepo = pointer to an "object" of type Repository
 	Output:
-		-
+		- A Container object = 'deep' copy of all the data from the given Repository
 */
 
 void sortIncreasingByStateOfDeterioration(Repository* archiveRepository);
 /*
-
+	Sorts the entries in a given Repository based on their stateOfDeterioration (in increasing order)
 	Input:
-		-
+		- archiveRepository = pointer to an "object" of type Repository
 	Output:
-		-
+		- None
 */
 
 Repository* copyRepository(Repository* originalRepository);
 /*
-
+	Creates a 'deep' copy of the given Repository
 	Input:
-		-
+		- originalRepository = pointer to an "object" of type Repository, whose content will be assigned to the new Repository
 	Output:
-		-
+		- A new Repository, with the exact content as the original one, but with newly-allocated memory areas
 */
 
 void containerDestructor(Container* currentContainer);
 /*
-
+	Deallocates the memory for the given Container
 	Input:
-		-
+		- currentContainer = pointer to an "object" of type Container
 	Output:
-		-
+		- None
 */
 
 void repositoryDestructor(Repository* archiveRepository);

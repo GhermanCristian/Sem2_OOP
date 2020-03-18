@@ -15,58 +15,58 @@ typedef struct {
 
 UndoController* createUndoController();
 /*
-	
+	Creates a new undoController
 	Input:
-		-
+		- None
 	Output:
-		-
+		- A pointer to a newly-created UndoController object
 */
 
 void saveRepository(UndoController* newUndoController, Repository* currentRepository);
 /*
-
+	Saves the current state of the repository to a list of repositories
 	Input:
-		-
+		- newUndoController = pointer to an UndoController object
+		- currentRepository = pointer to a Repository object, the Repository that we wish to save
 	Output:
-		-
+		- None
 */
 
 int undo(UndoController* newUndoController);
 /*
-
+	Undoes the last performed operation
 	Input:
-		-
+		- newUndoController = pointer to an UndoController object
 	Output:
-		-
+		- 1, if the operation was successful
+		- 0, otherwise
 */
-
 
 int redo(UndoController* newUndoController);
 /*
-
+	Redoes the last operation that has been undone
 	Input:
-		-
+		- newUndoController = pointer to an UndoController object
 	Output:
-		-
+		- 1, if the operation was successful
+		- 0, otherwise
 */
-
 
 Repository* getPreviousRepository(UndoController* newUndoController);
 /*
-
+	Returns a 'deep' copy of the repository corresponding to the current index in repositoryHistory
 	Input:
-		-
+		- newUndoController = pointer to an UndoController object
 	Output:
-		-
+		- A pointer to a Repository object, which is a 'deep' copy of the repository at the current index in repositoryHistory
 */
-
 
 void undoControllerDestructor(UndoController* newUndoController);
 /*
-
+	Deallocates the memory for the current UndoController
 	Input:
-		-
+		- newUndoController = pointer to an UndoController object
 	Output:
-		-
+		- None
 */
 
