@@ -139,11 +139,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="controller.cpp" />
+    <ClCompile Include="inputValidator.cpp" />
     <ClCompile Include="mainProgram.cpp" />
     <ClCompile Include="userInterface.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="controller.h" />
+    <ClInclude Include="inputValidator.h" />
     <ClInclude Include="userInterface.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

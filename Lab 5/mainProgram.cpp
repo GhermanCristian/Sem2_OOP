@@ -9,6 +9,5 @@ int main() {
 	UserInterface currentUserInterface = UserInterface();
 	currentUserInterface.startProgram();
 	_CrtDumpMemoryLeaks();
-	
 	return 0;
 }

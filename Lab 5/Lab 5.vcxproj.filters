@@ -24,12 +24,18 @@
     <ClCompile Include="controller.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="inputValidator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="userInterface.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="controller.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inputValidator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
