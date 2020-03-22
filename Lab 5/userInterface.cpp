@@ -6,25 +6,30 @@ UserInterface::UserInterface() {
 	this->actionController = Controller();
 	this->inputValidator = InputValidator();
 
-	this->functionList[0] = inputValidator.addVictimInputValidator;
-	this->functionList[1] = inputValidator.updateVictimInputValidator;
-	this->functionList[2] = inputValidator.deleteVictimInputValidator;
-	this->functionList[3] = inputValidator.listAllInputValidator;
+	this->functionList[0] = &InputValidator::addVictimInputValidator;
+	this->functionList[1] = &InputValidator::updateVictimInputValidator;
+	this->functionList[2] = &InputValidator::deleteVictimInputValidator;
+	this->functionList[3] = &InputValidator::listAllInputValidator;
 }
 
 void UserInterface::processCommand(std::string command, char programMode) {
 	std::smatch stringMatchResult;
+	bool executedCommand = false;
 
-	for (int i = 0; i < NUMBER_OF_COMMANDS; i++) {
+	for (int i = 0; i < NUMBER_OF_COMMANDS && executedCommand == false; i++) {
 		try {
-			stringMatchResult = this->functionList[i](command);
-			break;
+			stringMatchResult = (inputValidator.*functionList[i])(command);
+			executedCommand = true; // if we reach this point => the operation went well
 		}
 
-		catch (std::exception & errorMessage) {
-			std::cout << errorMessage.what() << "\n";
-			return;
+		catch (...) {
+			;
 		}
+	}
+
+	if (executedCommand == false) {
+		std::cout << "Invalid input\n";
+		return;
 	}
 }
 
@@ -35,7 +40,7 @@ void UserInterface::startProgram() {
 	while (1) {
 		std::cout << "Insert the mode (A = administrator, B = assistant)\n";
 		std::cin >> programMode;
-		std::cin.get(); // read the '\n' after the input
+		std::cin.get(); // read the '\n' after this input
 
 		// validate input, but for now we'll consider that it's valid
 		break;

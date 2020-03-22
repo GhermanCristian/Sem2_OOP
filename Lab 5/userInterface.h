@@ -4,7 +4,7 @@
 
 const int MAXIMUM_COMMAND_LENGTH = 200;
 const int NUMBER_OF_COMMANDS = 4;
-typedef std::smatch(*InputValidatorFunction)(std::string);
+typedef std::smatch(InputValidator::*InputValidatorFunction)(std::string);
 
 class UserInterface {
 	private:
