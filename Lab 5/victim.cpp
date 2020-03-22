@@ -11,6 +11,22 @@ Victim::Victim(std::string name, std::string placeOfOrigin, int age, std::string
 	this->photographLink = photographLink;
 }
 
+std::string Victim::getName(){
+	return this->name;
+}
+
+std::string Victim::getPlaceOfOrigin(){
+	return this->placeOfOrigin;
+}
+
+int Victim::getAge(){
+	return this->age;
+}
+
+std::string Victim::getPhotographLink(){
+	return this->photographLink;
+}
+
 Victim::Victim(const Victim& newVictim){
 	this->name = newVictim.name;
 	this->placeOfOrigin = newVictim.placeOfOrigin;

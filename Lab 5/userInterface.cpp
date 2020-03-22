@@ -3,9 +3,6 @@
 #include <string.h>
 
 UserInterface::UserInterface() {
-	this->actionController = Controller();
-	this->inputValidator = InputValidator();
-
 	this->functionList[0] = &InputValidator::addVictimInputValidator;
 	this->functionList[1] = &InputValidator::updateVictimInputValidator;
 	this->functionList[2] = &InputValidator::deleteVictimInputValidator;
@@ -42,7 +39,7 @@ void UserInterface::startProgram() {
 		std::cin >> programMode;
 		std::cin.get(); // read the '\n' after this input
 
-		// validate input, but for now we'll consider that it's valid
+		// validate this input, but for now we'll consider that it's valid
 		break;
 	}
 
@@ -54,7 +51,6 @@ void UserInterface::startProgram() {
 		std::cout << "delete name\n";
 		std::cout << "list\n\n";
 		std::getline(std::cin, command);
-		// validate input, but for now we'll consider that it's valid
 		
 		if (command == "exit") {
 			std::cout << "Program has ended\n";

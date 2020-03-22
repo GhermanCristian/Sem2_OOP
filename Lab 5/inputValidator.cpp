@@ -7,7 +7,7 @@ InputValidator::InputValidator(){
 }
 
 std::smatch InputValidator::addVictimInputValidator(std::string userInput) {
-	std::regex addVictimPattern("add +([a-zA-Z]+),* +([a-zA-Z]+),* +([0-9]+),* +([a-zA-Z.]+)");
+	std::regex addVictimPattern("add +([a-zA-Z]+( *[a-zA-Z]*)*), +([a-zA-Z]+( *[a-zA-Z]*)*), +([0-9]+), +([a-zA-Z.0-9]+)");
 
 	std::smatch stringMatch;
 	if (std::regex_search(userInput, stringMatch, addVictimPattern) == true) {
@@ -20,7 +20,7 @@ std::smatch InputValidator::addVictimInputValidator(std::string userInput) {
 }
 
 std::smatch InputValidator::updateVictimInputValidator(std::string userInput) {
-	std::regex updateVictimPattern("update +([a-zA-Z]+),* +([a-zA-Z]+),* +([0-9]+),* +([a-zA-Z.]+)");
+	std::regex updateVictimPattern("update +([a-zA-Z]+( *[a-zA-Z]*)*), +([a-zA-Z]+( *[a-zA-Z]*)*), +([0-9]+), +([a-zA-Z.0-9]+)");
 
 	std::smatch stringMatch;
 	if (std::regex_search(userInput, stringMatch, updateVictimPattern) == true) {
@@ -33,7 +33,7 @@ std::smatch InputValidator::updateVictimInputValidator(std::string userInput) {
 }
 
 std::smatch InputValidator::deleteVictimInputValidator(std::string userInput) {
-	std::regex deleteVictimPattern("delete +([a-zA-Z]+)");
+	std::regex deleteVictimPattern("delete +([a-zA-Z]+( *[a-zA-Z]*)*)");
 
 	std::smatch stringMatch;
 	if (std::regex_search(userInput, stringMatch, deleteVictimPattern) == true) {

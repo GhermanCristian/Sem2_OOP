@@ -139,14 +139,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="controller.cpp" />
+    <ClCompile Include="dynamicVector.cpp" />
     <ClCompile Include="inputValidator.cpp" />
     <ClCompile Include="mainProgram.cpp" />
+    <ClCompile Include="repository.cpp" />
     <ClCompile Include="userInterface.cpp" />
+    <ClCompile Include="victim.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="controller.h" />
+    <ClInclude Include="dynamicVector.h" />
     <ClInclude Include="inputValidator.h" />
+    <ClInclude Include="repository.h" />
     <ClInclude Include="userInterface.h" />
+    <ClInclude Include="victim.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
