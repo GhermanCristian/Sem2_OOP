@@ -33,8 +33,7 @@ int DynamicVector::findPositionInVector(std::string victimName){
 	return rightBound;
 }
 
-bool DynamicVector::isInVector(std::string victimName, int possiblePosition)
-{
+bool DynamicVector::isInVector(std::string victimName, int possiblePosition){
 	if (possiblePosition == -1) {
 		possiblePosition = findPositionInVector(victimName);
 	}
@@ -50,6 +49,7 @@ DynamicVector::DynamicVector(){
 void DynamicVector::addToVector(TElem newVictim){
 	if (this->numberOfElements == 0) {
 		this->elements[0] = newVictim;
+		this->numberOfElements++;
 		return;
 	}
 
@@ -90,6 +90,17 @@ void DynamicVector::deleteFromVector(std::string victimName){
 		this->elements[index] = this->elements[index + 1];
 	}
 	this->numberOfElements--;
+}
+
+TElem DynamicVector::getElementAtIndex(int index) {
+	if (index < 0 or index >= this->numberOfElements) {
+		throw std::exception("Invalid index");
+	}
+	return this->elements[index];
+}
+
+int DynamicVector::getNumberOfElements(){
+	return this->numberOfElements;
 }
 
 DynamicVector::DynamicVector(const DynamicVector& newDynamicVector){

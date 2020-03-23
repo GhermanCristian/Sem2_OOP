@@ -2,14 +2,22 @@
 #include <string>
 #include <regex>
 
+const int MAXIMUM_COMMAND_LENGTH = 200;
+const int NUMBER_OF_COMMANDS = 4;
+
+struct ArgumentList {
+	std::string list[NUMBER_OF_COMMANDS];
+};
+
 class InputValidator {
 	private:
 		;
 	public:
 		InputValidator();
-		std::smatch addVictimInputValidator(std::string userInput);
-		std::smatch updateVictimInputValidator(std::string userInput);
-		std::smatch deleteVictimInputValidator(std::string userInput);
-		std::smatch listAllInputValidator(std::string userInput);
+		ArgumentList addVictimInputValidator(std::string userInput);
+		ArgumentList updateVictimInputValidator(std::string userInput);
+		ArgumentList deleteVictimInputValidator(std::string userInput);
+		ArgumentList listAllInputValidator(std::string userInput);
+		char modeValidator(std::string userInput);
 		~InputValidator();
 };

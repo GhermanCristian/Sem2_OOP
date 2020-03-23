@@ -6,56 +6,80 @@ InputValidator::InputValidator(){
 	;
 }
 
-std::smatch InputValidator::addVictimInputValidator(std::string userInput) {
+ArgumentList InputValidator::addVictimInputValidator(std::string userInput) {
 	std::regex addVictimPattern("add +([a-zA-Z]+( *[a-zA-Z]*)*), +([a-zA-Z]+( *[a-zA-Z]*)*), +([0-9]+), +([a-zA-Z.0-9]+)");
-
 	std::smatch stringMatch;
-	if (std::regex_search(userInput, stringMatch, addVictimPattern) == true) {
-		return stringMatch;
-	}
+	ArgumentList addArgumentList;
+	bool validInput = std::regex_search(userInput, stringMatch, addVictimPattern);
 
-	else {
+	if (validInput == false) {
 		throw std::exception("Invalid input");
 	}
+
+	addArgumentList.list[0] = stringMatch.str(1);
+	addArgumentList.list[1] = stringMatch.str(3);
+	addArgumentList.list[2] = stringMatch.str(5);
+	addArgumentList.list[3] = stringMatch.str(6);
+
+	return addArgumentList;
 }
 
-std::smatch InputValidator::updateVictimInputValidator(std::string userInput) {
+ArgumentList InputValidator::updateVictimInputValidator(std::string userInput) {
 	std::regex updateVictimPattern("update +([a-zA-Z]+( *[a-zA-Z]*)*), +([a-zA-Z]+( *[a-zA-Z]*)*), +([0-9]+), +([a-zA-Z.0-9]+)");
-
 	std::smatch stringMatch;
-	if (std::regex_search(userInput, stringMatch, updateVictimPattern) == true) {
-		return stringMatch;
-	}
+	ArgumentList updateArgumentList;
+	bool validInput = std::regex_search(userInput, stringMatch, updateVictimPattern);
 
-	else {
+	if (validInput == false) {
 		throw std::exception("Invalid input");
 	}
+
+	updateArgumentList.list[0] = stringMatch.str(1);
+	updateArgumentList.list[1] = stringMatch.str(3);
+	updateArgumentList.list[2] = stringMatch.str(5);
+	updateArgumentList.list[3] = stringMatch.str(6);
+
+	return updateArgumentList;
 }
 
-std::smatch InputValidator::deleteVictimInputValidator(std::string userInput) {
+ArgumentList InputValidator::deleteVictimInputValidator(std::string userInput) {
 	std::regex deleteVictimPattern("delete +([a-zA-Z]+( *[a-zA-Z]*)*)");
-
 	std::smatch stringMatch;
-	if (std::regex_search(userInput, stringMatch, deleteVictimPattern) == true) {
-		return stringMatch;
-	}
+	ArgumentList deleteArgumentList;
+	bool validInput = std::regex_search(userInput, stringMatch, deleteVictimPattern);
 
-	else {
+	if (validInput == false) {
 		throw std::exception("Invalid input");
 	}
+
+	deleteArgumentList.list[0] = stringMatch.str(1);
+
+	return deleteArgumentList;
 }
 
-std::smatch InputValidator::listAllInputValidator(std::string userInput) {
+ArgumentList InputValidator::listAllInputValidator(std::string userInput) {
 	std::regex listAllPattern("list");
-
 	std::smatch stringMatch;
-	if (std::regex_search(userInput, stringMatch, listAllPattern) == true) {
-		return stringMatch;
-	}
+	ArgumentList listAllArgumentList;
+	bool validInput = std::regex_search(userInput, stringMatch, listAllPattern);
 
-	else {
+	if (validInput == false) {
 		throw std::exception("Invalid input");
 	}
+	
+	return listAllArgumentList;
+}
+
+char InputValidator::modeValidator(std::string userInput){
+	std::regex modePattern("mode [AB]");
+	std::smatch stringMatch;
+	bool validInput = std::regex_search(userInput, stringMatch, modePattern);
+
+	if (validInput == false) {
+		throw std::exception("Invalid input");
+	}
+
+	return userInput.back();
 }
 
 InputValidator::~InputValidator(){
