@@ -13,7 +13,8 @@ ArgumentList InputValidator::addVictimInputValidator(std::string userInput) {
 	bool validInput = std::regex_search(userInput, stringMatch, addVictimPattern);
 
 	if (validInput == false) {
-		throw std::exception("Invalid input");
+		addArgumentList.list[0] = ERROR_CODE;
+		return addArgumentList;
 	}
 
 	addArgumentList.list[0] = stringMatch.str(1);
@@ -31,7 +32,8 @@ ArgumentList InputValidator::updateVictimInputValidator(std::string userInput) {
 	bool validInput = std::regex_search(userInput, stringMatch, updateVictimPattern);
 
 	if (validInput == false) {
-		throw std::exception("Invalid input");
+		updateArgumentList.list[0] = ERROR_CODE;
+		return updateArgumentList;
 	}
 
 	updateArgumentList.list[0] = stringMatch.str(1);
@@ -49,7 +51,8 @@ ArgumentList InputValidator::deleteVictimInputValidator(std::string userInput) {
 	bool validInput = std::regex_search(userInput, stringMatch, deleteVictimPattern);
 
 	if (validInput == false) {
-		throw std::exception("Invalid input");
+		deleteArgumentList.list[0] = ERROR_CODE;
+		return deleteArgumentList;
 	}
 
 	deleteArgumentList.list[0] = stringMatch.str(1);
@@ -64,7 +67,8 @@ ArgumentList InputValidator::listAllInputValidator(std::string userInput) {
 	bool validInput = std::regex_search(userInput, stringMatch, listAllPattern);
 
 	if (validInput == false) {
-		throw std::exception("Invalid input");
+		listAllArgumentList.list[0] = ERROR_CODE;
+		return listAllArgumentList;
 	}
 	
 	return listAllArgumentList;

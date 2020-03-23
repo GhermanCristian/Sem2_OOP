@@ -46,10 +46,10 @@ DynamicVector::DynamicVector(){
 	this->elements = new TElem[INITIAL_VECTOR_CAPACITY];
 }
 
-void DynamicVector::addToVector(TElem newVictim){
+void DynamicVector::addToVector(const TElem& newVictim){
 	if (this->numberOfElements == 0) {
 		this->elements[0] = newVictim;
-		this->numberOfElements++;
+		this->numberOfElements = 1;
 		return;
 	}
 
@@ -70,7 +70,7 @@ void DynamicVector::addToVector(TElem newVictim){
 	this->elements[possiblePosition + 1] = newVictim;
 }
 
-void DynamicVector::updateInVector(TElem newVictim){
+void DynamicVector::updateInVector(const TElem& newVictim){
 	int possiblePosition = findPositionInVector(newVictim.getName());
 	if (isInVector(newVictim.getName(), possiblePosition) == false) {
 		throw std::exception("Element doesn't exist");

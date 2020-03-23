@@ -5,11 +5,11 @@ Repository::Repository(){
 	;
 }
 
-void Repository::addToRepository(TElem newVictim){
+void Repository::addToRepository(const TElem& newVictim){
 	this->data.addToVector(newVictim);
 }
 
-void Repository::updateInRepository(TElem newVictim){
+void Repository::updateInRepository(const TElem& newVictim){
 	this->data.updateInVector(newVictim);
 }
 

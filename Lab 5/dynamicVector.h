@@ -2,7 +2,7 @@
 #include "victim.h"
 #include <exception>
 
-const int INITIAL_VECTOR_CAPACITY = 100;
+const int INITIAL_VECTOR_CAPACITY = 20;
 typedef Victim TElem;
 
 class DynamicVector {
@@ -17,8 +17,8 @@ class DynamicVector {
 
 	public:
 		DynamicVector();
-		void addToVector(TElem newVictim);
-		void updateInVector(TElem newVictim);
+		void addToVector(const TElem& newVictim);
+		void updateInVector(const TElem& newVictim);
 		void deleteFromVector(std::string victimName);
 		TElem getElementAtIndex(int index);
 		int getNumberOfElements();

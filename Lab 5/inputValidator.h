@@ -3,6 +3,7 @@
 #include <regex>
 
 const int NUMBER_OF_ARGUMENTS = 4;
+const std::string ERROR_CODE = "ERROR";
 
 struct ArgumentList {
 	std::string list[NUMBER_OF_ARGUMENTS];

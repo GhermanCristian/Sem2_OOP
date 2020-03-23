@@ -7,8 +7,8 @@ class Repository {
 
 	public:
 		Repository();
-		void addToRepository(TElem newVictim);
-		void updateInRepository(TElem newVictim);
+		void addToRepository(const TElem& newVictim);
+		void updateInRepository(const TElem& newVictim);
 		void deleteFromRepository(std::string victimName);
 		DynamicVector* getAllEntries();
 		Repository(const Repository& newRepository);

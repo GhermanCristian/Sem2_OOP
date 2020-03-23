@@ -111,15 +111,14 @@ void UserInterface::processCommand(std::string command, char programMode) {
 	}
 
 	for (int i = 0; i < numberOfCommands && executedCommand == false; i++) {
-		try {
-			stringMatchResult = (inputValidator.*validatorFunctionList[i])(command);
-			executedCommand = true; // if we reach this point => the validation went well => we can perform the operation
-			(this->*interfaceFunctionList[i])(stringMatchResult);
+		stringMatchResult = (inputValidator.*validatorFunctionList[i])(command);
+
+		if (stringMatchResult.list[0] == ERROR_CODE) {
+			continue;
 		}
 
-		catch (...) {
-			;
-		}
+		executedCommand = true; // if we reach this point => the validation went well => we can perform the operation
+		(this->*interfaceFunctionList[i])(stringMatchResult);
 	}
 
 	if (executedCommand == false) {
