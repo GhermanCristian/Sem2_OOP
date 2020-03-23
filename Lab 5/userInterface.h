@@ -24,7 +24,7 @@ class UserInterface {
 		InterfaceFunction interfaceFunctionListAssistant[NUMBER_OF_COMMANDS_ASSISTANT];
 		std::string commandInfoAssistant;
 
-		void displayVictim(Victim currentVictim);
+		void displayVictim(const Victim& currentVictim);
 		void addVictimInterface(ArgumentList argumentList);
 		void updateVictimInterface(ArgumentList argumentList);
 		void deleteVictimInterface(ArgumentList argumentList);

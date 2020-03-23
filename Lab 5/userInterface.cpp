@@ -29,6 +29,7 @@ UserInterface::UserInterface() {
 	this->interfaceFunctionListAssistant[1] = &UserInterface::updateVictimInterface;
 	this->interfaceFunctionListAssistant[2] = &UserInterface::deleteVictimInterface;
 
+	// the 3*8 bytes memory leak is caused by 'mode A' or 'mode B'
 	this->commandInfoAssistant = "Insert command:\n";
 	this->commandInfoAssistant += "exit\n";
 	this->commandInfoAssistant += "add name, placeOfOrigin, age, photograph\n";
@@ -36,7 +37,7 @@ UserInterface::UserInterface() {
 	this->commandInfoAssistant += "delete name\n\n";
 }
 
-void UserInterface::displayVictim(Victim currentVictim) {
+void UserInterface::displayVictim(const Victim& currentVictim) {
 	std::cout << currentVictim.getName() << " " << currentVictim.getPlaceOfOrigin() << " " << currentVictim.getAge() << " " << currentVictim.getPhotographLink() << "\n";
 }
 
@@ -84,7 +85,7 @@ void UserInterface::listAllInterface(ArgumentList argumentList){
 	try {
 		victimList = this->actionController.getAllVictims();
 		for (int index = 0; index < victimList->getNumberOfElements(); index++) {
-			displayVictim(victimList->getElementAtIndex(index));
+			displayVictim((*victimList)[index]);
 		}
 	}
 	catch (std::exception & operationException) {

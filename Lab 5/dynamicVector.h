@@ -20,7 +20,7 @@ class DynamicVector {
 		void addToVector(const TElem& newVictim);
 		void updateInVector(const TElem& newVictim);
 		void deleteFromVector(std::string victimName);
-		TElem getElementAtIndex(int index);
+		TElem& operator[] (int index);
 		int getNumberOfElements();
 		DynamicVector(const DynamicVector& newDynamicVector);
 		DynamicVector& operator = (const DynamicVector& newDynamicVector);

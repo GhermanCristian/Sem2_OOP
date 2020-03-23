@@ -80,7 +80,7 @@ char InputValidator::modeValidator(std::string userInput){
 	bool validInput = std::regex_search(userInput, stringMatch, modePattern);
 
 	if (validInput == false) {
-		throw std::exception("Invalid input");
+		throw std::exception("Invalid mode");
 	}
 
 	return userInput.back();

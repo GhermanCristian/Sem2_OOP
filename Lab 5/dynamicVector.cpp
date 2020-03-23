@@ -60,8 +60,8 @@ void DynamicVector::addToVector(const TElem& newVictim){
 
 	this->numberOfElements++;
 	if (this->numberOfElements == this->capacity) {
-		resizeAndCopy(*this);
 		this->capacity *= 2;
+		resizeAndCopy(*this);
 	}
 
 	for (int index = this->numberOfElements - 1; index > possiblePosition; index--) {
@@ -92,13 +92,6 @@ void DynamicVector::deleteFromVector(std::string victimName){
 	this->numberOfElements--;
 }
 
-TElem DynamicVector::getElementAtIndex(int index) {
-	if (index < 0 or index >= this->numberOfElements) {
-		throw std::exception("Invalid index");
-	}
-	return this->elements[index];
-}
-
 int DynamicVector::getNumberOfElements(){
 	return this->numberOfElements;
 }
@@ -109,7 +102,14 @@ DynamicVector::DynamicVector(const DynamicVector& newDynamicVector){
 	resizeAndCopy(newDynamicVector);
 }
 
-DynamicVector& DynamicVector::operator=(const DynamicVector& newDynamicVector){
+TElem& DynamicVector::operator[](int index) {
+	if (index < 0 or index >= this->numberOfElements) {
+		throw std::exception("Invalid index");
+	}
+	return this->elements[index];
+}
+
+DynamicVector& DynamicVector::operator = (const DynamicVector& newDynamicVector){
 	if (this != &newDynamicVector) {
 		this->capacity = newDynamicVector.capacity;
 		this->numberOfElements = newDynamicVector.numberOfElements;

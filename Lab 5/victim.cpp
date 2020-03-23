@@ -41,6 +41,13 @@ Victim::Victim(const Victim& newVictim){
 	//std::cout << "victim copy constructor\n";
 }
 
+bool Victim::operator==(const Victim& newVictim){
+	return (this->age == newVictim.age and
+			this->name == newVictim.name and
+			this->placeOfOrigin == newVictim.placeOfOrigin and
+			this->photographLink == newVictim.photographLink);
+}
+
 Victim& Victim::operator=(const Victim& newVictim){
 	//std::cout << "victim assignment operator\n";
 	if (this != &newVictim) {

@@ -16,6 +16,7 @@ public:
 	int getAge() const;
 	std::string getPhotographLink() const;
 	Victim(const Victim& newVictim);
+	bool operator == (const Victim& newVictim);
 	Victim& operator = (const Victim& newVictim);
 	~Victim();
 };
