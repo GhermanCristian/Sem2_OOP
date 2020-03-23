@@ -2,11 +2,10 @@
 #include <string>
 #include <regex>
 
-const int MAXIMUM_COMMAND_LENGTH = 200;
-const int NUMBER_OF_COMMANDS = 4;
+const int NUMBER_OF_ARGUMENTS = 4;
 
 struct ArgumentList {
-	std::string list[NUMBER_OF_COMMANDS];
+	std::string list[NUMBER_OF_ARGUMENTS];
 };
 
 class InputValidator {

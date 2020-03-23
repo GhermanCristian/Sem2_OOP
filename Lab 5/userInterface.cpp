@@ -2,20 +2,38 @@
 #include <iostream>
 #include <string.h>
 
-const int LIST_ALL_COMMAND_INDEX = 3;
-const char ADMINISTRATOR_MODE = 'A';
-const char ASSISTANT_MODE = 'B';
-
 UserInterface::UserInterface() {
-	this->validatorFunctionList[0] = &InputValidator::addVictimInputValidator;
-	this->validatorFunctionList[1] = &InputValidator::updateVictimInputValidator;
-	this->validatorFunctionList[2] = &InputValidator::deleteVictimInputValidator;
-	this->validatorFunctionList[3] = &InputValidator::listAllInputValidator;
+	this->validatorFunctionListAdministrator[0] = &InputValidator::addVictimInputValidator;
+	this->validatorFunctionListAdministrator[1] = &InputValidator::updateVictimInputValidator;
+	this->validatorFunctionListAdministrator[2] = &InputValidator::deleteVictimInputValidator;
+	this->validatorFunctionListAdministrator[3] = &InputValidator::listAllInputValidator;
 
-	this->interfaceFunctionList[0] = &UserInterface::addVictimInterface;
-	this->interfaceFunctionList[1] = &UserInterface::updateVictimInterface;
-	this->interfaceFunctionList[2] = &UserInterface::deleteVictimInterface;
-	this->interfaceFunctionList[3] = &UserInterface::listAllInterface;
+	this->interfaceFunctionListAdministrator[0] = &UserInterface::addVictimInterface;
+	this->interfaceFunctionListAdministrator[1] = &UserInterface::updateVictimInterface;
+	this->interfaceFunctionListAdministrator[2] = &UserInterface::deleteVictimInterface;
+	this->interfaceFunctionListAdministrator[3] = &UserInterface::listAllInterface;
+
+	this->commandInfoAdministrator = "Insert command:\n";
+	this->commandInfoAdministrator += "exit\n";
+	this->commandInfoAdministrator += "add name, placeOfOrigin, age, photograph\n";
+	this->commandInfoAdministrator += "update name, newPlaceOfOrigin, newAge, newPhotograph\n";
+	this->commandInfoAdministrator += "delete name\n";
+	this->commandInfoAdministrator += "list\n\n";
+
+
+	this->validatorFunctionListAssistant[0] = &InputValidator::addVictimInputValidator;
+	this->validatorFunctionListAssistant[1] = &InputValidator::updateVictimInputValidator;
+	this->validatorFunctionListAssistant[2] = &InputValidator::deleteVictimInputValidator;
+
+	this->interfaceFunctionListAssistant[0] = &UserInterface::addVictimInterface;
+	this->interfaceFunctionListAssistant[1] = &UserInterface::updateVictimInterface;
+	this->interfaceFunctionListAssistant[2] = &UserInterface::deleteVictimInterface;
+
+	this->commandInfoAssistant = "Insert command:\n";
+	this->commandInfoAssistant += "exit\n";
+	this->commandInfoAssistant += "add name, placeOfOrigin, age, photograph\n";
+	this->commandInfoAssistant += "update name, newPlaceOfOrigin, newAge, newPhotograph\n";
+	this->commandInfoAssistant += "delete name\n\n";
 }
 
 void UserInterface::displayVictim(Victim currentVictim) {
@@ -76,14 +94,23 @@ void UserInterface::listAllInterface(ArgumentList argumentList){
 
 void UserInterface::processCommand(std::string command, char programMode) {
 	ArgumentList stringMatchResult;
+	InputValidatorFunction* validatorFunctionList;
+	InterfaceFunction* interfaceFunctionList;
+	int numberOfCommands;
 	bool executedCommand = false;
 
-	for (int i = 0; i < NUMBER_OF_COMMANDS && executedCommand == false; i++) {
-		if (i == LIST_ALL_COMMAND_INDEX and programMode != ADMINISTRATOR_MODE) {
-			executedCommand = true;
-			continue;
-		}
+	if (programMode == ADMINISTRATOR_MODE) {
+		validatorFunctionList = this->validatorFunctionListAdministrator;
+		interfaceFunctionList = this->interfaceFunctionListAdministrator;
+		numberOfCommands = NUMBER_OF_COMMANDS_ADMINISTRATOR;
+	}
+	else {
+		validatorFunctionList = this->validatorFunctionListAssistant;
+		interfaceFunctionList = this->interfaceFunctionListAssistant;
+		numberOfCommands = NUMBER_OF_COMMANDS_ASSISTANT;
+	}
 
+	for (int i = 0; i < numberOfCommands && executedCommand == false; i++) {
 		try {
 			stringMatchResult = (inputValidator.*validatorFunctionList[i])(command);
 			executedCommand = true; // if we reach this point => the validation went well => we can perform the operation
@@ -104,6 +131,7 @@ void UserInterface::processCommand(std::string command, char programMode) {
 void UserInterface::startProgram() {
 	char programMode;
 	std::string command;
+	std::string commandInfo;
 
 	while (1) {
 		std::cout << "Insert the mode ('mode A' = administrator, 'mode B' = assistant)\n";
@@ -118,13 +146,15 @@ void UserInterface::startProgram() {
 		}
 	}
 
+	if (programMode == ADMINISTRATOR_MODE) {
+		commandInfo = this->commandInfoAdministrator;
+	}
+	else {
+		commandInfo = this->commandInfoAssistant;
+	}
+
 	while (1) {
-		std::cout << "Insert command:\n";
-		std::cout << "exit\n";
-		std::cout << "add name, placeOfOrigin, age, photograph\n";
-		std::cout << "update name, newPlaceOfOrigin, newAge, newPhotograph\n";
-		std::cout << "delete name\n";
-		std::cout << "list\n\n";
+		std::cout << commandInfo;
 		std::getline(std::cin, command);
 		
 		if (command == "exit") {

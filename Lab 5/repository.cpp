@@ -17,8 +17,7 @@ void Repository::deleteFromRepository(std::string victimName){
 	this->data.deleteFromVector(victimName);
 }
 
-DynamicVector* Repository::getAllEntries()
-{
+DynamicVector* Repository::getAllEntries(){
 	return &this->data;
 }
 
@@ -26,8 +25,7 @@ Repository::Repository(const Repository& newRepository){
 	this->data = newRepository.data;
 }
 
-Repository& Repository::operator=(const Repository& newRepository)
-{
+Repository& Repository::operator=(const Repository& newRepository){
 	if (this != &newRepository) {
 		this->data = newRepository.data;
 	}

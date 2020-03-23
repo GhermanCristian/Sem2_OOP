@@ -3,6 +3,11 @@
 #include "inputValidator.h"
 
 typedef ArgumentList(InputValidator::* InputValidatorFunction)(std::string);
+const int MAXIMUM_COMMAND_LENGTH = 200;
+const int NUMBER_OF_COMMANDS_ADMINISTRATOR = 4;
+const int NUMBER_OF_COMMANDS_ASSISTANT = 3;
+const char ADMINISTRATOR_MODE = 'A';
+const char ASSISTANT_MODE = 'B';
 
 class UserInterface {
 	typedef void (UserInterface::* InterfaceFunction)(ArgumentList);
@@ -10,8 +15,14 @@ class UserInterface {
 	private:
 		Controller actionController;
 		InputValidator inputValidator;
-		InputValidatorFunction validatorFunctionList[NUMBER_OF_COMMANDS];
-		InterfaceFunction interfaceFunctionList[NUMBER_OF_COMMANDS];
+
+		InputValidatorFunction validatorFunctionListAdministrator[NUMBER_OF_COMMANDS_ADMINISTRATOR];
+		InterfaceFunction interfaceFunctionListAdministrator[NUMBER_OF_COMMANDS_ADMINISTRATOR];
+		std::string commandInfoAdministrator;
+
+		InputValidatorFunction validatorFunctionListAssistant[NUMBER_OF_COMMANDS_ASSISTANT];
+		InterfaceFunction interfaceFunctionListAssistant[NUMBER_OF_COMMANDS_ASSISTANT];
+		std::string commandInfoAssistant;
 
 		void displayVictim(Victim currentVictim);
 		void addVictimInterface(ArgumentList argumentList);
