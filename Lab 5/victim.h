@@ -11,112 +11,113 @@ class Victim {
 	public:
 		Victim();
 		/*
-
-				Input:
-					-
-				Output:
-					-
-				Throws:
-					-
+			Default constructor for the Victim type
+			Input:
+				- None
+			Output:
+				- Creates a new, empty object of type Victim 
+			Throws:
+				- None
 		*/
 
 		Victim(std::string name, std::string placeOfOrigin, int age, std::string photographLink);
 		/*
-
-				Input:
-					-
-				Output:
-					-
-				Throws:
-					-
+			Overloaded constructor for the Victim type
+			Input:
+				- The Victim's properties
+			Output:
+				- Creates a new object of type Victim
+			Throws:
+				- None
 		*/
 
 		std::string getName() const;
 		/*
-
-				Input:
-					-
-				Output:
-					-
-				Throws:
-					-
+			Determines the name of the current Victim
+			Input:
+				- None
+			Output:
+				- The name of the current Victim
+			Throws:
+				- None
 		*/
 
 		std::string getPlaceOfOrigin() const;
 		/*
-
-				Input:
-					-
-				Output:
-					-
-				Throws:
-					-
+			Determines the place of origin of the current victim
+			Input:
+				- None
+			Output:
+				- The place of origin of the current victim
+			Throws:
+				- None
 		*/
 
 		int getAge() const;
 		/*
-
-				Input:
-					-
-				Output:
-					-
-				Throws:
-					-
+			Determines the age of the current victim
+			Input:
+				- None
+			Output:
+				- The age of the current victim
+			Throws:
+				- None
 		*/
 
 		std::string getPhotographLink() const;
 		/*
-
-				Input:
-					-
-				Output:
-					-
-				Throws:
-					-
+			Determines the photograph link of the current victim
+			Input:
+				- None
+			Output:
+				- The photograph link of the current victim
+			Throws:
+				- None
 		*/
 
-		Victim(const Victim& newVictim);
+		Victim(const Victim& originalVictim);
 		/*
-
-				Input:
-					-
-				Output:
-					-
-				Throws:
-					-
+			Copy constructor for the Victim type
+			Input:
+				- A reference to an object of type Victim, whose content is copied to the current one
+			Output:
+				- The content of originalVictim is copied to the current one
+			Throws:
+				- None
 		*/
 
 		bool operator == (const Victim& newVictim);
 		/*
-
-				Input:
-					-
-				Output:
-					-
-				Throws:
-					-
+			Overloaded equality operator
+			Input:
+				- Reference to another Victim
+			Output:
+				- True, if the content of the 2 victims is the same
+				- False, otherwise
+			Throws: 
+				- None
 		*/
 
-		Victim& operator = (const Victim& newVictim);
+		Victim& operator = (const Victim& originalVictim);
 		/*
-
-				Input:
-					-
-				Output:
-					-
-				Throws:
-					-
+			Operator assignment operator
+			Input:
+				- Reference to a victim whose content is copied to a new object
+			Output:
+				- A reference to a new object of type Victim, with the same content as the given one
+			Throws:
+				- None
 		*/
 
 		~Victim();
 		/*
-
-				Input:
-					-
-				Output:
-					-
-				Throws:
-					-
+			Victim destructor
+			Input:
+				- None
+			Output:
+				- Destroys the current Victim
+			Throws:
+				- None
 		*/
 
 };

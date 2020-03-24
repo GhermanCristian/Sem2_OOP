@@ -30,23 +30,23 @@ std::string Victim::getPhotographLink() const{
 	return this->photographLink;
 }
 
-Victim::Victim(const Victim& newVictim){
-	this->name = newVictim.name;
-	this->placeOfOrigin = newVictim.placeOfOrigin;
-	this->age = newVictim.age;
-	this->photographLink = newVictim.photographLink;
+Victim::Victim(const Victim& originalVictim){
+	this->name = originalVictim.name;
+	this->placeOfOrigin = originalVictim.placeOfOrigin;
+	this->age = originalVictim.age;
+	this->photographLink = originalVictim.photographLink;
 }
 
 bool Victim::operator==(const Victim& newVictim){
 	return (this->age == newVictim.age and this->name == newVictim.name and this->placeOfOrigin == newVictim.placeOfOrigin and this->photographLink == newVictim.photographLink);
 }
 
-Victim& Victim::operator=(const Victim& newVictim){
-	if (this != &newVictim) {
-		this->name = newVictim.name;
-		this->placeOfOrigin = newVictim.placeOfOrigin;
-		this->age = newVictim.age;
-		this->photographLink = newVictim.photographLink;
+Victim& Victim::operator=(const Victim& originalVictim){
+	if (this != &originalVictim) {
+		this->name = originalVictim.name;
+		this->placeOfOrigin = originalVictim.placeOfOrigin;
+		this->age = originalVictim.age;
+		this->photographLink = originalVictim.photographLink;
 	}
 	return *this;
 }

@@ -102,10 +102,10 @@ int DynamicVector::getCapacity() {
 	return this->capacity;
 }
 
-DynamicVector::DynamicVector(const DynamicVector& newDynamicVector){
-	this->capacity = newDynamicVector.capacity;
-	this->numberOfElements = newDynamicVector.numberOfElements;
-	resizeAndCopy(newDynamicVector);
+DynamicVector::DynamicVector(const DynamicVector& originalDynamicVector){
+	this->capacity = originalDynamicVector.capacity;
+	this->numberOfElements = originalDynamicVector.numberOfElements;
+	resizeAndCopy(originalDynamicVector);
 }
 
 TElem& DynamicVector::operator[](int index) {
@@ -115,11 +115,11 @@ TElem& DynamicVector::operator[](int index) {
 	return this->elements[index];
 }
 
-DynamicVector& DynamicVector::operator = (const DynamicVector& newDynamicVector){
-	if (this != &newDynamicVector) {
-		this->capacity = newDynamicVector.capacity;
-		this->numberOfElements = newDynamicVector.numberOfElements;
-		resizeAndCopy(newDynamicVector);
+DynamicVector& DynamicVector::operator = (const DynamicVector& originalDynamicVector){
+	if (this != &originalDynamicVector) {
+		this->capacity = originalDynamicVector.capacity;
+		this->numberOfElements = originalDynamicVector.numberOfElements;
+		resizeAndCopy(originalDynamicVector);
 	}
 	return *this;
 }
