@@ -42,10 +42,10 @@ void UserInterface::displayVictim(const Victim& currentVictim) {
 }
 
 void UserInterface::addVictimInterface(ArgumentList argumentList) {
-	std::string victimName = argumentList.list[0];
-	std::string placeOfOrigin = argumentList.list[1];
-	int age = stoi(argumentList.list[2]);
-	std::string photographLink = argumentList.list[3];
+	std::string victimName = argumentList.list[NAME_POSITION];
+	std::string placeOfOrigin = argumentList.list[PLACE_OF_ORIGIN_POSITION];
+	int age = stoi(argumentList.list[AGE_POSITION]);
+	std::string photographLink = argumentList.list[PHOTOGRAPH_POSITION];
 	
 	try {
 		this->actionController.addVictim(victimName, placeOfOrigin, age, photographLink);
@@ -56,10 +56,10 @@ void UserInterface::addVictimInterface(ArgumentList argumentList) {
 }
 
 void UserInterface::updateVictimInterface(ArgumentList argumentList){
-	std::string newVictimName = argumentList.list[0];
-	std::string newPlaceOfOrigin = argumentList.list[1];
-	int newAge = stoi(argumentList.list[2]);
-	std::string newPhotographLink = argumentList.list[3];
+	std::string newVictimName = argumentList.list[NAME_POSITION];
+	std::string newPlaceOfOrigin = argumentList.list[PLACE_OF_ORIGIN_POSITION];
+	int newAge = stoi(argumentList.list[AGE_POSITION]);
+	std::string newPhotographLink = argumentList.list[PHOTOGRAPH_POSITION];
 
 	try {
 		this->actionController.updateVictim(newVictimName, newPlaceOfOrigin, newAge, newPhotographLink);
@@ -70,7 +70,7 @@ void UserInterface::updateVictimInterface(ArgumentList argumentList){
 }
 
 void UserInterface::deleteVictimInterface(ArgumentList argumentList){
-	std::string victimName = argumentList.list[0];
+	std::string victimName = argumentList.list[NAME_POSITION];
 
 	try {
 		this->actionController.deleteVictim(victimName);
@@ -105,7 +105,7 @@ void UserInterface::processCommand(std::string command, char programMode) {
 		interfaceFunctionList = this->interfaceFunctionListAdministrator;
 		numberOfCommands = NUMBER_OF_COMMANDS_ADMINISTRATOR;
 	}
-	else {
+	else { // assistant mode
 		validatorFunctionList = this->validatorFunctionListAssistant;
 		interfaceFunctionList = this->interfaceFunctionListAssistant;
 		numberOfCommands = NUMBER_OF_COMMANDS_ASSISTANT;

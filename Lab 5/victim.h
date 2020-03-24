@@ -8,15 +8,115 @@ class Victim {
 		int age;
 		std::string photographLink;
 
-public:
-	Victim();
-	Victim(std::string name, std::string placeOfOrigin, int age, std::string photographLink);
-	std::string getName() const;
-	std::string getPlaceOfOrigin() const;
-	int getAge() const;
-	std::string getPhotographLink() const;
-	Victim(const Victim& newVictim);
-	bool operator == (const Victim& newVictim);
-	Victim& operator = (const Victim& newVictim);
-	~Victim();
+	public:
+		Victim();
+		/*
+
+				Input:
+					-
+				Output:
+					-
+				Throws:
+					-
+		*/
+
+		Victim(std::string name, std::string placeOfOrigin, int age, std::string photographLink);
+		/*
+
+				Input:
+					-
+				Output:
+					-
+				Throws:
+					-
+		*/
+
+		std::string getName() const;
+		/*
+
+				Input:
+					-
+				Output:
+					-
+				Throws:
+					-
+		*/
+
+		std::string getPlaceOfOrigin() const;
+		/*
+
+				Input:
+					-
+				Output:
+					-
+				Throws:
+					-
+		*/
+
+		int getAge() const;
+		/*
+
+				Input:
+					-
+				Output:
+					-
+				Throws:
+					-
+		*/
+
+		std::string getPhotographLink() const;
+		/*
+
+				Input:
+					-
+				Output:
+					-
+				Throws:
+					-
+		*/
+
+		Victim(const Victim& newVictim);
+		/*
+
+				Input:
+					-
+				Output:
+					-
+				Throws:
+					-
+		*/
+
+		bool operator == (const Victim& newVictim);
+		/*
+
+				Input:
+					-
+				Output:
+					-
+				Throws:
+					-
+		*/
+
+		Victim& operator = (const Victim& newVictim);
+		/*
+
+				Input:
+					-
+				Output:
+					-
+				Throws:
+					-
+		*/
+
+		~Victim();
+		/*
+
+				Input:
+					-
+				Output:
+					-
+				Throws:
+					-
+		*/
+
 };

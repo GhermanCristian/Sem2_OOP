@@ -1,8 +1,6 @@
 #include "victim.h"
-#include <iostream>
 
 Victim::Victim() {
-	//std::cout << "victim def constructor\n";
 	this->name = "";
 	this->placeOfOrigin = "";
 	this->age = 0;
@@ -14,7 +12,6 @@ Victim::Victim(std::string name, std::string placeOfOrigin, int age, std::string
 	this->placeOfOrigin = placeOfOrigin;
 	this->age = age;
 	this->photographLink = photographLink;
-	//std::cout << "victim constructor\n";
 }
 
 std::string Victim::getName() const{
@@ -38,18 +35,13 @@ Victim::Victim(const Victim& newVictim){
 	this->placeOfOrigin = newVictim.placeOfOrigin;
 	this->age = newVictim.age;
 	this->photographLink = newVictim.photographLink;
-	//std::cout << "victim copy constructor\n";
 }
 
 bool Victim::operator==(const Victim& newVictim){
-	return (this->age == newVictim.age and
-			this->name == newVictim.name and
-			this->placeOfOrigin == newVictim.placeOfOrigin and
-			this->photographLink == newVictim.photographLink);
+	return (this->age == newVictim.age and this->name == newVictim.name and this->placeOfOrigin == newVictim.placeOfOrigin and this->photographLink == newVictim.photographLink);
 }
 
 Victim& Victim::operator=(const Victim& newVictim){
-	//std::cout << "victim assignment operator\n";
 	if (this != &newVictim) {
 		this->name = newVictim.name;
 		this->placeOfOrigin = newVictim.placeOfOrigin;

@@ -11,7 +11,7 @@ void DynamicVector::resizeAndCopy(const DynamicVector& newDynamicVector) {
 }
 
 int DynamicVector::findPositionInVector(std::string victimName){
-	// the objects in the dynamic vector are stored in increasing order of their name, hence
+	// the objects in the dynamic vector are stored in increasing order of their name (which is unique), hence
 	// why we can search for them using binary search;
 	// this function finds the largest element <= given value
 	int leftBound = 0; // left margin of the current range
@@ -47,6 +47,7 @@ DynamicVector::DynamicVector(){
 }
 
 void DynamicVector::addToVector(const TElem& newVictim){
+	// if the vector is empty, there is no need to check on which position to add the element
 	if (this->numberOfElements == 0) {
 		this->elements[0] = newVictim;
 		this->numberOfElements = 1;
@@ -59,8 +60,9 @@ void DynamicVector::addToVector(const TElem& newVictim){
 	}
 
 	this->numberOfElements++;
+	// if the vector is full, we need to resize
 	if (this->numberOfElements == this->capacity) {
-		this->capacity *= 2;
+		this->capacity *= MULTIPLICATION_FACTOR;
 		resizeAndCopy(*this);
 	}
 
@@ -94,6 +96,10 @@ void DynamicVector::deleteFromVector(std::string victimName){
 
 int DynamicVector::getNumberOfElements(){
 	return this->numberOfElements;
+}
+
+int DynamicVector::getCapacity() {
+	return this->capacity;
 }
 
 DynamicVector::DynamicVector(const DynamicVector& newDynamicVector){
