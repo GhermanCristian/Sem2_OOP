@@ -4,6 +4,7 @@
 
 const int INITIAL_VECTOR_CAPACITY = 20;
 const int MULTIPLICATION_FACTOR = 2; // used when resizing the vector
+const int INEXISTENT_POSITION = -1;
 typedef Victim TElem;
 
 class DynamicVector {
@@ -12,7 +13,7 @@ class DynamicVector {
 		int numberOfElements; // the number of elements it currently contains
 		TElem* elements; // the actual elements
 
-		void resizeAndCopy(const DynamicVector& newDynamicVector);
+		void resizeAndCopy(const DynamicVector& originalDynamicVector);
 		/*
 			Copies the list of elements from another DynamicVector to the current one, which is resized in the process
 			Input:
@@ -35,7 +36,7 @@ class DynamicVector {
 				- None
 		*/
 
-		bool isInVector(std::string victimName, int possiblePosition = -1);
+		bool isInVector(std::string victimName, int possiblePosition = INEXISTENT_POSITION);
 		/*
 			Checks if the victim on the given position is the same as the one that we look for
 			Input:

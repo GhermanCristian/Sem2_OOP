@@ -7,11 +7,10 @@ const int MAXIMUM_COMMAND_LENGTH = 200;
 const int NUMBER_OF_COMMANDS_ADMINISTRATOR = 4;
 const int NUMBER_OF_COMMANDS_ASSISTANT = 3;
 
-// positions in the argument list for each field
-const int NAME_POSITION = 0;
-const int PLACE_OF_ORIGIN_POSITION = 1;
-const int AGE_POSITION = 2;
-const int PHOTOGRAPH_POSITION = 3;
+const int ADD_FUNCTION_POSITION = 0;
+const int UPDATE_FUNCTION_POSITION = 1;
+const int DELETE_FUNCTION_POSITION = 2;
+const int LIST_FUNCTION_POSITION = 3;
 
 const char ADMINISTRATOR_MODE = 'A';
 const char ASSISTANT_MODE = 'B';

@@ -3,15 +3,15 @@
 #include <string.h>
 
 UserInterface::UserInterface() {
-	this->validatorFunctionListAdministrator[0] = &InputValidator::addVictimInputValidator;
-	this->validatorFunctionListAdministrator[1] = &InputValidator::updateVictimInputValidator;
-	this->validatorFunctionListAdministrator[2] = &InputValidator::deleteVictimInputValidator;
-	this->validatorFunctionListAdministrator[3] = &InputValidator::listAllInputValidator;
+	this->validatorFunctionListAdministrator[ADD_FUNCTION_POSITION] = &InputValidator::addVictimInputValidator;
+	this->validatorFunctionListAdministrator[UPDATE_FUNCTION_POSITION] = &InputValidator::updateVictimInputValidator;
+	this->validatorFunctionListAdministrator[DELETE_FUNCTION_POSITION] = &InputValidator::deleteVictimInputValidator;
+	this->validatorFunctionListAdministrator[LIST_FUNCTION_POSITION] = &InputValidator::listAllInputValidator;
 
-	this->interfaceFunctionListAdministrator[0] = &UserInterface::addVictimInterface;
-	this->interfaceFunctionListAdministrator[1] = &UserInterface::updateVictimInterface;
-	this->interfaceFunctionListAdministrator[2] = &UserInterface::deleteVictimInterface;
-	this->interfaceFunctionListAdministrator[3] = &UserInterface::listAllInterface;
+	this->interfaceFunctionListAdministrator[ADD_FUNCTION_POSITION] = &UserInterface::addVictimInterface;
+	this->interfaceFunctionListAdministrator[UPDATE_FUNCTION_POSITION] = &UserInterface::updateVictimInterface;
+	this->interfaceFunctionListAdministrator[DELETE_FUNCTION_POSITION] = &UserInterface::deleteVictimInterface;
+	this->interfaceFunctionListAdministrator[LIST_FUNCTION_POSITION] = &UserInterface::listAllInterface;
 
 	this->commandInfoAdministrator = "Insert command:\n";
 	this->commandInfoAdministrator += "exit\n";
@@ -21,15 +21,14 @@ UserInterface::UserInterface() {
 	this->commandInfoAdministrator += "list\n\n";
 
 
-	this->validatorFunctionListAssistant[0] = &InputValidator::addVictimInputValidator;
-	this->validatorFunctionListAssistant[1] = &InputValidator::updateVictimInputValidator;
-	this->validatorFunctionListAssistant[2] = &InputValidator::deleteVictimInputValidator;
+	this->validatorFunctionListAssistant[ADD_FUNCTION_POSITION] = &InputValidator::addVictimInputValidator;
+	this->validatorFunctionListAssistant[UPDATE_FUNCTION_POSITION] = &InputValidator::updateVictimInputValidator;
+	this->validatorFunctionListAssistant[DELETE_FUNCTION_POSITION] = &InputValidator::deleteVictimInputValidator;
 
-	this->interfaceFunctionListAssistant[0] = &UserInterface::addVictimInterface;
-	this->interfaceFunctionListAssistant[1] = &UserInterface::updateVictimInterface;
-	this->interfaceFunctionListAssistant[2] = &UserInterface::deleteVictimInterface;
+	this->interfaceFunctionListAssistant[ADD_FUNCTION_POSITION] = &UserInterface::addVictimInterface;
+	this->interfaceFunctionListAssistant[UPDATE_FUNCTION_POSITION] = &UserInterface::updateVictimInterface;
+	this->interfaceFunctionListAssistant[DELETE_FUNCTION_POSITION] = &UserInterface::deleteVictimInterface;
 
-	// the 3*8 bytes memory leak is caused by 'mode A' or 'mode B'
 	this->commandInfoAssistant = "Insert command:\n";
 	this->commandInfoAssistant += "exit\n";
 	this->commandInfoAssistant += "add name, placeOfOrigin, age, photograph\n";
@@ -38,7 +37,7 @@ UserInterface::UserInterface() {
 }
 
 void UserInterface::displayVictim(const Victim& currentVictim) {
-	std::cout << currentVictim.getName() << " " << currentVictim.getPlaceOfOrigin() << " " << currentVictim.getAge() << " " << currentVictim.getPhotographLink() << "\n";
+	std::cout << currentVictim.getName() << " - " << currentVictim.getPlaceOfOrigin() << " - " << currentVictim.getAge() << " - " << currentVictim.getPhotographLink() << "\n";
 }
 
 void UserInterface::addVictimInterface(ArgumentList argumentList) {
@@ -111,15 +110,15 @@ void UserInterface::processCommand(std::string command, char programMode) {
 		numberOfCommands = NUMBER_OF_COMMANDS_ASSISTANT;
 	}
 
-	for (int i = 0; i < numberOfCommands && executedCommand == false; i++) {
-		stringMatchResult = (inputValidator.*validatorFunctionList[i])(command);
+	for (int currentCommand = 0; currentCommand < numberOfCommands && executedCommand == false; currentCommand++) {
+		stringMatchResult = (inputValidator.*validatorFunctionList[currentCommand])(command);
 
-		if (stringMatchResult.list[0] == ERROR_CODE) {
+		if (stringMatchResult.list[ERROR_POSITION] == ERROR_CODE) {
 			continue;
 		}
 
 		executedCommand = true; // if we reach this point => the validation went well => we can perform the operation
-		(this->*interfaceFunctionList[i])(stringMatchResult);
+		(this->*interfaceFunctionList[currentCommand])(stringMatchResult);
 	}
 
 	if (executedCommand == false) {

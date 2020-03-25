@@ -9,7 +9,7 @@ InputValidator::InputValidator(){
 ArgumentList InputValidator::addVictimInputValidator(std::string userInput) {
 	std::regex addVictimPattern("add +([a-zA-Z]+( *[a-zA-Z]*)*), +([a-zA-Z]+( *[a-zA-Z]*)*), +([0-9]+), +([a-zA-Z.0-9]+)");
 	/*
-		"add"
+		1 "add" word
 
 		=== VICTIM NAME ===
 		1 or more spaces
@@ -17,7 +17,7 @@ ArgumentList InputValidator::addVictimInputValidator(std::string userInput) {
 		0 or more times:
 			0 or more spaces
 			0 or more uppercase/ lowercase letters
-		","
+		1 "," symbol
 
 		=== VICTIM PLACE OF ORIGIN ===
 		1 or more spaces
@@ -25,11 +25,11 @@ ArgumentList InputValidator::addVictimInputValidator(std::string userInput) {
 		0 or more times:
 			0 or more spaces
 			0 or more uppercase/ lowercase letters
-		","
+		1 "," symbol
 
 		=== VICTIM AGE ===
 		1 or more digits
-		","
+		1 "," symbol
 
 		=== VICTIM PHOTOGRAPH LINK ===
 		1 or more spaces
@@ -41,14 +41,14 @@ ArgumentList InputValidator::addVictimInputValidator(std::string userInput) {
 	bool validInput = std::regex_search(userInput, stringMatch, addVictimPattern);
 
 	if (validInput == false) {
-		addArgumentList.list[0] = ERROR_CODE;
+		addArgumentList.list[ERROR_POSITION] = ERROR_CODE;
 		return addArgumentList;
 	}
 
-	addArgumentList.list[0] = stringMatch.str(1);
-	addArgumentList.list[1] = stringMatch.str(3);
-	addArgumentList.list[2] = stringMatch.str(5);
-	addArgumentList.list[3] = stringMatch.str(6);
+	addArgumentList.list[NAME_POSITION] = stringMatch.str(FIRST_ARGUMENT_REGEX_POSITION);
+	addArgumentList.list[PLACE_OF_ORIGIN_POSITION] = stringMatch.str(SECOND_ARGUMENT_REGEX_POSITION);
+	addArgumentList.list[AGE_POSITION] = stringMatch.str(THIRD_ARGUMENT_REGEX_POSITION);
+	addArgumentList.list[PHOTOGRAPH_POSITION] = stringMatch.str(FOURTH_ARGUMENT_REGEX_POSITION);
 
 	return addArgumentList;
 }
@@ -56,7 +56,7 @@ ArgumentList InputValidator::addVictimInputValidator(std::string userInput) {
 ArgumentList InputValidator::updateVictimInputValidator(std::string userInput) {
 	std::regex updateVictimPattern("update +([a-zA-Z]+( *[a-zA-Z]*)*), +([a-zA-Z]+( *[a-zA-Z]*)*), +([0-9]+), +([a-zA-Z.0-9]+)");
 	/*
-		"update"
+		1 "update" word
 
 		=== VICTIM NAME ===
 		1 or more spaces
@@ -64,7 +64,7 @@ ArgumentList InputValidator::updateVictimInputValidator(std::string userInput) {
 		0 or more times:
 			0 or more spaces
 			0 or more uppercase/ lowercase letters
-		","
+		1 "," symbol
 
 		=== NEW VICTIM PLACE OF ORIGIN ===
 		1 or more spaces
@@ -72,11 +72,11 @@ ArgumentList InputValidator::updateVictimInputValidator(std::string userInput) {
 		0 or more times:
 			0 or more spaces
 			0 or more uppercase/ lowercase letters
-		","
+		1 "," symbol
 
 		=== NEW VICTIM AGE ===
 		1 or more digits
-		","
+		1 "," symbol
 
 		=== NEW VICTIM PHOTOGRAPH LINK ===
 		1 or more spaces
@@ -88,14 +88,14 @@ ArgumentList InputValidator::updateVictimInputValidator(std::string userInput) {
 	bool validInput = std::regex_search(userInput, stringMatch, updateVictimPattern);
 
 	if (validInput == false) {
-		updateArgumentList.list[0] = ERROR_CODE;
+		updateArgumentList.list[ERROR_POSITION] = ERROR_CODE;
 		return updateArgumentList;
 	}
 
-	updateArgumentList.list[0] = stringMatch.str(1);
-	updateArgumentList.list[1] = stringMatch.str(3);
-	updateArgumentList.list[2] = stringMatch.str(5);
-	updateArgumentList.list[3] = stringMatch.str(6);
+	updateArgumentList.list[NAME_POSITION] = stringMatch.str(FIRST_ARGUMENT_REGEX_POSITION);
+	updateArgumentList.list[PLACE_OF_ORIGIN_POSITION] = stringMatch.str(SECOND_ARGUMENT_REGEX_POSITION);
+	updateArgumentList.list[AGE_POSITION] = stringMatch.str(THIRD_ARGUMENT_REGEX_POSITION);
+	updateArgumentList.list[PHOTOGRAPH_POSITION] = stringMatch.str(FOURTH_ARGUMENT_REGEX_POSITION);
 
 	return updateArgumentList;
 }
@@ -103,7 +103,7 @@ ArgumentList InputValidator::updateVictimInputValidator(std::string userInput) {
 ArgumentList InputValidator::deleteVictimInputValidator(std::string userInput) {
 	std::regex deleteVictimPattern("delete +([a-zA-Z]+( *[a-zA-Z]*)*)");
 	/*
-		"delete"
+		1 "delete" word
 
 		=== VICTIM NAME ===
 		1 or more spaces
@@ -118,11 +118,11 @@ ArgumentList InputValidator::deleteVictimInputValidator(std::string userInput) {
 	bool validInput = std::regex_search(userInput, stringMatch, deleteVictimPattern);
 
 	if (validInput == false) {
-		deleteArgumentList.list[0] = ERROR_CODE;
+		deleteArgumentList.list[ERROR_POSITION] = ERROR_CODE;
 		return deleteArgumentList;
 	}
 
-	deleteArgumentList.list[0] = stringMatch.str(1);
+	deleteArgumentList.list[NAME_POSITION] = stringMatch.str(FIRST_ARGUMENT_REGEX_POSITION);
 
 	return deleteArgumentList;
 }
@@ -130,7 +130,7 @@ ArgumentList InputValidator::deleteVictimInputValidator(std::string userInput) {
 ArgumentList InputValidator::listAllInputValidator(std::string userInput) {
 	std::regex listAllPattern("list");
 	/*
-		"list"
+		1 "list" word
 	*/
 
 	std::smatch stringMatch;
@@ -138,7 +138,7 @@ ArgumentList InputValidator::listAllInputValidator(std::string userInput) {
 	bool validInput = std::regex_search(userInput, stringMatch, listAllPattern);
 
 	if (validInput == false) {
-		listAllArgumentList.list[0] = ERROR_CODE;
+		listAllArgumentList.list[ERROR_POSITION] = ERROR_CODE;
 		return listAllArgumentList;
 	}
 	
@@ -148,7 +148,7 @@ ArgumentList InputValidator::listAllInputValidator(std::string userInput) {
 char InputValidator::modeValidator(std::string userInput){
 	std::regex modePattern("mode [AB]");
 	/*
-		"mode"
+		1 "mode" word
 		either of the letters A or B, exactly once
 	*/
 

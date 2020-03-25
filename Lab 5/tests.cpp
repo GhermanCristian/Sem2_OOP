@@ -40,19 +40,6 @@ void AddToVector_CorrectInput_ElementAdded() {
 	assert(newVector[0] == newVictim && newVector.getNumberOfElements() == 1);
 }
 
-void AddToVector_MultipleInputs_ElementsAdded() {
-	DynamicVector newVector;
-
-	for (char letter = 'a'; letter <= 'z'; letter++) {
-		std::string word;
-		word += letter;
-		Victim newVictim{word, word, 123, word};
-		newVector.addToVector(newVictim);
-	}
-
-	assert(newVector.getNumberOfElements() == 26 && newVector.getCapacity() == INITIAL_VECTOR_CAPACITY * MULTIPLICATION_FACTOR);
-}
-
 void AddToVector_DuplicateElement_ThrowsError() {
 	DynamicVector newVector;
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
@@ -65,6 +52,22 @@ void AddToVector_DuplicateElement_ThrowsError() {
 	}
 	catch (...) {
 		assert(true);
+	}
+}
+
+void AddToVector_MultipleInputs_AddedInTheCorrectOrder() {
+	DynamicVector newVector;
+
+	for (char letter = 'f'; letter >= 'a'; letter--) {
+		std::string word;
+		word += letter;
+		Victim newVictim{ word, word, 123, word };
+		newVector.addToVector(newVictim);
+	}// no resize here
+
+	// checks if the element are in increasing order
+	for (int index = 0; index < newVector.getNumberOfElements() - 1; index++) {
+		assert(newVector[index].getName() < newVector[index + 1].getName());
 	}
 }
 
@@ -128,6 +131,19 @@ void DeleteFromVector_EmptyVector_ThrowsError() {
 	}
 }
 
+void VectorResize_MultipleInputs_SuccessfulResize() {
+	DynamicVector newVector;
+
+	for (char letter = 'a'; letter <= 'z'; letter++) {
+		std::string word;
+		word += letter;
+		Victim newVictim{ word, word, 123, word };
+		newVector.addToVector(newVictim);
+	}
+
+	assert(newVector.getNumberOfElements() == 26 && newVector.getCapacity() == INITIAL_VECTOR_CAPACITY * MULTIPLICATION_FACTOR);
+}
+
 void GetAllEntries_EmptyRepository_NoOutput() {
 	Repository newRepository;
 	DynamicVector* pointerToData = newRepository.getAllEntries();
@@ -181,6 +197,45 @@ void DeleteVictim_CorrectInput_DeletesVictim() {
 	assert(pointerToData->getNumberOfElements() == 0);
 }
 
+void DynamicVectorAssignmentOperator_NonEmptySourceVector_CorrectCopy() {
+	DynamicVector vector1;
+	DynamicVector vector2;
+	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
+
+	vector2.addToVector(newVictim);
+	vector1 = vector2;
+
+	assert(vector1.getNumberOfElements() == vector2.getNumberOfElements() and vector1[0] == newVictim);
+}
+
+void DynamicVectorAssignmentOperator_EmptySourceVector_CorrectCopy() {
+	DynamicVector vector1;
+	DynamicVector vector2;
+	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
+
+	vector1.addToVector(newVictim);
+	vector1 = vector2;
+
+	assert(vector1.getNumberOfElements() == 0);
+}
+
+void DynamicVectorCopyConstructor_NonEmptySourceVector_CorrectCopy() {
+	DynamicVector vector1;
+	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
+
+	vector1.addToVector(newVictim);
+
+	DynamicVector vector2(vector1);
+	assert(vector2.getNumberOfElements() == vector2.getNumberOfElements() and vector2[0] == newVictim);
+}
+
+void DynamicVectorCopyConstructor_EmptySourceVector_CorrectCopy() {
+	DynamicVector vector1;
+	DynamicVector vector2(vector1);
+
+	assert(vector2.getNumberOfElements() == 0);
+}
+
 void runAllTests() {
 	VictimConstructor_CorrectInput_CorrectName();
 	VictimConstructor_CorrectInput_CorrectPlaceOfOrigin();
@@ -190,13 +245,18 @@ void runAllTests() {
 	DynamicVectorConstructor_NoInput_CorrectCapacity();
 	DynamicVectorConstructor_NoInput_CorrectNumberOfElements();
 	AddToVector_CorrectInput_ElementAdded();
-	AddToVector_MultipleInputs_ElementsAdded();
 	AddToVector_DuplicateElement_ThrowsError();
+	AddToVector_MultipleInputs_AddedInTheCorrectOrder();
 	UpdateInVector_CorrectInput_ElementUpdated();
 	UpdateInVector_InexistentElement_ThrowsError();
 	DeleteFromVector_CorrectInput_ElementDeleted();
 	DeleteFromVector_InexistentElement_ThrowsError();
 	DeleteFromVector_EmptyVector_ThrowsError();
+	VectorResize_MultipleInputs_SuccessfulResize();
+	DynamicVectorAssignmentOperator_NonEmptySourceVector_CorrectCopy();
+	DynamicVectorAssignmentOperator_EmptySourceVector_CorrectCopy();
+	DynamicVectorCopyConstructor_NonEmptySourceVector_CorrectCopy();
+	DynamicVectorCopyConstructor_EmptySourceVector_CorrectCopy();
 
 	GetAllEntries_EmptyRepository_NoOutput();
 	GetAllEntries_FilledRepository_CorrectOutput();

@@ -1,10 +1,10 @@
 #include "dynamicVector.h"
 #include <iostream>
 
-void DynamicVector::resizeAndCopy(const DynamicVector& newDynamicVector) {
+void DynamicVector::resizeAndCopy(const DynamicVector& originalDynamicVector) {
 	TElem* newData = new TElem[this->capacity];
 	for (int i = 0; i < this->numberOfElements; i++) {
-		newData[i] = newDynamicVector.elements[i];
+		newData[i] = originalDynamicVector.elements[i];
 	}
 	delete[] this->elements;
 	this->elements = newData;
@@ -34,7 +34,7 @@ int DynamicVector::findPositionInVector(std::string victimName){
 }
 
 bool DynamicVector::isInVector(std::string victimName, int possiblePosition){
-	if (possiblePosition == -1) {
+	if (possiblePosition == INEXISTENT_POSITION) {
 		possiblePosition = findPositionInVector(victimName);
 	}
 	return this->elements[possiblePosition].getName() == victimName;
@@ -105,6 +105,7 @@ int DynamicVector::getCapacity() {
 DynamicVector::DynamicVector(const DynamicVector& originalDynamicVector){
 	this->capacity = originalDynamicVector.capacity;
 	this->numberOfElements = originalDynamicVector.numberOfElements;
+	this->elements = new TElem[this->capacity];
 	resizeAndCopy(originalDynamicVector);
 }
 
