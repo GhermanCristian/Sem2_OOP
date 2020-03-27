@@ -141,7 +141,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="controller.cpp" />
-    <ClCompile Include="dynamicVector.cpp" />
     <ClCompile Include="inputValidator.cpp" />
     <ClCompile Include="mainProgram.cpp" />
     <ClCompile Include="repository.cpp" />

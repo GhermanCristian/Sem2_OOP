@@ -5,12 +5,17 @@
 typedef ArgumentList(InputValidator::* InputValidatorFunction)(std::string);
 const int MAXIMUM_COMMAND_LENGTH = 200;
 const int NUMBER_OF_COMMANDS_ADMINISTRATOR = 4;
-const int NUMBER_OF_COMMANDS_ASSISTANT = 3;
+const int NUMBER_OF_COMMANDS_ASSISTANT = 4;
 
 const int ADD_FUNCTION_POSITION = 0;
 const int UPDATE_FUNCTION_POSITION = 1;
 const int DELETE_FUNCTION_POSITION = 2;
 const int LIST_FUNCTION_POSITION = 3;
+
+const int NEXT_FUNCTION_POSITION = 0;
+const int SAVE_FUNCTION_POSITION = 1;
+const int LIST_FILTERED_FUNCTION_POSITION = 2;
+const int MYLIST_FUNCTION_POSITION = 3;
 
 const char ADMINISTRATOR_MODE = 'A';
 const char ASSISTANT_MODE = 'B';
@@ -37,6 +42,10 @@ class UserInterface {
 		void updateVictimInterface(ArgumentList argumentList);
 		void deleteVictimInterface(ArgumentList argumentList);
 		void listAllInterface(ArgumentList argumentList);
+		void nextVictimInterface(ArgumentList argumentList);
+		void saveVictimInterface(ArgumentList argumentList);
+		void listFilteredInterface(ArgumentList argumentList);
+		void myListInterface(ArgumentList argumentList);
 		void processCommand(std::string command, char programMode);
 
 	public:

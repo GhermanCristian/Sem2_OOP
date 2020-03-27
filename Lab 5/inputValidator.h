@@ -85,6 +85,11 @@ class InputValidator {
 				- None
 		*/
 
+		ArgumentList nextVictimInputValidator(std::string userInput);
+		ArgumentList saveVictimInputValidator(std::string userInput);
+		ArgumentList listFilteredInputValidator(std::string userInput);
+		ArgumentList myListInputValidator(std::string userInput);
+
 		char modeValidator(std::string userInput);
 		/*
 			Validates the input for choosing the program mode

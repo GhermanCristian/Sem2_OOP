@@ -30,9 +30,6 @@
     <ClCompile Include="victim.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="dynamicVector.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="repository.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

@@ -21,19 +21,22 @@ UserInterface::UserInterface() {
 	this->commandInfoAdministrator += "list\n\n";
 
 
-	this->validatorFunctionListAssistant[ADD_FUNCTION_POSITION] = &InputValidator::addVictimInputValidator;
-	this->validatorFunctionListAssistant[UPDATE_FUNCTION_POSITION] = &InputValidator::updateVictimInputValidator;
-	this->validatorFunctionListAssistant[DELETE_FUNCTION_POSITION] = &InputValidator::deleteVictimInputValidator;
+	this->validatorFunctionListAssistant[NEXT_FUNCTION_POSITION] = &InputValidator::nextVictimInputValidator;
+	this->validatorFunctionListAssistant[SAVE_FUNCTION_POSITION] = &InputValidator::saveVictimInputValidator;
+	this->validatorFunctionListAssistant[LIST_FILTERED_FUNCTION_POSITION] = &InputValidator::listFilteredInputValidator;
+	this->validatorFunctionListAssistant[MYLIST_FUNCTION_POSITION] = &InputValidator::myListInputValidator;
 
-	this->interfaceFunctionListAssistant[ADD_FUNCTION_POSITION] = &UserInterface::addVictimInterface;
-	this->interfaceFunctionListAssistant[UPDATE_FUNCTION_POSITION] = &UserInterface::updateVictimInterface;
-	this->interfaceFunctionListAssistant[DELETE_FUNCTION_POSITION] = &UserInterface::deleteVictimInterface;
+	this->interfaceFunctionListAssistant[NEXT_FUNCTION_POSITION] = &UserInterface::nextVictimInterface;
+	this->interfaceFunctionListAssistant[SAVE_FUNCTION_POSITION] = &UserInterface::saveVictimInterface;
+	this->interfaceFunctionListAssistant[LIST_FILTERED_FUNCTION_POSITION] = &UserInterface::listFilteredInterface;
+	this->interfaceFunctionListAssistant[MYLIST_FUNCTION_POSITION] = &UserInterface::myListInterface;
 
 	this->commandInfoAssistant = "Insert command:\n";
 	this->commandInfoAssistant += "exit\n";
-	this->commandInfoAssistant += "add name, placeOfOrigin, age, photograph\n";
-	this->commandInfoAssistant += "update name, newPlaceOfOrigin, newAge, newPhotograph\n";
-	this->commandInfoAssistant += "delete name\n\n";
+	this->commandInfoAssistant += "next\n";
+	this->commandInfoAssistant += "save name\n";
+	this->commandInfoAssistant += "list placeOfOrigin, age\n";
+	this->commandInfoAssistant += "mylist\n\n";
 }
 
 void UserInterface::displayVictim(const Victim& currentVictim) {
@@ -90,6 +93,22 @@ void UserInterface::listAllInterface(ArgumentList argumentList){
 	catch (std::exception & operationException) {
 		std::cout << operationException.what() << "\n";
 	}
+}
+
+void UserInterface::nextVictimInterface(ArgumentList argumentList){
+	;
+}
+
+void UserInterface::saveVictimInterface(ArgumentList argumentList){
+	;
+}
+
+void UserInterface::listFilteredInterface(ArgumentList argumentList){
+	;
+}
+
+void UserInterface::myListInterface(ArgumentList argumentList){
+	;
 }
 
 void UserInterface::processCommand(std::string command, char programMode) {
