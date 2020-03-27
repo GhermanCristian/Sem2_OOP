@@ -111,7 +111,7 @@ void UserInterface::myListInterface(ArgumentList argumentList){
 	;
 }
 
-void UserInterface::processCommand(std::string command, char programMode) {
+void UserInterface::processCommand(std::string command, char &programMode) {
 	ArgumentList stringMatchResult;
 	InputValidatorFunction* validatorFunctionList;
 	InterfaceFunction* interfaceFunctionList;
@@ -127,6 +127,15 @@ void UserInterface::processCommand(std::string command, char programMode) {
 		validatorFunctionList = this->validatorFunctionListAssistant;
 		interfaceFunctionList = this->interfaceFunctionListAssistant;
 		numberOfCommands = NUMBER_OF_COMMANDS_ASSISTANT;
+	}
+
+	// apparently the mode may now be changed anywhere in the program
+	try {
+		programMode = inputValidator.modeValidator(command);
+		executedCommand = true;
+	}
+	catch (...) {
+		;
 	}
 
 	for (int currentCommand = 0; currentCommand < numberOfCommands && executedCommand == false; currentCommand++) {
@@ -155,23 +164,28 @@ void UserInterface::startProgram() {
 		std::cout << "Insert the mode ('mode A' = administrator, 'mode B' = assistant)\n";
 		std::getline(std::cin, command);
 
+		if (command == "exit") {
+			std::cout << "Program has ended\n";
+			return;
+		}
+
 		try {
 			programMode = inputValidator.modeValidator(command);
 			break;
 		}
-		catch (std::exception & operationException) {
+		catch (std::exception& operationException) {
 			std::cout << operationException.what() << "\n";
 		}
 	}
-
-	if (programMode == ADMINISTRATOR_MODE) {
-		commandInfo = this->commandInfoAdministrator;
-	}
-	else {
-		commandInfo = this->commandInfoAssistant;
-	}
-
+	
 	while (1) {
+		if (programMode == ADMINISTRATOR_MODE) {
+			commandInfo = this->commandInfoAdministrator;
+		}
+		else {
+			commandInfo = this->commandInfoAssistant;
+		}
+
 		std::cout << commandInfo;
 		std::getline(std::cin, command);
 		

@@ -46,7 +46,7 @@ class UserInterface {
 		void saveVictimInterface(ArgumentList argumentList);
 		void listFilteredInterface(ArgumentList argumentList);
 		void myListInterface(ArgumentList argumentList);
-		void processCommand(std::string command, char programMode);
+		void processCommand(std::string command, char& programMode);
 
 	public:
 		UserInterface();
