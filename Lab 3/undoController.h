@@ -4,7 +4,7 @@
 #define INITIAL_HISTORY_CAPACITY 10
 
 typedef struct {
-	Repository** repositoryHistory;
+	Container** dataHistory;
 	int historyCapacity;
 	int currentAction; // index of the current state of the repository in the repositoryHistory
 	int upperBound; // the largest index that has been reached since the last performed operation
@@ -22,7 +22,7 @@ UndoController* createUndoController();
 		- A pointer to a newly-created UndoController object
 */
 
-void saveRepository(UndoController* newUndoController, Repository* currentRepository);
+void saveData(UndoController* newUndoController, Repository* currentRepository);
 /*
 	Saves the current state of the repository to a list of repositories
 	Input:
@@ -52,7 +52,7 @@ int redo(UndoController* newUndoController);
 		- 0, otherwise
 */
 
-Repository* getPreviousRepository(UndoController* newUndoController);
+//Container* getPreviousContainer(UndoController* newUndoController);
 /*
 	Returns a 'deep' copy of the repository corresponding to the current index in repositoryHistory
 	Input:

@@ -135,6 +135,9 @@ Repository* copyRepository(Repository* originalRepository);
 		- A new Repository, with the exact content as the original one, but with newly-allocated memory areas
 */
 
+Container* copyContainer(Container* originalContainer);
+void loadDataIntoRepository(Repository* currentRepository, Container* newContainer);
+
 void containerDestructor(Container* currentContainer);
 /*
 	Deallocates the memory for the given Container

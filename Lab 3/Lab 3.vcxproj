@@ -24,7 +24,6 @@
     <ClCompile Include="mainProgram.c" />
     <ClCompile Include="repository.c" />
     <ClCompile Include="tests.c" />
-    <ClCompile Include="undoController.c" />
     <ClCompile Include="userInterface.c" />
   </ItemGroup>
   <ItemGroup>
@@ -32,7 +31,6 @@
     <ClInclude Include="controller.h" />
     <ClInclude Include="repository.h" />
     <ClInclude Include="tests.h" />
-    <ClInclude Include="undoController.h" />
     <ClInclude Include="userInterface.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

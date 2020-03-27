@@ -14,7 +14,7 @@ Controller* createController() {
 	newController->undoController = createUndoController();
 
 	// add an empty repository to the list of previous repositories (the initial state of the program is an empty repository)
-	saveRepository(newController->undoController, newController->archiveRepository);
+	saveData(newController->undoController, newController->archiveRepository);
 	return newController;
 }
 
@@ -25,7 +25,7 @@ char* addArchive(Controller* commandController, int catalogueNumber, char* state
 	if (successfulOperation == 0) {
 		return message;
 	}
-	saveRepository(commandController->undoController, commandController->archiveRepository);
+	saveData(commandController->undoController, commandController->archiveRepository);
 	return NULL;
 }
 
@@ -35,7 +35,7 @@ char* updateArchive(Controller* commandController, int catalogueNumber, char* ne
 	if (successfulOperation == 0) {
 		return message;
 	}
-	saveRepository(commandController->undoController, commandController->archiveRepository);
+	saveData(commandController->undoController, commandController->archiveRepository);
 	return NULL;
 }
 
@@ -45,7 +45,7 @@ char* deleteArchive(Controller* commandController, int catalogueNumber) {
 	if (successfulOperation == 0) {
 		return message;
 	}
-	saveRepository(commandController->undoController, commandController->archiveRepository);
+	saveData(commandController->undoController, commandController->archiveRepository);
 	return NULL;
 }
 
@@ -96,9 +96,7 @@ void undoLastOperation(Controller* commandController) {
 		return;
 	}
 
-	// we assign a new, 'deep' copy of the previous repository state to the current archive repository
-	repositoryDestructor(commandController->archiveRepository);
-	commandController->archiveRepository = getPreviousRepository(commandController->undoController);
+	//loadDataIntoRepository(commandController->archiveRepository, getPreviousContainer(commandController->undoController));
 }
 
 void redoLastOperation(Controller* commandController) {
@@ -108,9 +106,7 @@ void redoLastOperation(Controller* commandController) {
 		return;
 	}
 
-	// we assign a new, 'deep' copy of the previous repository state to the current archive repository
-	repositoryDestructor(commandController->archiveRepository);
-	commandController->archiveRepository = getPreviousRepository(commandController->undoController);
+	//loadDataIntoRepository(commandController->archiveRepository, getPreviousContainer(commandController->undoController));
 }
 
 void controllerDestructor(Controller* commandController) {

@@ -190,6 +190,38 @@ Repository* copyRepository(Repository* originalRepository) {
 	return newRepository;
 }
 
+Container* copyContainer(Container* originalContainer) {
+	Container newContainer;
+	newContainer.capacity = originalContainer->capacity;
+	newContainer.numberOfObjects = originalContainer->numberOfObjects;
+	newContainer.archiveList = (Archive*)malloc(sizeof(Archive) * newContainer.capacity);
+
+	if (newContainer.archiveList == NULL) {
+		return NULL;
+	}
+
+	for (int i = 0; i < newContainer.numberOfObjects; i++) {
+		newContainer.archiveList[i] = originalContainer->archiveList[i];
+	}
+
+	return &newContainer;
+}
+
+void loadDataIntoRepository(Repository* currentRepository, Container* newContainer) {
+	containerDestructor(&currentRepository->data);
+	currentRepository->data.capacity = newContainer->capacity;
+	currentRepository->data.numberOfObjects = newContainer->numberOfObjects;
+	currentRepository->data.archiveList = (Archive*)malloc(sizeof(Archive) * newContainer->capacity);
+
+	if (currentRepository->data.archiveList == NULL) {
+		return;
+	}
+
+	for (int i = 0; i < newContainer->numberOfObjects; i++) {
+		currentRepository->data.archiveList[i] = newContainer->archiveList[i];
+	}
+}
+
 void containerDestructor(Container* currentContainer) {
 	free(currentContainer->archiveList);
 }

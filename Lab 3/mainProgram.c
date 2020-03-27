@@ -6,7 +6,7 @@
 #include "tests.h"
 
 int main() {
-	performTests();
+	//performTests();
 
 	UserInterface* currentInterface = createUserInterface();
 	startProgram(currentInterface);

@@ -2,7 +2,7 @@
 #include <assert.h>
 #include "userInterface.h"
 
-/*void VictimConstructor_CorrectInput_CorrectName() {
+void VictimConstructor_CorrectInput_CorrectName() {
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
 	assert(newVictim.getName() == "vasile");
 }
@@ -32,43 +32,12 @@ void DynamicVectorConstructor_NoInput_CorrectNumberOfElements() {
 	assert(newVector.getNumberOfElements() == 0);
 }
 
-void AddToVector_CorrectInput_ElementAdded() {
+void AddToVector_EmptyVectorOneInput_ElementAdded() {
 	DynamicVector newVector;
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
 
-	newVector.addToVector(newVictim);
+	newVector.addToVector(newVictim, 0);
 	assert(newVector[0] == newVictim && newVector.getNumberOfElements() == 1);
-}
-
-void AddToVector_DuplicateElement_ThrowsError() {
-	DynamicVector newVector;
-	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
-	Victim newVictim1{ "vasile", "place", 123, "photo.jpg" };
-
-	newVector.addToVector(newVictim);
-	try {
-		newVector.addToVector(newVictim1);
-		assert(false);
-	}
-	catch (...) {
-		assert(true);
-	}
-}
-
-void AddToVector_MultipleInputs_AddedInTheCorrectOrder() {
-	DynamicVector newVector;
-
-	for (char letter = 'f'; letter >= 'a'; letter--) {
-		std::string word;
-		word += letter;
-		Victim newVictim{ word, word, 123, word };
-		newVector.addToVector(newVictim);
-	}// no resize here
-
-	// checks if the element are in increasing order
-	for (int index = 0; index < newVector.getNumberOfElements() - 1; index++) {
-		assert(newVector[index].getName() < newVector[index + 1].getName());
-	}
 }
 
 void UpdateInVector_CorrectInput_ElementUpdated() {
@@ -76,59 +45,18 @@ void UpdateInVector_CorrectInput_ElementUpdated() {
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
 	Victim newVictim1{ "vasile", "newplace", 1233, "newphoto.jpg" };
 
-	newVector.addToVector(newVictim);
-	newVector.updateInVector(newVictim1);
+	newVector.addToVector(newVictim, 0);
+	newVector.updateInVector(newVictim1, 0);
 	assert(newVector[0] == newVictim1 && newVector.getNumberOfElements() == 1);
-}
-
-void UpdateInVector_InexistentElement_ThrowsError() {
-	DynamicVector newVector;
-	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
-	Victim newVictim1{ "vasileeee", "newplace", 1233, "newphoto.jpg" };
-
-	newVector.addToVector(newVictim);
-	try {
-		newVector.updateInVector(newVictim1);
-		assert(false);
-	}
-	catch (...) {
-		assert(true);
-	}
 }
 
 void DeleteFromVector_CorrectInput_ElementDeleted() {
 	DynamicVector newVector;
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
 
-	newVector.addToVector(newVictim);
-	newVector.deleteFromVector(newVictim.getName());
+	newVector.addToVector(newVictim, 0);
+	newVector.deleteFromVector(0);
 	assert(newVector.getNumberOfElements() == 0);
-}
-
-void DeleteFromVector_InexistentElement_ThrowsError() {
-	DynamicVector newVector;
-	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
-
-	newVector.addToVector(newVictim);
-	try {
-		newVector.deleteFromVector("not vasile");
-		assert(false);
-	}
-	catch (...) {
-		assert(true);
-	}
-}
-
-void DeleteFromVector_EmptyVector_ThrowsError() {
-	DynamicVector newVector;
-
-	try {
-		newVector.deleteFromVector("not vasile");
-		assert(false);
-	}
-	catch (...) {
-		assert(true);
-	}
 }
 
 void VectorResize_MultipleInputs_SuccessfulResize() {
@@ -138,10 +66,123 @@ void VectorResize_MultipleInputs_SuccessfulResize() {
 		std::string word;
 		word += letter;
 		Victim newVictim{ word, word, 123, word };
-		newVector.addToVector(newVictim);
+		newVector.addToVector(newVictim, letter - 'a');
 	}
 
 	assert(newVector.getNumberOfElements() == 26 && newVector.getCapacity() == INITIAL_VECTOR_CAPACITY * MULTIPLICATION_FACTOR);
+}
+
+void DynamicVectorAssignmentOperator_NonEmptySourceVector_CorrectCopy() {
+	DynamicVector vector1;
+	DynamicVector vector2;
+	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
+
+	vector2.addToVector(newVictim, 0);
+	vector1 = vector2;
+
+	assert(vector1.getNumberOfElements() == vector2.getNumberOfElements() and vector1[0] == newVictim);
+}
+
+void DynamicVectorAssignmentOperator_EmptySourceVector_CorrectCopy() {
+	DynamicVector vector1;
+	DynamicVector vector2;
+	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
+
+	vector1.addToVector(newVictim, 0);
+	vector1 = vector2;
+
+	assert(vector1.getNumberOfElements() == 0);
+}
+
+void DynamicVectorCopyConstructor_NonEmptySourceVector_CorrectCopy() {
+	DynamicVector vector1;
+	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
+
+	vector1.addToVector(newVictim, 0);
+
+	DynamicVector vector2(vector1);
+	assert(vector2.getNumberOfElements() == vector2.getNumberOfElements() and vector2[0] == newVictim);
+}
+
+void DynamicVectorCopyConstructor_EmptySourceVector_CorrectCopy() {
+	DynamicVector vector1;
+	DynamicVector vector2(vector1);
+
+	assert(vector2.getNumberOfElements() == 0);
+}
+
+void AddToRepository_DuplicateElement_ThrowsError() {
+	Repository newRepository;
+	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
+	Victim newVictim1{ "vasile", "place", 123, "photo.jpg" };
+
+	newRepository.addToRepository(newVictim);
+	try {
+		newRepository.addToRepository(newVictim1);
+		assert(false);
+	}
+	catch (...) {
+		assert(true);
+	}
+}
+
+void AddToRepository_EmptyRepositoryMultipleInputs_AddedInTheCorrectOrder() {
+	Repository newRepository;
+	DynamicVector* pointerToData;
+
+	for (char letter = 'f'; letter >= 'a'; letter--) {
+		std::string word;
+		word += letter;
+		Victim newVictim{ word, word, 123, word };
+		newRepository.addToRepository(newVictim);
+	}// no resize here
+
+	// checks if the elements are in increasing order
+	pointerToData = newRepository.getAllEntries();
+	for (int index = 0; index < pointerToData->getNumberOfElements() - 1; index++) {
+		assert((*pointerToData)[index].getName() < (*pointerToData)[index + 1].getName());
+	}
+}
+
+void UpdateInRepository_InexistentElement_ThrowsError() {
+	Repository newRepository;
+	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
+	Victim newVictim1{ "vasileeee", "newplace", 1233, "newphoto.jpg" };
+
+	newRepository.addToRepository(newVictim);
+	try {
+		newRepository.updateInRepository(newVictim1);
+		assert(false);
+	}
+	catch (...) {
+		assert(true);
+	}
+}
+
+void DeleteFromRepository_InexistentElement_ThrowsError() {
+	Repository newRepository;
+	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
+
+	newRepository.addToRepository(newVictim);
+	try {
+		newRepository.deleteFromRepository("not vasile");
+		assert(false);
+	}
+	catch (...) {
+		assert(true);
+	}
+}
+
+void DeleteFromRepository_EmptyRepository_ThrowsError() {
+	Repository newRepository;
+
+	try {
+		newRepository.deleteFromRepository("not vasile");
+		assert(false);
+	}
+	catch (...) {
+		assert(true);
+	}
 }
 
 void GetAllEntries_EmptyRepository_NoOutput() {
@@ -197,47 +238,8 @@ void DeleteVictim_CorrectInput_DeletesVictim() {
 	assert(pointerToData->getNumberOfElements() == 0);
 }
 
-void DynamicVectorAssignmentOperator_NonEmptySourceVector_CorrectCopy() {
-	DynamicVector vector1;
-	DynamicVector vector2;
-	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
-
-	vector2.addToVector(newVictim);
-	vector1 = vector2;
-
-	assert(vector1.getNumberOfElements() == vector2.getNumberOfElements() and vector1[0] == newVictim);
-}
-
-void DynamicVectorAssignmentOperator_EmptySourceVector_CorrectCopy() {
-	DynamicVector vector1;
-	DynamicVector vector2;
-	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
-
-	vector1.addToVector(newVictim);
-	vector1 = vector2;
-
-	assert(vector1.getNumberOfElements() == 0);
-}
-
-void DynamicVectorCopyConstructor_NonEmptySourceVector_CorrectCopy() {
-	DynamicVector vector1;
-	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
-
-	vector1.addToVector(newVictim);
-
-	DynamicVector vector2(vector1);
-	assert(vector2.getNumberOfElements() == vector2.getNumberOfElements() and vector2[0] == newVictim);
-}
-
-void DynamicVectorCopyConstructor_EmptySourceVector_CorrectCopy() {
-	DynamicVector vector1;
-	DynamicVector vector2(vector1);
-	
-	assert(vector2.getNumberOfElements() == 0);
-}*/
-
 void runAllTests() {
-	/*VictimConstructor_CorrectInput_CorrectName();
+	VictimConstructor_CorrectInput_CorrectName();
 	VictimConstructor_CorrectInput_CorrectPlaceOfOrigin();
 	VictimConstructor_CorrectInput_CorrectAge();
 	VictimConstructor_CorrectInput_CorrectPhotograph();
@@ -245,23 +247,24 @@ void runAllTests() {
 	DynamicVectorConstructor_NoInput_CorrectCapacity();
 	DynamicVectorConstructor_NoInput_CorrectNumberOfElements();
 	AddToVector_EmptyVectorOneInput_ElementAdded();
-	//AddToVector_DuplicateElement_ThrowsError();
-	AddToVector_EmptyVectorMultipleInputs_AddedInTheCorrectOrder();
 	UpdateInVector_CorrectInput_ElementUpdated();
-	//UpdateInVector_InexistentElement_ThrowsError();
 	DeleteFromVector_CorrectInput_ElementDeleted();
-	//DeleteFromVector_InexistentElement_ThrowsError();
-	//DeleteFromVector_EmptyVector_ThrowsError();
 	VectorResize_MultipleInputs_SuccessfulResize();
 	DynamicVectorAssignmentOperator_NonEmptySourceVector_CorrectCopy();
 	DynamicVectorAssignmentOperator_EmptySourceVector_CorrectCopy();
 	DynamicVectorCopyConstructor_NonEmptySourceVector_CorrectCopy();
 	DynamicVectorCopyConstructor_EmptySourceVector_CorrectCopy();
 
+	AddToRepository_DuplicateElement_ThrowsError(); 
+	AddToRepository_EmptyRepositoryMultipleInputs_AddedInTheCorrectOrder(); 
+	UpdateInRepository_InexistentElement_ThrowsError(); 
+	DeleteFromRepository_InexistentElement_ThrowsError(); 
+	DeleteFromRepository_EmptyRepository_ThrowsError(); 
+
 	GetAllEntries_EmptyRepository_NoOutput();
 	GetAllEntries_FilledRepository_CorrectOutput();
 
 	AddVictim_CorrectInput_AddsVictim();
 	UpdateVictim_CorrectInput_UpdatesVictim();
-	DeleteVictim_CorrectInput_DeletesVictim();*/
+	DeleteVictim_CorrectInput_DeletesVictim();
 }

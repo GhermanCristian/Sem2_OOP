@@ -33,9 +33,6 @@
     <ClCompile Include="tests.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="undoController.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="archive.h">
@@ -51,9 +48,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="tests.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="undoController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
