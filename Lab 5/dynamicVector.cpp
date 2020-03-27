@@ -10,43 +10,13 @@ void DynamicVector::resizeAndCopy(const DynamicVector& originalDynamicVector) {
 	this->elements = newData;
 }
 
-int DynamicVector::findPositionInVector(std::string victimName){
-	// the objects in the dynamic vector are stored in increasing order of their name (which is unique), hence
-	// why we can search for them using binary search;
-	// this function finds the largest element <= given value
-	int leftBound = 0; // left margin of the current range
-	int rightBound = this->numberOfElements - 1; // right margin of the current range
-	int middleIndex; // the index of the middle of the current range
-	while (leftBound <= rightBound) {
-		middleIndex = (leftBound + rightBound) / 2;
-
-		// we continue the search in the right half ot the current range
-		if (this->elements[middleIndex].getName() <= victimName) {
-			leftBound = middleIndex + 1;
-		}
-
-		// we continue the search in the left half ot the current range
-		else {
-			rightBound = middleIndex - 1;
-		}
-	}
-	return rightBound;
-}
-
-bool DynamicVector::isInVector(std::string victimName, int possiblePosition){
-	if (possiblePosition == INEXISTENT_POSITION) {
-		possiblePosition = findPositionInVector(victimName);
-	}
-	return this->elements[possiblePosition].getName() == victimName;
-}
-
 DynamicVector::DynamicVector(){
 	this->capacity = INITIAL_VECTOR_CAPACITY;
 	this->numberOfElements = 0;
 	this->elements = new TElem[INITIAL_VECTOR_CAPACITY];
 }
 
-void DynamicVector::addToVector(const TElem& newVictim){
+void DynamicVector::addToVector(const TElem& newVictim, int possiblePosition){
 	// if the vector is empty, there is no need to check on which position to add the element
 	if (this->numberOfElements == 0) {
 		this->elements[0] = newVictim;
@@ -54,12 +24,8 @@ void DynamicVector::addToVector(const TElem& newVictim){
 		return;
 	}
 
-	int possiblePosition = findPositionInVector(newVictim.getName());
-	if (isInVector(newVictim.getName(), possiblePosition)) {
-		throw std::exception("Element already exists");
-	}
-
 	this->numberOfElements++;
+
 	// if the vector is full, we need to resize
 	if (this->numberOfElements == this->capacity) {
 		this->capacity *= MULTIPLICATION_FACTOR;
@@ -72,21 +38,11 @@ void DynamicVector::addToVector(const TElem& newVictim){
 	this->elements[possiblePosition + 1] = newVictim;
 }
 
-void DynamicVector::updateInVector(const TElem& newVictim){
-	int possiblePosition = findPositionInVector(newVictim.getName());
-	if (isInVector(newVictim.getName(), possiblePosition) == false) {
-		throw std::exception("Element doesn't exist");
-	}
-
+void DynamicVector::updateInVector(const TElem& newVictim, int possiblePosition){
 	this->elements[possiblePosition] = newVictim;
 }
 
-void DynamicVector::deleteFromVector(std::string victimName){
-	int possiblePosition = findPositionInVector(victimName);
-	if (isInVector(victimName, possiblePosition) == false) {
-		throw std::exception("Element doesn't exist");
-	}
-
+void DynamicVector::deleteFromVector(int possiblePosition){
 	// overwrite the position we want to remove by moving all elements on its right by 1 position to the left
 	for (int index = possiblePosition; index < this->numberOfElements - 1; index++) {
 		this->elements[index] = this->elements[index + 1];

@@ -4,7 +4,7 @@
 
 const int INITIAL_VECTOR_CAPACITY = 20;
 const int MULTIPLICATION_FACTOR = 2; // used when resizing the vector
-const int INEXISTENT_POSITION = -1;
+const int INEXISTENT_POSITION = -1111;
 typedef Victim TElem;
 
 class DynamicVector {
@@ -24,31 +24,6 @@ class DynamicVector {
 				- None
 		*/
 
-		int findPositionInVector(std::string victimName);
-		/*
-			Finds the position of the largest name <= victimName in the current list (which is sorted in increasing 
-			order of the names of the victims)
-			Input:
-				- A Victim's name
-			Output:
-				- Largest position on which the name <= victimName
-			Throws:
-				- None
-		*/
-
-		bool isInVector(std::string victimName, int possiblePosition = INEXISTENT_POSITION);
-		/*
-			Checks if the victim on the given position is the same as the one that we look for
-			Input:
-				- A Victim's name
-				- The position on which the Victim is supossed to be (-1 by default, in which case we determine it ourselves)
-			Output:
-				- True, if the two Victims correspond
-				- False, otherwise
-			Throws:
-				- None
-		*/
-
 
 	public:
 		DynamicVector();
@@ -62,7 +37,7 @@ class DynamicVector {
 				- None
 		*/
 
-		void addToVector(const TElem& newVictim);
+		void addToVector(const TElem& newVictim, int possiblePosition);
 		/*
 			Adds a victim to the list
 			Input:
@@ -73,7 +48,7 @@ class DynamicVector {
 				- Exception, if the victim already was in the list
 		*/
 
-		void updateInVector(const TElem& newVictim);
+		void updateInVector(const TElem& newVictim, int possiblePosition);
 		/*
 			Updates a victim from the list
 			Input:
@@ -84,7 +59,7 @@ class DynamicVector {
 				- Exception, if the victim wasn't in the list
 		*/
 
-		void deleteFromVector(std::string victimName);
+		void deleteFromVector(int possiblePosition);
 		/*
 			Deletes a victim from the list
 			Input:

@@ -5,6 +5,31 @@ class Repository {
 	private:
 		DynamicVector data;
 
+		int findPosition(std::string victimName);
+		/*
+			Finds the position of the largest name <= victimName in the current list (which is sorted in increasing
+			order of the names of the victims)
+			Input:
+				- A Victim's name
+			Output:
+				- Largest position on which the name <= victimName
+			Throws:
+				- None
+		*/
+
+		bool isInVector(std::string victimName, int possiblePosition = INEXISTENT_POSITION);
+		/*
+			Checks if the victim on the given position is the same as the one that we look for
+			Input:
+				- A Victim's name
+				- The position on which the Victim is supossed to be (-1 by default, in which case we determine it ourselves)
+			Output:
+				- True, if the two Victims correspond
+				- False, otherwise
+			Throws:
+				- None
+		*/
+
 	public:
 		Repository();
 		/*

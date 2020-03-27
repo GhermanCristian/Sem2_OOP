@@ -8,7 +8,7 @@
 
 int main() {
 	{
-		runAllTests();
+		//runAllTests();
 		UserInterface currentUserInterface = UserInterface();
 		currentUserInterface.startProgram();
 	}
