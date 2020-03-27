@@ -50,7 +50,7 @@ class Controller {
 				- Exception, if the victim doesn't exist
 		*/
 
-		DynamicVector* getAllVictims();
+		DynamicVector<TElem>* getAllVictims();
 		/*
 			Returns a pointer to the data in the repository
 			Input:

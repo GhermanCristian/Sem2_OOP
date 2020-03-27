@@ -23,17 +23,17 @@ void VictimConstructor_CorrectInput_CorrectPhotograph() {
 }
 
 void DynamicVectorConstructor_NoInput_CorrectCapacity() {
-	DynamicVector newVector;
+	DynamicVector<TElem> newVector;
 	assert(newVector.getCapacity() == INITIAL_VECTOR_CAPACITY);
 }
 
 void DynamicVectorConstructor_NoInput_CorrectNumberOfElements() {
-	DynamicVector newVector;
+	DynamicVector<TElem> newVector;
 	assert(newVector.getNumberOfElements() == 0);
 }
 
 void AddToVector_EmptyVectorOneInput_ElementAdded() {
-	DynamicVector newVector;
+	DynamicVector<TElem> newVector;
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
 
 	newVector.addToVector(newVictim, 0);
@@ -41,7 +41,7 @@ void AddToVector_EmptyVectorOneInput_ElementAdded() {
 }
 
 void UpdateInVector_CorrectInput_ElementUpdated() {
-	DynamicVector newVector;
+	DynamicVector<TElem> newVector;
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
 	Victim newVictim1{ "vasile", "newplace", 1233, "newphoto.jpg" };
 
@@ -51,7 +51,7 @@ void UpdateInVector_CorrectInput_ElementUpdated() {
 }
 
 void DeleteFromVector_CorrectInput_ElementDeleted() {
-	DynamicVector newVector;
+	DynamicVector<TElem> newVector;
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
 
 	newVector.addToVector(newVictim, 0);
@@ -60,7 +60,7 @@ void DeleteFromVector_CorrectInput_ElementDeleted() {
 }
 
 void VectorResize_MultipleInputs_SuccessfulResize() {
-	DynamicVector newVector;
+	DynamicVector<TElem> newVector;
 
 	for (char letter = 'a'; letter <= 'z'; letter++) {
 		std::string word;
@@ -73,8 +73,8 @@ void VectorResize_MultipleInputs_SuccessfulResize() {
 }
 
 void DynamicVectorAssignmentOperator_NonEmptySourceVector_CorrectCopy() {
-	DynamicVector vector1;
-	DynamicVector vector2;
+	DynamicVector<TElem> vector1;
+	DynamicVector<TElem> vector2;
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
 
 	vector2.addToVector(newVictim, 0);
@@ -84,8 +84,8 @@ void DynamicVectorAssignmentOperator_NonEmptySourceVector_CorrectCopy() {
 }
 
 void DynamicVectorAssignmentOperator_EmptySourceVector_CorrectCopy() {
-	DynamicVector vector1;
-	DynamicVector vector2;
+	DynamicVector<TElem> vector1;
+	DynamicVector<TElem> vector2;
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
 
 	vector1.addToVector(newVictim, 0);
@@ -95,18 +95,18 @@ void DynamicVectorAssignmentOperator_EmptySourceVector_CorrectCopy() {
 }
 
 void DynamicVectorCopyConstructor_NonEmptySourceVector_CorrectCopy() {
-	DynamicVector vector1;
+	DynamicVector<TElem> vector1;
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
 
 	vector1.addToVector(newVictim, 0);
 
-	DynamicVector vector2(vector1);
+	DynamicVector<TElem> vector2(vector1);
 	assert(vector2.getNumberOfElements() == vector2.getNumberOfElements() and vector2[0] == newVictim);
 }
 
 void DynamicVectorCopyConstructor_EmptySourceVector_CorrectCopy() {
-	DynamicVector vector1;
-	DynamicVector vector2(vector1);
+	DynamicVector<TElem> vector1;
+	DynamicVector<TElem> vector2(vector1);
 
 	assert(vector2.getNumberOfElements() == 0);
 }
@@ -128,7 +128,7 @@ void AddToRepository_DuplicateElement_ThrowsError() {
 
 void AddToRepository_EmptyRepositoryMultipleInputs_AddedInTheCorrectOrder() {
 	Repository newRepository;
-	DynamicVector* pointerToData;
+	DynamicVector<TElem>* pointerToData;
 
 	for (char letter = 'f'; letter >= 'a'; letter--) {
 		std::string word;
@@ -187,7 +187,7 @@ void DeleteFromRepository_EmptyRepository_ThrowsError() {
 
 void GetAllEntries_EmptyRepository_NoOutput() {
 	Repository newRepository;
-	DynamicVector* pointerToData = newRepository.getAllEntries();
+	DynamicVector<TElem>* pointerToData = newRepository.getAllEntries();
 	assert(pointerToData->getNumberOfElements() == 0);
 }
 
@@ -201,13 +201,13 @@ void GetAllEntries_FilledRepository_CorrectOutput() {
 	newRepository.addToRepository(newVictim1);
 	newRepository.addToRepository(newVictim2);
 
-	DynamicVector* pointerToData = newRepository.getAllEntries();
+	DynamicVector<TElem>* pointerToData = newRepository.getAllEntries();
 	assert(pointerToData->getNumberOfElements() == 3);
 }
 
 void AddVictim_CorrectInput_AddsVictim() {
 	Controller newController;
-	DynamicVector* pointerToData;
+	DynamicVector<TElem>* pointerToData;
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
 
 	newController.addVictim("vasile", "place", 123, "photo.jpg");
@@ -217,7 +217,7 @@ void AddVictim_CorrectInput_AddsVictim() {
 
 void UpdateVictim_CorrectInput_UpdatesVictim() {
 	Controller newController;
-	DynamicVector* pointerToData;
+	DynamicVector<TElem>* pointerToData;
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
 	Victim newVictim1{ "vasile", "newplace", 1233, "newphoto.jpg" };
 
@@ -229,7 +229,7 @@ void UpdateVictim_CorrectInput_UpdatesVictim() {
 
 void DeleteVictim_CorrectInput_DeletesVictim() {
 	Controller newController;
-	DynamicVector* pointerToData;
+	DynamicVector<TElem>* pointerToData;
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
 
 	newController.addVictim("vasile", "place", 123, "photo.jpg");

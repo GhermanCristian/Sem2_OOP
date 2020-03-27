@@ -80,7 +80,7 @@ void UserInterface::deleteVictimInterface(ArgumentList argumentList){
 }
 
 void UserInterface::listAllInterface(ArgumentList argumentList){
-	DynamicVector* victimList;
+	DynamicVector<TElem>* victimList;
 	try {
 		victimList = this->actionController.getAllVictims();
 		for (int index = 0; index < victimList->getNumberOfElements(); index++) {

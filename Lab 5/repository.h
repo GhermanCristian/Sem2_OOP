@@ -3,7 +3,7 @@
 
 class Repository {
 	private:
-		DynamicVector data;
+		DynamicVector<TElem> data;
 
 		int findPosition(std::string victimName);
 		/*
@@ -75,7 +75,7 @@ class Repository {
 				- Exception, if the victim wasn't in the repository
 		*/
 
-		DynamicVector* getAllEntries();
+		DynamicVector<TElem>* getAllEntries();
 		/*
 			Returns a pointer to the data in the repository
 			Input:

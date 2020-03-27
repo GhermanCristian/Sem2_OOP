@@ -19,7 +19,7 @@ void Controller::deleteVictim(std::string victimName){
 	this->victimRepository.deleteFromRepository(victimName);
 }
 
-DynamicVector* Controller::getAllVictims(){
+DynamicVector<TElem>* Controller::getAllVictims(){
 	return this->victimRepository.getAllEntries();
 }
 

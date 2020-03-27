@@ -68,7 +68,7 @@ void Repository::deleteFromRepository(std::string victimName){
 	this->data.deleteFromVector(possiblePosition);
 }
 
-DynamicVector* Repository::getAllEntries(){
+DynamicVector<TElem>* Repository::getAllEntries(){
 	return &this->data;
 }
 
