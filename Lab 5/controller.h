@@ -61,6 +61,8 @@ class Controller {
 				- None
 		*/
 
+		DynamicVector<TElem> getFilteredVictims(std::string placeOfOrigin, int age);
+
 		~Controller();
 		/*
 			Controller destructor

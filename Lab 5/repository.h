@@ -5,6 +5,8 @@ class Repository {
 	private:
 		DynamicVector<TElem> data;
 
+		bool victimPassesFilter(const Victim& currentVictim, std::string placeOfOrigin, int age);
+
 		int findPosition(std::string victimName);
 		/*
 			Finds the position of the largest name <= victimName in the current list (which is sorted in increasing
@@ -85,6 +87,8 @@ class Repository {
 			Throws:
 				- None
 		*/
+
+		DynamicVector<TElem> getFilteredEntries(std::string placeOfOrigin, int age);
 
 		Repository(const Repository& originalRepository);
 		/*

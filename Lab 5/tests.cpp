@@ -1,6 +1,7 @@
 #include "tests.h"
 #include <assert.h>
 #include "userInterface.h"
+#include <iostream>
 
 void VictimConstructor_CorrectInput_CorrectName() {
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };

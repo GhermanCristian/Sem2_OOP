@@ -5,6 +5,10 @@ Repository::Repository(){
 	;
 }
 
+bool Repository::victimPassesFilter(const Victim& currentVictim, std::string placeOfOrigin, int age) {
+	return (placeOfOrigin.length() == 0 or (currentVictim.getAge() < age and currentVictim.getPlaceOfOrigin() == placeOfOrigin));
+}
+
 int Repository::findPosition(std::string victimName) {
 	// the objects in the dynamic vector are stored in increasing order of their name (which is unique), hence
 	// why we can search for them using binary search;
@@ -70,6 +74,24 @@ void Repository::deleteFromRepository(std::string victimName){
 
 DynamicVector<TElem>* Repository::getAllEntries(){
 	return &this->data;
+}
+
+DynamicVector<TElem> Repository::getFilteredEntries(std::string placeOfOrigin, int age) {
+	DynamicVector<TElem> tempVector;
+	int vectorPosition = 0;
+	
+	for (int i = 0; i < this->data.getNumberOfElements(); i++) {
+		if (victimPassesFilter(this->data[i], placeOfOrigin, age)) {
+			if (tempVector.getNumberOfElements() == 0) {
+				tempVector.addToVector(this->data[i], 0);
+			}
+			else {
+				tempVector.addToVector(this->data[i], vectorPosition++);
+			}
+		}
+	}
+
+	return tempVector;
 }
 
 Repository::Repository(const Repository& originalRepository){

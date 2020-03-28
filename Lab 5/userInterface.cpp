@@ -110,7 +110,20 @@ void UserInterface::saveVictimInterface(ArgumentList argumentList){
 }
 
 void UserInterface::listFilteredInterface(ArgumentList argumentList){
-	;
+	DynamicVector<TElem> filteredVictimList;
+
+	std::string placeOfOrigin = argumentList.list[NAME_POSITION];
+	int age = stoi(argumentList.list[PLACE_OF_ORIGIN_POSITION]);
+
+	try {
+		filteredVictimList = this->actionController.getFilteredVictims(placeOfOrigin, age);
+		for (int index = 0; index < filteredVictimList.getNumberOfElements(); index++) {
+			displayVictim(filteredVictimList[index]);
+		}
+	}
+	catch (std::exception& operationException) {
+		std::cout << operationException.what() << "\n";
+	}
 }
 
 void UserInterface::myListInterface(ArgumentList argumentList){

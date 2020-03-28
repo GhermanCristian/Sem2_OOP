@@ -23,6 +23,10 @@ DynamicVector<TElem>* Controller::getAllVictims(){
 	return this->victimRepository.getAllEntries();
 }
 
+DynamicVector<TElem> Controller::getFilteredVictims(std::string placeOfOrigin, int age) {
+	return this->victimRepository.getFilteredEntries(placeOfOrigin, age);
+}
+
 Controller::~Controller() {
 	;
 }
