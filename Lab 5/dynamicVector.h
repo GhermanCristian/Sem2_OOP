@@ -126,6 +126,8 @@ class DynamicVector {
 				- None
 		*/
 
+		bool operator==(const DynamicVector<TElem>& newDynamicVector);
+
 		~DynamicVector();
 		/*
 			Destructor for the DynamicVector type
@@ -227,6 +229,24 @@ DynamicVector<TElem>& DynamicVector<TElem>::operator = (const DynamicVector<TEle
 		resizeAndCopy(originalDynamicVector);
 	}
 	return *this;
+}
+
+template <typename TElem>
+bool DynamicVector<TElem>::operator == (const DynamicVector<TElem>& newDynamicVector) {
+	if (this->numberOfElements != newDynamicVector.numberOfElements or this->capacity != newDynamicVector.capacity) {
+		return false;
+	}
+
+	for (int i = 0; i < this->numberOfElements; i++) {
+		if (this->elements[i] == newDynamicVector.elements[i]) {
+			continue; // I do this bc I don't want to also write an overloaded != operator
+		}
+		else {
+			return false;
+		}
+	}
+
+	return true;
 }
 
 template <typename TElem>

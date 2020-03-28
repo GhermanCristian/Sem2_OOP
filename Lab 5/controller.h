@@ -66,10 +66,48 @@ class Controller {
 		*/
 
 		DynamicVector<TElem> getFilteredVictims(std::string placeOfOrigin, int age);
-		
+		/*
+			
+			Input:
+				-
+			Output:
+				-
+			Throws:
+				-
+		*/
+
 		TElem getNextVictim();
+		/*
+
+			Input:
+				-
+			Output:
+				-
+			Throws:
+				-
+		*/
+		
 		void saveVictim(std::string victimName);
+		/*
+
+			Input:
+				-
+			Output:
+				-
+			Throws:
+				-
+		*/
+
 		DynamicVector<TElem>* getSavedVictims();
+		/*
+
+			Input:
+				-
+			Output:
+				-
+			Throws:
+				-
+		*/
 
 		~Controller();
 		/*

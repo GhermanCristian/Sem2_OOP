@@ -31,7 +31,7 @@ class Repository {
 				- None
 		*/
 
-		bool isInVector(std::string victimName, int possiblePosition = INEXISTENT_POSITION);
+		bool isInRepository(std::string victimName, int possiblePosition = INEXISTENT_POSITION);
 		/*
 			Checks if the victim on the given position is the same as the one that we look for
 			Input:
@@ -111,6 +111,8 @@ class Repository {
 			Throws:
 				- None
 		*/
+
+		bool operator==(const Repository& newRepository);
 
 		~Repository();
 		/*

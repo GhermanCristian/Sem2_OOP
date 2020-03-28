@@ -33,11 +33,11 @@ int Repository::findPosition(std::string victimName) {
 	return rightBound;
 }
 
-bool Repository::isInVector(std::string victimName, int possiblePosition) {
+bool Repository::isInRepository(std::string victimName, int possiblePosition) {
 	if (possiblePosition == INEXISTENT_POSITION) {
 		possiblePosition = findPosition(victimName);
 	}
-	return possiblePosition >= 0 and this->data[possiblePosition].getName() == victimName;
+	return possiblePosition >= 0 and possiblePosition < this->data.getNumberOfElements() and this->data[possiblePosition].getName() == victimName;
 }
 
 void Repository::addToRepository(const TElem& newVictim){
@@ -47,7 +47,7 @@ void Repository::addToRepository(const TElem& newVictim){
 	}
 
 	int possiblePosition = findPosition(newVictim.getName());
-	if (isInVector(newVictim.getName(), possiblePosition)) {
+	if (isInRepository(newVictim.getName(), possiblePosition)) {
 		throw std::exception("Element already exists");
 	}
 
@@ -56,7 +56,7 @@ void Repository::addToRepository(const TElem& newVictim){
 
 void Repository::updateInRepository(const TElem& newVictim){
 	int possiblePosition = findPosition(newVictim.getName());
-	if (isInVector(newVictim.getName(), possiblePosition) == false) {
+	if (isInRepository(newVictim.getName(), possiblePosition) == false) {
 		throw std::exception("Element doesn't exist");
 	}
 
@@ -65,7 +65,7 @@ void Repository::updateInRepository(const TElem& newVictim){
 
 void Repository::deleteFromRepository(std::string victimName){
 	int possiblePosition = findPosition(victimName);
-	if (isInVector(victimName, possiblePosition) == false) {
+	if (isInRepository(victimName, possiblePosition) == false) {
 		throw std::exception("Element doesn't exist");
 	}
 
@@ -98,6 +98,10 @@ Repository& Repository::operator=(const Repository& originalRepository){
 		this->data = originalRepository.data;
 	}
 	return *this;
+}
+
+bool Repository::operator == (const Repository& newRepository) {
+	return (this->data == newRepository.data);
 }
 
 Repository::~Repository(){

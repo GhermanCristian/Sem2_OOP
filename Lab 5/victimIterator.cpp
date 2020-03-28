@@ -15,12 +15,8 @@ bool VictimIterator::isPositionValid(){
 
 void VictimIterator::setNextPosition(){
 	currentPosition++;
-	while (!isPositionValid()) {
-		if (currentPosition >= numberOfElements) {
-			currentPosition = 0;
-			break;
-		}
-		currentPosition++;
+	if (isPositionValid() == false) {
+		currentPosition = 0;
 	}
 }
 

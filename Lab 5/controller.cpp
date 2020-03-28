@@ -32,8 +32,13 @@ TElem Controller::getNextVictim(){
 	// we set the number of elements in this call and not in the constructor because at that point, the
 	// DynamicVector is empty
 	TElem nextVictim;
+	int numberOfElements = this->victimRepository.getAllEntries()->getNumberOfElements();
 
-	this->victimIterator.setNumberOfElements(this->victimRepository.getAllEntries()->getNumberOfElements());
+	if (numberOfElements <= 0) {
+		throw std::exception("No elements available");
+	}
+
+	this->victimIterator.setNumberOfElements(numberOfElements);
 	nextVictim = (*this->victimRepository.getAllEntries())[this->victimIterator.getCurrentPosition()];
 	this->victimIterator.setNextPosition();
 
@@ -43,7 +48,7 @@ TElem Controller::getNextVictim(){
 void Controller::saveVictim(std::string victimName){
 	// TO-DO: ensure no victim is saved twice
 	int possiblePositionOfVictim = this->victimRepository.findPosition(victimName);
-	if (this->victimRepository.isInVector(victimName, possiblePositionOfVictim) == false) {
+	if (this->victimRepository.isInRepository(victimName, possiblePositionOfVictim) == false) {
 		throw std::exception("Element doesn't exist");
 	}
 	savedVictimList.addToVector((*this->victimRepository.getAllEntries())[possiblePositionOfVictim], positionInSavedList++);
