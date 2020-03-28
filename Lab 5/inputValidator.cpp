@@ -7,32 +7,34 @@ InputValidator::InputValidator(){
 }
 
 ArgumentList InputValidator::addVictimInputValidator(std::string userInput) {
-	std::regex addVictimPattern("add +([a-zA-Z]+( *[a-zA-Z]*)*), +([a-zA-Z]+( *[a-zA-Z]*)*), +([0-9]+), +([a-zA-Z.0-9]+)");
+	std::regex addVictimPattern("add +(([a-zA-Z0-9]+ *)+), +(([a-zA-Z0-9]+ *)+), +([0-9]+), +([a-zA-Z.0-9]+)");
 	/*
 		1 "add" word
+		1 or more spaces
 
 		=== VICTIM NAME ===
-		1 or more spaces
-		1 or more uppercase/ lowercase letters
-		0 or more times:
+		1 or more times: (name can be composed of more than 1 word)
+			1 or more uppercase/ lowercase letters or digits
 			0 or more spaces
-			0 or more uppercase/ lowercase letters
+
 		1 "," symbol
+		1 or more spaces
 
 		=== VICTIM PLACE OF ORIGIN ===
-		1 or more spaces
-		1 or more uppercase/ lowercase letters
-		0 or more times:
+		1 or more times: (place of origin can be composed of more than 1 word)
+			1 or more uppercase/ lowercase letters or digits
 			0 or more spaces
-			0 or more uppercase/ lowercase letters
+
 		1 "," symbol
+		1 or more spaces
 
 		=== VICTIM AGE ===
 		1 or more digits
+
 		1 "," symbol
+		1 or more spaces
 
 		=== VICTIM PHOTOGRAPH LINK ===
-		1 or more spaces
 		1 or more uppercase/ lowercase letters, digits or the dot "." symbol
 	*/
 	
@@ -54,32 +56,34 @@ ArgumentList InputValidator::addVictimInputValidator(std::string userInput) {
 }
 
 ArgumentList InputValidator::updateVictimInputValidator(std::string userInput) {
-	std::regex updateVictimPattern("update +([a-zA-Z]+( *[a-zA-Z]*)*), +([a-zA-Z]+( *[a-zA-Z]*)*), +([0-9]+), +([a-zA-Z.0-9]+)");
+	std::regex updateVictimPattern("update +(([a-zA-Z0-9]+ *)+), +(([a-zA-Z0-9]+ *)+), +([0-9]+), +([a-zA-Z.0-9]+)");
 	/*
 		1 "update" word
+		1 or more spaces
 
 		=== VICTIM NAME ===
-		1 or more spaces
-		1 or more uppercase/ lowercase letters
-		0 or more times:
+		1 or more times: (name can be composed of more than 1 word)
+			1 or more uppercase/ lowercase letters or digits
 			0 or more spaces
-			0 or more uppercase/ lowercase letters
+
 		1 "," symbol
+		1 or more spaces
 
 		=== NEW VICTIM PLACE OF ORIGIN ===
-		1 or more spaces
-		1 or more uppercase/ lowercase letters
-		0 or more times:
+		1 or more times: (place of origin can be composed of more than 1 word)
+			1 or more uppercase/ lowercase letters or digits
 			0 or more spaces
-			0 or more uppercase/ lowercase letters
+
 		1 "," symbol
+		1 or more spaces
 
 		=== NEW VICTIM AGE ===
 		1 or more digits
+
 		1 "," symbol
+		1 or more spaces
 
 		=== NEW VICTIM PHOTOGRAPH LINK ===
-		1 or more spaces
 		1 or more uppercase/ lowercase letters, digits or the dot "." symbol
 	*/
 	
@@ -101,16 +105,15 @@ ArgumentList InputValidator::updateVictimInputValidator(std::string userInput) {
 }
 
 ArgumentList InputValidator::deleteVictimInputValidator(std::string userInput) {
-	std::regex deleteVictimPattern("delete +([a-zA-Z]+( *[a-zA-Z]*)*)");
+	std::regex deleteVictimPattern("delete +(([a-zA-Z0-9]+ *)+)");
 	/*
 		1 "delete" word
+		1 or more spaces
 
 		=== VICTIM NAME ===
-		1 or more spaces
-		1 or more uppercase/ lowercase letters
-		0 or more times:
+		1 or more times: (name can be composed of more than 1 word)
+			1 or more uppercase/ lowercase letters or digits
 			0 or more spaces
-			0 or more uppercase/ lowercase letters
 	*/
 
 	std::smatch stringMatch;
@@ -166,17 +169,15 @@ ArgumentList InputValidator::nextVictimInputValidator(std::string userInput)
 
 ArgumentList InputValidator::saveVictimInputValidator(std::string userInput)
 {
-	std::regex saveVictimPattern("save +([a-zA-Z]+( *[a-zA-Z]*)*)");
+	std::regex saveVictimPattern("save +(([a-zA-Z0-9]+ *)+)");
 	/*
 		1 "save" word
+		1 or more spaces
 
 		=== VICTIM NAME ===
-		1 or more spaces
-		1 or more uppercase/ lowercase letters
-		0 or more times:
+		1 or more times: (name can be composed of more than 1 word)
+			1 or more uppercase/ lowercase letters or digits
 			0 or more spaces
-			0 or more uppercase/ lowercase letters
-		1 "," symbol
 	*/
 
 	std::smatch stringMatch;
@@ -195,22 +196,22 @@ ArgumentList InputValidator::saveVictimInputValidator(std::string userInput)
 
 ArgumentList InputValidator::listFilteredInputValidator(std::string userInput)
 {
-	std::regex listFilteredPattern("list +([a-zA-Z]+( *[a-zA-Z]*)*)?, +([0-9]+)");
+	std::regex listFilteredPattern("list +(([a-zA-Z0-9]+ *)+)?, +([0-9]+)");
 	/*
 		1 "list" word
+		1 or more spaces
 
 		=== VICTIM PLACE OF ORIGIN ===
-		1 or more spaces
 		0 or 1 time(s): (because the place of origin might be left empty)
-			1 or more uppercase/ lowercase letters
-			0 or more times:
+			1 or more times: (name can be composed of more than 1 word)
+				1 or more uppercase/ lowercase letters or digits
 				0 or more spaces
-				0 or more uppercase/ lowercase letters
+
+		1 or more spaces
 		1 "," symbol
 
 		=== VICTIM AGE ===
 		1 or more digits
-		1 "," symbol
 	*/
 
 	std::smatch stringMatch;
@@ -251,6 +252,7 @@ char InputValidator::modeValidator(std::string userInput){
 	std::regex modePattern("mode [AB]");
 	/*
 		1 "mode" word
+		1 space
 		either of the letters A or B, exactly once
 	*/
 

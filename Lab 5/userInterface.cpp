@@ -3,6 +3,11 @@
 #include <string.h>
 
 UserInterface::UserInterface() {
+	loadAdministratorModeContent();
+	loadAssistantModeContent();
+}
+
+void UserInterface::loadAdministratorModeContent() {
 	this->validatorFunctionListAdministrator[ADD_FUNCTION_POSITION] = &InputValidator::addVictimInputValidator;
 	this->validatorFunctionListAdministrator[UPDATE_FUNCTION_POSITION] = &InputValidator::updateVictimInputValidator;
 	this->validatorFunctionListAdministrator[DELETE_FUNCTION_POSITION] = &InputValidator::deleteVictimInputValidator;
@@ -19,8 +24,9 @@ UserInterface::UserInterface() {
 	this->commandInfoAdministrator += "update name, newPlaceOfOrigin, newAge, newPhotograph\n";
 	this->commandInfoAdministrator += "delete name\n";
 	this->commandInfoAdministrator += "list\n\n";
+}
 
-
+void UserInterface::loadAssistantModeContent() {
 	this->validatorFunctionListAssistant[NEXT_FUNCTION_POSITION] = &InputValidator::nextVictimInputValidator;
 	this->validatorFunctionListAssistant[SAVE_FUNCTION_POSITION] = &InputValidator::saveVictimInputValidator;
 	this->validatorFunctionListAssistant[LIST_FILTERED_FUNCTION_POSITION] = &InputValidator::listFilteredInputValidator;

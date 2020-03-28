@@ -37,6 +37,8 @@ class UserInterface {
 		InterfaceFunction interfaceFunctionListAssistant[NUMBER_OF_COMMANDS_ASSISTANT];
 		std::string commandInfoAssistant;
 
+		void loadAdministratorModeContent();
+		void loadAssistantModeContent();
 		void displayVictim(const Victim& currentVictim);
 		void addVictimInterface(ArgumentList argumentList);
 		void updateVictimInterface(ArgumentList argumentList);
