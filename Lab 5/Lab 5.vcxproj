@@ -147,6 +147,7 @@
     <ClCompile Include="tests.cpp" />
     <ClCompile Include="userInterface.cpp" />
     <ClCompile Include="victim.cpp" />
+    <ClCompile Include="victimIterator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="controller.h" />
@@ -156,6 +157,7 @@
     <ClInclude Include="tests.h" />
     <ClInclude Include="userInterface.h" />
     <ClInclude Include="victim.h" />
+    <ClInclude Include="victimIterator.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

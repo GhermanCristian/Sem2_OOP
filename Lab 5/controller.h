@@ -1,12 +1,13 @@
 #pragma once
 #include "repository.h"
+#include "victimIterator.h"
 
 class Controller {
 	private:
-		int positionInAllList;
 		int positionInSavedList;
 		Repository victimRepository;
 		DynamicVector<TElem> savedVictimList;
+		VictimIterator victimIterator;
 
 	public:
 		Controller();
@@ -66,6 +67,7 @@ class Controller {
 
 		DynamicVector<TElem> getFilteredVictims(std::string placeOfOrigin, int age);
 		
+		TElem getNextVictim();
 		void saveVictim(std::string victimName);
 		DynamicVector<TElem>* getSavedVictims();
 

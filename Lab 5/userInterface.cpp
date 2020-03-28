@@ -103,7 +103,13 @@ void UserInterface::listAllInterface(ArgumentList argumentList){
 }
 
 void UserInterface::nextVictimInterface(ArgumentList argumentList){
-	;
+	try {
+		Victim nextVictim = this->actionController.getNextVictim();
+		displayVictim(nextVictim);
+	}
+	catch (std::exception& operationException) {
+		std::cout << operationException.what() << "\n";
+	}
 }
 
 void UserInterface::saveVictimInterface(ArgumentList argumentList){

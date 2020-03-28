@@ -3,7 +3,6 @@
 #include <exception>
 
 Controller::Controller() {
-	positionInAllList = -1;
 	positionInSavedList = 0;
 }
 
@@ -27,6 +26,18 @@ DynamicVector<TElem>* Controller::getAllVictims(){
 
 DynamicVector<TElem> Controller::getFilteredVictims(std::string placeOfOrigin, int age) {
 	return this->victimRepository.getFilteredEntries(placeOfOrigin, age);
+}
+
+TElem Controller::getNextVictim(){
+	// we set the number of elements in this call and not in the constructor because at that point, the
+	// DynamicVector is empty
+	TElem nextVictim;
+
+	this->victimIterator.setNumberOfElements(this->victimRepository.getAllEntries()->getNumberOfElements());
+	nextVictim = (*this->victimRepository.getAllEntries())[this->victimIterator.getCurrentPosition()];
+	this->victimIterator.setNextPosition();
+
+	return nextVictim;
 }
 
 void Controller::saveVictim(std::string victimName){
