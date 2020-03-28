@@ -3,7 +3,10 @@
 
 class Controller {
 	private:
+		int positionInAllList;
+		int positionInSavedList;
 		Repository victimRepository;
+		DynamicVector<TElem> savedVictimList;
 
 	public:
 		Controller();
@@ -62,6 +65,9 @@ class Controller {
 		*/
 
 		DynamicVector<TElem> getFilteredVictims(std::string placeOfOrigin, int age);
+		
+		void saveVictim(std::string victimName);
+		DynamicVector<TElem>* getSavedVictims();
 
 		~Controller();
 		/*

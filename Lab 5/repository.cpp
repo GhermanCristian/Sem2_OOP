@@ -51,7 +51,7 @@ void Repository::addToRepository(const TElem& newVictim){
 		throw std::exception("Element already exists");
 	}
 
-	this->data.addToVector(newVictim, possiblePosition);
+	this->data.addToVector(newVictim, possiblePosition + 1);
 }
 
 void Repository::updateInRepository(const TElem& newVictim){
@@ -82,12 +82,7 @@ DynamicVector<TElem> Repository::getFilteredEntries(std::string placeOfOrigin, i
 	
 	for (int i = 0; i < this->data.getNumberOfElements(); i++) {
 		if (victimPassesFilter(this->data[i], placeOfOrigin, age)) {
-			if (tempVector.getNumberOfElements() == 0) {
-				tempVector.addToVector(this->data[i], 0);
-			}
-			else {
-				tempVector.addToVector(this->data[i], vectorPosition++);
-			}
+			tempVector.addToVector(this->data[i], vectorPosition++);
 		}
 	}
 

@@ -173,10 +173,10 @@ void DynamicVector<TElem>::addToVector(const TElem& newVictim, int possiblePosit
 		resizeAndCopy(*this);
 	}
 
-	for (int index = this->numberOfElements - 1; index > possiblePosition; index--) {
+	for (int index = this->numberOfElements - 1; index >= possiblePosition; index--) {
 		this->elements[index + 1] = this->elements[index];
 	}
-	this->elements[possiblePosition + 1] = newVictim;
+	this->elements[possiblePosition] = newVictim;
 }
 
 template <typename TElem>

@@ -7,6 +7,18 @@ class Repository {
 
 		bool victimPassesFilter(const Victim& currentVictim, std::string placeOfOrigin, int age);
 
+	public:
+		Repository();
+		/*
+			Constructor for the Repository class
+			Input:
+				- None
+			Output:
+				- Creates a new, empty Repository
+			Throws:
+				- None
+		*/
+
 		int findPosition(std::string victimName);
 		/*
 			Finds the position of the largest name <= victimName in the current list (which is sorted in increasing
@@ -28,18 +40,6 @@ class Repository {
 			Output:
 				- True, if the two Victims correspond
 				- False, otherwise
-			Throws:
-				- None
-		*/
-
-	public:
-		Repository();
-		/*
-			Constructor for the Repository class
-			Input:
-				- None
-			Output:
-				- Creates a new, empty Repository
 			Throws:
 				- None
 		*/

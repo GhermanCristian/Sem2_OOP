@@ -90,6 +90,7 @@ void UserInterface::deleteVictimInterface(ArgumentList argumentList){
 
 void UserInterface::listAllInterface(ArgumentList argumentList){
 	DynamicVector<TElem>* victimList;
+
 	try {
 		victimList = this->actionController.getAllVictims();
 		for (int index = 0; index < victimList->getNumberOfElements(); index++) {
@@ -106,7 +107,14 @@ void UserInterface::nextVictimInterface(ArgumentList argumentList){
 }
 
 void UserInterface::saveVictimInterface(ArgumentList argumentList){
-	;
+	std::string victimName = argumentList.list[NAME_POSITION];
+
+	try {
+		this->actionController.saveVictim(victimName);
+	}
+	catch (std::exception& operationException) {
+		std::cout << operationException.what() << "\n";
+	}
 }
 
 void UserInterface::listFilteredInterface(ArgumentList argumentList){
@@ -127,7 +135,17 @@ void UserInterface::listFilteredInterface(ArgumentList argumentList){
 }
 
 void UserInterface::myListInterface(ArgumentList argumentList){
-	;
+	DynamicVector<TElem>* savedVictimList;
+
+	try {
+		savedVictimList = this->actionController.getSavedVictims();
+		for (int index = 0; index < savedVictimList->getNumberOfElements(); index++) {
+			displayVictim((*savedVictimList)[index]);
+		}
+	}
+	catch (std::exception& operationException) {
+		std::cout << operationException.what() << "\n";
+	}
 }
 
 void UserInterface::processCommand(std::string command, char &programMode) {
