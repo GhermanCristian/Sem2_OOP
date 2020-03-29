@@ -86,9 +86,52 @@ class InputValidator {
 		*/
 
 		ArgumentList nextVictimInputValidator(std::string userInput);
+		/*
+			Validates the input for "nextVictim"
+			Input:
+				- The user's input
+			Output:
+				- The arguments of the command, split in an ArgumentList (array of strings), if the command is valid
+				- An error code, if the command is invalid
+			Throws:
+				- None
+		*/
+
 		ArgumentList saveVictimInputValidator(std::string userInput);
+		/*
+			Validates the input for "saveVictim"
+			Input:
+				- The user's input
+			Output:
+				- The arguments of the command, split in an ArgumentList (array of strings), if the command is valid
+				- An error code, if the command is invalid
+			Throws:
+				- None
+		*/
+
 		ArgumentList listFilteredInputValidator(std::string userInput);
+		/*
+			Validates the input for "listFilteredVictims"
+			Input:
+				- The user's input
+			Output:
+				- The arguments of the command, split in an ArgumentList (array of strings), if the command is valid
+				- An error code, if the command is invalid
+			Throws:
+				- None
+		*/
+
 		ArgumentList myListInputValidator(std::string userInput);
+		/*
+			Validates the input for "myList"
+			Input:
+				- The user's input
+			Output:
+				- The arguments of the command, split in an ArgumentList (array of strings), if the command is valid
+				- An error code, if the command is invalid
+			Throws:
+				- None
+		*/
 
 		char modeValidator(std::string userInput);
 		/*

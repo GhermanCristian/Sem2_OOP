@@ -127,6 +127,15 @@ class DynamicVector {
 		*/
 
 		bool operator==(const DynamicVector<TElem>& newDynamicVector);
+		/*
+
+			Input:
+				-
+			Output:
+				-
+			Throws:
+				-
+		*/
 
 		~DynamicVector();
 		/*

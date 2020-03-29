@@ -67,46 +67,46 @@ class Controller {
 
 		DynamicVector<TElem> getFilteredVictims(std::string placeOfOrigin, int age);
 		/*
-			
+			Determines a list of all the victims which pass a filter
 			Input:
-				-
+				- The filter's place of origin and age properties
 			Output:
-				-
+				- Returns a DynamicVector which contains all the victims that have passed the filter
 			Throws:
-				-
+				- None
 		*/
 
 		TElem getNextVictim();
 		/*
-
+			Determines the next victim in the list (assistant mode)
 			Input:
-				-
+				- None
 			Output:
-				-
+				- Returns the next available victim in the list
 			Throws:
-				-
+				- Exception, if the list of victims is empty
 		*/
 		
 		void saveVictim(std::string victimName);
 		/*
-
+			Saves a given victim to a temporary list
 			Input:
-				-
+				- The victim's name
 			Output:
-				-
+				- The victim with that name is added to a temporary list (if if exists)
 			Throws:
-				-
+				- Exception, if the victim doesn't exist
 		*/
 
 		DynamicVector<TElem>* getSavedVictims();
 		/*
-
+			Allows access to the list of saved victims
 			Input:
-				-
+				- None
 			Output:
-				-
+				- Returns a pointer to the list of saved victims
 			Throws:
-				-
+				- None
 		*/
 
 		~Controller();

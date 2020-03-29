@@ -6,6 +6,17 @@ class Repository {
 		DynamicVector<TElem> data;
 
 		bool victimPassesFilter(const Victim& currentVictim, std::string placeOfOrigin, int age);
+		/*
+			Checks if a given victim passes the filter
+			Input:
+				- The victim which is tested
+				- The arguments of the filter (the victim's place of origin and age)
+			Output:
+				- Returns true, if the victim passes the filter
+				- False, otherwise
+			Throws:
+				- None
+		*/
 
 	public:
 		Repository();
@@ -89,6 +100,15 @@ class Repository {
 		*/
 
 		DynamicVector<TElem> getFilteredEntries(std::string placeOfOrigin, int age);
+		/*
+			Determines a list of all the victims which pass the given filter
+			Input:
+				- The victim's place of origin and age
+			Output:
+				- Returns a DynamicVector which contains the victims which have passed the filter
+			Throws:
+				- None
+		*/
 
 		Repository(const Repository& originalRepository);
 		/*
@@ -112,7 +132,17 @@ class Repository {
 				- None
 		*/
 
-		bool operator==(const Repository& newRepository);
+		bool operator == (const Repository& newRepository);
+		/*
+			Overloaded equality operator
+			Input:
+				- The repository we are comparing against
+			Output:
+				- Returns true, if the two repositories are equal
+				- False, otherwise
+			Throws:
+				- None
+		*/
 
 		~Repository();
 		/*
