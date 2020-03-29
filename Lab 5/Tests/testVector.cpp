@@ -63,6 +63,52 @@ void VectorResize_MultipleInputs_SuccessfulResize() {
 	assert(newVector.getNumberOfElements() == 26 && newVector.getCapacity() == INITIAL_VECTOR_CAPACITY * MULTIPLICATION_FACTOR);
 }
 
+void DynamicVectorEqualityOperator_EqualVectors_CorrectResult() {
+	DynamicVector<TElem> newVector1;
+	DynamicVector<TElem> newVector2;
+	Victim victim1{ "vasile1", "place", 123, "photo.jpg" };
+	Victim victim2{ "vasile2", "place", 123, "photo.jpg" };
+
+	newVector1.addToVector(victim1, 0);
+	newVector1.addToVector(victim2, 1);
+	newVector2.addToVector(victim1, 0);
+	newVector2.addToVector(victim2, 1);
+
+	assert(newVector1 == newVector2);
+}
+
+void DynamicVectorEqualityOperator_DifferentNumberOfElements_CorrectResult() {
+	DynamicVector<TElem> newVector1;
+	DynamicVector<TElem> newVector2;
+	Victim victim1{ "vasile1", "place", 123, "photo.jpg" };
+	Victim victim2{ "vasile2", "place", 123, "photo.jpg" };
+	Victim victim3{ "vasile3", "place", 123, "photo.jpg" };
+	Victim victim4{ "vasile4", "place", 123, "photo.jpg" };
+
+	newVector1.addToVector(victim1, 0);
+	newVector1.addToVector(victim3, 1);
+	newVector2.addToVector(victim2, 0);
+	newVector2.addToVector(victim3, 1);
+	newVector2.addToVector(victim4, 2);
+
+	assert((newVector1 == newVector2) == false);
+}
+
+void DynamicVectorEqualityOperator_SameNumberOfElements_CorrectResult() {
+	DynamicVector<TElem> newVector1;
+	DynamicVector<TElem> newVector2;
+	Victim victim1{ "vasile1", "place", 123, "photo.jpg" };
+	Victim victim2{ "vasile2", "place", 123, "photo.jpg" };
+	Victim victim3{ "vasile3", "place", 123, "photo.jpg" };
+
+	newVector1.addToVector(victim1, 0);
+	newVector1.addToVector(victim3, 1);
+	newVector2.addToVector(victim1, 0);
+	newVector2.addToVector(victim2, 1);
+
+	assert((newVector1 == newVector2) == false);
+}
+
 void DynamicVectorAssignmentOperator_NonEmptySourceVector_CorrectCopy() {
 	DynamicVector<TElem> vector1;
 	DynamicVector<TElem> vector2;
@@ -110,6 +156,9 @@ void testVector() {
 	DeleteFromVector_OneElementCorrectInput_ElementDeleted();
 	DeleteFromVector_MultipleElementsCorrectInput_ElementDeleted();
 	VectorResize_MultipleInputs_SuccessfulResize();
+	DynamicVectorEqualityOperator_EqualVectors_CorrectResult();
+	DynamicVectorEqualityOperator_DifferentNumberOfElements_CorrectResult();
+	DynamicVectorEqualityOperator_SameNumberOfElements_CorrectResult();
 	DynamicVectorAssignmentOperator_NonEmptySourceVector_CorrectCopy();
 	DynamicVectorAssignmentOperator_EmptySourceVector_CorrectCopy();
 	DynamicVectorCopyConstructor_NonEmptySourceVector_CorrectCopy();
