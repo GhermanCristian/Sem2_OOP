@@ -4,9 +4,7 @@
 
 class Controller {
 	private:
-		int positionInSavedList;
 		Repository victimRepository;
-		DynamicVector<TElem> savedVictimList;
 		VictimIterator victimIterator;
 
 	public:

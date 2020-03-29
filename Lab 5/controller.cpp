@@ -3,7 +3,7 @@
 #include <exception>
 
 Controller::Controller() {
-	positionInSavedList = 0;
+	;
 }
 
 void Controller::addVictim(std::string victimName, std::string placeOfOrigin, int age, std::string photographLink){
@@ -29,8 +29,6 @@ DynamicVector<TElem> Controller::getFilteredVictims(std::string placeOfOrigin, i
 }
 
 TElem Controller::getNextVictim(){
-	// we set the number of elements in this call and not in the constructor because at that point, the
-	// DynamicVector is empty
 	TElem nextVictim;
 	int numberOfElements = this->victimRepository.getAllEntries()->getNumberOfElements();
 
@@ -38,24 +36,21 @@ TElem Controller::getNextVictim(){
 		throw std::exception("No elements available");
 	}
 
+	// we set the number of elements in this call and not in the constructor because at that point, the
+	// DynamicVector is empty
 	this->victimIterator.setNumberOfElements(numberOfElements);
-	nextVictim = (*this->victimRepository.getAllEntries())[this->victimIterator.getCurrentPosition()];
+	nextVictim = this->victimIterator.getCurrentElement(this->victimRepository.getAllEntries());
 	this->victimIterator.setNextPosition();
 
 	return nextVictim;
 }
 
 void Controller::saveVictim(std::string victimName){
-	// TO-DO: ensure no victim is saved twice
-	int possiblePositionOfVictim = this->victimRepository.findPosition(victimName);
-	if (this->victimRepository.isInRepository(victimName, possiblePositionOfVictim) == false) {
-		throw std::exception("Element doesn't exist");
-	}
-	savedVictimList.addToVector((*this->victimRepository.getAllEntries())[possiblePositionOfVictim], positionInSavedList++);
+	this->victimRepository.saveVictim(victimName);
 }
 
 DynamicVector<TElem>* Controller::getSavedVictims(){
-	return &savedVictimList;
+	return this->victimRepository.getSavedVictimList();
 }
 
 Controller::~Controller() {

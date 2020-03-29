@@ -1,4 +1,5 @@
 #pragma once
+#include "dynamicVector.h"
 
 class VictimIterator {
 	private:
@@ -51,13 +52,13 @@ class VictimIterator {
 				- None
 		*/
 
-		int getCurrentPosition();
+		TElem getCurrentElement(DynamicVector<TElem>* currentVector);
 		/*
-			Determines the current position of the iterator
+			Determines the element currently pointed at by the iterator
 			Input:
 				- None
 			Output:
-				- Returns the current position of the iterator
+				- Returns the element currently pointed at by the iterator
 			Throws:
 				- None
 		*/

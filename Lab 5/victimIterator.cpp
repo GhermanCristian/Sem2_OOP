@@ -20,6 +20,6 @@ void VictimIterator::setNextPosition(){
 	}
 }
 
-int VictimIterator::getCurrentPosition(){
-	return this->currentPosition;
+TElem VictimIterator::getCurrentElement(DynamicVector<TElem>* currentVector){
+	return (*currentVector)[this->currentPosition];
 }

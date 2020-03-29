@@ -4,6 +4,8 @@
 class Repository {
 	private:
 		DynamicVector<TElem> data;
+		DynamicVector<TElem> savedVictimList;
+		int positionInSavedList;
 
 		bool victimPassesFilter(const Victim& currentVictim, std::string placeOfOrigin, int age);
 		/*
@@ -106,6 +108,28 @@ class Repository {
 				- The victim's place of origin and age
 			Output:
 				- Returns a DynamicVector which contains the victims which have passed the filter
+			Throws:
+				- None
+		*/
+
+		void saveVictim(std::string victimName);
+		/*
+			Saves the current victim to a list of saved victims
+			Input:
+				- The victim's name
+			Output:
+				- The victim with that name is added to a list of saved victims (if if exists)
+			Throws:
+				- Exception, if the victim doesn't exist
+		*/
+
+		DynamicVector<TElem>* getSavedVictimList();
+		/*
+			Provides access to the list of saved victims
+			Input:
+				- None
+			Output:
+				- Returns a pointer to the list of saved victims
 			Throws:
 				- None
 		*/

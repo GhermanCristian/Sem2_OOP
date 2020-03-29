@@ -2,7 +2,7 @@
 #include <iostream>
 
 Repository::Repository(){
-	;
+	positionInSavedList = 0;
 }
 
 bool Repository::victimPassesFilter(const Victim& currentVictim, std::string placeOfOrigin, int age) {
@@ -87,6 +87,20 @@ DynamicVector<TElem> Repository::getFilteredEntries(std::string placeOfOrigin, i
 	}
 
 	return tempVector;
+}
+
+void Repository::saveVictim(std::string victimName){
+	int possiblePositionOfVictim = this->findPosition(victimName);
+
+	if (this->isInRepository(victimName, possiblePositionOfVictim) == false) {
+		throw std::exception("Element doesn't exist");
+	}
+
+	savedVictimList.addToVector(this->data[possiblePositionOfVictim], positionInSavedList++);
+}
+
+DynamicVector<TElem>* Repository::getSavedVictimList(){
+	return &savedVictimList;
 }
 
 Repository::Repository(const Repository& originalRepository){
