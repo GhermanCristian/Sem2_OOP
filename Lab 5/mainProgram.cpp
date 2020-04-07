@@ -9,8 +9,8 @@
 int main() {
 	{
 		runAllTests();
-		UserInterface currentUserInterface = UserInterface();
-		currentUserInterface.startProgram();
+		//UserInterface currentUserInterface = UserInterface();
+		//currentUserInterface.startProgram();
 	}
 	_CrtDumpMemoryLeaks();
 	return 0;

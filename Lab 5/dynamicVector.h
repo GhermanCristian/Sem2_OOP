@@ -38,7 +38,7 @@ class DynamicVector {
 				- None
 		*/
 
-		void addToVector(const TElem& newVictim, int possiblePosition);
+		void insert(const TElem& newVictim, int possiblePosition);
 		/*
 			Adds a victim to the list
 			Input:
@@ -49,7 +49,7 @@ class DynamicVector {
 				- Exception, if the victim already was in the list
 		*/
 
-		void updateInVector(const TElem& newVictim, int possiblePosition);
+		void update(const TElem& newVictim, int possiblePosition);
 		/*
 			Updates a victim from the list
 			Input:
@@ -168,7 +168,7 @@ DynamicVector <TElem>::DynamicVector() {
 }
 
 template <typename TElem>
-void DynamicVector<TElem>::addToVector(const TElem& newVictim, int possiblePosition) {
+void DynamicVector<TElem>::insert(const TElem& newVictim, int possiblePosition) {
 	// if the vector is empty, there is no need to check on which position to add the element
 	if (this->numberOfElements == 0) {
 		this->elements[0] = newVictim;
@@ -191,7 +191,7 @@ void DynamicVector<TElem>::addToVector(const TElem& newVictim, int possiblePosit
 }
 
 template <typename TElem>
-void DynamicVector<TElem>::updateInVector(const TElem& newVictim, int possiblePosition) {
+void DynamicVector<TElem>::update(const TElem& newVictim, int possiblePosition) {
 	this->elements[possiblePosition] = newVictim;
 }
 

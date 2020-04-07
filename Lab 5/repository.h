@@ -57,7 +57,7 @@ class Repository {
 				- None
 		*/
 
-		void addToRepository(const TElem& newVictim);
+		void add(const TElem& newVictim);
 		/*
 			Adds a new Victim to the repository
 			Input:
@@ -68,7 +68,7 @@ class Repository {
 				- Exception, if the victim already is in the repository
 		*/
 
-		void updateInRepository(const TElem& newVictim);
+		void update(const TElem& newVictim);
 		/*
 			Updates a Victim from the repository
 			Input:

@@ -40,9 +40,9 @@ bool Repository::isInRepository(std::string victimName, int possiblePosition) {
 	return possiblePosition >= 0 and possiblePosition < this->data.getNumberOfElements() and this->data[possiblePosition].getName() == victimName;
 }
 
-void Repository::addToRepository(const TElem& newVictim){
+void Repository::add(const TElem& newVictim){
 	if (this->data.getNumberOfElements() == 0) {
-		this->data.addToVector(newVictim, 0);
+		this->data.insert(newVictim, 0);
 		return;
 	}
 
@@ -51,16 +51,16 @@ void Repository::addToRepository(const TElem& newVictim){
 		throw std::exception("Element already exists");
 	}
 
-	this->data.addToVector(newVictim, possiblePosition + 1);
+	this->data.insert(newVictim, possiblePosition + 1);
 }
 
-void Repository::updateInRepository(const TElem& newVictim){
+void Repository::update(const TElem& newVictim){
 	int possiblePosition = findPosition(newVictim.getName());
 	if (isInRepository(newVictim.getName(), possiblePosition) == false) {
 		throw std::exception("Element doesn't exist");
 	}
 
-	this->data.updateInVector(newVictim, possiblePosition);
+	this->data.update(newVictim, possiblePosition);
 }
 
 void Repository::deleteFromRepository(std::string victimName){
@@ -82,7 +82,7 @@ DynamicVector<TElem> Repository::getFilteredEntries(std::string placeOfOrigin, i
 	
 	for (int i = 0; i < this->data.getNumberOfElements(); i++) {
 		if (victimPassesFilter(this->data[i], placeOfOrigin, age)) {
-			tempVector.addToVector(this->data[i], vectorPosition++);
+			tempVector.insert(this->data[i], vectorPosition++);
 		}
 	}
 
@@ -96,7 +96,7 @@ void Repository::saveVictim(std::string victimName){
 		throw std::exception("Element doesn't exist");
 	}
 
-	savedVictimList.addToVector(this->data[possiblePositionOfVictim], positionInSavedList++);
+	savedVictimList.insert(this->data[possiblePositionOfVictim], positionInSavedList++);
 }
 
 DynamicVector<TElem>* Repository::getSavedVictimList(){

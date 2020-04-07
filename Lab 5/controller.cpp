@@ -8,12 +8,12 @@ Controller::Controller() {
 
 void Controller::addVictim(std::string victimName, std::string placeOfOrigin, int age, std::string photographLink){
 	Victim newVictim{ victimName, placeOfOrigin, age, photographLink };
-	this->victimRepository.addToRepository(newVictim);
+	this->victimRepository.add(newVictim);
 }
 
 void Controller::updateVictim(std::string victimName, std::string newPlaceOfOrigin, int newAge, std::string newPhotographLink){
 	Victim newVictim{ victimName, newPlaceOfOrigin, newAge, newPhotographLink };
-	this->victimRepository.updateInRepository(newVictim);
+	this->victimRepository.update(newVictim);
 }
 
 void Controller::deleteVictim(std::string victimName){
