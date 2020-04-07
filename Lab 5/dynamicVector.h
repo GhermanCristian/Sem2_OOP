@@ -60,7 +60,7 @@ class DynamicVector {
 				- Exception, if the victim wasn't in the list
 		*/
 
-		void deleteFromVector(int possiblePosition);
+		void erase(int possiblePosition);
 		/*
 			Deletes a victim from the list
 			Input:
@@ -196,7 +196,7 @@ void DynamicVector<TElem>::update(const TElem& newVictim, int possiblePosition) 
 }
 
 template <typename TElem>
-void DynamicVector<TElem>::deleteFromVector(int possiblePosition) {
+void DynamicVector<TElem>::erase(int possiblePosition) {
 	// overwrite the position we want to remove by moving all elements on its right by 1 position to the left
 	for (int index = possiblePosition; index < this->numberOfElements - 1; index++) {
 		this->elements[index] = this->elements[index + 1];
