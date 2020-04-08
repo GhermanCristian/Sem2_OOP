@@ -1,5 +1,5 @@
 #pragma once
-/*#include "controller.h"
+#include "controller.h"
 #include "inputValidator.h"
 
 typedef ArgumentList(InputValidator::* InputValidatorFunction)(std::string);
@@ -54,4 +54,4 @@ class UserInterface {
 		UserInterface();
 		void startProgram();
 		~UserInterface();
-};*/
+};

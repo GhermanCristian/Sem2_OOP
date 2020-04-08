@@ -166,34 +166,34 @@ void GetFilteredEntries_NoPlaceOfOrigin_CorrectNumberOfElements() {
 	assert(newVector.size() == 5);
 }
 
-void RepositoryAssignmentOperator_FilledRepository_CorrectCopy() {
-	Repository newRepository;
-	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
-	Victim newVictim1{ "vasile1", "place", 123, "photo.jpg" };
-	Victim newVictim2{ "vasile2", "place2", 123, "photo.jpg" };
-
-	newRepository.add(newVictim);
-	newRepository.add(newVictim1);
-	newRepository.add(newVictim2);
-
-	Repository newRepository1;
-	newRepository1 = newRepository;
-	assert(newRepository1 == newRepository);
-}
-
-void RepositoryCopyConstructor_FilledRepository_CorrectCopy() {
-	Repository newRepository;
-	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
-	Victim newVictim1{ "vasile1", "place", 123, "photo.jpg" };
-	Victim newVictim2{ "vasile2", "place2", 123, "photo.jpg" };
-
-	newRepository.add(newVictim);
-	newRepository.add(newVictim1);
-	newRepository.add(newVictim2);
-
-	Repository newRepository1(newRepository);
-	assert(newRepository1 == newRepository);
-}
+//void RepositoryAssignmentOperator_FilledRepository_CorrectCopy() {
+//	Repository newRepository;
+//	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
+//	Victim newVictim1{ "vasile1", "place", 123, "photo.jpg" };
+//	Victim newVictim2{ "vasile2", "place2", 123, "photo.jpg" };
+//
+//	newRepository.add(newVictim);
+//	newRepository.add(newVictim1);
+//	newRepository.add(newVictim2);
+//
+//	Repository newRepository1;
+//	newRepository1 = newRepository;
+//	assert(newRepository1 == newRepository);
+//}
+//
+//void RepositoryCopyConstructor_FilledRepository_CorrectCopy() {
+//	Repository newRepository;
+//	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
+//	Victim newVictim1{ "vasile1", "place", 123, "photo.jpg" };
+//	Victim newVictim2{ "vasile2", "place2", 123, "photo.jpg" };
+//
+//	newRepository.add(newVictim);
+//	newRepository.add(newVictim1);
+//	newRepository.add(newVictim2);
+//
+//	Repository newRepository1(newRepository);
+//	assert(newRepository1 == newRepository);
+//}
 
 void GetAllEntries_EmptyRepository_NoOutput() {
 	Repository newRepository;
@@ -229,8 +229,8 @@ void testRepository() {
 	GetFilteredEntries_FilledRepository_CorrectNumberOfElements();
 	GetFilteredEntries_NothingThroughFilter_NoOutput();
 	GetFilteredEntries_NoPlaceOfOrigin_CorrectNumberOfElements();
-	RepositoryAssignmentOperator_FilledRepository_CorrectCopy();
-	RepositoryCopyConstructor_FilledRepository_CorrectCopy();
+	//RepositoryAssignmentOperator_FilledRepository_CorrectCopy();
+	//RepositoryCopyConstructor_FilledRepository_CorrectCopy();
 	GetAllEntries_EmptyRepository_NoOutput();
 	GetAllEntries_FilledRepository_CorrectOutput();
 }

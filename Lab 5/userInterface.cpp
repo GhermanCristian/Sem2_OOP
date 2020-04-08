@@ -1,7 +1,7 @@
 #include "userInterface.h"
 #include <iostream>
 #include <string.h>
-/*
+
 UserInterface::UserInterface() {
 	loadAdministratorModeContent();
 	loadAssistantModeContent();
@@ -244,4 +244,3 @@ void UserInterface::startProgram() {
 UserInterface::~UserInterface() {
 	;
 }
-*/

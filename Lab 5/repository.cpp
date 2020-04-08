@@ -51,7 +51,9 @@ void Repository::add(const Victim& newVictim){
 		throw std::exception("Element already exists");
 	}
 
-	this->data.insert(this->data.begin() + possiblePosition + 1, newVictim);
+	possiblePosition++; // I am doing this because when possiblePosition is -1, doing .. + 1 will cause an error, 
+						// because we cannot subtract from the begin() iterator
+	this->data.insert(this->data.begin() + possiblePosition, newVictim);
 }
 
 void Repository::update(const Victim& newVictim){
@@ -111,10 +113,6 @@ Repository& Repository::operator=(const Repository& originalRepository){
 		this->data = originalRepository.data;
 	}
 	return *this;
-}
-
-bool Repository::operator == (const Repository& newRepository) {
-	return (this->data == newRepository.data);
 }
 
 Repository::~Repository(){

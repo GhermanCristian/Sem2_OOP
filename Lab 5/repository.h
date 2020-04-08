@@ -159,18 +159,6 @@ class Repository {
 				- None
 		*/
 
-		bool operator == (const Repository& newRepository);
-		/*
-			Overloaded equality operator
-			Input:
-				- The repository we are comparing against
-			Output:
-				- Returns true, if the two repositories are equal
-				- False, otherwise
-			Throws:
-				- None
-		*/
-
 		~Repository();
 		/*
 			Repository destructor
