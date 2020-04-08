@@ -20,17 +20,17 @@ void Controller::deleteVictim(std::string victimName){
 	this->victimRepository.deleteFromRepository(victimName);
 }
 
-DynamicVector<TElem>* Controller::getAllVictims(){
+std::vector <Victim>* Controller::getAllVictims(){
 	return this->victimRepository.getAllEntries();
 }
 
-DynamicVector<TElem> Controller::getFilteredVictims(std::string placeOfOrigin, int age) {
+std::vector <Victim> Controller::getFilteredVictims(std::string placeOfOrigin, int age) {
 	return this->victimRepository.getFilteredEntries(placeOfOrigin, age);
 }
 
-TElem Controller::getNextVictim(){
-	TElem nextVictim;
-	int numberOfElements = this->victimRepository.getAllEntries()->getNumberOfElements();
+Victim Controller::getNextVictim(){
+	Victim nextVictim;
+	int numberOfElements = this->victimRepository.getAllEntries()->size();
 
 	if (numberOfElements <= 0) {
 		throw std::exception("No elements available");
@@ -49,7 +49,7 @@ void Controller::saveVictim(std::string victimName){
 	this->victimRepository.saveVictim(victimName);
 }
 
-DynamicVector<TElem>* Controller::getSavedVictims(){
+std::vector <Victim>* Controller::getSavedVictims(){
 	return this->victimRepository.getSavedVictimList();
 }
 

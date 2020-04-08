@@ -1,7 +1,7 @@
 #include "userInterface.h"
 #include <iostream>
 #include <string.h>
-
+/*
 UserInterface::UserInterface() {
 	loadAdministratorModeContent();
 	loadAssistantModeContent();
@@ -89,12 +89,12 @@ void UserInterface::deleteVictimInterface(ArgumentList argumentList){
 }
 
 void UserInterface::listAllInterface(ArgumentList argumentList){
-	DynamicVector<TElem>* victimList;
+	std::vector <Victim>* victimList;
 
 	try {
 		victimList = this->actionController.getAllVictims();
-		for (int index = 0; index < victimList->getNumberOfElements(); index++) {
-			displayVictim((*victimList)[index]);
+		for (auto victim : *victimList) {
+			displayVictim(victim);
 		}
 	}
 	catch (std::exception & operationException) {
@@ -124,15 +124,15 @@ void UserInterface::saveVictimInterface(ArgumentList argumentList){
 }
 
 void UserInterface::listFilteredInterface(ArgumentList argumentList){
-	DynamicVector<TElem> filteredVictimList;
+	std::vector <Victim> filteredVictimList;
 
 	std::string placeOfOrigin = argumentList.list[NAME_POSITION];
 	int age = stoi(argumentList.list[PLACE_OF_ORIGIN_POSITION]);
 
 	try {
 		filteredVictimList = this->actionController.getFilteredVictims(placeOfOrigin, age);
-		for (int index = 0; index < filteredVictimList.getNumberOfElements(); index++) {
-			displayVictim(filteredVictimList[index]);
+		for (auto victim : filteredVictimList) {
+			displayVictim(victim);
 		}
 	}
 	catch (std::exception& operationException) {
@@ -141,12 +141,12 @@ void UserInterface::listFilteredInterface(ArgumentList argumentList){
 }
 
 void UserInterface::myListInterface(ArgumentList argumentList){
-	DynamicVector<TElem>* savedVictimList;
+	std::vector <Victim>* savedVictimList;
 
 	try {
 		savedVictimList = this->actionController.getSavedVictims();
-		for (int index = 0; index < savedVictimList->getNumberOfElements(); index++) {
-			displayVictim((*savedVictimList)[index]);
+		for (auto victim : *savedVictimList) {
+			displayVictim(victim);
 		}
 	}
 	catch (std::exception& operationException) {
@@ -244,3 +244,4 @@ void UserInterface::startProgram() {
 UserInterface::~UserInterface() {
 	;
 }
+*/

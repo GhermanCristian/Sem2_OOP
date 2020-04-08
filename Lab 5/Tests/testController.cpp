@@ -2,7 +2,7 @@
 
 void AddVictim_CorrectInput_AddsVictim() {
 	Controller newController;
-	DynamicVector<TElem>* pointerToData;
+	std::vector <Victim>* pointerToData;
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
 
 	newController.addVictim("vasile", "place", 123, "photo.jpg");
@@ -12,7 +12,7 @@ void AddVictim_CorrectInput_AddsVictim() {
 
 void UpdateVictim_CorrectInput_UpdatesVictim() {
 	Controller newController;
-	DynamicVector<TElem>* pointerToData;
+	std::vector <Victim>* pointerToData;
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
 	Victim newVictim1{ "vasile", "newplace", 1233, "newphoto.jpg" };
 
@@ -24,13 +24,13 @@ void UpdateVictim_CorrectInput_UpdatesVictim() {
 
 void DeleteVictim_CorrectInput_DeletesVictim() {
 	Controller newController;
-	DynamicVector<TElem>* pointerToData;
+	std::vector <Victim>* pointerToData;
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
 
 	newController.addVictim("vasile", "place", 123, "photo.jpg");
 	newController.deleteVictim("vasile");
 	pointerToData = newController.getAllVictims();
-	assert(pointerToData->getNumberOfElements() == 0);
+	assert(pointerToData->size() == 0);
 }
 
 void SaveVictim_EmptyRepository_ThrowsError() {
@@ -61,7 +61,7 @@ void SaveVictim_InexistingVictim_ThrowsError() {
 
 void GetSavedVictims_MultipleValidSaves_CorrectNumberOfElements() {
 	Controller newController;
-	DynamicVector<TElem>* savedVictims;
+	std::vector <Victim>* savedVictims;
 
 	newController.addVictim("vasile", "place", 123, "photo");
 	newController.addVictim("vasile1", "place", 123, "photo");
@@ -74,7 +74,7 @@ void GetSavedVictims_MultipleValidSaves_CorrectNumberOfElements() {
 	newController.saveVictim("vasile3");
 
 	savedVictims = newController.getSavedVictims();
-	assert(savedVictims->getNumberOfElements() == 3);
+	assert(savedVictims->size() == 3);
 }
 
 void NextVictim_EmptyRepository_ThrowsError() {

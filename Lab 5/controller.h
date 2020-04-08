@@ -52,7 +52,7 @@ class Controller {
 				- Exception, if the victim doesn't exist
 		*/
 
-		DynamicVector<TElem>* getAllVictims();
+		std::vector <Victim>* getAllVictims();
 		/*
 			Returns a pointer to the data in the repository
 			Input:
@@ -63,7 +63,7 @@ class Controller {
 				- None
 		*/
 
-		DynamicVector<TElem> getFilteredVictims(std::string placeOfOrigin, int age);
+		std::vector <Victim> getFilteredVictims(std::string placeOfOrigin, int age);
 		/*
 			Determines a list of all the victims which pass a filter
 			Input:
@@ -74,7 +74,7 @@ class Controller {
 				- None
 		*/
 
-		TElem getNextVictim();
+		Victim getNextVictim();
 		/*
 			Determines the next victim in the list (assistant mode)
 			Input:
@@ -96,7 +96,7 @@ class Controller {
 				- Exception, if the victim doesn't exist
 		*/
 
-		DynamicVector<TElem>* getSavedVictims();
+		std::vector <Victim>* getSavedVictims();
 		/*
 			Allows access to the list of saved victims
 			Input:

@@ -2,7 +2,6 @@
 
 void runAllTests() {
 	testVictim();
-	testVector();
 	testRepository();
 	testController();
 }

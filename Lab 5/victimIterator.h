@@ -1,5 +1,6 @@
 #pragma once
-#include "dynamicVector.h"
+#include <vector>
+#include "victim.h"
 
 class VictimIterator {
 	private:
@@ -52,7 +53,7 @@ class VictimIterator {
 				- None
 		*/
 
-		TElem getCurrentElement(DynamicVector<TElem>* currentVector);
+		Victim getCurrentElement(std::vector <Victim>* currentVector);
 		/*
 			Determines the element currently pointed at by the iterator
 			Input:

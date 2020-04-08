@@ -17,7 +17,7 @@ void AddToRepository_DuplicateElement_ThrowsError() {
 
 void AddToRepository_EmptyRepositoryMultipleInputs_AddedInTheCorrectOrder() {
 	Repository newRepository;
-	DynamicVector<TElem>* pointerToData;
+	std::vector <Victim>* pointerToData;
 
 	for (char letter = 'f'; letter >= 'a'; letter--) {
 		std::string word;
@@ -28,7 +28,7 @@ void AddToRepository_EmptyRepositoryMultipleInputs_AddedInTheCorrectOrder() {
 
 	// checks if the elements are in increasing order
 	pointerToData = newRepository.getAllEntries();
-	for (int index = 0; index < pointerToData->getNumberOfElements() - 1; index++) {
+	for (int index = 0; index < pointerToData->size() - 1; index++) {
 		assert((*pointerToData)[index].getName() < (*pointerToData)[index + 1].getName());
 	}
 }
@@ -102,14 +102,14 @@ void IsInRepository_NonExistingElement_ElementNotFound() {
 
 void GetFilteredEntries_EmptyRepository_NoOutput() {
 	Repository newRepository;
-	DynamicVector<TElem> newVector = newRepository.getFilteredEntries("location", 222);
+	std::vector <Victim> newVector = newRepository.getFilteredEntries("location", 222);
 
-	assert(newVector.getNumberOfElements() == 0);
+	assert(newVector.size() == 0);
 }
 
 void GetFilteredEntries_FilledRepository_CorrectNumberOfElements() {
 	Repository newRepository;
-	DynamicVector<TElem> newVector;
+	std::vector <Victim> newVector;
 
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
 	Victim newVictim1{ "vasile1", "place", 123, "photo.jpg" };
@@ -124,12 +124,12 @@ void GetFilteredEntries_FilledRepository_CorrectNumberOfElements() {
 	newRepository.add(newVictim4);
 
 	newVector = newRepository.getFilteredEntries("place", 124);
-	assert(newVector.getNumberOfElements() == 3);
+	assert(newVector.size() == 3);
 }
 
 void GetFilteredEntries_NothingThroughFilter_NoOutput() {
 	Repository newRepository;
-	DynamicVector<TElem> newVector;
+	std::vector <Victim> newVector;
 
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
 	Victim newVictim1{ "vasile1", "place", 123, "photo.jpg" };
@@ -144,12 +144,12 @@ void GetFilteredEntries_NothingThroughFilter_NoOutput() {
 	newRepository.add(newVictim4);
 
 	newVector = newRepository.getFilteredEntries("place", 123);
-	assert(newVector.getNumberOfElements() == 0);
+	assert(newVector.size() == 0);
 }
 
 void GetFilteredEntries_NoPlaceOfOrigin_CorrectNumberOfElements() {
 	Repository newRepository;
-	DynamicVector<TElem> newVector;
+	std::vector <Victim> newVector;
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
 	Victim newVictim1{ "vasile1", "place", 123, "photo.jpg" };
 	Victim newVictim2{ "vasile2", "place2", 123, "photo.jpg" };
@@ -163,7 +163,7 @@ void GetFilteredEntries_NoPlaceOfOrigin_CorrectNumberOfElements() {
 	newRepository.add(newVictim4);
 
 	newVector = newRepository.getFilteredEntries("", 1);
-	assert(newVector.getNumberOfElements() == 5);
+	assert(newVector.size() == 5);
 }
 
 void RepositoryAssignmentOperator_FilledRepository_CorrectCopy() {
@@ -197,8 +197,8 @@ void RepositoryCopyConstructor_FilledRepository_CorrectCopy() {
 
 void GetAllEntries_EmptyRepository_NoOutput() {
 	Repository newRepository;
-	DynamicVector<TElem>* pointerToData = newRepository.getAllEntries();
-	assert(pointerToData->getNumberOfElements() == 0);
+	std::vector <Victim>* pointerToData = newRepository.getAllEntries();
+	assert(pointerToData->size() == 0);
 }
 
 void GetAllEntries_FilledRepository_CorrectOutput() {
@@ -211,8 +211,8 @@ void GetAllEntries_FilledRepository_CorrectOutput() {
 	newRepository.add(newVictim1);
 	newRepository.add(newVictim2);
 
-	DynamicVector<TElem>* pointerToData = newRepository.getAllEntries();
-	assert(pointerToData->getNumberOfElements() == 3);
+	std::vector <Victim>* pointerToData = newRepository.getAllEntries();
+	assert(pointerToData->size() == 3);
 }
 
 void testRepository() {

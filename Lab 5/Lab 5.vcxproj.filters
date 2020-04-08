@@ -51,9 +51,6 @@
     <ClCompile Include="Tests\testRepository.cpp">
       <Filter>Source Files\Tests</Filter>
     </ClCompile>
-    <ClCompile Include="Tests\testVector.cpp">
-      <Filter>Source Files\Tests</Filter>
-    </ClCompile>
     <ClCompile Include="Tests\testVictim.cpp">
       <Filter>Source Files\Tests</Filter>
     </ClCompile>
@@ -71,9 +68,6 @@
     <ClInclude Include="victim.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="dynamicVector.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="repository.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -87,9 +81,6 @@
       <Filter>Header Files\Tests</Filter>
     </ClInclude>
     <ClInclude Include="Tests\tests.h">
-      <Filter>Header Files\Tests</Filter>
-    </ClInclude>
-    <ClInclude Include="Tests\testVector.h">
       <Filter>Header Files\Tests</Filter>
     </ClInclude>
     <ClInclude Include="Tests\testVictim.h">

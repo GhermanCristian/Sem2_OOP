@@ -1,10 +1,13 @@
 #pragma once
-#include "dynamicVector.h"
+#include <vector>
+#include "victim.h"
+
+const int INEXISTENT_POSITION = -1111;
 
 class Repository {
 	private:
-		DynamicVector<TElem> data;
-		DynamicVector<TElem> savedVictimList;
+		std::vector <Victim> data;
+		std::vector <Victim> savedVictimList;
 		int positionInSavedList;
 
 		bool victimPassesFilter(const Victim& currentVictim, std::string placeOfOrigin, int age);
@@ -57,7 +60,7 @@ class Repository {
 				- None
 		*/
 
-		void add(const TElem& newVictim);
+		void add(const Victim& newVictim);
 		/*
 			Adds a new Victim to the repository
 			Input:
@@ -68,7 +71,7 @@ class Repository {
 				- Exception, if the victim already is in the repository
 		*/
 
-		void update(const TElem& newVictim);
+		void update(const Victim& newVictim);
 		/*
 			Updates a Victim from the repository
 			Input:
@@ -90,7 +93,7 @@ class Repository {
 				- Exception, if the victim wasn't in the repository
 		*/
 
-		DynamicVector<TElem>* getAllEntries();
+		std::vector <Victim>* getAllEntries();
 		/*
 			Returns a pointer to the data in the repository
 			Input:
@@ -101,7 +104,7 @@ class Repository {
 				- None
 		*/
 
-		DynamicVector<TElem> getFilteredEntries(std::string placeOfOrigin, int age);
+		std::vector <Victim> getFilteredEntries(std::string placeOfOrigin, int age);
 		/*
 			Determines a list of all the victims which pass the given filter
 			Input:
@@ -123,7 +126,7 @@ class Repository {
 				- Exception, if the victim doesn't exist
 		*/
 
-		DynamicVector<TElem>* getSavedVictimList();
+		std::vector <Victim>* getSavedVictimList();
 		/*
 			Provides access to the list of saved victims
 			Input:

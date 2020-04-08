@@ -14,7 +14,7 @@ int Repository::findPosition(std::string victimName) {
 	// why we can search for them using binary search;
 	// this function finds the largest element <= given value
 	int leftBound = 0; // left margin of the current range
-	int rightBound = this->data.getNumberOfElements() - 1; // right margin of the current range
+	int rightBound = this->data.size() - 1; // right margin of the current range
 	int middleIndex; // the index of the middle of the current range
 	while (leftBound <= rightBound) {
 		middleIndex = (leftBound + rightBound) / 2;
@@ -37,12 +37,12 @@ bool Repository::isInRepository(std::string victimName, int possiblePosition) {
 	if (possiblePosition == INEXISTENT_POSITION) {
 		possiblePosition = findPosition(victimName);
 	}
-	return possiblePosition >= 0 and possiblePosition < this->data.getNumberOfElements() and this->data[possiblePosition].getName() == victimName;
+	return possiblePosition >= 0 and possiblePosition < this->data.size() and this->data[possiblePosition].getName() == victimName;
 }
 
-void Repository::add(const TElem& newVictim){
-	if (this->data.getNumberOfElements() == 0) {
-		this->data.insert(newVictim, 0);
+void Repository::add(const Victim& newVictim){
+	if (this->data.size() == 0) {
+		this->data.push_back(newVictim);
 		return;
 	}
 
@@ -51,16 +51,16 @@ void Repository::add(const TElem& newVictim){
 		throw std::exception("Element already exists");
 	}
 
-	this->data.insert(newVictim, possiblePosition + 1);
+	this->data.insert(this->data.begin() + possiblePosition + 1, newVictim);
 }
 
-void Repository::update(const TElem& newVictim){
+void Repository::update(const Victim& newVictim){
 	int possiblePosition = findPosition(newVictim.getName());
 	if (isInRepository(newVictim.getName(), possiblePosition) == false) {
 		throw std::exception("Element doesn't exist");
 	}
 
-	this->data.update(newVictim, possiblePosition);
+	this->data[possiblePosition] = newVictim;
 }
 
 void Repository::deleteFromRepository(std::string victimName){
@@ -69,20 +69,19 @@ void Repository::deleteFromRepository(std::string victimName){
 		throw std::exception("Element doesn't exist");
 	}
 
-	this->data.deleteFromVector(possiblePosition);
+	this->data.erase(this->data.begin() + possiblePosition);
 }
 
-DynamicVector<TElem>* Repository::getAllEntries(){
+std::vector <Victim>* Repository::getAllEntries(){
 	return &this->data;
 }
 
-DynamicVector<TElem> Repository::getFilteredEntries(std::string placeOfOrigin, int age) {
-	DynamicVector<TElem> tempVector;
-	int vectorPosition = 0;
-	
-	for (int i = 0; i < this->data.getNumberOfElements(); i++) {
-		if (victimPassesFilter(this->data[i], placeOfOrigin, age)) {
-			tempVector.insert(this->data[i], vectorPosition++);
+std::vector <Victim> Repository::getFilteredEntries(std::string placeOfOrigin, int age) {
+	std::vector <Victim> tempVector;
+
+	for (auto victim : this->data) {
+		if (victimPassesFilter(victim, placeOfOrigin, age)) {
+			tempVector.push_back(victim);
 		}
 	}
 
@@ -96,10 +95,10 @@ void Repository::saveVictim(std::string victimName){
 		throw std::exception("Element doesn't exist");
 	}
 
-	savedVictimList.insert(this->data[possiblePositionOfVictim], positionInSavedList++);
+	savedVictimList.push_back(this->data[possiblePositionOfVictim]);
 }
 
-DynamicVector<TElem>* Repository::getSavedVictimList(){
+std::vector <Victim>* Repository::getSavedVictimList(){
 	return &savedVictimList;
 }
 
