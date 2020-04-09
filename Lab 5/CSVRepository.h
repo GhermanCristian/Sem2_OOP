@@ -3,8 +3,10 @@
 
 class CSVRepository : public FileRepository{
 	private:
-		//void loadFromFile();
-		//void saveToFile();
+		Victim loadVictimFromFile(std::string lineContent);
+		std::vector<Victim> loadFromFile();
+		std::string getVictimFileRepresentation(const Victim& currentVictim);
+		void saveToFile(const std::vector<Victim>& currentData);
 
 	public:
 		CSVRepository(std::string filePath);

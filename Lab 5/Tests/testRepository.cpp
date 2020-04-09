@@ -76,28 +76,34 @@ void DeleteFromRepository_EmptyRepository_ThrowsError() {
 
 void IsInRepository_EmptyRepository_NotFound() {
 	MemoryRepository newRepository;
-	assert(newRepository.isInRepository("vasile") == false);
+	std::vector <Victim> repositoryData = *(newRepository.getAllEntries());
+	assert(newRepository.isInRepository(repositoryData, "vasile") == false);
 }
 
 void IsInRepository_InvalidPosition_NotFound() {
 	MemoryRepository newRepository;
-	assert(newRepository.isInRepository("vasile", 1) == false);
+	std::vector <Victim> repositoryData = *(newRepository.getAllEntries());
+	assert(newRepository.isInRepository(repositoryData, "vasile", 1) == false);
 }
 
 void IsInRepository_ElementExists_ElementFound() {
 	MemoryRepository newRepository;
+	std::vector <Victim> repositoryData;
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
 
 	newRepository.add(newVictim);
-	assert(newRepository.isInRepository("vasile") == true);
+	repositoryData = *(newRepository.getAllEntries());
+	assert(newRepository.isInRepository(repositoryData, "vasile") == true);
 }
 
 void IsInRepository_NonExistingElement_ElementNotFound() {
 	MemoryRepository newRepository;
+	std::vector <Victim> repositoryData;
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
 
 	newRepository.add(newVictim);
-	assert(newRepository.isInRepository("not vasile") == false);
+	repositoryData = *(newRepository.getAllEntries());
+	assert(newRepository.isInRepository(repositoryData, "not vasile") == false);
 }
 
 void GetFilteredEntries_EmptyRepository_NoOutput() {

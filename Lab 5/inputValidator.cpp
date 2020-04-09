@@ -44,13 +44,13 @@ ArgumentList InputValidator::addVictimInputValidator(std::string userInput) {
 
 	if (validInput == false) {
 		addArgumentList.list[ERROR_POSITION] = ERROR_CODE;
-		return addArgumentList;
 	}
-
-	addArgumentList.list[NAME_POSITION] = stringMatch.str(FIRST_ARGUMENT_REGEX_POSITION);
-	addArgumentList.list[PLACE_OF_ORIGIN_POSITION] = stringMatch.str(SECOND_ARGUMENT_REGEX_POSITION);
-	addArgumentList.list[AGE_POSITION] = stringMatch.str(THIRD_ARGUMENT_REGEX_POSITION);
-	addArgumentList.list[PHOTOGRAPH_POSITION] = stringMatch.str(FOURTH_ARGUMENT_REGEX_POSITION);
+	else {
+		addArgumentList.list[NAME_POSITION] = stringMatch.str(FIRST_ARGUMENT_REGEX_POSITION);
+		addArgumentList.list[PLACE_OF_ORIGIN_POSITION] = stringMatch.str(SECOND_ARGUMENT_REGEX_POSITION);
+		addArgumentList.list[AGE_POSITION] = stringMatch.str(THIRD_ARGUMENT_REGEX_POSITION);
+		addArgumentList.list[PHOTOGRAPH_POSITION] = stringMatch.str(FOURTH_ARGUMENT_REGEX_POSITION);
+	}
 
 	return addArgumentList;
 }
@@ -93,13 +93,13 @@ ArgumentList InputValidator::updateVictimInputValidator(std::string userInput) {
 
 	if (validInput == false) {
 		updateArgumentList.list[ERROR_POSITION] = ERROR_CODE;
-		return updateArgumentList;
 	}
-
-	updateArgumentList.list[NAME_POSITION] = stringMatch.str(FIRST_ARGUMENT_REGEX_POSITION);
-	updateArgumentList.list[PLACE_OF_ORIGIN_POSITION] = stringMatch.str(SECOND_ARGUMENT_REGEX_POSITION);
-	updateArgumentList.list[AGE_POSITION] = stringMatch.str(THIRD_ARGUMENT_REGEX_POSITION);
-	updateArgumentList.list[PHOTOGRAPH_POSITION] = stringMatch.str(FOURTH_ARGUMENT_REGEX_POSITION);
+	else {
+		updateArgumentList.list[NAME_POSITION] = stringMatch.str(FIRST_ARGUMENT_REGEX_POSITION);
+		updateArgumentList.list[PLACE_OF_ORIGIN_POSITION] = stringMatch.str(SECOND_ARGUMENT_REGEX_POSITION);
+		updateArgumentList.list[AGE_POSITION] = stringMatch.str(THIRD_ARGUMENT_REGEX_POSITION);
+		updateArgumentList.list[PHOTOGRAPH_POSITION] = stringMatch.str(FOURTH_ARGUMENT_REGEX_POSITION);
+	}
 
 	return updateArgumentList;
 }
@@ -122,10 +122,10 @@ ArgumentList InputValidator::deleteVictimInputValidator(std::string userInput) {
 
 	if (validInput == false) {
 		deleteArgumentList.list[ERROR_POSITION] = ERROR_CODE;
-		return deleteArgumentList;
 	}
-
-	deleteArgumentList.list[NAME_POSITION] = stringMatch.str(FIRST_ARGUMENT_REGEX_POSITION);
+	else {
+		deleteArgumentList.list[NAME_POSITION] = stringMatch.str(FIRST_ARGUMENT_REGEX_POSITION);
+	}
 
 	return deleteArgumentList;
 }
@@ -142,7 +142,9 @@ ArgumentList InputValidator::listAllInputValidator(std::string userInput) {
 
 	if (validInput == false) {
 		listAllArgumentList.list[ERROR_POSITION] = ERROR_CODE;
-		return listAllArgumentList;
+	}
+	else {
+		;
 	}
 	
 	return listAllArgumentList;
@@ -161,7 +163,9 @@ ArgumentList InputValidator::nextVictimInputValidator(std::string userInput)
 
 	if (validInput == false) {
 		nextVictimArgumentList.list[ERROR_POSITION] = ERROR_CODE;
-		return nextVictimArgumentList;
+	}
+	else {
+		;
 	}
 
 	return nextVictimArgumentList;
@@ -186,10 +190,10 @@ ArgumentList InputValidator::saveVictimInputValidator(std::string userInput)
 
 	if (validInput == false) {
 		saveVictimArgumentList.list[ERROR_POSITION] = ERROR_CODE;
-		return saveVictimArgumentList;
 	}
-
-	saveVictimArgumentList.list[NAME_POSITION] = stringMatch.str(FIRST_ARGUMENT_REGEX_POSITION);
+	else {
+		saveVictimArgumentList.list[NAME_POSITION] = stringMatch.str(FIRST_ARGUMENT_REGEX_POSITION);
+	}
 
 	return saveVictimArgumentList;
 }
@@ -220,11 +224,11 @@ ArgumentList InputValidator::listFilteredInputValidator(std::string userInput)
 
 	if (validInput == false) {
 		listFilteredArgumentList.list[ERROR_POSITION] = ERROR_CODE;
-		return listFilteredArgumentList;
 	}
-
-	listFilteredArgumentList.list[NAME_POSITION] = stringMatch.str(FIRST_ARGUMENT_REGEX_POSITION);
-	listFilteredArgumentList.list[PLACE_OF_ORIGIN_POSITION] = stringMatch.str(SECOND_ARGUMENT_REGEX_POSITION);
+	else {
+		listFilteredArgumentList.list[NAME_POSITION] = stringMatch.str(FIRST_ARGUMENT_REGEX_POSITION);
+		listFilteredArgumentList.list[PLACE_OF_ORIGIN_POSITION] = stringMatch.str(SECOND_ARGUMENT_REGEX_POSITION);
+	}
 
 	return listFilteredArgumentList;
 }
@@ -242,7 +246,9 @@ ArgumentList InputValidator::myListInputValidator(std::string userInput)
 
 	if (validInput == false) {
 		myListArgumentList.list[ERROR_POSITION] = ERROR_CODE;
-		return myListArgumentList;
+	}
+	else {
+		;
 	}
 
 	return myListArgumentList;
@@ -264,6 +270,25 @@ char InputValidator::modeValidator(std::string userInput){
 	}
 
 	return userInput.back();
+}
+
+ArgumentList InputValidator::CSVFileVictimValidator(std::string victimLine){
+	std::regex CSVFileVictimPattern("(([a-zA-Z0-9]+ *)+), +(([a-zA-Z0-9]+ *)+), +([0-9]+), +([a-zA-Z.0-9]+)");
+	std::smatch stringMatch;
+	bool validInput = std::regex_search(victimLine, stringMatch, CSVFileVictimPattern);
+	ArgumentList victimPropertiesArgumentList;
+
+	if (validInput == false) {
+		victimPropertiesArgumentList.list[ERROR_POSITION] = ERROR_CODE;
+	}
+	else {
+		victimPropertiesArgumentList.list[NAME_POSITION] = stringMatch.str(FIRST_ARGUMENT_REGEX_POSITION);
+		victimPropertiesArgumentList.list[PLACE_OF_ORIGIN_POSITION] = stringMatch.str(SECOND_ARGUMENT_REGEX_POSITION);
+		victimPropertiesArgumentList.list[AGE_POSITION] = stringMatch.str(THIRD_ARGUMENT_REGEX_POSITION);
+		victimPropertiesArgumentList.list[PHOTOGRAPH_POSITION] = stringMatch.str(FOURTH_ARGUMENT_REGEX_POSITION);
+	}
+
+	return victimPropertiesArgumentList;
 }
 
 InputValidator::~InputValidator(){

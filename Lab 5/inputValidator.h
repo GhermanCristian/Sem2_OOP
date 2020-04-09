@@ -144,6 +144,8 @@ class InputValidator {
 				- Exception, if the input is invalid
 		*/
 
+		ArgumentList CSVFileVictimValidator(std::string victimLine);
+
 		~InputValidator();
 		/*
 			Destructor for the InputValidator type

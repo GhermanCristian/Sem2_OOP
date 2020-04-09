@@ -3,8 +3,11 @@
 
 class FileRepository : public Repository{
 	protected:
-		//virtual void loadFromFile() = 0;
-		//virtual void saveToFile() = 0;
+		std::string filePath;
+		virtual Victim loadVictimFromFile() = 0;
+		virtual std::vector<Victim> loadFromFile() = 0;
+		virtual std::string getVictimFileRepresentation(const Victim& currentVictim) = 0;
+		virtual void saveToFile(const std::vector<Victim>& currentData) = 0;
 
 	public:
 		FileRepository(std::string filePath);

@@ -5,43 +5,12 @@ MemoryRepository::MemoryRepository() {
 	;
 }
 
-int MemoryRepository::findPosition(std::string victimName) {
-	// the objects in the dynamic vector are stored in increasing order of their name (which is unique), hence
-	// why we can search for them using binary search;
-	// this function finds the largest element <= given value
-	int leftBound = 0; // left margin of the current range
-	int rightBound = this->data.size() - 1; // right margin of the current range
-	int middleIndex; // the index of the middle of the current range
-	while (leftBound <= rightBound) {
-		middleIndex = (leftBound + rightBound) / 2;
-
-		// we continue the search in the right half ot the current range
-		if (this->data[middleIndex].getName() <= victimName) {
-			leftBound = middleIndex + 1;
-		}
-
-		// we continue the search in the left half ot the current range
-		else {
-			rightBound = middleIndex - 1;
-		}
-	}
-
-	return rightBound;
-}
-
-bool MemoryRepository::isInRepository(std::string victimName, int possiblePosition) {
-	if (possiblePosition == INEXISTENT_POSITION) {
-		possiblePosition = findPosition(victimName);
-	}
-	return possiblePosition >= 0 and possiblePosition < this->data.size() and this->data[possiblePosition].getName() == victimName;
-}
-
 Victim MemoryRepository::getVictimByName(std::string victimName, int possiblePosition) {
 	if (possiblePosition == INEXISTENT_POSITION) {
-		possiblePosition = findPosition(victimName);
+		possiblePosition = findPosition(this->data, victimName);
 	}
 
-	if (isInRepository(victimName, possiblePosition) == false) {
+	if (isInRepository(this->data, victimName, possiblePosition) == false) {
 		throw std::exception("Inexistent victim");
 	}
 
@@ -54,8 +23,8 @@ void MemoryRepository::add(const Victim& newVictim) {
 		return;
 	}
 
-	int possiblePosition = findPosition(newVictim.getName());
-	if (isInRepository(newVictim.getName(), possiblePosition)) {
+	int possiblePosition = findPosition(this->data, newVictim.getName());
+	if (isInRepository(this->data, newVictim.getName(), possiblePosition)) {
 		throw std::exception("Element already exists");
 	}
 
@@ -64,8 +33,8 @@ void MemoryRepository::add(const Victim& newVictim) {
 }
 
 void MemoryRepository::update(const Victim& newVictim) {
-	int possiblePosition = findPosition(newVictim.getName());
-	if (isInRepository(newVictim.getName(), possiblePosition) == false) {
+	int possiblePosition = findPosition(this->data, newVictim.getName());
+	if (isInRepository(this->data, newVictim.getName(), possiblePosition) == false) {
 		throw std::exception("Element doesn't exist");
 	}
 
@@ -73,8 +42,8 @@ void MemoryRepository::update(const Victim& newVictim) {
 }
 
 void MemoryRepository::erase(std::string victimName) {
-	int possiblePosition = findPosition(victimName);
-	if (isInRepository(victimName, possiblePosition) == false) {
+	int possiblePosition = findPosition(this->data, victimName);
+	if (isInRepository(this->data, victimName, possiblePosition) == false) {
 		throw std::exception("Element doesn't exist");
 	}
 
