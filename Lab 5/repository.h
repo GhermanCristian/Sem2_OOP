@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include "victim.h"
+#include "filter.h"
 
 const int INEXISTENT_POSITION = -1111;
 
@@ -9,19 +10,6 @@ class Repository {
 		std::vector <Victim> data;
 		std::vector <Victim> savedVictimList;
 		int positionInSavedList;
-
-		bool victimPassesFilter(const Victim& currentVictim, std::string placeOfOrigin, int age);
-		/*
-			Checks if a given victim passes the filter
-			Input:
-				- The victim which is tested
-				- The arguments of the filter (the victim's place of origin and age)
-			Output:
-				- Returns true, if the victim passes the filter
-				- False, otherwise
-			Throws:
-				- None
-		*/
 
 	public:
 		Repository();
@@ -104,11 +92,11 @@ class Repository {
 				- None
 		*/
 
-		std::vector <Victim> getFilteredEntries(std::string placeOfOrigin, int age);
+		std::vector <Victim> getFilteredEntries(const Filter& currentFilter);
 		/*
 			Determines a list of all the victims which pass the given filter
 			Input:
-				- The victim's place of origin and age
+				- The filter through which we check the victims
 			Output:
 				- Returns a DynamicVector which contains the victims which have passed the filter
 			Throws:

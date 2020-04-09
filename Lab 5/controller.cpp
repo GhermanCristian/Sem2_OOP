@@ -25,7 +25,8 @@ std::vector <Victim>* Controller::getAllVictims(){
 }
 
 std::vector <Victim> Controller::getFilteredVictims(std::string placeOfOrigin, int age) {
-	return this->victimRepository.getFilteredEntries(placeOfOrigin, age);
+	FilterPlaceOfOriginAndYoungerThan currentFilter{ placeOfOrigin, age };
+	return this->victimRepository.getFilteredEntries(currentFilter);
 }
 
 Victim Controller::getNextVictim(){

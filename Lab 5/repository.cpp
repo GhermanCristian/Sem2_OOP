@@ -5,10 +5,6 @@ Repository::Repository(){
 	positionInSavedList = 0;
 }
 
-bool Repository::victimPassesFilter(const Victim& currentVictim, std::string placeOfOrigin, int age) {
-	return (placeOfOrigin.length() == 0 or (currentVictim.getAge() < age and currentVictim.getPlaceOfOrigin() == placeOfOrigin));
-}
-
 int Repository::findPosition(std::string victimName) {
 	// the objects in the dynamic vector are stored in increasing order of their name (which is unique), hence
 	// why we can search for them using binary search;
@@ -51,8 +47,7 @@ void Repository::add(const Victim& newVictim){
 		throw std::exception("Element already exists");
 	}
 
-	possiblePosition++; // I am doing this because when possiblePosition is -1, doing .. + 1 will cause an error, 
-						// because we cannot subtract from the begin() iterator
+	possiblePosition++; // btw, we cannot do sth like begin + pos + 1 when pos is -1
 	this->data.insert(this->data.begin() + possiblePosition, newVictim);
 }
 
@@ -78,11 +73,11 @@ std::vector <Victim>* Repository::getAllEntries(){
 	return &this->data;
 }
 
-std::vector <Victim> Repository::getFilteredEntries(std::string placeOfOrigin, int age) {
+std::vector <Victim> Repository::getFilteredEntries(const Filter& currentFilter) {
 	std::vector <Victim> tempVector;
 
 	for (auto victim : this->data) {
-		if (victimPassesFilter(victim, placeOfOrigin, age)) {
+		if (currentFilter.isPassed(victim) == true) {
 			tempVector.push_back(victim);
 		}
 	}

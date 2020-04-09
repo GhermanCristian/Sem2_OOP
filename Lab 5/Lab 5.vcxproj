@@ -142,6 +142,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="controller.cpp" />
+    <ClCompile Include="filter.cpp" />
     <ClCompile Include="inputValidator.cpp" />
     <ClCompile Include="mainProgram.cpp" />
     <ClCompile Include="repository.cpp" />
@@ -155,6 +156,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="controller.h" />
+    <ClInclude Include="filter.h" />
     <ClInclude Include="inputValidator.h" />
     <ClInclude Include="repository.h" />
     <ClInclude Include="Tests\testController.h" />

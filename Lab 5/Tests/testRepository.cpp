@@ -102,7 +102,8 @@ void IsInRepository_NonExistingElement_ElementNotFound() {
 
 void GetFilteredEntries_EmptyRepository_NoOutput() {
 	Repository newRepository;
-	std::vector <Victim> newVector = newRepository.getFilteredEntries("location", 222);
+	FilterPlaceOfOriginAndYoungerThan currentFilter{ "location", 222 };
+	std::vector <Victim> newVector = newRepository.getFilteredEntries(currentFilter);
 
 	assert(newVector.size() == 0);
 }
@@ -110,6 +111,7 @@ void GetFilteredEntries_EmptyRepository_NoOutput() {
 void GetFilteredEntries_FilledRepository_CorrectNumberOfElements() {
 	Repository newRepository;
 	std::vector <Victim> newVector;
+	FilterPlaceOfOriginAndYoungerThan currentFilter{ "place", 124 };
 
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
 	Victim newVictim1{ "vasile1", "place", 123, "photo.jpg" };
@@ -123,13 +125,14 @@ void GetFilteredEntries_FilledRepository_CorrectNumberOfElements() {
 	newRepository.add(newVictim3);
 	newRepository.add(newVictim4);
 
-	newVector = newRepository.getFilteredEntries("place", 124);
+	newVector = newRepository.getFilteredEntries(currentFilter);
 	assert(newVector.size() == 3);
 }
 
 void GetFilteredEntries_NothingThroughFilter_NoOutput() {
 	Repository newRepository;
 	std::vector <Victim> newVector;
+	FilterPlaceOfOriginAndYoungerThan currentFilter{ "place", 123 };
 
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
 	Victim newVictim1{ "vasile1", "place", 123, "photo.jpg" };
@@ -143,13 +146,14 @@ void GetFilteredEntries_NothingThroughFilter_NoOutput() {
 	newRepository.add(newVictim3);
 	newRepository.add(newVictim4);
 
-	newVector = newRepository.getFilteredEntries("place", 123);
+	newVector = newRepository.getFilteredEntries(currentFilter);
 	assert(newVector.size() == 0);
 }
 
 void GetFilteredEntries_NoPlaceOfOrigin_CorrectNumberOfElements() {
 	Repository newRepository;
 	std::vector <Victim> newVector;
+	FilterPlaceOfOriginAndYoungerThan currentFilter{ "", 1 };
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
 	Victim newVictim1{ "vasile1", "place", 123, "photo.jpg" };
 	Victim newVictim2{ "vasile2", "place2", 123, "photo.jpg" };
@@ -162,7 +166,7 @@ void GetFilteredEntries_NoPlaceOfOrigin_CorrectNumberOfElements() {
 	newRepository.add(newVictim3);
 	newRepository.add(newVictim4);
 
-	newVector = newRepository.getFilteredEntries("", 1);
+	newVector = newRepository.getFilteredEntries(currentFilter);
 	assert(newVector.size() == 5);
 }
 
