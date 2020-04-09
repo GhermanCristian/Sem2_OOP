@@ -1,7 +1,7 @@
 #include "testRepository.h"
 
 void AddToRepository_DuplicateElement_ThrowsError() {
-	Repository newRepository;
+	MemoryRepository newRepository;
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
 	Victim newVictim1{ "vasile", "place", 123, "photo.jpg" };
 
@@ -16,7 +16,7 @@ void AddToRepository_DuplicateElement_ThrowsError() {
 }
 
 void AddToRepository_EmptyRepositoryMultipleInputs_AddedInTheCorrectOrder() {
-	Repository newRepository;
+	MemoryRepository newRepository;
 	std::vector <Victim>* pointerToData;
 
 	for (char letter = 'f'; letter >= 'a'; letter--) {
@@ -34,7 +34,7 @@ void AddToRepository_EmptyRepositoryMultipleInputs_AddedInTheCorrectOrder() {
 }
 
 void UpdateInRepository_InexistentElement_ThrowsError() {
-	Repository newRepository;
+	MemoryRepository newRepository;
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
 	Victim newVictim1{ "vasileeee", "newplace", 1233, "newphoto.jpg" };
 
@@ -49,12 +49,12 @@ void UpdateInRepository_InexistentElement_ThrowsError() {
 }
 
 void DeleteFromRepository_InexistentElement_ThrowsError() {
-	Repository newRepository;
+	MemoryRepository newRepository;
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
 
 	newRepository.add(newVictim);
 	try {
-		newRepository.deleteFromRepository("not vasile");
+		newRepository.erase("not vasile");
 		assert(false);
 	}
 	catch (...) {
@@ -63,10 +63,10 @@ void DeleteFromRepository_InexistentElement_ThrowsError() {
 }
 
 void DeleteFromRepository_EmptyRepository_ThrowsError() {
-	Repository newRepository;
+	MemoryRepository newRepository;
 
 	try {
-		newRepository.deleteFromRepository("not vasile");
+		newRepository.erase("not vasile");
 		assert(false);
 	}
 	catch (...) {
@@ -75,17 +75,17 @@ void DeleteFromRepository_EmptyRepository_ThrowsError() {
 }
 
 void IsInRepository_EmptyRepository_NotFound() {
-	Repository newRepository;
+	MemoryRepository newRepository;
 	assert(newRepository.isInRepository("vasile") == false);
 }
 
 void IsInRepository_InvalidPosition_NotFound() {
-	Repository newRepository;
+	MemoryRepository newRepository;
 	assert(newRepository.isInRepository("vasile", 1) == false);
 }
 
 void IsInRepository_ElementExists_ElementFound() {
-	Repository newRepository;
+	MemoryRepository newRepository;
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
 
 	newRepository.add(newVictim);
@@ -93,7 +93,7 @@ void IsInRepository_ElementExists_ElementFound() {
 }
 
 void IsInRepository_NonExistingElement_ElementNotFound() {
-	Repository newRepository;
+	MemoryRepository newRepository;
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
 
 	newRepository.add(newVictim);
@@ -101,7 +101,7 @@ void IsInRepository_NonExistingElement_ElementNotFound() {
 }
 
 void GetFilteredEntries_EmptyRepository_NoOutput() {
-	Repository newRepository;
+	MemoryRepository newRepository;
 	FilterPlaceOfOriginAndYoungerThan currentFilter{ "location", 222 };
 	std::vector <Victim> newVector = newRepository.getFilteredEntries(currentFilter);
 
@@ -109,7 +109,7 @@ void GetFilteredEntries_EmptyRepository_NoOutput() {
 }
 
 void GetFilteredEntries_FilledRepository_CorrectNumberOfElements() {
-	Repository newRepository;
+	MemoryRepository newRepository;
 	std::vector <Victim> newVector;
 	FilterPlaceOfOriginAndYoungerThan currentFilter{ "place", 124 };
 
@@ -130,7 +130,7 @@ void GetFilteredEntries_FilledRepository_CorrectNumberOfElements() {
 }
 
 void GetFilteredEntries_NothingThroughFilter_NoOutput() {
-	Repository newRepository;
+	MemoryRepository newRepository;
 	std::vector <Victim> newVector;
 	FilterPlaceOfOriginAndYoungerThan currentFilter{ "place", 123 };
 
@@ -151,7 +151,7 @@ void GetFilteredEntries_NothingThroughFilter_NoOutput() {
 }
 
 void GetFilteredEntries_NoPlaceOfOrigin_CorrectNumberOfElements() {
-	Repository newRepository;
+	MemoryRepository newRepository;
 	std::vector <Victim> newVector;
 	FilterPlaceOfOriginAndYoungerThan currentFilter{ "", 1 };
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
@@ -171,7 +171,7 @@ void GetFilteredEntries_NoPlaceOfOrigin_CorrectNumberOfElements() {
 }
 
 //void RepositoryAssignmentOperator_FilledRepository_CorrectCopy() {
-//	Repository newRepository;
+//	MemoryRepository newRepository;
 //	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
 //	Victim newVictim1{ "vasile1", "place", 123, "photo.jpg" };
 //	Victim newVictim2{ "vasile2", "place2", 123, "photo.jpg" };
@@ -180,13 +180,13 @@ void GetFilteredEntries_NoPlaceOfOrigin_CorrectNumberOfElements() {
 //	newRepository.add(newVictim1);
 //	newRepository.add(newVictim2);
 //
-//	Repository newRepository1;
+//	MemoryRepository newRepository1;
 //	newRepository1 = newRepository;
 //	assert(newRepository1 == newRepository);
 //}
 //
 //void RepositoryCopyConstructor_FilledRepository_CorrectCopy() {
-//	Repository newRepository;
+//	MemoryRepository newRepository;
 //	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
 //	Victim newVictim1{ "vasile1", "place", 123, "photo.jpg" };
 //	Victim newVictim2{ "vasile2", "place2", 123, "photo.jpg" };
@@ -195,18 +195,18 @@ void GetFilteredEntries_NoPlaceOfOrigin_CorrectNumberOfElements() {
 //	newRepository.add(newVictim1);
 //	newRepository.add(newVictim2);
 //
-//	Repository newRepository1(newRepository);
+//	MemoryRepository newRepository1(newRepository);
 //	assert(newRepository1 == newRepository);
 //}
 
 void GetAllEntries_EmptyRepository_NoOutput() {
-	Repository newRepository;
+	MemoryRepository newRepository;
 	std::vector <Victim>* pointerToData = newRepository.getAllEntries();
 	assert(pointerToData->size() == 0);
 }
 
 void GetAllEntries_FilledRepository_CorrectOutput() {
-	Repository newRepository;
+	MemoryRepository newRepository;
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
 	Victim newVictim1{ "vasilee", "place", 123, "photo.jpg" };
 	Victim newVictim2{ "vasileee", "place", 123, "photo.jpg" };

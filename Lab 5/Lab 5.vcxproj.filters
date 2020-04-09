@@ -19,6 +19,18 @@
     <Filter Include="Header Files\Tests">
       <UniqueIdentifier>{bef95b28-479c-40df-bf91-d0803cf87b84}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Repository">
+      <UniqueIdentifier>{70dee813-06fe-4f7f-9f55-aed9a45a422b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Controller">
+      <UniqueIdentifier>{9202bd8d-b2d6-4a4a-bf89-d0b52315888e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Controller">
+      <UniqueIdentifier>{7141e262-969c-45c4-8ffe-896de96776c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Repository">
+      <UniqueIdentifier>{d70cfa87-b19a-46e5-b64e-0db135063075}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mainProgram.cpp">
@@ -27,19 +39,7 @@
     <ClCompile Include="userInterface.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="controller.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="inputValidator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="victim.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="repository.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="victimIterator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Tests\tests.cpp">
@@ -54,27 +54,36 @@
     <ClCompile Include="Tests\testVictim.cpp">
       <Filter>Source Files\Tests</Filter>
     </ClCompile>
+    <ClCompile Include="controller.cpp">
+      <Filter>Source Files\Controller</Filter>
+    </ClCompile>
     <ClCompile Include="filter.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="inputValidator.cpp">
+      <Filter>Source Files\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="victimIterator.cpp">
+      <Filter>Source Files\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="repository.cpp">
+      <Filter>Source Files\Repository</Filter>
+    </ClCompile>
+    <ClCompile Include="fileRepository.cpp">
+      <Filter>Source Files\Repository</Filter>
+    </ClCompile>
+    <ClCompile Include="CSVRepository.cpp">
+      <Filter>Source Files\Repository</Filter>
+    </ClCompile>
+    <ClCompile Include="memoryRepository.cpp">
+      <Filter>Source Files\Repository</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="userInterface.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="controller.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="inputValidator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="victim.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="repository.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="victimIterator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Tests\testController.h">
@@ -89,8 +98,29 @@
     <ClInclude Include="Tests\testVictim.h">
       <Filter>Header Files\Tests</Filter>
     </ClInclude>
+    <ClInclude Include="controller.h">
+      <Filter>Header Files\Controller</Filter>
+    </ClInclude>
     <ClInclude Include="filter.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="repository.h">
+      <Filter>Header Files\Repository</Filter>
+    </ClInclude>
+    <ClInclude Include="inputValidator.h">
+      <Filter>Header Files\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="victimIterator.h">
+      <Filter>Header Files\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="fileRepository.h">
+      <Filter>Header Files\Repository</Filter>
+    </ClInclude>
+    <ClInclude Include="CSVRepository.h">
+      <Filter>Header Files\Repository</Filter>
+    </ClInclude>
+    <ClInclude Include="memoryRepository.h">
+      <Filter>Header Files\Repository</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

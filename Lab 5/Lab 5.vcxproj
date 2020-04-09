@@ -142,9 +142,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="controller.cpp" />
+    <ClCompile Include="CSVRepository.cpp" />
+    <ClCompile Include="fileRepository.cpp" />
     <ClCompile Include="filter.cpp" />
     <ClCompile Include="inputValidator.cpp" />
     <ClCompile Include="mainProgram.cpp" />
+    <ClCompile Include="memoryRepository.cpp" />
     <ClCompile Include="repository.cpp" />
     <ClCompile Include="Tests\testController.cpp" />
     <ClCompile Include="Tests\testRepository.cpp" />
@@ -156,8 +159,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="controller.h" />
+    <ClInclude Include="CSVRepository.h" />
+    <ClInclude Include="fileRepository.h" />
     <ClInclude Include="filter.h" />
     <ClInclude Include="inputValidator.h" />
+    <ClInclude Include="memoryRepository.h" />
     <ClInclude Include="repository.h" />
     <ClInclude Include="Tests\testController.h" />
     <ClInclude Include="Tests\testRepository.h" />

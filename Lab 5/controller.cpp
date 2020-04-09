@@ -17,7 +17,7 @@ void Controller::updateVictim(std::string victimName, std::string newPlaceOfOrig
 }
 
 void Controller::deleteVictim(std::string victimName){
-	this->victimRepository.deleteFromRepository(victimName);
+	this->victimRepository.erase(victimName);
 }
 
 std::vector <Victim>* Controller::getAllVictims(){

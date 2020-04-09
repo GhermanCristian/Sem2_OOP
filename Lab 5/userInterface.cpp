@@ -24,6 +24,7 @@ void UserInterface::loadAdministratorModeContent() {
 	this->commandInfoAdministrator += "update name, newPlaceOfOrigin, newAge, newPhotograph\n";
 	this->commandInfoAdministrator += "delete name\n";
 	this->commandInfoAdministrator += "list\n\n";
+	this->commandInfoAdministrator += "mode B\n";
 }
 
 void UserInterface::loadAssistantModeContent() {
@@ -43,6 +44,7 @@ void UserInterface::loadAssistantModeContent() {
 	this->commandInfoAssistant += "save name\n";
 	this->commandInfoAssistant += "list placeOfOrigin, age\n";
 	this->commandInfoAssistant += "mylist\n\n";
+	this->commandInfoAdministrator += "mode A\n";
 }
 
 void UserInterface::displayVictim(const Victim& currentVictim) {

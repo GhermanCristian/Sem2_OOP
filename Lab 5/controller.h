@@ -1,10 +1,10 @@
 #pragma once
-#include "repository.h"
+#include "memoryRepository.h"
 #include "victimIterator.h"
 
 class Controller {
 	private:
-		Repository victimRepository;
+		MemoryRepository victimRepository;
 		VictimIterator victimIterator;
 
 	public:
