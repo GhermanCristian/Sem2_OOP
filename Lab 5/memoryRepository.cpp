@@ -57,7 +57,7 @@ void MemoryRepository::erase(std::string victimName) {
 	this->data.erase(this->data.begin() + possiblePosition);
 }
 
-std::vector <Victim>& MemoryRepository::getAllEntries() {
+std::vector <Victim> MemoryRepository::getAllEntries() {
 	return this->data;
 }
 

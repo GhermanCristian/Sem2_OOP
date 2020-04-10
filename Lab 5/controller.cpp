@@ -20,7 +20,7 @@ void Controller::deleteVictim(std::string victimName){
 	this->victimRepository.erase(victimName);
 }
 
-std::vector <Victim>& Controller::getAllVictims(){
+std::vector <Victim> Controller::getAllVictims(){
 	return this->victimRepository.getAllEntries();
 }
 

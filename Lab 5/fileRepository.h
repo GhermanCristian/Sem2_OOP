@@ -16,7 +16,7 @@ class FileRepository : public Repository{
 		virtual void add(const Victim& newVictim) = 0;
 		virtual void update(const Victim& newVictim) = 0;
 		virtual void erase(std::string victimName) = 0;
-		virtual std::vector <Victim>& getAllEntries() = 0;
+		virtual std::vector <Victim> getAllEntries() = 0;
 		virtual std::vector <Victim> getFilteredEntries(const Filter& currentFilter) = 0;
 		virtual ~FileRepository();
 };

@@ -53,7 +53,7 @@ class VictimIterator {
 				- None
 		*/
 
-		Victim getCurrentElement(std::vector <Victim>& currentVector);
+		Victim getCurrentElement(const std::vector <Victim>& currentVector);
 		/*
 			Determines the element currently pointed at by the iterator
 			Input:

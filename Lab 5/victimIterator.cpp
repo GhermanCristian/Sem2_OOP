@@ -20,6 +20,6 @@ void VictimIterator::setNextPosition(){
 	}
 }
 
-Victim VictimIterator::getCurrentElement(std::vector <Victim>& currentVector){
+Victim VictimIterator::getCurrentElement(const std::vector <Victim>& currentVector){
 	return currentVector[this->currentPosition];
 }

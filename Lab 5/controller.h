@@ -52,7 +52,7 @@ class Controller {
 				- Exception, if the victim doesn't exist
 		*/
 
-		std::vector <Victim>& getAllVictims();
+		std::vector <Victim> getAllVictims();
 		/*
 			Returns a pointer to the data in the repository
 			Input:

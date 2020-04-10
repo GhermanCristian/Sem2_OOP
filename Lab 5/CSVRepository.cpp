@@ -132,7 +132,7 @@ void CSVRepository::erase(std::string victimName){
 	this->saveToFile(previousData);
 }
 
-std::vector<Victim>& CSVRepository::getAllEntries(){
+std::vector<Victim> CSVRepository::getAllEntries(){
 	std::vector <Victim> previousData = this->loadFromFile();
 	return previousData;
 }
