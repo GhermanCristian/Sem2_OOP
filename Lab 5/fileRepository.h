@@ -5,7 +5,7 @@ class FileRepository : public Repository{
 	protected:
 		std::string filePath;
 
-		virtual Victim loadVictimFromFile() = 0;
+		virtual Victim loadVictimFromFile(std::string lineContent) = 0;
 		virtual std::vector<Victim> loadFromFile() = 0;
 		virtual std::string getVictimFileRepresentation(const Victim& currentVictim) = 0;
 		virtual void saveToFile(const std::vector<Victim>& currentData) = 0;

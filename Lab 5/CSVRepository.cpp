@@ -6,6 +6,10 @@ CSVRepository::CSVRepository(std::string filePath) : FileRepository(filePath){
 	;
 }
 
+bool CSVRepository::isInRepository(std::string victimName, int possiblePosition){
+	return false;
+}
+
 Victim CSVRepository::loadVictimFromFile(std::string lineContent) {
 	InputValidator inputValidator;
 	ArgumentList victimProperties;
