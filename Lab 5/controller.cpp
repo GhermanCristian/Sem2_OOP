@@ -20,7 +20,7 @@ void Controller::deleteVictim(std::string victimName){
 	this->victimRepository.erase(victimName);
 }
 
-std::vector <Victim>* Controller::getAllVictims(){
+std::vector <Victim>& Controller::getAllVictims(){
 	return this->victimRepository.getAllEntries();
 }
 
@@ -31,7 +31,7 @@ std::vector <Victim> Controller::getFilteredVictims(std::string placeOfOrigin, i
 
 Victim Controller::getNextVictim(){
 	Victim nextVictim;
-	int numberOfElements = this->victimRepository.getAllEntries()->size();
+	int numberOfElements = this->victimRepository.getAllEntries().size();
 
 	if (numberOfElements <= 0) {
 		throw std::exception("No elements available");

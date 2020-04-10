@@ -2,35 +2,35 @@
 
 void AddVictim_CorrectInput_AddsVictim() {
 	Controller newController;
-	std::vector <Victim>* pointerToData;
+	std::vector <Victim> pointerToData;
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
 
 	newController.addVictim("vasile", "place", 123, "photo.jpg");
 	pointerToData = newController.getAllVictims();
-	assert((*pointerToData)[0] == newVictim);
+	assert(pointerToData[0] == newVictim);
 }
 
 void UpdateVictim_CorrectInput_UpdatesVictim() {
 	Controller newController;
-	std::vector <Victim>* pointerToData;
+	std::vector <Victim> pointerToData;
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
 	Victim newVictim1{ "vasile", "newplace", 1233, "newphoto.jpg" };
 
 	newController.addVictim("vasile", "place", 123, "photo.jpg");
 	newController.updateVictim("vasile", "newplace", 1233, "newphoto.jpg");
 	pointerToData = newController.getAllVictims();
-	assert((*pointerToData)[0] == newVictim1);
+	assert(pointerToData[0] == newVictim1);
 }
 
 void DeleteVictim_CorrectInput_DeletesVictim() {
 	Controller newController;
-	std::vector <Victim>* pointerToData;
+	std::vector <Victim> pointerToData;
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
 
 	newController.addVictim("vasile", "place", 123, "photo.jpg");
 	newController.deleteVictim("vasile");
 	pointerToData = newController.getAllVictims();
-	assert(pointerToData->size() == 0);
+	assert(pointerToData.size() == 0);
 }
 
 void SaveVictim_EmptyRepository_ThrowsError() {

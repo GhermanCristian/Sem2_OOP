@@ -65,7 +65,7 @@ class MemoryRepository : public Repository{
 				- Exception, if the victim wasn't in the repository
 		*/
 
-		std::vector <Victim>* getAllEntries();
+		std::vector <Victim>& getAllEntries();
 		/*
 			Returns a pointer to the data in the repository
 			Input:

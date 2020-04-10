@@ -91,11 +91,11 @@ void UserInterface::deleteVictimInterface(ArgumentList argumentList){
 }
 
 void UserInterface::listAllInterface(ArgumentList argumentList){
-	std::vector <Victim>* victimList;
+	std::vector <Victim> victimList;
 
 	try {
 		victimList = this->actionController.getAllVictims();
-		for (auto victim : *victimList) {
+		for (auto victim : victimList) {
 			displayVictim(victim);
 		}
 	}

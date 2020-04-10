@@ -109,19 +109,45 @@ void CSVRepository::add(const Victim& newVictim){
 }
 
 void CSVRepository::update(const Victim& newVictim){
-	;
+	std::vector <Victim> previousData = this->loadFromFile();
+
+	int possiblePosition = findPosition(previousData, newVictim.getName());
+	if (isInRepository(previousData, newVictim.getName(), possiblePosition) == false) {
+		throw std::exception("Element doesn't exist");
+	}
+	previousData[possiblePosition] = newVictim;
+
+	this->saveToFile(previousData);
 }
 
 void CSVRepository::erase(std::string victimName){
-	;
+	std::vector <Victim> previousData = this->loadFromFile();
+
+	int possiblePosition = findPosition(previousData, victimName);
+	if (isInRepository(previousData, victimName, possiblePosition) == false) {
+		throw std::exception("Element doesn't exist");
+	}
+	previousData.erase(previousData.begin() + possiblePosition);
+
+	this->saveToFile(previousData);
 }
 
-std::vector<Victim>* CSVRepository::getAllEntries(){
-	return nullptr;
+std::vector<Victim>& CSVRepository::getAllEntries(){
+	std::vector <Victim> previousData = this->loadFromFile();
+	return previousData;
 }
 
 std::vector<Victim> CSVRepository::getFilteredEntries(const Filter& currentFilter){
-	return std::vector<Victim>();
+	std::vector <Victim> temporaryVector;
+	std::vector <Victim> previousData = this->loadFromFile();
+
+	for (auto victim : previousData) {
+		if (currentFilter.isPassed(victim) == true) {
+			temporaryVector.push_back(victim);
+		}
+	}
+
+	return temporaryVector;
 }
 
 CSVRepository::~CSVRepository(){

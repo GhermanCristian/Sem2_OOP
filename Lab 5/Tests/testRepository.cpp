@@ -18,7 +18,7 @@ void AddToMemoryRepository_DuplicateElement_ThrowsError() {
 
 void AddToMemoryRepository_EmptyMemoryRepositoryMultipleInputs_AddedInTheCorrectOrder() {
 	MemoryRepository newRepository;
-	std::vector <Victim>* pointerToData;
+	std::vector <Victim> pointerToData;
 
 	for (char letter = 'f'; letter >= 'a'; letter--) {
 		std::string word;
@@ -29,8 +29,8 @@ void AddToMemoryRepository_EmptyMemoryRepositoryMultipleInputs_AddedInTheCorrect
 
 	// checks if the elements are in increasing order
 	pointerToData = newRepository.getAllEntries();
-	for (int index = 0; index < pointerToData->size() - 1; index++) {
-		assert((*pointerToData)[index].getName() < (*pointerToData)[index + 1].getName());
+	for (int index = 0; index < pointerToData.size() - 1; index++) {
+		assert(pointerToData[index].getName() < pointerToData[index + 1].getName());
 	}
 }
 
@@ -47,6 +47,16 @@ void UpdateInMemoryRepository_InexistentElement_ThrowsError() {
 	catch (...) {
 		assert(true);
 	}
+}
+
+void UpdateInMemoryRepository_ExistingElement_SuccessfulUpdate() {
+	MemoryRepository newRepository;
+	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
+	Victim newVictim1{ "vasile", "newplace", 1233, "newphoto.jpg" };
+
+	newRepository.add(newVictim);
+	newRepository.update(newVictim1);
+	assert(newRepository.getAllEntries()[0] == newVictim1);
 }
 
 void DeleteFromMemoryRepository_InexistentElement_ThrowsError() {
@@ -202,8 +212,8 @@ void GetFilteredEntries_NoPlaceOfOrigin_CorrectNumberOfElements() {
 
 void GetAllEntries_EmptyMemoryRepository_NoOutput() {
 	MemoryRepository newRepository;
-	std::vector <Victim>* pointerToData = newRepository.getAllEntries();
-	assert(pointerToData->size() == 0);
+	std::vector <Victim> pointerToData = newRepository.getAllEntries();
+	assert(pointerToData.size() == 0);
 }
 
 void GetAllEntries_FilledMemoryRepository_CorrectOutput() {
@@ -216,8 +226,8 @@ void GetAllEntries_FilledMemoryRepository_CorrectOutput() {
 	newRepository.add(newVictim1);
 	newRepository.add(newVictim2);
 
-	std::vector <Victim>* pointerToData = newRepository.getAllEntries();
-	assert(pointerToData->size() == 3);
+	std::vector <Victim> pointerToData = newRepository.getAllEntries();
+	assert(pointerToData.size() == 3);
 }
 
 void CSVRepositoryConstructor_InexistentFile_FileCreated() {
@@ -304,6 +314,7 @@ void testRepository() {
 	AddToMemoryRepository_DuplicateElement_ThrowsError();
 	AddToMemoryRepository_EmptyMemoryRepositoryMultipleInputs_AddedInTheCorrectOrder();
 	UpdateInMemoryRepository_InexistentElement_ThrowsError();
+	UpdateInMemoryRepository_ExistingElement_SuccessfulUpdate();
 	DeleteFromMemoryRepository_InexistentElement_ThrowsError();
 	DeleteFromMemoryRepository_EmptyMemoryRepository_ThrowsError();
 	IsInMemoryRepository_EmptyMemoryRepository_NotFound();

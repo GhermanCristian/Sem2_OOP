@@ -30,7 +30,7 @@ class CSVRepository : public FileRepository{
 		void add(const Victim& newVictim);
 		void update(const Victim& newVictim);
 		void erase(std::string victimName);
-		std::vector <Victim>* getAllEntries();
+		std::vector <Victim>& getAllEntries();
 		std::vector <Victim> getFilteredEntries(const Filter& currentFilter);
 		~CSVRepository();
 };
