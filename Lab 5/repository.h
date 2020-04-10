@@ -10,7 +10,7 @@ class Repository {
 	protected:
 		std::vector <Victim> savedVictimList;
 
-		int findPosition(std::vector <Victim> currentVector, std::string victimName);
+		int findPosition(const std::vector <Victim>& currentData, std::string victimName);
 		/*
 			Finds the position of the largest name <= victimName in the current list (which is sorted in increasing
 			order of the names of the victims)
@@ -23,7 +23,7 @@ class Repository {
 		*/
 		
 	public:
-		bool isInRepository(std::vector <Victim> currentVector, std::string victimName, int possiblePosition = INEXISTENT_POSITION);
+		virtual bool isInRepository(std::string victimName, int possiblePosition = INEXISTENT_POSITION) = 0;
 		/*
 			Checks if the victim on the given position is the same as the one that we look for
 			Input:

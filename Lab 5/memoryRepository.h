@@ -17,6 +17,19 @@ class MemoryRepository : public Repository{
 				- None
 		*/
 
+		bool isInRepository(std::string victimName, int possiblePosition = INEXISTENT_POSITION);
+		/*
+			Checks if the victim on the given position is the same as the one that we look for
+			Input:
+				- A Victim's name
+				- The position on which the Victim is supossed to be (-1 by default, in which case we determine it ourselves)
+			Output:
+				- True, if the two Victims correspond
+				- False, otherwise
+			Throws:
+				- None
+		*/
+
 		Victim getVictimByName(std::string victimName, int possiblePosition = INEXISTENT_POSITION);
 
 		void add(const Victim& newVictim);
