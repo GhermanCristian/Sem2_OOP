@@ -1,5 +1,6 @@
 #include "testRepository.h"
 
+
 void AddToMemoryRepository_DuplicateElement_ThrowsError() {
 	MemoryRepository newRepository;
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
@@ -219,28 +220,83 @@ void GetAllEntries_FilledMemoryRepository_CorrectOutput() {
 	assert(pointerToData->size() == 3);
 }
 
-void LoadFromCSVFile_NoFile_FileCreatedAndNoOutput() {
-	;
+void CSVRepositoryConstructor_InexistentFile_FileCreated() {
+	CSVRepository newRepository("totally_new_file.txt");
+	assert(newRepository.createFile("totally_new_file.txt") == true);
+
+	remove("totally_new_file.txt");
+}
+
+void CSVRepositoryConstructor_InexistentFile_NoOutput() {
+	CSVRepository newRepository("totally_new_file.txt");
+	std::vector <Victim> repositoryData = newRepository.loadFromFile();
+	assert(repositoryData.size() == 0);
+
+	remove("totally_new_file.txt");
 }
 
 void LoadFromCSVFile_EmptyFile_NoOutput() {
 	CSVRepository newRepository("testEmptyData.txt");
+	std::vector <Victim> repositoryData = newRepository.loadFromFile();
+	assert(repositoryData.size() == 0);
 }
 
-void LoadFromCSVFile_FilledFile_CorrectOutput() {
-	;
+void LoadFromCSVFile_FilledFile_CorrectNumberOfObjects() {
+	CSVRepository newRepository("testData1.txt");
+	std::vector <Victim> repositoryData = newRepository.loadFromFile();
+	assert(repositoryData.size() == 10);
 }
 
-void SaveToCSVFile_NoFile_FileCreatedAndNoOutput() {
-	;
+void LoadFromCSVFile_FilledFile_CorrectObjects() {
+	CSVRepository newRepository("testData1.txt");
+	std::vector <Victim> repositoryData = newRepository.loadFromFile();
+	Victim victim1{ "Cena John", "Roma", 20, "photo122.jpg" };
+	Victim victim2{ "John Cena", "Paris", 21, "photo41.jpg" };
+	assert(repositoryData[1] == victim1 and repositoryData[4] == victim2);
 }
 
 void SaveToCSVFile_EmptyData_NoOutput() {
-	;
+	CSVRepository newRepository("testEmptyData.txt");
+	std::vector <Victim> repositoryData; // this can be the aftermath of add, remove, del etc
+	newRepository.saveToFile(repositoryData);
+
+	repositoryData = newRepository.loadFromFile();
+	assert(repositoryData.size() == 0);
 }
 
-void SaveToCSVFile_FilledData_CorrectOutput() {
-	;
+void SaveToCSVFile_FilledData_CorrectNumberOfObjects() {
+	CSVRepository newRepository("testData2.txt");
+	std::vector <Victim> repositoryData;
+
+	repositoryData.push_back(Victim{ "Nelson Judeteanu", "Itcani", 45, "photo11.jpg" });
+	repositoryData.push_back(Victim{ "Nelson Nationalu", "Berchisesti", 45, "photo1412.jpg" });
+	repositoryData.push_back(Victim{ "Nelson Planetaru", "Obcini", 55, "photo13.jpg" });
+
+	newRepository.saveToFile(repositoryData);
+
+	repositoryData = newRepository.loadFromFile();
+	assert(repositoryData.size() == 3);
+
+	remove("testData2.txt");
+}
+
+void SaveToCSVFile_FilledData_CorrectObjects() {
+	CSVRepository newRepository("testData2.txt");
+	std::vector <Victim> repositoryData;
+	Victim victim1{ "Nelson Judeteanu", "Itcani", 45, "photo11.jpg" };
+	Victim victim2{ "Nelson Nationalu", "Berchisesti", 45, "photo1412.jpg" };
+	Victim victim3{ "Nelson Planetaru", "Obcini", 55, "photo13.jpg" };
+
+	repositoryData.push_back(victim1);
+	repositoryData.push_back(victim2);
+	repositoryData.push_back(victim3);
+
+	newRepository.saveToFile(repositoryData);
+
+	repositoryData = newRepository.loadFromFile();
+	assert(repositoryData[0] == victim1 and repositoryData[1] == victim2 and repositoryData[2] == victim3);
+
+	remove("testData2.txt");
 }
 
 void testRepository() {
@@ -263,12 +319,15 @@ void testRepository() {
 	GetAllEntries_EmptyMemoryRepository_NoOutput();
 	GetAllEntries_FilledMemoryRepository_CorrectOutput();
 
-	LoadFromCSVFile_NoFile_FileCreatedAndNoOutput();
+	// CSV repository tests
+	CSVRepositoryConstructor_InexistentFile_FileCreated();
+	CSVRepositoryConstructor_InexistentFile_NoOutput();
 	LoadFromCSVFile_EmptyFile_NoOutput();
-	LoadFromCSVFile_FilledFile_CorrectOutput();
-	SaveToCSVFile_NoFile_FileCreatedAndNoOutput();
+	LoadFromCSVFile_FilledFile_CorrectNumberOfObjects();
+	LoadFromCSVFile_FilledFile_CorrectObjects();
 	SaveToCSVFile_EmptyData_NoOutput();
-	SaveToCSVFile_FilledData_CorrectOutput();
+	SaveToCSVFile_FilledData_CorrectNumberOfObjects();
+	SaveToCSVFile_FilledData_CorrectObjects();
 
 	/*
 	AddToCSVRepository_DuplicateElement_ThrowsError();

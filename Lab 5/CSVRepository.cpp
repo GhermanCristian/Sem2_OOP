@@ -6,24 +6,28 @@ CSVRepository::CSVRepository(std::string filePath) : FileRepository(filePath){
 	createFile(filePath);
 }
 
-bool CSVRepository::isInRepository(std::string victimName, int possiblePosition){
-	return false;
+bool CSVRepository::isInRepository(std::vector<Victim>& currentVector, std::string victimName, int possiblePosition){
+	if (possiblePosition == INEXISTENT_POSITION) {
+		possiblePosition = findPosition(currentVector, victimName);
+	}
+	return possiblePosition >= 0 and possiblePosition < currentVector.size() and currentVector[possiblePosition].getName() == victimName;
 }
 
-void CSVRepository::createFile(std::string filePath){
+bool CSVRepository::createFile(std::string filePath){
 	std::fstream currentFileStream;
 	currentFileStream.open(filePath);
 
 	if (!currentFileStream.is_open()) {
 		currentFileStream.open(filePath, std::fstream::out);
 		currentFileStream.close();
+		return false;
 	}
-	else {
-		currentFileStream.close();
-	}
+
+	currentFileStream.close();
+	return true;
 }
 
-Victim CSVRepository::loadVictimFromFile(std::string lineContent) {
+Victim CSVRepository::getOneVictimFromFile(std::string lineContent) {
 	InputValidator inputValidator;
 	ArgumentList victimProperties;
 
@@ -45,8 +49,16 @@ std::vector <Victim> CSVRepository::loadFromFile() {
 	std::string currentLine;
 	std::fstream fileStream(this->filePath, std::fstream::in);
 
+	// in the case in which the file is empty, loadVictim will not throw an exception bc the program won't even
+	// reach that point (it doesn't enter the while loop)
 	while (getline(fileStream, currentLine)) {
-		allData.push_back(loadVictimFromFile(currentLine));
+		try {
+			allData.push_back(getOneVictimFromFile(currentLine));
+		}
+		catch (...) {
+			fileStream.close();
+			throw std::exception("Invalid victim line");
+		}
 	}
 
 	fileStream.close();
@@ -69,7 +81,7 @@ std::string CSVRepository::getVictimFileRepresentation(const Victim& currentVict
 
 void CSVRepository::saveToFile(const std::vector<Victim>& currentData) {
 	std::string currentLine;
-	std::ofstream out("data.txt");
+	std::ofstream out(this->filePath);
 
 	for (auto currentVictim : currentData) {
 		out << getVictimFileRepresentation(currentVictim) << "\n";
@@ -83,7 +95,17 @@ Victim CSVRepository::getVictimByName(std::string victimName, int possiblePositi
 }
 
 void CSVRepository::add(const Victim& newVictim){
-	;
+	std::vector <Victim> previousData = this->loadFromFile();
+
+	int possiblePosition = findPosition(previousData, newVictim.getName());
+	if (isInRepository(previousData, newVictim.getName(), possiblePosition)) {
+		throw std::exception("Element already exists");
+	}
+
+	possiblePosition++; // btw, we cannot do sth like begin + pos + 1 when pos is -1
+	previousData.insert(previousData.begin() + possiblePosition, newVictim);
+
+	this->saveToFile(previousData);
 }
 
 void CSVRepository::update(const Victim& newVictim){
