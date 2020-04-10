@@ -3,6 +3,7 @@
 
 class CSVRepository : public FileRepository{
 	private:
+		
 		Victim loadVictimFromFile(std::string lineContent) override;
 		std::vector<Victim> loadFromFile() override;
 		std::string getVictimFileRepresentation(const Victim& currentVictim) override;
@@ -23,7 +24,7 @@ class CSVRepository : public FileRepository{
 			Throws:
 				- None
 		*/
-
+		virtual void createFile(std::string filePath) override;
 		virtual Victim getVictimByName(std::string victimName, int possiblePosition = INEXISTENT_POSITION);
 		void add(const Victim& newVictim);
 		void update(const Victim& newVictim);

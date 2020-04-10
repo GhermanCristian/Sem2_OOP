@@ -3,11 +3,24 @@
 #include <fstream> // for now I'll use this, before I overwrite the >> << operators
 
 CSVRepository::CSVRepository(std::string filePath) : FileRepository(filePath){
-	;
+	createFile(filePath);
 }
 
 bool CSVRepository::isInRepository(std::string victimName, int possiblePosition){
 	return false;
+}
+
+void CSVRepository::createFile(std::string filePath){
+	std::fstream currentFileStream;
+	currentFileStream.open(filePath);
+
+	if (!currentFileStream.is_open()) {
+		currentFileStream.open(filePath, std::fstream::out);
+		currentFileStream.close();
+	}
+	else {
+		currentFileStream.close();
+	}
 }
 
 Victim CSVRepository::loadVictimFromFile(std::string lineContent) {
@@ -30,13 +43,13 @@ Victim CSVRepository::loadVictimFromFile(std::string lineContent) {
 std::vector <Victim> CSVRepository::loadFromFile() {
 	std::vector <Victim> allData;
 	std::string currentLine;
-	std::ifstream in("data.txt");
+	std::fstream fileStream(this->filePath, std::fstream::in);
 
-	while (getline(in, currentLine)) {
+	while (getline(fileStream, currentLine)) {
 		allData.push_back(loadVictimFromFile(currentLine));
 	}
 
-	in.close();
+	fileStream.close();
 	return allData;
 }
 

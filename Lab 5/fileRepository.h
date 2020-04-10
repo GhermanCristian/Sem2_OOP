@@ -25,7 +25,7 @@ class FileRepository : public Repository{
 			Throws:
 				- None
 		*/
-
+		virtual void createFile(std::string filePath) = 0;
 		virtual Victim getVictimByName(std::string victimName, int possiblePosition = INEXISTENT_POSITION) = 0;
 		virtual void add(const Victim& newVictim) = 0;
 		virtual void update(const Victim& newVictim) = 0;
