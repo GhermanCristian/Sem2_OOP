@@ -1,6 +1,7 @@
 #include "CSVRepository.h"
 #include "inputValidator.h"
 #include <fstream> // for now I'll use this, before I overwrite the >> << operators
+#include <stdio.h>
 
 CSVRepository::CSVRepository(std::string filePath) : FileRepository(filePath){
 	createFile(filePath);
@@ -14,17 +15,13 @@ bool CSVRepository::isInRepository(std::vector<Victim>& currentVector, std::stri
 }
 
 bool CSVRepository::createFile(std::string filePath){
-	std::fstream currentFileStream;
-	currentFileStream.open(filePath);
-
-	if (!currentFileStream.is_open()) {
-		currentFileStream.open(filePath, std::fstream::out);
-		currentFileStream.close();
-		return false;
+	FILE* currentFile;
+	errno_t functionReturnValue = fopen_s(&currentFile, filePath.c_str(), "a");
+	if (functionReturnValue == 0) { // the file has been opened/created successfully
+		fclose(currentFile);
+		return true;
 	}
-
-	currentFileStream.close();
-	return true;
+	return false;
 }
 
 Victim CSVRepository::getOneVictimFromFile(std::string lineContent) {
