@@ -1,6 +1,6 @@
 #include "userInterface.h"
 #include <iostream>
-#include <string.h>
+#include <string>
 
 UserInterface::UserInterface() {
 	loadAdministratorModeContent();
@@ -50,7 +50,8 @@ void UserInterface::loadAssistantModeContent() {
 }
 
 void UserInterface::displayVictim(const Victim& currentVictim) {
-	std::cout << currentVictim.getName() << " - " << currentVictim.getPlaceOfOrigin() << " - " << currentVictim.getAge() << " - " << currentVictim.getPhotographLink() << "\n";
+	std::cout << currentVictim << "\n";
+	//std::cout << currentVictim.getName() << " - " << currentVictim.getPlaceOfOrigin() << " - " << currentVictim.getAge() << " - " << currentVictim.getPhotographLink() << "\n";
 }
 
 void UserInterface::addVictimInterface(ArgumentList argumentList) {

@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <iostream>
 
 class Victim {
 	private:
@@ -108,6 +109,9 @@ class Victim {
 			Throws:
 				- None
 		*/
+
+		friend std::istream& operator >> (std::istream& inputStream, Victim& currentVictim); // victim cannot be const for some reason
+		friend std::ostream& operator << (std::ostream& outputStream, const Victim& currentVictim);
 
 		~Victim();
 		/*

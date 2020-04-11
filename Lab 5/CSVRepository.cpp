@@ -5,11 +5,17 @@
 
 CSVRepository::CSVRepository() : FileRepository(){
 	this->filePath = TEMPORARY_CSV_FILE_NAME;
-	createFile(TEMPORARY_CSV_FILE_NAME);
+	bool successfulCreation = createFile(TEMPORARY_CSV_FILE_NAME);
+	if (successfulCreation == false) {
+		throw std::exception("Cannot create temporary file for CSVRepository");
+	}
 }
 
 CSVRepository::CSVRepository(std::string filePath) : FileRepository(filePath){
-	createFile(filePath);
+	bool successfulCreation = createFile(filePath);
+	if (successfulCreation == false) {
+		throw std::exception("Cannot create file for CSVRepository");
+	}
 }
 
 bool CSVRepository::isInRepository(std::vector<Victim>& currentVector, std::string victimName, int possiblePosition){
@@ -86,7 +92,8 @@ void CSVRepository::saveToFile(const std::vector<Victim>& currentData) {
 	std::ofstream out(this->filePath);
 
 	for (auto currentVictim : currentData) {
-		out << getVictimFileRepresentation(currentVictim) << "\n";
+		out << currentVictim << "\n";
+		//out << getVictimFileRepresentation(currentVictim) << "\n";
 	}
 
 	out.close();
@@ -107,41 +114,41 @@ Victim CSVRepository::getVictimByName(std::string victimName, int possiblePositi
 }
 
 void CSVRepository::add(const Victim& newVictim){
-	std::vector <Victim> previousData = this->loadFromFile();
+	std::vector <Victim> currentData = this->loadFromFile();
 
-	int possiblePosition = findPosition(previousData, newVictim.getName());
-	if (isInRepository(previousData, newVictim.getName(), possiblePosition)) {
+	int possiblePosition = findPosition(currentData, newVictim.getName());
+	if (isInRepository(currentData, newVictim.getName(), possiblePosition)) {
 		throw std::exception("Element already exists");
 	}
-
+	
 	possiblePosition++; // btw, we cannot do sth like begin + pos + 1 when pos is -1
-	previousData.insert(previousData.begin() + possiblePosition, newVictim);
+	currentData.insert(currentData.begin() + possiblePosition, newVictim);
 
-	this->saveToFile(previousData);
+	this->saveToFile(currentData);
 }
 
 void CSVRepository::update(const Victim& newVictim){
-	std::vector <Victim> previousData = this->loadFromFile();
+	std::vector <Victim> currentData = this->loadFromFile();
 
-	int possiblePosition = findPosition(previousData, newVictim.getName());
-	if (isInRepository(previousData, newVictim.getName(), possiblePosition) == false) {
+	int possiblePosition = findPosition(currentData, newVictim.getName());
+	if (isInRepository(currentData, newVictim.getName(), possiblePosition) == false) {
 		throw std::exception("Element doesn't exist");
 	}
-	previousData[possiblePosition] = newVictim;
+	currentData[possiblePosition] = newVictim;
 
-	this->saveToFile(previousData);
+	this->saveToFile(currentData);
 }
 
 void CSVRepository::erase(std::string victimName){
-	std::vector <Victim> previousData = this->loadFromFile();
+	std::vector <Victim> currentData = this->loadFromFile();
 
-	int possiblePosition = findPosition(previousData, victimName);
-	if (isInRepository(previousData, victimName, possiblePosition) == false) {
+	int possiblePosition = findPosition(currentData, victimName);
+	if (isInRepository(currentData, victimName, possiblePosition) == false) {
 		throw std::exception("Element doesn't exist");
 	}
-	previousData.erase(previousData.begin() + possiblePosition);
+	currentData.erase(currentData.begin() + possiblePosition);
 
-	this->saveToFile(previousData);
+	this->saveToFile(currentData);
 }
 
 std::vector<Victim> CSVRepository::getAllEntries(){

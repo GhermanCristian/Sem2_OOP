@@ -52,5 +52,15 @@ Victim& Victim::operator=(const Victim& originalVictim){
 }
 
 Victim::~Victim(){
-	//std::cout << "victim destructor\n";
+	;
+}
+
+std::istream& operator >> (std::istream& inputStream, Victim& currentVictim){
+	inputStream >> currentVictim.name >> currentVictim.placeOfOrigin >> currentVictim.age >> currentVictim.photographLink;
+	return inputStream;
+}
+
+std::ostream& operator << (std::ostream& outputStream, const Victim& currentVictim){
+	outputStream << currentVictim.name << ", " << currentVictim.placeOfOrigin << ", " << currentVictim.age << ", " << currentVictim.photographLink;
+	return outputStream;
 }

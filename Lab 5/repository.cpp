@@ -24,6 +24,7 @@ int Repository::findPosition(const std::vector <Victim>& currentData, std::strin
 		middleIndex = (leftBound + rightBound) / 2;
 
 		// we continue the search in the right half ot the current range
+		// don't forget that lowercase letters > uppercase letters
 		if (currentData[middleIndex].getName() <= victimName) {
 			leftBound = middleIndex + 1;
 		}

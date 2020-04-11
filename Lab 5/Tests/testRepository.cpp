@@ -1,6 +1,5 @@
 #include "testRepository.h"
 
-
 void AddToMemoryRepository_DuplicateElement_ThrowsError() {
 	MemoryRepository newRepository;
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
