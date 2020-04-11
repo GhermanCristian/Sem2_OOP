@@ -292,7 +292,7 @@ ArgumentList InputValidator::CSVFileVictimValidator(std::string victimLine){
 }
 
 std::string InputValidator::fileLocationValidator(std::string userInput){
-	std::regex fileLocationPattern("([a-zA-Z]:(\\([a-zA-Z0-9.]+ *)+))");
+	std::regex fileLocationPattern("fileLocation +([a-zA-Z]:(\\\\([a-zA-Z0-9.+-]+ *)+)*)");
 	std::smatch stringMatch;
 	bool validInput = std::regex_search(userInput, stringMatch, fileLocationPattern);
 

@@ -21,6 +21,7 @@ const char ADMINISTRATOR_MODE = 'A';
 const char ASSISTANT_MODE = 'B';
 
 const char ERROR_CHARACTER = 'E';
+const char SUCCESS_CHARACTER = 'S';
 
 class UserInterface {
 	typedef void (UserInterface::* InterfaceFunction)(ArgumentList);

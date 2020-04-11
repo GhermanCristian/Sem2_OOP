@@ -5,7 +5,7 @@
 UserInterface::UserInterface() {
 	loadAdministratorModeContent();
 	loadAssistantModeContent();
-	commandInfoFileLocation = "Insert file location:\n";
+	commandInfoFileLocation = "Insert file location (fileLocation x:\\whatever)\n";
 	commandInfoProgramMode = "Insert the mode ('mode A' = administrator, 'mode B' = assistant)\n";
 }
 
@@ -25,8 +25,8 @@ void UserInterface::loadAdministratorModeContent() {
 	this->commandInfoAdministrator += "add name, placeOfOrigin, age, photograph\n";
 	this->commandInfoAdministrator += "update name, newPlaceOfOrigin, newAge, newPhotograph\n";
 	this->commandInfoAdministrator += "delete name\n";
-	this->commandInfoAdministrator += "list\n\n";
-	this->commandInfoAdministrator += "mode B\n";
+	this->commandInfoAdministrator += "list\n";
+	this->commandInfoAdministrator += "mode B\n\n";
 }
 
 void UserInterface::loadAssistantModeContent() {
@@ -45,8 +45,8 @@ void UserInterface::loadAssistantModeContent() {
 	this->commandInfoAssistant += "next\n";
 	this->commandInfoAssistant += "save name\n";
 	this->commandInfoAssistant += "list placeOfOrigin, age\n";
-	this->commandInfoAssistant += "mylist\n\n";
-	this->commandInfoAdministrator += "mode A\n";
+	this->commandInfoAssistant += "mylist\n";
+	this->commandInfoAssistant += "mode A\n\n";
 }
 
 void UserInterface::displayVictim(const Victim& currentVictim) {
@@ -167,7 +167,7 @@ char UserInterface::processFileLocationCommand(){
 	std::string fileLocation;
 
 	while (1) {
-		std::cout << commandInfoProgramMode;
+		std::cout << commandInfoFileLocation;
 		std::getline(std::cin, command);
 
 		if (command == "exit") {
@@ -177,6 +177,7 @@ char UserInterface::processFileLocationCommand(){
 		try {
 			fileLocation = inputValidator.fileLocationValidator(command);
 			fileLocationInterface(fileLocation);
+			return SUCCESS_CHARACTER;
 		}
 		catch (std::exception& operationException) {
 			std::cout << operationException.what() << "\n";

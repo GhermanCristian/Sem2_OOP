@@ -8,7 +8,7 @@ typedef CurrentFileRepositoryType CurrentRepositoryType; // the other option is 
 
 class Controller {
 	private:
-		CurrentRepositoryType victimRepository; // this is used as a placeholder until we determine the file location
+		CurrentRepositoryType victimRepository; // this repo is used as a placeholder until we determine the file location
 		VictimIterator victimIterator;
 
 	public:

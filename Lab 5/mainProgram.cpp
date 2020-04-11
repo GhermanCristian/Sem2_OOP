@@ -8,9 +8,10 @@
 
 int main() {
 	{
-		runAllTests();
-		//UserInterface currentUserInterface = UserInterface();
-		//currentUserInterface.startProgram();
+		//runAllTests();
+		UserInterface currentUserInterface = UserInterface();
+		currentUserInterface.startProgram();
+		// it's recommended that I close the debug program with exit, not with the stop thing
 	}
 	_CrtDumpMemoryLeaks();
 	return 0;
