@@ -4,8 +4,10 @@
 class FileRepository : public Repository{
 	protected:
 		std::string filePath;
+		bool createdTemporaryFile;
 
 	public:
+		FileRepository();
 		FileRepository(std::string filePath);
 		virtual Victim getOneVictimFromFile(std::string lineContent) = 0;
 		virtual std::vector<Victim> loadFromFile() = 0;

@@ -145,6 +145,7 @@ class InputValidator {
 		*/
 
 		ArgumentList CSVFileVictimValidator(std::string victimLine);
+		std::string fileLocationValidator(std::string userInput);
 
 		~InputValidator();
 		/*

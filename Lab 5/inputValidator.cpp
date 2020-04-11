@@ -291,6 +291,19 @@ ArgumentList InputValidator::CSVFileVictimValidator(std::string victimLine){
 	return victimPropertiesArgumentList;
 }
 
+std::string InputValidator::fileLocationValidator(std::string userInput){
+	std::regex fileLocationPattern("([a-zA-Z]:(\\([a-zA-Z0-9.]+ *)+))");
+	std::smatch stringMatch;
+	bool validInput = std::regex_search(userInput, stringMatch, fileLocationPattern);
+
+	if (validInput == false) {
+		throw std::exception("Invalid file location");
+	}
+	else {
+		return stringMatch.str(FIRST_ARGUMENT_REGEX_POSITION);
+	}
+}
+
 InputValidator::~InputValidator(){
 	;
 }

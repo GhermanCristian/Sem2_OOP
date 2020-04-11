@@ -3,6 +3,11 @@
 #include <fstream> // for now I'll use this, before I overwrite the >> << operators
 #include <stdio.h>
 
+CSVRepository::CSVRepository() : FileRepository(){
+	this->filePath = TEMPORARY_CSV_FILE_NAME;
+	createFile(TEMPORARY_CSV_FILE_NAME);
+}
+
 CSVRepository::CSVRepository(std::string filePath) : FileRepository(filePath){
 	createFile(filePath);
 }
@@ -88,7 +93,17 @@ void CSVRepository::saveToFile(const std::vector<Victim>& currentData) {
 }
 
 Victim CSVRepository::getVictimByName(std::string victimName, int possiblePosition){
-	return Victim();
+	std::vector <Victim> currentData = this->loadFromFile();
+
+	if (possiblePosition == INEXISTENT_POSITION) {
+		possiblePosition = findPosition(currentData, victimName);
+	}
+
+	if (isInRepository(currentData, victimName, possiblePosition) == false) {
+		throw std::exception("Inexistent victim");
+	}
+
+	return currentData[possiblePosition];
 }
 
 void CSVRepository::add(const Victim& newVictim){
@@ -147,6 +162,21 @@ std::vector<Victim> CSVRepository::getFilteredEntries(const Filter& currentFilte
 	return temporaryVector;
 }
 
+CSVRepository::CSVRepository(const CSVRepository& originalCSVRepository){
+	this->filePath = originalCSVRepository.filePath;
+	this->savedVictimList = originalCSVRepository.savedVictimList;
+}
+
+CSVRepository& CSVRepository::operator=(const CSVRepository& originalCSVRepository){
+	if (this != &originalCSVRepository) {
+		this->filePath = originalCSVRepository.filePath;
+		this->savedVictimList = originalCSVRepository.savedVictimList;
+	}
+	return *this;
+}
+
 CSVRepository::~CSVRepository(){
-	;
+	if (createdTemporaryFile == true) {
+		remove(TEMPORARY_CSV_FILE_NAME.c_str());
+	}
 }

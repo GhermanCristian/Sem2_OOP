@@ -1,10 +1,14 @@
 #pragma once
 #include "memoryRepository.h"
+#include "CSVRepository.h"
 #include "victimIterator.h"
+
+typedef CSVRepository CurrentFileRepositoryType;
+typedef CurrentFileRepositoryType CurrentRepositoryType; // the other option is MemoryRepository
 
 class Controller {
 	private:
-		MemoryRepository victimRepository;
+		CurrentRepositoryType victimRepository; // this is used as a placeholder until we determine the file location
 		VictimIterator victimIterator;
 
 	public:
@@ -18,6 +22,8 @@ class Controller {
 			Throws:
 				- None
 		*/
+
+		void setRepositoryFileLocation(std::string repositoryFileLocation);
 
 		void addVictim(std::string victimName, std::string placeOfOrigin, int age, std::string photographLink);
 		/*

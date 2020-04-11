@@ -1,11 +1,14 @@
 #pragma once
 #include "fileRepository.h"
 
+const std::string TEMPORARY_CSV_FILE_NAME = "temporaryFile.txt";
+
 class CSVRepository : public FileRepository{
 	private:
 		;
 
 	public:
+		CSVRepository();
 		CSVRepository(std::string filePath);
 
 		bool isInRepository(std::vector<Victim>& currentVector, std::string victimName, int possiblePosition = INEXISTENT_POSITION);
@@ -32,6 +35,8 @@ class CSVRepository : public FileRepository{
 		void erase(std::string victimName);
 		std::vector <Victim> getAllEntries();
 		std::vector <Victim> getFilteredEntries(const Filter& currentFilter);
+		CSVRepository(const CSVRepository& originalCSVRepository);
+		CSVRepository& operator = (const CSVRepository& originalCSVRepository);
 		~CSVRepository();
 };
 

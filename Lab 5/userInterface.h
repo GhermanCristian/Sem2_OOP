@@ -20,6 +20,8 @@ const int MYLIST_FUNCTION_POSITION = 3;
 const char ADMINISTRATOR_MODE = 'A';
 const char ASSISTANT_MODE = 'B';
 
+const char ERROR_CHARACTER = 'E';
+
 class UserInterface {
 	typedef void (UserInterface::* InterfaceFunction)(ArgumentList);
 
@@ -37,6 +39,9 @@ class UserInterface {
 		InterfaceFunction interfaceFunctionListAssistant[NUMBER_OF_COMMANDS_ASSISTANT];
 		std::string commandInfoAssistant;
 
+		std::string commandInfoFileLocation;
+		std::string commandInfoProgramMode;
+
 		void loadAdministratorModeContent();
 		void loadAssistantModeContent();
 		void displayVictim(const Victim& currentVictim);
@@ -48,6 +53,9 @@ class UserInterface {
 		void saveVictimInterface(ArgumentList argumentList);
 		void listFilteredInterface(ArgumentList argumentList);
 		void myListInterface(ArgumentList argumentList);
+		void fileLocationInterface(std::string fileLocation);
+		char processFileLocationCommand();
+		char processProgramModeCommand();
 		void processCommand(std::string command, char& programMode);
 
 	public:

@@ -5,6 +5,8 @@
 UserInterface::UserInterface() {
 	loadAdministratorModeContent();
 	loadAssistantModeContent();
+	commandInfoFileLocation = "Insert file location:\n";
+	commandInfoProgramMode = "Insert the mode ('mode A' = administrator, 'mode B' = assistant)\n";
 }
 
 void UserInterface::loadAdministratorModeContent() {
@@ -156,6 +158,54 @@ void UserInterface::myListInterface(ArgumentList argumentList){
 	}
 }
 
+void UserInterface::fileLocationInterface(std::string fileLocation){
+	this->actionController.setRepositoryFileLocation(fileLocation);
+}
+
+char UserInterface::processFileLocationCommand(){
+	std::string command;
+	std::string fileLocation;
+
+	while (1) {
+		std::cout << commandInfoProgramMode;
+		std::getline(std::cin, command);
+
+		if (command == "exit") {
+			return ERROR_CHARACTER;
+		}
+
+		try {
+			fileLocation = inputValidator.fileLocationValidator(command);
+			fileLocationInterface(fileLocation);
+		}
+		catch (std::exception& operationException) {
+			std::cout << operationException.what() << "\n";
+		}
+	}
+}
+
+char UserInterface::processProgramModeCommand(){
+	std::string command;
+	char programMode;
+
+	while (1) {
+		std::cout << commandInfoProgramMode;
+		std::getline(std::cin, command);
+
+		if (command == "exit") {
+			return ERROR_CHARACTER;
+		}
+
+		try {
+			programMode = inputValidator.modeValidator(command);
+			return programMode;
+		}
+		catch (std::exception& operationException) {
+			std::cout << operationException.what() << "\n";
+		}
+	}
+}
+
 void UserInterface::processCommand(std::string command, char &programMode) {
 	ArgumentList stringMatchResult;
 	InputValidatorFunction* validatorFunctionList;
@@ -205,22 +255,14 @@ void UserInterface::startProgram() {
 	std::string command;
 	std::string commandInfo;
 
-	while (1) {
-		std::cout << "Insert the mode ('mode A' = administrator, 'mode B' = assistant)\n";
-		std::getline(std::cin, command);
-
-		if (command == "exit") {
-			std::cout << "Program has ended\n";
-			return;
-		}
-
-		try {
-			programMode = inputValidator.modeValidator(command);
-			break;
-		}
-		catch (std::exception& operationException) {
-			std::cout << operationException.what() << "\n";
-		}
+	if (processFileLocationCommand() == ERROR_CHARACTER) {
+		std::cout << "Program has ended\n";
+		return;
+	}
+	programMode = processProgramModeCommand();
+	if (programMode == ERROR_CHARACTER) {
+		std::cout << "Program has ended\n";
+		return;
 	}
 	
 	while (1) {
