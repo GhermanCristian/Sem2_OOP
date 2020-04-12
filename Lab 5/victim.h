@@ -101,7 +101,7 @@ class Victim {
 
 		Victim& operator = (const Victim& originalVictim);
 		/*
-			Operator assignment operator
+			Overloaded assignment operator
 			Input:
 				- Reference to a victim whose content is copied to a new object
 			Output:
@@ -111,7 +111,30 @@ class Victim {
 		*/
 
 		friend std::istream& operator >> (std::istream& inputStream, Victim& currentVictim); // victim cannot be const for some reason
+		/*
+			Overloaded insertion opeator
+			Input:
+				- A reference to the istream object we read from
+				- The Victim whose properties we read
+			Output:
+				- The victim's properties are read
+				- Returns the modified istream object
+			Throws:
+				- None
+		*/
+		
 		friend std::ostream& operator << (std::ostream& outputStream, const Victim& currentVictim);
+		/*
+			Overloaded extraction opeator
+			Input:
+				- A reference to the ostream object we write to
+				- The Victim whose properties we write
+			Output:
+				- The victim's properties are read
+				- Returns the modified ostream object
+			Throws:
+				- None
+		*/
 
 		~Victim();
 		/*

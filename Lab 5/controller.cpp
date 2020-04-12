@@ -8,7 +8,7 @@ Controller::Controller() {
 
 void Controller::setRepositoryFileLocation(std::string repositoryFileLocation){
 	CurrentFileRepositoryType temporaryRepository(repositoryFileLocation);
-	victimRepository = temporaryRepository;
+	this->victimRepository = temporaryRepository;
 }
 
 void Controller::addVictim(std::string victimName, std::string placeOfOrigin, int age, std::string photographLink){
@@ -43,8 +43,6 @@ Victim Controller::getNextVictim(){
 		throw std::exception("No elements available");
 	}
 
-	// we set the number of elements in this call and not in the constructor because at that point, the
-	// DynamicVector is empty
 	this->victimIterator.setNumberOfElements(numberOfElements);
 	nextVictim = this->victimIterator.getCurrentElement(currentData);
 	this->victimIterator.setNextPosition();

@@ -31,6 +31,16 @@ class MemoryRepository : public Repository{
 		*/
 
 		Victim getVictimByName(std::string victimName, int possiblePosition = INEXISTENT_POSITION);
+		/*
+			Returns the victim with a given name
+			Input:
+				- The Victim's name
+				- The position on which the Victim is supossed to be (-1 by default, in which case we determine it ourselves)
+			Output:
+				- The Victim with the given name
+			Throws:
+				- Exception, if the victim doesn't exist
+		*/
 
 		void add(const Victim& newVictim);
 		/*
@@ -38,7 +48,7 @@ class MemoryRepository : public Repository{
 			Input:
 				- The Victim to be added
 			Output:
-				- A victim is added to the MemoryRepository
+				- A victim is added to the repository
 			Throws:
 				- Exception, if the victim already is in the repository
 		*/
@@ -71,7 +81,7 @@ class MemoryRepository : public Repository{
 			Input:
 				- None
 			Output:
-				- A pointer to an object of type DynamicVector
+				- A std::vector which contains all the data in the repository
 			Throws:
 				- None
 		*/
@@ -82,7 +92,7 @@ class MemoryRepository : public Repository{
 			Input:
 				- The filter through which we check the victims
 			Output:
-				- Returns a DynamicVector which contains the victims which have passed the filter
+				- Returns a std::vector which contains the victims which have passed the filter
 			Throws:
 				- None
 		*/
@@ -91,16 +101,16 @@ class MemoryRepository : public Repository{
 		/*
 			Copy constructor for the MemoryRepository type
 			Input:
-				- A repository whose content will be copied to the current one
+				- A MemoryRepository whose content will be copied to the current one
 			Output:
-				- The content of the given repository is copied to the current one
+				- The content of the given MemoryRepository is copied to the current one
 			Throws:
 				- None
 		*/
 
 		MemoryRepository& operator = (const MemoryRepository& originalRepository);
 		/*
-			Overloaded assignment operator for the Repository type
+			Overloaded assignment operator for the MemoryRepository type
 			Input:
 				- A repository whose content will be copied to a new object
 			Output:

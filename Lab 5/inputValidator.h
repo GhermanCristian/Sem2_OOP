@@ -145,7 +145,27 @@ class InputValidator {
 		*/
 
 		ArgumentList CSVFileVictimValidator(std::string victimLine);
+		/*
+			Validates a line from a CSV file, which contains the information for a Victim
+			Input:
+				- The text which contains the Victim's information
+			Output:
+				- Returns the Victim's properties, as an ArgumentList
+				- Returns an error code, if the command is invalid
+			Throws:
+				- None
+		*/
+
 		std::string fileLocationValidator(std::string userInput);
+		/*
+			Validates the input for choosing the file location
+			Input:
+				- The user's input
+			Output:
+				- The path of the given file
+			Throws:
+				- Exception, if the input is invalid
+		*/
 
 		~InputValidator();
 		/*

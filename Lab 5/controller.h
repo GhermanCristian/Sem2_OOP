@@ -24,6 +24,15 @@ class Controller {
 		*/
 
 		void setRepositoryFileLocation(std::string repositoryFileLocation);
+		/*
+			Sets the location for a file-based repository (called only when the repository is of a file type)
+			Input:
+				- The location we want to set
+			Output:
+				- The location is set and the file is created (if it didn't exist already)
+			Throws:
+				- Exception, if the file wasn't opened/ created properly
+		*/
 
 		void addVictim(std::string victimName, std::string placeOfOrigin, int age, std::string photographLink);
 		/*

@@ -274,6 +274,33 @@ char InputValidator::modeValidator(std::string userInput){
 
 ArgumentList InputValidator::CSVFileVictimValidator(std::string victimLine){
 	std::regex CSVFileVictimPattern("(([a-zA-Z0-9]+ *)+), +(([a-zA-Z0-9]+ *)+), +([0-9]+), +([a-zA-Z.0-9]+)");
+	/*
+		=== VICTIM NAME ===
+		1 or more times : (name can be composed of more than 1 word)
+			1 or more uppercase / lowercase letters or digits
+			0 or more spaces
+
+		1 "," symbol
+		1 or more spaces
+
+		=== VICTIM PLACE OF ORIGIN ===
+		1 or more times : (place of origin can be composed of more than 1 word)
+			1 or more uppercase / lowercase letters or digits
+			0 or more spaces
+
+		1 "," symbol
+		1 or more spaces
+
+		=== VICTIM AGE ===
+		1 or more digits
+
+		1 "," symbol
+		1 or more spaces
+
+		=== VICTIM PHOTOGRAPH LINK ===
+		1 or more uppercase / lowercase letters, digits or the dot "." symbol
+	*/
+
 	std::smatch stringMatch;
 	bool validInput = std::regex_search(victimLine, stringMatch, CSVFileVictimPattern);
 	ArgumentList victimPropertiesArgumentList;
@@ -293,6 +320,18 @@ ArgumentList InputValidator::CSVFileVictimValidator(std::string victimLine){
 
 std::string InputValidator::fileLocationValidator(std::string userInput){
 	std::regex fileLocationPattern("fileLocation +([a-zA-Z]:(\\\\([a-zA-Z0-9.+-]+ *)+)*)");
+	/*
+		1 "fileLocation" word
+		1 or more spaces
+
+		1 lowercase/ uppercase letter
+		1 ":" symbol
+		0 or more times:
+			1 "/" symbol
+			1 or more lowercase/ uppercase letters, digits and the symbols ".+-"
+			0 or more spaces
+	*/
+
 	std::smatch stringMatch;
 	bool validInput = std::regex_search(userInput, stringMatch, fileLocationPattern);
 

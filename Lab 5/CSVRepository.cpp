@@ -1,21 +1,21 @@
 #include "CSVRepository.h"
 #include "inputValidator.h"
-#include <fstream> // for now I'll use this, before I overwrite the >> << operators
+#include <fstream>
 #include <stdio.h>
 
 CSVRepository::CSVRepository() : FileRepository(){
 	this->filePath = TEMPORARY_CSV_FILE_NAME;
 	bool successfulCreation = createFile(TEMPORARY_CSV_FILE_NAME);
-	if (successfulCreation == false) {
+	/*if (successfulCreation == false) {
 		throw std::exception("Cannot create temporary file for CSVRepository");
-	}
+	}*/
 }
 
 CSVRepository::CSVRepository(std::string filePath) : FileRepository(filePath){
 	bool successfulCreation = createFile(filePath);
-	if (successfulCreation == false) {
+	/*if (successfulCreation == false) {
 		throw std::exception("Cannot create file for CSVRepository");
-	}
+	}*/
 }
 
 bool CSVRepository::isInRepository(std::vector<Victim>& currentVector, std::string victimName, int possiblePosition){
