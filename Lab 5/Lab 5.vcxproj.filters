@@ -78,6 +78,9 @@
     <ClCompile Include="memoryRepository.cpp">
       <Filter>Source Files\Repository</Filter>
     </ClCompile>
+    <ClCompile Include="Tests\testInputValidator.cpp">
+      <Filter>Source Files\Tests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="userInterface.h">
@@ -121,6 +124,9 @@
     </ClInclude>
     <ClInclude Include="memoryRepository.h">
       <Filter>Header Files\Repository</Filter>
+    </ClInclude>
+    <ClInclude Include="Tests\testInputValidator.h">
+      <Filter>Header Files\Tests</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

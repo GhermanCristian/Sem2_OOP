@@ -150,6 +150,7 @@
     <ClCompile Include="memoryRepository.cpp" />
     <ClCompile Include="repository.cpp" />
     <ClCompile Include="Tests\testController.cpp" />
+    <ClCompile Include="Tests\testInputValidator.cpp" />
     <ClCompile Include="Tests\testRepository.cpp" />
     <ClCompile Include="Tests\tests.cpp" />
     <ClCompile Include="Tests\testVictim.cpp" />
@@ -166,6 +167,7 @@
     <ClInclude Include="memoryRepository.h" />
     <ClInclude Include="repository.h" />
     <ClInclude Include="Tests\testController.h" />
+    <ClInclude Include="Tests\testInputValidator.h" />
     <ClInclude Include="Tests\testRepository.h" />
     <ClInclude Include="Tests\tests.h" />
     <ClInclude Include="Tests\testVictim.h" />

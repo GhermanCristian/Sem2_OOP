@@ -254,7 +254,7 @@ ArgumentList InputValidator::myListInputValidator(std::string userInput)
 	return myListArgumentList;
 }
 
-char InputValidator::modeValidator(std::string userInput){
+char InputValidator::programModeValidator(std::string userInput){
 	std::regex modePattern("mode [AB]");
 	/*
 		1 "mode" word
@@ -302,7 +302,7 @@ ArgumentList InputValidator::CSVFileVictimValidator(std::string victimLine){
 	*/
 
 	std::smatch stringMatch;
-	bool validInput = std::regex_search(victimLine, stringMatch, CSVFileVictimPattern);
+	bool validInput = std::regex_search(victimLine, stringMatch, CSVFileVictimPattern); //this keeps entering an infinite loop
 	ArgumentList victimPropertiesArgumentList;
 
 	if (validInput == false) {

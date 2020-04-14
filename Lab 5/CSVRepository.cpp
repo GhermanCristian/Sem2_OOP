@@ -28,11 +28,14 @@ bool CSVRepository::isInRepository(std::vector<Victim>& currentVector, std::stri
 bool CSVRepository::createFile(std::string filePath){
 	FILE* currentFile;
 	errno_t functionReturnValue = fopen_s(&currentFile, filePath.c_str(), "a");
-	if (functionReturnValue == 0) { // the file has been opened/created successfully
-		fclose(currentFile);
-		return true;
+
+	if (currentFile == 0 or functionReturnValue != 0) {
+		return false;
 	}
-	return false;
+
+	// the file has been opened/created successfully
+	fclose(currentFile);
+	return true;
 }
 
 Victim CSVRepository::getOneVictimFromFile(std::string lineContent) {

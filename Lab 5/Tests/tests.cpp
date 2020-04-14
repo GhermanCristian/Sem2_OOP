@@ -4,4 +4,5 @@ void runAllTests() {
 	testVictim();
 	testRepository();
 	testController();
+	TestInputValidator().runAllTests();
 }

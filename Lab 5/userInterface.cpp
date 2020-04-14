@@ -199,7 +199,7 @@ char UserInterface::processProgramModeCommand(){
 		}
 
 		try {
-			programMode = inputValidator.modeValidator(command);
+			programMode = inputValidator.programModeValidator(command);
 			return programMode;
 		}
 		catch (std::exception& operationException) {
@@ -228,7 +228,7 @@ void UserInterface::processCommand(std::string command, char &programMode) {
 
 	// apparently the mode may now be changed anywhere in the program
 	try {
-		programMode = inputValidator.modeValidator(command);
+		programMode = inputValidator.programModeValidator(command);
 		executedCommand = true;
 	}
 	catch (...) {

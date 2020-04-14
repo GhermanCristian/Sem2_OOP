@@ -17,8 +17,18 @@ const int PLACE_OF_ORIGIN_POSITION = 1;
 const int AGE_POSITION = 2;
 const int PHOTOGRAPH_POSITION = 3;
 
-struct ArgumentList {
-	std::string list[NUMBER_OF_ARGUMENTS];
+class ArgumentList {
+	public:
+		std::string list[NUMBER_OF_ARGUMENTS];
+
+		bool operator == (const ArgumentList& newArgumentList) {
+			for (int i = 0; i < NUMBER_OF_ARGUMENTS; i++) {
+				if (this->list[i] != newArgumentList.list[i]) {
+					return false;
+				}
+			}
+			return true;
+		}
 };
 
 class InputValidator {
@@ -133,7 +143,7 @@ class InputValidator {
 				- None
 		*/
 
-		char modeValidator(std::string userInput);
+		char programModeValidator(std::string userInput);
 		/*
 			Validates the input for choosing the program mode
 			Input:
