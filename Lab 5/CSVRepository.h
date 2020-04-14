@@ -4,31 +4,9 @@
 const std::string TEMPORARY_CSV_FILE_NAME = "temporaryFile.txt";
 
 class CSVRepository : public FileRepository{
+	friend class TestCSVRepository;
+
 	private:
-		;
-
-	public:
-		CSVRepository();
-		/*
-			Default Constructor for the CSVRepository type
-			Input:
-				- None
-			Output:
-				- A temporary file is created, on which the repository will operate
-			Throws:
-				- Exception, if the file was not opened/ created successfully
-		*/
-		CSVRepository(std::string filePath);
-		/*
-			Constructor for the CSVRepository type (with a specified path)
-			Input:
-				- The path of the file which stores the data
-			Output:
-				- The file is created (if it didn't already exist)
-			Throws:
-				- Exception, if the file was not opened/ created successfully
-		*/
-
 		bool isInRepository(std::vector<Victim>& currentVector, std::string victimName, int possiblePosition = INEXISTENT_POSITION);
 		/*
 			Checks if the victim on the given position is the same as the one that we look for
@@ -108,6 +86,29 @@ class CSVRepository : public FileRepository{
 				- The Victim with the given name
 			Throws:
 				- Exception, if the victim doesn't exist
+		*/
+
+	public:
+		CSVRepository();
+		/*
+			Default Constructor for the CSVRepository type
+			Input:
+				- None
+			Output:
+				- A temporary file is created, on which the repository will operate
+			Throws:
+				- Exception, if the file was not opened/ created successfully
+		*/
+
+		CSVRepository(std::string filePath);
+		/*
+			Constructor for the CSVRepository type (with a specified path)
+			Input:
+				- The path of the file which stores the data
+			Output:
+				- The file is created (if it didn't already exist)
+			Throws:
+				- Exception, if the file was not opened/ created successfully
 		*/
 
 		void add(const Victim& newVictim);

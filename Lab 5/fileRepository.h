@@ -7,29 +7,6 @@ class FileRepository : public Repository{
 		bool createdTemporaryFile; // this is set to true when the repository is initiated with no path, in which
 								   // case the program automatically creates a file, which is deleted at the end
 
-	public:
-		FileRepository();
-		/*
-			Default constructor for FileRepository
-			Input:
-				- None
-			Output:
-				- None
-			Throws:
-				- None
-		*/
-
-		FileRepository(std::string filePath);
-		/*
-			Constructor for FileRepository
-			Input:
-				- The path of the file which stores the data
-			Output:
-				- None
-			Throws:
-				- None
-		*/
-
 		virtual bool createFile(std::string filePath) = 0;
 		/*
 			Creates a file with a given name, if it doesn't exist
@@ -97,6 +74,29 @@ class FileRepository : public Repository{
 				- The Victim with the given name
 			Throws:
 				- Exception, if the victim doesn't exist
+		*/
+
+	public:
+		FileRepository();
+		/*
+			Default constructor for FileRepository
+			Input:
+				- None
+			Output:
+				- None
+			Throws:
+				- None
+		*/
+
+		FileRepository(std::string filePath);
+		/*
+			Constructor for FileRepository
+			Input:
+				- The path of the file which stores the data
+			Output:
+				- None
+			Throws:
+				- None
 		*/
 
 		virtual void add(const Victim& newVictim) = 0;

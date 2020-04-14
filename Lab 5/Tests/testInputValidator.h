@@ -2,8 +2,6 @@
 #include "../inputValidator.h"
 
 class TestInputValidator {
-	friend class InputValidator;
-
 	private:
 		InputValidator inputValidator;
 		void AddVictimValidator_InvalidInput_ReturnsErrorCode();

@@ -3,8 +3,6 @@
 #include "../controller.h"
 
 class TestController {
-	friend class Controller;
-
 	private:
 		void AddVictim_CorrectInput_AddsVictim();
 		void UpdateVictim_CorrectInput_UpdatesVictim();

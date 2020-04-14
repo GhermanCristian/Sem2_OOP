@@ -3,8 +3,6 @@
 #include "../victim.h"
 
 class TestVictim {
-	friend class Victim;
-
 	private:
 		void VictimConstructor_CorrectInput_CorrectName();
 		void VictimConstructor_CorrectInput_CorrectPlaceOfOrigin();

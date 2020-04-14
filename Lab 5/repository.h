@@ -22,8 +22,7 @@ class Repository {
 			Throws:
 				- None
 		*/
-		
-	public:
+
 		virtual Victim getVictimByName(std::string victimName, int possiblePosition = INEXISTENT_POSITION) = 0;
 		/*
 			Returns the victim with a given name
@@ -35,7 +34,8 @@ class Repository {
 			Throws:
 				- Exception, if the victim doesn't exist
 		*/
-
+		
+	public:
 		virtual void add(const Victim& newVictim) = 0;
 		/*
 			Adds a new Victim to the repository

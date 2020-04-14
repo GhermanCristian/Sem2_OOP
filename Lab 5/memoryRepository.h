@@ -2,20 +2,10 @@
 #include "repository.h"
 
 class MemoryRepository : public Repository{
+	friend class TestMemoryRepository;
+
 	private:
 		std::vector <Victim> data;
-
-	public:
-		MemoryRepository();
-		/*
-			Constructor for the MemoryRepository class
-			Input:
-				- None
-			Output:
-				- Creates a new, empty MemoryRepository
-			Throws:
-				- None
-		*/
 
 		bool isInRepository(std::string victimName, int possiblePosition = INEXISTENT_POSITION);
 		/*
@@ -40,6 +30,18 @@ class MemoryRepository : public Repository{
 				- The Victim with the given name
 			Throws:
 				- Exception, if the victim doesn't exist
+		*/
+
+	public:
+		MemoryRepository();
+		/*
+			Constructor for the MemoryRepository class
+			Input:
+				- None
+			Output:
+				- Creates a new, empty MemoryRepository
+			Throws:
+				- None
 		*/
 
 		void add(const Victim& newVictim);

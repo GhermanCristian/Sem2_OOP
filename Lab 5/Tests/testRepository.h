@@ -4,8 +4,6 @@
 #include "../CSVRepository.h"
 
 class TestMemoryRepository {
-	friend class MemoryRepository;
-
 	private:
 		void AddToMemoryRepository_DuplicateElement_ThrowsError();
 		void AddToMemoryRepository_EmptyMemoryRepositoryMultipleInputs_AddedInTheCorrectOrder();
