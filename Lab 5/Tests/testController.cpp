@@ -1,6 +1,21 @@
 #include "testController.h"
 
-void AddVictim_CorrectInput_AddsVictim() {
+void TestController::runAllTests(){
+	AddVictim_CorrectInput_AddsVictim();
+	UpdateVictim_CorrectInput_UpdatesVictim();
+	DeleteVictim_CorrectInput_DeletesVictim();
+	SaveVictim_EmptyRepository_ThrowsError();
+	SaveVictim_InexistingVictim_ThrowsError();
+	GetFilteredEntries_EmptyRepository_NoOutput();
+	GetFilteredEntries_FilledRepository_CorrectNumberOfElements();
+	GetSavedVictims_MultipleValidSaves_CorrectNumberOfElements();
+	NextVictim_EmptyRepository_ThrowsError();
+	NextVictim_OneCall_CorrectVictim();
+	NextVictim_MultipleCalls_CorrectOutput();
+	SetRepositoryFileLocation_NonexistentFile_FileCreated();
+}
+
+void TestController::AddVictim_CorrectInput_AddsVictim() {
 	Controller newController;
 	std::vector <Victim> pointerToData;
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
@@ -10,7 +25,7 @@ void AddVictim_CorrectInput_AddsVictim() {
 	assert(pointerToData[0] == newVictim);
 }
 
-void UpdateVictim_CorrectInput_UpdatesVictim() {
+void TestController::UpdateVictim_CorrectInput_UpdatesVictim() {
 	Controller newController;
 	std::vector <Victim> pointerToData;
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
@@ -22,7 +37,7 @@ void UpdateVictim_CorrectInput_UpdatesVictim() {
 	assert(pointerToData[0] == newVictim1);
 }
 
-void DeleteVictim_CorrectInput_DeletesVictim() {
+void TestController::DeleteVictim_CorrectInput_DeletesVictim() {
 	Controller newController;
 	std::vector <Victim> pointerToData;
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
@@ -33,7 +48,7 @@ void DeleteVictim_CorrectInput_DeletesVictim() {
 	assert(pointerToData.size() == 0);
 }
 
-void SaveVictim_EmptyRepository_ThrowsError() {
+void TestController::SaveVictim_EmptyRepository_ThrowsError() {
 	Controller newController;
 
 	try {
@@ -45,7 +60,7 @@ void SaveVictim_EmptyRepository_ThrowsError() {
 	}
 }
 
-void SaveVictim_InexistingVictim_ThrowsError() {
+void TestController::SaveVictim_InexistingVictim_ThrowsError() {
 	Controller newController;
 
 	newController.addVictim("vasile", "place", 123, "photo");
@@ -59,7 +74,7 @@ void SaveVictim_InexistingVictim_ThrowsError() {
 	}
 }
 
-void GetFilteredEntries_EmptyRepository_NoOutput() {
+void TestController::GetFilteredEntries_EmptyRepository_NoOutput() {
 	Controller newController;
 	std::vector <Victim> filteredVictims;
 
@@ -68,7 +83,7 @@ void GetFilteredEntries_EmptyRepository_NoOutput() {
 	assert(filteredVictims.size() == 0);
 }
 
-void GetFilteredEntries_FilledRepository_CorrectNumberOfElements() {
+void TestController::GetFilteredEntries_FilledRepository_CorrectNumberOfElements() {
 	Controller newController;
 	std::vector <Victim> filteredVictims;
 
@@ -80,7 +95,7 @@ void GetFilteredEntries_FilledRepository_CorrectNumberOfElements() {
 	assert(filteredVictims.size() == 3);
 }
 
-void GetSavedVictims_MultipleValidSaves_CorrectNumberOfElements() {
+void TestController::GetSavedVictims_MultipleValidSaves_CorrectNumberOfElements() {
 	Controller newController;
 	std::vector <Victim>* savedVictims;
 
@@ -98,7 +113,7 @@ void GetSavedVictims_MultipleValidSaves_CorrectNumberOfElements() {
 	assert(savedVictims->size() == 3);
 }
 
-void NextVictim_EmptyRepository_ThrowsError() {
+void TestController::NextVictim_EmptyRepository_ThrowsError() {
 	Controller newController;
 
 	try {
@@ -110,7 +125,7 @@ void NextVictim_EmptyRepository_ThrowsError() {
 	}
 }
 
-void NextVictim_OneCall_CorrectVictim() {
+void TestController::NextVictim_OneCall_CorrectVictim() {
 	Controller newController;
 	Victim newVictim{ "vasile", "place", 123, "photo" };
 	Victim newVictim1;
@@ -123,7 +138,7 @@ void NextVictim_OneCall_CorrectVictim() {
 	assert(newVictim1 == newVictim);
 }
 
-void NextVictim_MultipleCalls_CorrectOutput() {
+void TestController::NextVictim_MultipleCalls_CorrectOutput() {
 	Controller newController;
 	Victim newVictim{ "vasile2", "place", 123, "photo" };
 	Victim newVictim1;
@@ -140,23 +155,8 @@ void NextVictim_MultipleCalls_CorrectOutput() {
 	assert(newVictim1 == newVictim);
 }
 
-void SetRepositoryFileLocation_NonexistentFile_FileCreated() {
+void TestController::SetRepositoryFileLocation_NonexistentFile_FileCreated() {
 	Controller newController;
 	newController.setRepositoryFileLocation("definitely_a_new_file.txt");
 	remove("definitely_a_new_file.txt"); // this is not considered to be a "temporary" file, so it is not deleted automatically
-}
-
-void testController() {
-	AddVictim_CorrectInput_AddsVictim();
-	UpdateVictim_CorrectInput_UpdatesVictim();
-	DeleteVictim_CorrectInput_DeletesVictim();
-	SaveVictim_EmptyRepository_ThrowsError();
-	SaveVictim_InexistingVictim_ThrowsError();
-	GetFilteredEntries_EmptyRepository_NoOutput();
-	GetFilteredEntries_FilledRepository_CorrectNumberOfElements();
-	GetSavedVictims_MultipleValidSaves_CorrectNumberOfElements();
-	NextVictim_EmptyRepository_ThrowsError();
-	NextVictim_OneCall_CorrectVictim();
-	NextVictim_MultipleCalls_CorrectOutput();
-	SetRepositoryFileLocation_NonexistentFile_FileCreated();
 }

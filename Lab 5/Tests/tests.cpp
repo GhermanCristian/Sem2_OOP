@@ -1,8 +1,9 @@
 #include "tests.h"
 
 void runAllTests() {
-	testVictim();
-	testRepository();
-	testController();
+	TestVictim().runAllTests();
+	TestMemoryRepository().runAllTests();
+	TestCSVRepository().runAllTests();
+	TestController().runAllTests();
 	TestInputValidator().runAllTests();
 }
