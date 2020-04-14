@@ -59,6 +59,27 @@ void SaveVictim_InexistingVictim_ThrowsError() {
 	}
 }
 
+void GetFilteredEntries_EmptyRepository_NoOutput() {
+	Controller newController;
+	std::vector <Victim> filteredVictims;
+
+	filteredVictims = newController.getFilteredVictims("any place", 1234);
+	
+	assert(filteredVictims.size() == 0);
+}
+
+void GetFilteredEntries_FilledRepository_CorrectNumberOfElements() {
+	Controller newController;
+	std::vector <Victim> filteredVictims;
+
+	newController.addVictim("vasile", "place", 123, "p1");
+	newController.addVictim("vasile1", "place", 123, "p1");
+	newController.addVictim("vasile2", "place", 123, "p1");
+	filteredVictims = newController.getFilteredVictims("", 1234);
+
+	assert(filteredVictims.size() == 3);
+}
+
 void GetSavedVictims_MultipleValidSaves_CorrectNumberOfElements() {
 	Controller newController;
 	std::vector <Victim>* savedVictims;
@@ -119,14 +140,23 @@ void NextVictim_MultipleCalls_CorrectOutput() {
 	assert(newVictim1 == newVictim);
 }
 
+void SetRepositoryFileLocation_NonexistentFile_FileCreated() {
+	Controller newController;
+	newController.setRepositoryFileLocation("definitely_a_new_file.txt");
+	remove("definitely_a_new_file.txt"); // this is not considered to be a "temporary" file, so it is not deleted automatically
+}
+
 void testController() {
 	AddVictim_CorrectInput_AddsVictim();
 	UpdateVictim_CorrectInput_UpdatesVictim();
 	DeleteVictim_CorrectInput_DeletesVictim();
 	SaveVictim_EmptyRepository_ThrowsError();
 	SaveVictim_InexistingVictim_ThrowsError();
+	GetFilteredEntries_EmptyRepository_NoOutput();
+	GetFilteredEntries_FilledRepository_CorrectNumberOfElements();
 	GetSavedVictims_MultipleValidSaves_CorrectNumberOfElements();
 	NextVictim_EmptyRepository_ThrowsError();
 	NextVictim_OneCall_CorrectVictim();
 	NextVictim_MultipleCalls_CorrectOutput();
+	SetRepositoryFileLocation_NonexistentFile_FileCreated();
 }

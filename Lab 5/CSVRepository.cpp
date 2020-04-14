@@ -177,7 +177,7 @@ CSVRepository::CSVRepository(const CSVRepository& originalCSVRepository){
 	this->savedVictimList = originalCSVRepository.savedVictimList;
 }
 
-CSVRepository& CSVRepository::operator=(const CSVRepository& originalCSVRepository){
+CSVRepository& CSVRepository::operator = (const CSVRepository& originalCSVRepository){
 	if (this != &originalCSVRepository) {
 		this->filePath = originalCSVRepository.filePath;
 		this->savedVictimList = originalCSVRepository.savedVictimList;

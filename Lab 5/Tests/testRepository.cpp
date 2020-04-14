@@ -118,6 +118,26 @@ void IsInMemoryRepository_NonExistingElement_ElementNotFound() {
 	assert(newRepository.isInRepository("not vasile") == false);
 }
 
+void GetVictimByName_NonExistingVictim_ThrowsException() {
+	MemoryRepository newRepository;
+	
+	try {
+		newRepository.getVictimByName("not vasile");
+		assert(false);
+	}
+	catch (...) {
+		assert(true);
+	}
+}
+
+void GetVictimByName_ExistingVicitm_ReturnsVictim() {
+	MemoryRepository newRepository;
+	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
+
+	newRepository.add(newVictim);
+	assert(newRepository.getVictimByName("vasile") == newVictim);
+}
+
 void GetFilteredEntriesMemoryRepository_EmptyMemoryRepository_NoOutput() {
 	MemoryRepository newRepository;
 	FilterPlaceOfOriginAndYoungerThan currentFilter{ "location", 222 };
@@ -190,6 +210,7 @@ void GetFilteredEntriesMemoryRepository_NoPlaceOfOrigin_CorrectNumberOfElements(
 
 //void RepositoryAssignmentOperator_FilledRepository_CorrectCopy() {
 //	MemoryRepository newRepository;
+//	MemoryRepository newRepository1;
 //	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
 //	Victim newVictim1{ "vasile1", "place", 123, "photo.jpg" };
 //	Victim newVictim2{ "vasile2", "place2", 123, "photo.jpg" };
@@ -198,7 +219,6 @@ void GetFilteredEntriesMemoryRepository_NoPlaceOfOrigin_CorrectNumberOfElements(
 //	newRepository.add(newVictim1);
 //	newRepository.add(newVictim2);
 //
-//	MemoryRepository newRepository1;
 //	newRepository1 = newRepository;
 //	assert(newRepository1 == newRepository);
 //}
@@ -313,6 +333,10 @@ void SaveToCSVFile_FilledData_CorrectNumberOfObjects() {
 	repositoryData.push_back(Victim{ "Nelson Judeteanu", "Itcani", 45, "photo11.jpg" });
 	repositoryData.push_back(Victim{ "Nelson Nationalu", "Berchisesti", 45, "photo1412.jpg" });
 	repositoryData.push_back(Victim{ "Nelson Planetaru", "Obcini", 55, "photo13.jpg" });
+
+	// this is just called here so that the function appears to be tested
+	// because I use overloaded <<, I have no use for it right now, so it's never called explicitly
+	newRepository.getVictimFileRepresentation(Victim{ "Nelson Judeteanu", "Itcani", 45, "photo11.jpg" });
 
 	newRepository.saveToFile(repositoryData);
 
@@ -541,7 +565,7 @@ void GetFilteredEntriesCSVRepository_NoPlaceOfOrigin_CorrectNumberOfElements() {
 //	;
 //}
 //
-//void CSVRepositoryConstructor_FilledCSVRepository_CorrectCopy() {
+//void CSVRepositoryCopyConstructor_FilledCSVRepository_CorrectCopy() {
 //	;
 //}
 
@@ -580,6 +604,8 @@ void testRepository() {
 	IsInMemoryRepository_InvalidPosition_NotFound();
 	IsInMemoryRepository_ElementExists_ElementFound();
 	IsInMemoryRepository_NonExistingElement_ElementNotFound();
+	GetVictimByName_NonExistingVictim_ThrowsException();
+	GetVictimByName_ExistingVicitm_ReturnsVictim();
 	GetFilteredEntriesMemoryRepository_EmptyMemoryRepository_NoOutput();
 	GetFilteredEntriesMemoryRepository_FilledMemoryRepository_CorrectNumberOfElements();
 	GetFilteredEntriesMemoryRepository_NothingThroughFilter_NoOutput();

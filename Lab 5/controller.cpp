@@ -7,6 +7,11 @@ Controller::Controller() {
 }
 
 void Controller::setRepositoryFileLocation(std::string repositoryFileLocation){
+	//this only works when the current repository type is file-based
+	if (std::is_same<CurrentRepositoryType, CurrentFileRepositoryType>::value == false) {
+		return;
+	}
+
 	CurrentFileRepositoryType temporaryRepository(repositoryFileLocation);
 	this->victimRepository = temporaryRepository;
 }
