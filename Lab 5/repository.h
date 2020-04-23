@@ -3,6 +3,7 @@
 #include <algorithm>
 #include "victim.h"
 #include "filter.h"
+#include "customExceptions.h"
 
 const int INEXISTENT_POSITION = -1111;
 

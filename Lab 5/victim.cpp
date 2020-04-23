@@ -56,7 +56,8 @@ Victim::~Victim(){
 }
 
 std::istream& operator >> (std::istream& inputStream, Victim& currentVictim){
-	inputStream >> currentVictim.name >> currentVictim.placeOfOrigin >> currentVictim.age >> currentVictim.photographLink;
+	std::string commaSeparator;
+	inputStream >> currentVictim.name >> commaSeparator >> currentVictim.placeOfOrigin >> commaSeparator >> currentVictim.age >> commaSeparator >> currentVictim.photographLink;
 	return inputStream;
 }
 

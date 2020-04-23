@@ -1,6 +1,5 @@
 #include "controller.h"
 #include <iostream>
-#include <exception>
 
 Controller::Controller() {
 	;
@@ -45,7 +44,7 @@ Victim Controller::getNextVictim(){
 	int numberOfElements = currentData.size();
 
 	if (numberOfElements <= 0) {
-		throw std::exception("No elements available");
+		throw RepositoryException("No elements available");
 	}
 
 	this->victimIterator.setNumberOfElements(numberOfElements);

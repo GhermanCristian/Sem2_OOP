@@ -28,7 +28,13 @@ void TestInputValidator::runAllTests(){
 
 void TestInputValidator::AddVictimValidator_InvalidInput_ReturnsErrorCode(){
 	std::string invalidInput = "definitely invalid";
-	assert(this->inputValidator.addVictimInputValidator(invalidInput).list[ERROR_POSITION] == ERROR_CODE);
+	try {
+		this->inputValidator.addVictimInputValidator(invalidInput);
+		assert(false);
+	}
+	catch (const ValidationException& currentException) {
+		assert(true);
+	}
 }
 
 void TestInputValidator::AddVictimValidator_CorrectInput_ReturnsVictimProperties(){
@@ -46,7 +52,13 @@ void TestInputValidator::AddVictimValidator_CorrectInput_ReturnsVictimProperties
 
 void TestInputValidator::UpdateVictimValidator_InvalidInput_ReturnsErrorCode(){
 	std::string invalidInput = "definitely invalid";
-	assert(this->inputValidator.updateVictimInputValidator(invalidInput).list[ERROR_POSITION] == ERROR_CODE);
+	try {
+		this->inputValidator.updateVictimInputValidator(invalidInput);
+		assert(false);
+	}
+	catch (const ValidationException& currentException) {
+		assert(true);
+	}
 }
 
 void TestInputValidator::UpdateVictimValidator_CorrectInput_ReturnsVictimProperties(){
@@ -64,7 +76,13 @@ void TestInputValidator::UpdateVictimValidator_CorrectInput_ReturnsVictimPropert
 
 void TestInputValidator::DeleteVictimValidator_InvalidInput_ReturnsErrorCode(){
 	std::string invalidInput = "definitely invalid";
-	assert(this->inputValidator.deleteVictimInputValidator(invalidInput).list[ERROR_POSITION] == ERROR_CODE);
+	try {
+		this->inputValidator.deleteVictimInputValidator(invalidInput);
+		assert(false);
+	}
+	catch (const ValidationException& currentException) {
+		assert(true);
+	}
 }
 
 void TestInputValidator::DeleteVictimValidator_CorrectInput_ReturnsVictimName(){
@@ -79,7 +97,13 @@ void TestInputValidator::DeleteVictimValidator_CorrectInput_ReturnsVictimName(){
 
 void TestInputValidator::ListAllValidator_InvalidInput_ReturnsErrorCode(){
 	std::string invalidInput = "definitely invalid";
-	assert(this->inputValidator.listAllInputValidator(invalidInput).list[ERROR_POSITION] == ERROR_CODE);
+	try {
+		this->inputValidator.listAllInputValidator(invalidInput);
+		assert(false);
+	}
+	catch (const ValidationException& currentException) {
+		assert(true);
+	}
 }
 
 void TestInputValidator::ListAllValidator_CorrectInput_ReturnsEmptyList(){
@@ -92,7 +116,13 @@ void TestInputValidator::ListAllValidator_CorrectInput_ReturnsEmptyList(){
 
 void TestInputValidator::NextVictimValidator_InvalidInput_ReturnsErrorCode(){
 	std::string invalidInput = "definitely invalid";
-	assert(this->inputValidator.nextVictimInputValidator(invalidInput).list[ERROR_POSITION] == ERROR_CODE);
+	try {
+		this->inputValidator.nextVictimInputValidator(invalidInput);
+		assert(false);
+	}
+	catch (const ValidationException& currentException) {
+		assert(true);
+	}
 }
 
 void TestInputValidator::NextVictimValidator_CorrectInput_ReturnsEmptyList(){
@@ -105,7 +135,13 @@ void TestInputValidator::NextVictimValidator_CorrectInput_ReturnsEmptyList(){
 
 void TestInputValidator::SaveVictimValidator_InvalidInput_ReturnsErrorCode(){
 	std::string invalidInput = "definitely invalid";
-	assert(this->inputValidator.saveVictimInputValidator(invalidInput).list[ERROR_POSITION] == ERROR_CODE);
+	try {
+		this->inputValidator.saveVictimInputValidator(invalidInput);
+		assert(false);
+	}
+	catch (const ValidationException& currentException) {
+		assert(true);
+	}
 }
 
 void TestInputValidator::SaveVictimValidator_CorrectInput_ReturnsVictimName(){
@@ -120,7 +156,13 @@ void TestInputValidator::SaveVictimValidator_CorrectInput_ReturnsVictimName(){
 
 void TestInputValidator::ListFilteredValidator_InvalidInput_ReturnsErrorCode(){
 	std::string invalidInput = "definitely invalid";
-	assert(this->inputValidator.listFilteredInputValidator(invalidInput).list[ERROR_POSITION] == ERROR_CODE);
+	try {
+		this->inputValidator.listFilteredInputValidator(invalidInput);
+		assert(false);
+	}
+	catch (const ValidationException& currentException) {
+		assert(true);
+	}
 }
 
 void TestInputValidator::ListFilteredValidator_CorrectInput_ReturnsPlaceOfOriginAndAge(){
@@ -136,7 +178,13 @@ void TestInputValidator::ListFilteredValidator_CorrectInput_ReturnsPlaceOfOrigin
 
 void TestInputValidator::MyListValidator_InvalidInput_ReturnsErrorCode(){
 	std::string invalidInput = "definitely invalid";
-	assert(this->inputValidator.myListInputValidator(invalidInput).list[ERROR_POSITION] == ERROR_CODE);
+	try {
+		this->inputValidator.myListInputValidator(invalidInput);
+		assert(false);
+	}
+	catch (const ValidationException& currentException) {
+		assert(true);
+	}
 }
 
 void TestInputValidator::MyListValidator_CorrectInput_ReturnsEmptyList(){

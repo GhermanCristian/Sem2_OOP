@@ -42,9 +42,11 @@ Victim CSVRepository::getOneVictimFromFile(std::string lineContent) {
 	InputValidator inputValidator;
 	ArgumentList victimProperties;
 
-	victimProperties = inputValidator.CSVFileVictimValidator(lineContent);
-	if (victimProperties.list[ERROR_POSITION] == ERROR_CODE) {
-		throw std::exception("Invalid victim line");
+	try {
+		victimProperties = inputValidator.CSVFileVictimValidator(lineContent);
+	}
+	catch (const ValidationException& currentException) {
+		throw ValidationException("Invalid victim line");
 	}
 
 	std::string victimName = victimProperties.list[NAME_POSITION];
@@ -68,7 +70,7 @@ std::vector <Victim> CSVRepository::loadFromFile() {
 		}
 		catch (...) {
 			fileStream.close();
-			throw std::exception("Invalid victim line");
+			throw ValidationException("Invalid victim line");
 		}
 	}
 
@@ -110,7 +112,7 @@ Victim CSVRepository::getVictimByName(std::string victimName, int possiblePositi
 	}
 
 	if (isInRepository(currentData, victimName, possiblePosition) == false) {
-		throw std::exception("Inexistent victim");
+		throw RepositoryException("Inexistent victim");
 	}
 
 	return currentData[possiblePosition];
@@ -121,7 +123,7 @@ void CSVRepository::add(const Victim& newVictim){
 
 	int possiblePosition = findPosition(currentData, newVictim.getName());
 	if (isInRepository(currentData, newVictim.getName(), possiblePosition)) {
-		throw std::exception("Element already exists");
+		throw RepositoryException("Element already exists");
 	}
 	
 	possiblePosition++; // btw, we cannot do sth like begin + pos + 1 when pos is -1
@@ -135,7 +137,7 @@ void CSVRepository::update(const Victim& newVictim){
 
 	int possiblePosition = findPosition(currentData, newVictim.getName());
 	if (isInRepository(currentData, newVictim.getName(), possiblePosition) == false) {
-		throw std::exception("Element doesn't exist");
+		throw RepositoryException("Element doesn't exist");
 	}
 	currentData[possiblePosition] = newVictim;
 
@@ -147,7 +149,7 @@ void CSVRepository::erase(std::string victimName){
 
 	int possiblePosition = findPosition(currentData, victimName);
 	if (isInRepository(currentData, victimName, possiblePosition) == false) {
-		throw std::exception("Element doesn't exist");
+		throw RepositoryException("Element doesn't exist");
 	}
 	currentData.erase(currentData.begin() + possiblePosition);
 

@@ -63,7 +63,7 @@ void UserInterface::addVictimInterface(ArgumentList argumentList) {
 	try {
 		this->actionController.addVictim(victimName, placeOfOrigin, age, photographLink);
 	}
-	catch (std::exception & operationException) {
+	catch (const RepositoryException& operationException) {
 		std::cout << operationException.what() << "\n";
 	}
 }
@@ -77,7 +77,7 @@ void UserInterface::updateVictimInterface(ArgumentList argumentList){
 	try {
 		this->actionController.updateVictim(newVictimName, newPlaceOfOrigin, newAge, newPhotographLink);
 	}
-	catch (std::exception & operationException) {
+	catch (const RepositoryException& operationException) {
 		std::cout << operationException.what() << "\n";
 	}
 }
@@ -88,7 +88,7 @@ void UserInterface::deleteVictimInterface(ArgumentList argumentList){
 	try {
 		this->actionController.deleteVictim(victimName);
 	}
-	catch (std::exception & operationException) {
+	catch (const RepositoryException& operationException) {
 		std::cout << operationException.what() << "\n";
 	}
 }
@@ -102,7 +102,7 @@ void UserInterface::listAllInterface(ArgumentList argumentList){
 			displayVictim(victim);
 		}
 	}
-	catch (std::exception & operationException) {
+	catch (const ValidationException& operationException) {
 		std::cout << operationException.what() << "\n";
 	}
 }
@@ -112,7 +112,7 @@ void UserInterface::nextVictimInterface(ArgumentList argumentList){
 		Victim nextVictim = this->actionController.getNextVictim();
 		displayVictim(nextVictim);
 	}
-	catch (std::exception& operationException) {
+	catch (const RepositoryException& operationException) {
 		std::cout << operationException.what() << "\n";
 	}
 }
@@ -123,7 +123,7 @@ void UserInterface::saveVictimInterface(ArgumentList argumentList){
 	try {
 		this->actionController.saveVictim(victimName);
 	}
-	catch (std::exception& operationException) {
+	catch (const RepositoryException& operationException) {
 		std::cout << operationException.what() << "\n";
 	}
 }
@@ -140,7 +140,7 @@ void UserInterface::listFilteredInterface(ArgumentList argumentList){
 			displayVictim(victim);
 		}
 	}
-	catch (std::exception& operationException) {
+	catch (const ValidationException& operationException) {
 		std::cout << operationException.what() << "\n";
 	}
 }
@@ -154,7 +154,8 @@ void UserInterface::myListInterface(ArgumentList argumentList){
 			displayVictim(victim);
 		}
 	}
-	catch (std::exception& operationException) {
+	// atm myList doesn't throw any exceptions, so this try-catch is redundant
+	catch (const ValidationException& operationException) {
 		std::cout << operationException.what() << "\n";
 	}
 }
@@ -180,7 +181,7 @@ char UserInterface::processFileLocationCommand(){
 			fileLocationInterface(fileLocation);
 			return SUCCESS_CHARACTER;
 		}
-		catch (std::exception& operationException) {
+		catch (const ValidationException& operationException) {
 			std::cout << operationException.what() << "\n";
 		}
 	}
@@ -202,7 +203,7 @@ char UserInterface::processProgramModeCommand(){
 			programMode = inputValidator.programModeValidator(command);
 			return programMode;
 		}
-		catch (std::exception& operationException) {
+		catch (const ValidationException& operationException) {
 			std::cout << operationException.what() << "\n";
 		}
 	}
@@ -236,14 +237,14 @@ void UserInterface::processCommand(std::string command, char &programMode) {
 	}
 
 	for (int currentCommand = 0; currentCommand < numberOfCommands && executedCommand == false; currentCommand++) {
-		stringMatchResult = (inputValidator.*validatorFunctionList[currentCommand])(command);
-
-		if (stringMatchResult.list[ERROR_POSITION] == ERROR_CODE) {
+		try {
+			stringMatchResult = (inputValidator.*validatorFunctionList[currentCommand])(command);
+			executedCommand = true; // if we reach this point => the validation went well => we can perform the operation
+			(this->*interfaceFunctionList[currentCommand])(stringMatchResult);
+		}
+		catch (const ValidationException& currentException) {
 			continue;
 		}
-
-		executedCommand = true; // if we reach this point => the validation went well => we can perform the operation
-		(this->*interfaceFunctionList[currentCommand])(stringMatchResult);
 	}
 
 	if (executedCommand == false) {

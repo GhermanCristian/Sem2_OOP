@@ -18,7 +18,7 @@ Victim MemoryRepository::getVictimByName(std::string victimName, int possiblePos
 	}
 
 	if (isInRepository(victimName, possiblePosition) == false) {
-		throw std::exception("Inexistent victim");
+		throw RepositoryException("Inexistent victim");
 	}
 
 	return this->data[possiblePosition];
@@ -32,7 +32,7 @@ void MemoryRepository::add(const Victim& newVictim) {
 
 	int possiblePosition = findPosition(this->data, newVictim.getName());
 	if (isInRepository(newVictim.getName(), possiblePosition)) {
-		throw std::exception("Element already exists");
+		throw RepositoryException("Element already exists");
 	}
 
 	possiblePosition++; // btw, we cannot do sth like begin + pos + 1 when pos is -1
@@ -42,7 +42,7 @@ void MemoryRepository::add(const Victim& newVictim) {
 void MemoryRepository::update(const Victim& newVictim) {
 	int possiblePosition = findPosition(this->data, newVictim.getName());
 	if (isInRepository(newVictim.getName(), possiblePosition) == false) {
-		throw std::exception("Element doesn't exist");
+		throw RepositoryException("Element doesn't exist");
 	}
 
 	this->data[possiblePosition] = newVictim;
@@ -51,7 +51,7 @@ void MemoryRepository::update(const Victim& newVictim) {
 void MemoryRepository::erase(std::string victimName) {
 	int possiblePosition = findPosition(this->data, victimName);
 	if (isInRepository(victimName, possiblePosition) == false) {
-		throw std::exception("Element doesn't exist");
+		throw RepositoryException("Element doesn't exist");
 	}
 
 	this->data.erase(this->data.begin() + possiblePosition);
@@ -69,14 +69,6 @@ std::vector <Victim> MemoryRepository::getFilteredEntries(const Filter& currentF
 			temporaryVector.push_back(victim);
 		}
 	}
-
-	/*
-	// this is not working bc currentFilter is of the abstract type Filter
-	auto copyCondition = [currentFilter](const Victim& currentVictim) {
-		return currentFilter.isPassed(currentVictim);
-	};
-	auto copyVictims = std::copy_if(this->data.begin(), this->data.end(), temporaryVector.begin(), copyCondition);
-	*/
 
 	return temporaryVector;
 }

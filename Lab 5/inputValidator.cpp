@@ -1,6 +1,5 @@
 #include "inputValidator.h"
 #include <iostream>
-#include <exception>
 
 InputValidator::InputValidator(){
 	;
@@ -43,7 +42,7 @@ ArgumentList InputValidator::addVictimInputValidator(std::string userInput) {
 	bool validInput = std::regex_search(userInput, stringMatch, addVictimPattern);
 
 	if (validInput == false) {
-		addArgumentList.list[ERROR_POSITION] = ERROR_CODE;
+		throw ValidationException("Invalid input for add");
 	}
 	else {
 		addArgumentList.list[NAME_POSITION] = stringMatch.str(FIRST_ARGUMENT_REGEX_POSITION);
@@ -92,7 +91,7 @@ ArgumentList InputValidator::updateVictimInputValidator(std::string userInput) {
 	bool validInput = std::regex_search(userInput, stringMatch, updateVictimPattern);
 
 	if (validInput == false) {
-		updateArgumentList.list[ERROR_POSITION] = ERROR_CODE;
+		throw ValidationException("Invalid input for update");
 	}
 	else {
 		updateArgumentList.list[NAME_POSITION] = stringMatch.str(FIRST_ARGUMENT_REGEX_POSITION);
@@ -121,7 +120,7 @@ ArgumentList InputValidator::deleteVictimInputValidator(std::string userInput) {
 	bool validInput = std::regex_search(userInput, stringMatch, deleteVictimPattern);
 
 	if (validInput == false) {
-		deleteArgumentList.list[ERROR_POSITION] = ERROR_CODE;
+		throw ValidationException("Invalid input for delete");
 	}
 	else {
 		deleteArgumentList.list[NAME_POSITION] = stringMatch.str(FIRST_ARGUMENT_REGEX_POSITION);
@@ -141,7 +140,7 @@ ArgumentList InputValidator::listAllInputValidator(std::string userInput) {
 	bool validInput = std::regex_search(userInput, stringMatch, listAllPattern);
 
 	if (validInput == false) {
-		listAllArgumentList.list[ERROR_POSITION] = ERROR_CODE;
+		throw ValidationException("Invalid input for listAll");
 	}
 	else {
 		;
@@ -162,7 +161,7 @@ ArgumentList InputValidator::nextVictimInputValidator(std::string userInput)
 	bool validInput = std::regex_search(userInput, stringMatch, nextVictimPattern);
 
 	if (validInput == false) {
-		nextVictimArgumentList.list[ERROR_POSITION] = ERROR_CODE;
+		throw ValidationException("Invalid input for nextVictim");
 	}
 	else {
 		;
@@ -189,7 +188,7 @@ ArgumentList InputValidator::saveVictimInputValidator(std::string userInput)
 	bool validInput = std::regex_search(userInput, stringMatch, saveVictimPattern);
 
 	if (validInput == false) {
-		saveVictimArgumentList.list[ERROR_POSITION] = ERROR_CODE;
+		throw ValidationException("Invalid input for saveVictim");
 	}
 	else {
 		saveVictimArgumentList.list[NAME_POSITION] = stringMatch.str(FIRST_ARGUMENT_REGEX_POSITION);
@@ -223,7 +222,7 @@ ArgumentList InputValidator::listFilteredInputValidator(std::string userInput)
 	bool validInput = std::regex_search(userInput, stringMatch, listFilteredPattern);
 
 	if (validInput == false) {
-		listFilteredArgumentList.list[ERROR_POSITION] = ERROR_CODE;
+		throw ValidationException("Invalid input for listFiltered");
 	}
 	else {
 		listFilteredArgumentList.list[NAME_POSITION] = stringMatch.str(FIRST_ARGUMENT_REGEX_POSITION);
@@ -245,7 +244,7 @@ ArgumentList InputValidator::myListInputValidator(std::string userInput)
 	bool validInput = std::regex_search(userInput, stringMatch, myListPattern);
 
 	if (validInput == false) {
-		myListArgumentList.list[ERROR_POSITION] = ERROR_CODE;
+		throw ValidationException("Invalid input for myList");
 	}
 	else {
 		;
@@ -266,7 +265,7 @@ char InputValidator::programModeValidator(std::string userInput){
 	bool validInput = std::regex_search(userInput, stringMatch, modePattern);
 
 	if (validInput == false) {
-		throw std::exception("Invalid mode");
+		throw ValidationException("Invalid mode");
 	}
 
 	return userInput.back();
@@ -306,7 +305,7 @@ ArgumentList InputValidator::CSVFileVictimValidator(std::string victimLine){
 	ArgumentList victimPropertiesArgumentList;
 
 	if (validInput == false) {
-		victimPropertiesArgumentList.list[ERROR_POSITION] = ERROR_CODE;
+		throw ValidationException("Invalid input for CSVFileValidator");
 	}
 	else {
 		victimPropertiesArgumentList.list[NAME_POSITION] = stringMatch.str(FIRST_ARGUMENT_REGEX_POSITION);
@@ -336,7 +335,7 @@ std::string InputValidator::fileLocationValidator(std::string userInput){
 	bool validInput = std::regex_search(userInput, stringMatch, fileLocationPattern);
 
 	if (validInput == false) {
-		throw std::exception("Invalid file location");
+		throw ValidationException("Invalid file location");
 	}
 	else {
 		return stringMatch.str(FIRST_ARGUMENT_REGEX_POSITION);
