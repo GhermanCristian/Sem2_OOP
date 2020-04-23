@@ -1,11 +1,10 @@
 #pragma once
 #include "fileRepository.h"
 
-const std::string TEMPORARY_CSV_FILE_NAME = "temporaryFile.txt";
+const std::string TEMPORARY_HTML_FILE_NAME = "temporaryFile.html";
 
-class CSVRepository : public FileRepository{
-	friend class TestCSVRepository;
-
+class HTMLRepository : public FileRepository{
+	//friend class TestCSVRepository;
 	private:
 		bool isInRepository(const std::vector<Victim>& currentVector, std::string victimName, int possiblePosition = INEXISTENT_POSITION);
 		/*
@@ -16,6 +15,19 @@ class CSVRepository : public FileRepository{
 			Output:
 				- True, if the two Victims correspond
 				- False, otherwise
+			Throws:
+				- None
+		*/
+
+		bool createFile(std::string filePath) override;
+		/*
+			Creates a file with a given name, if it doesn't exist
+			Input:
+				- The path of the file which stores the data
+			Output:
+				- The file is created (if it didn't exist already)
+				- Returns true if the file has been opened/ created successfully
+				- Returns false otherwise
 			Throws:
 				- None
 		*/
@@ -33,7 +45,7 @@ class CSVRepository : public FileRepository{
 
 		std::vector<Victim> loadFromFile() override;
 		/*
-			Loads all the data from a .txt file
+			Loads all the data from a file
 			Input:
 				- None (the file path is already known)
 			Output:
@@ -44,7 +56,7 @@ class CSVRepository : public FileRepository{
 
 		void saveToFile(const std::vector<Victim>& currentData) override;
 		/*
-			Saves all the data from a std::vector to a txt file
+			Saves all the data from a std::vector to a file
 			Input:
 				- The vector that we want to write to file (the file path is already known)
 			Output:
@@ -53,40 +65,9 @@ class CSVRepository : public FileRepository{
 				- None
 		*/
 
-		bool createFile(std::string filePath) override;
-		/*
-			Returns the victim with a given name
-			Input:
-				- The Victim's name
-				- The position on which the Victim is supossed to be (-1 by default, in which case we determine it ourselves)
-			Output:
-				- The Victim with the given name
-			Throws:
-				- Exception, if the victim doesn't exist
-		*/
-
 	public:
-		CSVRepository();
-		/*
-			Default Constructor for the CSVRepository type
-			Input:
-				- None
-			Output:
-				- A temporary file is created, on which the repository will operate
-			Throws:
-				- Exception, if the file was not opened/ created successfully
-		*/
-
-		CSVRepository(std::string filePath);
-		/*
-			Constructor for the CSVRepository type (with a specified path)
-			Input:
-				- The path of the file which stores the data
-			Output:
-				- The file is created (if it didn't already exist)
-			Throws:
-				- Exception, if the file was not opened/ created successfully
-		*/
+		HTMLRepository();
+		HTMLRepository(std::string filePath);
 
 		void add(const Victim& newVictim) override;
 		/*
@@ -153,40 +134,6 @@ class CSVRepository : public FileRepository{
 				- The Victim with the given name
 			Throws:
 				- Exception, if the victim doesn't exist
-		*/
-
-		CSVRepository(const CSVRepository& originalCSVRepository);
-		/*
-			Copy constructor for the CSVRepository type
-			Input:
-				- A CSVRepository whose content will be copied to the current one
-			Output:
-				- The content of the given CSVRepository is copied to the current one
-			Throws:
-				- None
-		*/
-
-		CSVRepository& operator = (const CSVRepository& originalCSVRepository);
-		/*
-			Overloaded assignment operator for the CSVRepository type
-			Input:
-				- A CSVRepository whose content will be copied to a new object
-			Output:
-				- A reference to a new object, with the same properties as the original one
-			Throws:
-				- None
-		*/
-
-		~CSVRepository();
-		/*
-			CSVRepository destructor
-			Input:
-				- None
-			Output:
-				- Destroys the current CSVRepository
-				- Deletes the temporary file on which this repository was based (if that file were created)
-			Throws:
-				- None
 		*/
 };
 

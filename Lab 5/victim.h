@@ -136,6 +136,9 @@ class Victim {
 				- None
 		*/
 
+		std::string getCSVRepresentation() const;
+		std::string getHTMLRepresentation() const;
+
 		~Victim();
 		/*
 			Victim destructor

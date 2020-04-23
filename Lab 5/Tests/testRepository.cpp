@@ -390,10 +390,6 @@ void TestCSVRepository::SaveToCSVFile_FilledData_CorrectNumberOfObjects() {
 	repositoryData.push_back(Victim{ "Nelson Nationalu", "Berchisesti", 45, "photo1412.jpg" });
 	repositoryData.push_back(Victim{ "Nelson Planetaru", "Obcini", 55, "photo13.jpg" });
 
-	// this is just called here so that the function appears to be tested
-	// because I use overloaded <<, I have no use for it right now, so it's never called explicitly
-	newRepository.getVictimFileRepresentation(Victim{ "Nelson Judeteanu", "Itcani", 45, "photo11.jpg" });
-
 	newRepository.saveToFile(repositoryData);
 
 	repositoryData = newRepository.loadFromFile();

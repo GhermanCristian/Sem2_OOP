@@ -3,11 +3,30 @@
 
 Controller::Controller() {
 	this->victimRepository = new MemoryRepository();
+	this->savedVictims = new MemoryRepository();
 }
 
 void Controller::setRepositoryFileLocation(std::string repositoryFileLocation){
 	delete this->victimRepository;
+	// right now the main repo is only CSV, so we assume by default that the file location is a csv file
+	// we might have to do sth like in set saved victims
 	this->victimRepository = new CSVRepository(repositoryFileLocation);
+}
+
+void Controller::setSavedVictimsFileLocation(std::string myListLocation){
+	int locationLength = myListLocation.length();
+
+	std::string lastFourCharacters = myListLocation.substr(locationLength - 4, 4);
+	if (lastFourCharacters == ".txt" or lastFourCharacters == ".csv") {
+		delete this->savedVictims;
+		this->savedVictims = new CSVRepository(myListLocation);
+	}
+
+	std::string lastFiveCharacters = myListLocation.substr(locationLength - 5, 5);
+	if (lastFiveCharacters == ".html") {
+		delete this->savedVictims;
+		this->savedVictims = new HTMLRepository(myListLocation);
+	}
 }
 
 void Controller::addVictim(std::string victimName, std::string placeOfOrigin, int age, std::string photographLink){
@@ -50,13 +69,16 @@ Victim Controller::getNextVictim(){
 }
 
 void Controller::saveVictim(std::string victimName){
-	this->victimRepository->saveVictim(victimName);
+	Victim savedVictim = victimRepository->getVictimByName(victimName);
+	savedVictims->add(savedVictim);
 }
 
-std::vector <Victim>* Controller::getSavedVictims(){
-	return this->victimRepository->getSavedVictimList();
+std::vector <Victim> Controller::getSavedVictims(){
+	std::vector <Victim> allVictims = savedVictims->getAllEntries();
+	return allVictims;
 }
 
 Controller::~Controller() {
 	delete this->victimRepository;
+	delete this->savedVictims;
 }

@@ -146,6 +146,7 @@
     <ClCompile Include="customExceptions.cpp" />
     <ClCompile Include="fileRepository.cpp" />
     <ClCompile Include="filter.cpp" />
+    <ClCompile Include="HTMLRepository.cpp" />
     <ClCompile Include="inputValidator.cpp" />
     <ClCompile Include="mainProgram.cpp" />
     <ClCompile Include="memoryRepository.cpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="customExceptions.h" />
     <ClInclude Include="fileRepository.h" />
     <ClInclude Include="filter.h" />
+    <ClInclude Include="HTMLRepository.h" />
     <ClInclude Include="inputValidator.h" />
     <ClInclude Include="memoryRepository.h" />
     <ClInclude Include="repository.h" />

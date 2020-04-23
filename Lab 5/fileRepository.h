@@ -1,5 +1,6 @@
 #pragma once
 #include "repository.h"
+#include <fstream>
 
 class FileRepository : public Repository{
 	protected:
@@ -40,17 +41,6 @@ class FileRepository : public Repository{
 				- Returns a std::vector which contains all the data from a file
 			Throws:
 				- Exception, if the text in the file is invalid
-		*/
-
-		virtual std::string getVictimFileRepresentation(const Victim& currentVictim) = 0;
-		/*
-			Returns a string representation of a Victim
-			Input:
-				- The Victim we want to represent
-			Output:
-				- A string which contains the data that we want to represent
-			Throws:
-				- None
 		*/
 
 		virtual void saveToFile(const std::vector<Victim>& currentData) = 0;

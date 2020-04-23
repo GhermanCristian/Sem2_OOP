@@ -1,11 +1,13 @@
 #pragma once
 #include "memoryRepository.h"
 #include "CSVRepository.h"
+#include "HTMLRepository.h"
 #include "victimIterator.h"
 
 class Controller {
 	private:
 		Repository* victimRepository;
+		Repository* savedVictims; //mylist
 		VictimIterator victimIterator;
 
 	public:
@@ -22,7 +24,7 @@ class Controller {
 
 		void setRepositoryFileLocation(std::string repositoryFileLocation);
 		/*
-			Sets the location for a file-based repository (called only when the repository is of a file type)
+			Sets the location for a file-based repository
 			Input:
 				- The location we want to set
 			Output:
@@ -30,6 +32,8 @@ class Controller {
 			Throws:
 				- Exception, if the file wasn't opened/ created properly
 		*/
+
+		void setSavedVictimsFileLocation(std::string myListLocation);
 
 		void addVictim(std::string victimName, std::string placeOfOrigin, int age, std::string photographLink);
 		/*
@@ -108,16 +112,7 @@ class Controller {
 				- Exception, if the victim doesn't exist
 		*/
 
-		std::vector <Victim>* getSavedVictims();
-		/*
-			Allows access to the list of saved victims
-			Input:
-				- None
-			Output:
-				- Returns a pointer to the list of saved victims
-			Throws:
-				- None
-		*/
+		std::vector <Victim> getSavedVictims();
 
 		~Controller();
 		/*

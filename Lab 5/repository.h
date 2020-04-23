@@ -9,8 +9,6 @@ const int INEXISTENT_POSITION = -1111;
 
 class Repository {
 	protected:
-		std::vector <Victim> savedVictimList;
-
 		int findPosition(const std::vector <Victim>& currentData, std::string victimName);
 		/*
 			Finds the position of the largest name <= victimName in the current list (which is sorted in increasing
@@ -22,18 +20,6 @@ class Repository {
 				- Largest position on which the name <= victimName
 			Throws:
 				- None
-		*/
-
-		virtual Victim getVictimByName(std::string victimName, int possiblePosition = INEXISTENT_POSITION) = 0;
-		/*
-			Returns the victim with a given name
-			Input:
-				- The Victim's name
-				- The possible position on which the Victim might be
-			Output:
-				- The Victim with the given name
-			Throws:
-				- Exception, if the victim doesn't exist
 		*/
 		
 	public:
@@ -92,26 +78,16 @@ class Repository {
 				- None
 		*/
 
-		void saveVictim(std::string victimName);
+		virtual Victim getVictimByName(std::string victimName, int possiblePosition = INEXISTENT_POSITION) = 0;
 		/*
-			Saves the current victim to a list of saved victims
+			Returns the victim with a given name
 			Input:
-				- The victim's name
+				- The Victim's name
+				- The possible position on which the Victim might be
 			Output:
-				- The victim with that name is added to a list of saved victims (if if exists)
+				- The Victim with the given name
 			Throws:
 				- Exception, if the victim doesn't exist
-		*/
-
-		std::vector <Victim>* getSavedVictimList();
-		/*
-			Provides access to the list of saved victims
-			Input:
-				- None
-			Output:
-				- Returns a pointer to the list of saved victims
-			Throws:
-				- None
 		*/
 
 		virtual ~Repository();

@@ -52,7 +52,6 @@ void UserInterface::loadAssistantModeContent() {
 
 void UserInterface::displayVictim(const Victim& currentVictim) {
 	std::cout << currentVictim << "\n";
-	//std::cout << currentVictim.getName() << " - " << currentVictim.getPlaceOfOrigin() << " - " << currentVictim.getAge() << " - " << currentVictim.getPhotographLink() << "\n";
 }
 
 void UserInterface::addVictimInterface(ArgumentList argumentList) {
@@ -147,11 +146,12 @@ void UserInterface::listFilteredInterface(ArgumentList argumentList){
 }
 
 void UserInterface::myListInterface(ArgumentList argumentList){
-	std::vector <Victim>* savedVictimList;
+	std::vector <Victim> savedVictimList;
 
 	try {
+		// open the file in a program
 		savedVictimList = this->actionController.getSavedVictims();
-		for (auto victim : *savedVictimList) {
+		for (auto victim : savedVictimList) {
 			displayVictim(victim);
 		}
 	}
@@ -166,7 +166,7 @@ void UserInterface::fileLocationInterface(std::string fileLocation){
 }
 
 void UserInterface::myListLocationInterface(std::string myListLocation) {
-	//this->actionController.setMyListLocation(myListLocation);
+	this->actionController.setSavedVictimsFileLocation(myListLocation);
 }
 
 char UserInterface::processFileLocationCommand(){

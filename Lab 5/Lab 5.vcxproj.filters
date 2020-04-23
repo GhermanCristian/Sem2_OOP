@@ -84,6 +84,9 @@
     <ClCompile Include="customExceptions.cpp">
       <Filter>Source Files\Controller</Filter>
     </ClCompile>
+    <ClCompile Include="HTMLRepository.cpp">
+      <Filter>Source Files\Repository</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="userInterface.h">
@@ -133,6 +136,9 @@
     </ClInclude>
     <ClInclude Include="customExceptions.h">
       <Filter>Header Files\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="HTMLRepository.h">
+      <Filter>Header Files\Repository</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

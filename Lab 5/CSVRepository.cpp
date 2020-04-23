@@ -18,7 +18,7 @@ CSVRepository::CSVRepository(std::string filePath) : FileRepository(filePath){
 	}*/
 }
 
-bool CSVRepository::isInRepository(std::vector<Victim>& currentVector, std::string victimName, int possiblePosition){
+bool CSVRepository::isInRepository(const std::vector<Victim>& currentVector, std::string victimName, int possiblePosition){
 	if (possiblePosition == INEXISTENT_POSITION) {
 		possiblePosition = findPosition(currentVector, victimName);
 	}
@@ -78,27 +78,12 @@ std::vector <Victim> CSVRepository::loadFromFile() {
 	return allData;
 }
 
-std::string CSVRepository::getVictimFileRepresentation(const Victim& currentVictim) {
-	std::string victimRepresentation = "";
-
-	victimRepresentation += currentVictim.getName();
-	victimRepresentation += ", ";
-	victimRepresentation += currentVictim.getPlaceOfOrigin();
-	victimRepresentation += ", ";
-	victimRepresentation += std::to_string(currentVictim.getAge());
-	victimRepresentation += ", ";
-	victimRepresentation += currentVictim.getPhotographLink();
-
-	return victimRepresentation;
-}
-
 void CSVRepository::saveToFile(const std::vector<Victim>& currentData) {
 	std::string currentLine;
 	std::ofstream out(this->filePath);
 
 	for (auto currentVictim : currentData) {
-		out << currentVictim << "\n";
-		//out << getVictimFileRepresentation(currentVictim) << "\n";
+		out << currentVictim.getCSVRepresentation() << "\n";
 	}
 
 	out.close();
@@ -176,13 +161,11 @@ std::vector<Victim> CSVRepository::getFilteredEntries(const Filter& currentFilte
 
 CSVRepository::CSVRepository(const CSVRepository& originalCSVRepository){
 	this->filePath = originalCSVRepository.filePath;
-	this->savedVictimList = originalCSVRepository.savedVictimList;
 }
 
 CSVRepository& CSVRepository::operator = (const CSVRepository& originalCSVRepository){
 	if (this != &originalCSVRepository) {
 		this->filePath = originalCSVRepository.filePath;
-		this->savedVictimList = originalCSVRepository.savedVictimList;
 	}
 	return *this;
 }

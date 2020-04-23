@@ -51,6 +51,24 @@ Victim& Victim::operator=(const Victim& originalVictim){
 	return *this;
 }
 
+std::string Victim::getCSVRepresentation() const{
+	std::string victimRepresentation = "";
+
+	victimRepresentation += this->getName();
+	victimRepresentation += ", ";
+	victimRepresentation += this->getPlaceOfOrigin();
+	victimRepresentation += ", ";
+	victimRepresentation += std::to_string(this->getAge());
+	victimRepresentation += ", ";
+	victimRepresentation += this->getPhotographLink();
+
+	return victimRepresentation;
+}
+
+std::string Victim::getHTMLRepresentation() const{
+	return std::string();
+}
+
 Victim::~Victim(){
 	;
 }
@@ -62,6 +80,6 @@ std::istream& operator >> (std::istream& inputStream, Victim& currentVictim){
 }
 
 std::ostream& operator << (std::ostream& outputStream, const Victim& currentVictim){
-	outputStream << currentVictim.name << ", " << currentVictim.placeOfOrigin << ", " << currentVictim.age << ", " << currentVictim.photographLink;
+	outputStream << currentVictim.getCSVRepresentation();
 	return outputStream;
 }
