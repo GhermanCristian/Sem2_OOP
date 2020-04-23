@@ -7,6 +7,7 @@ UserInterface::UserInterface() {
 	loadAssistantModeContent();
 	commandInfoFileLocation = "Insert file location (fileLocation x:\\whatever)\n";
 	commandInfoProgramMode = "Insert the mode ('mode A' = administrator, 'mode B' = assistant)\n";
+	commandInfoMyListLocation = "Insert mylist location (mylistLocation x:\\whatever)\n";
 }
 
 void UserInterface::loadAdministratorModeContent() {
@@ -164,6 +165,10 @@ void UserInterface::fileLocationInterface(std::string fileLocation){
 	this->actionController.setRepositoryFileLocation(fileLocation);
 }
 
+void UserInterface::myListLocationInterface(std::string myListLocation) {
+	//this->actionController.setMyListLocation(myListLocation);
+}
+
 char UserInterface::processFileLocationCommand(){
 	std::string command;
 	std::string fileLocation;
@@ -179,6 +184,29 @@ char UserInterface::processFileLocationCommand(){
 		try {
 			fileLocation = inputValidator.fileLocationValidator(command);
 			fileLocationInterface(fileLocation);
+			return SUCCESS_CHARACTER;
+		}
+		catch (const ValidationException& operationException) {
+			std::cout << operationException.what() << "\n";
+		}
+	}
+}
+
+char UserInterface::processMyListLocationCommand() {
+	std::string command;
+	std::string myListLocation;
+
+	while (1) {
+		std::cout << commandInfoMyListLocation;
+		std::getline(std::cin, command);
+
+		if (command == "exit") {
+			return ERROR_CHARACTER;
+		}
+
+		try {
+			myListLocation = inputValidator.myListLocationValidator(command);
+			myListLocationInterface(myListLocation);
 			return SUCCESS_CHARACTER;
 		}
 		catch (const ValidationException& operationException) {
@@ -259,6 +287,10 @@ void UserInterface::startProgram() {
 	std::string commandInfo;
 
 	if (processFileLocationCommand() == ERROR_CHARACTER) {
+		std::cout << "Program has ended\n";
+		return;
+	}
+	if (processMyListLocationCommand() == ERROR_CHARACTER) {
 		std::cout << "Program has ended\n";
 		return;
 	}

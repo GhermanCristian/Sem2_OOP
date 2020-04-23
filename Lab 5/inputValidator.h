@@ -176,6 +176,17 @@ class InputValidator {
 				- Exception, if the input is invalid
 		*/
 
+		std::string myListLocationValidator(std::string userInput);
+		/*
+			Validates the input for choosing myList's location
+			Input:
+				- The user's input
+			Output:
+				- The path of the given file
+			Throws:
+				- Exception, if the input is invalid
+		*/
+
 		~InputValidator();
 		/*
 			Destructor for the InputValidator type

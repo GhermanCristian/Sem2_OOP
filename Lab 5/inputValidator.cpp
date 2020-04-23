@@ -342,6 +342,31 @@ std::string InputValidator::fileLocationValidator(std::string userInput){
 	}
 }
 
+std::string InputValidator::myListLocationValidator(std::string userInput){
+	std::regex myListLocationPattern("mylistLocation +([a-zA-Z]:(\\\\([a-zA-Z0-9.+-]+ *)+)*)");
+	/*
+		1 "mylistLocation" word
+		1 or more spaces
+
+		1 lowercase/ uppercase letter
+		1 ":" symbol
+		0 or more times:
+			1 "/" symbol
+			1 or more lowercase/ uppercase letters, digits and the symbols ".+-"
+			0 or more spaces
+	*/
+
+	std::smatch stringMatch;
+	bool validInput = std::regex_search(userInput, stringMatch, myListLocationPattern);
+
+	if (validInput == false) {
+		throw ValidationException("Invalid file location");
+	}
+	else {
+		return stringMatch.str(FIRST_ARGUMENT_REGEX_POSITION);
+	}
+}
+
 InputValidator::~InputValidator(){
 	;
 }

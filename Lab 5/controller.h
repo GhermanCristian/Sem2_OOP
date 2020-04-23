@@ -3,12 +3,9 @@
 #include "CSVRepository.h"
 #include "victimIterator.h"
 
-typedef CSVRepository CurrentFileRepositoryType;
-typedef CurrentFileRepositoryType CurrentRepositoryType; // the other option is MemoryRepository
-
 class Controller {
 	private:
-		CurrentRepositoryType victimRepository; // this repo is used as a placeholder until we determine the file location
+		Repository* victimRepository;
 		VictimIterator victimIterator;
 
 	public:

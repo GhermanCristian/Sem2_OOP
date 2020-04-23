@@ -41,6 +41,7 @@ class UserInterface {
 		std::string commandInfoAssistant;
 
 		std::string commandInfoFileLocation;
+		std::string commandInfoMyListLocation;
 		std::string commandInfoProgramMode;
 
 		void loadAdministratorModeContent();
@@ -55,7 +56,9 @@ class UserInterface {
 		void listFilteredInterface(ArgumentList argumentList);
 		void myListInterface(ArgumentList argumentList);
 		void fileLocationInterface(std::string fileLocation);
+		void myListLocationInterface(std::string myListLocation);
 		char processFileLocationCommand();
+		char processMyListLocationCommand();
 		char processProgramModeCommand();
 		void processCommand(std::string command, char& programMode);
 
