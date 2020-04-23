@@ -20,7 +20,7 @@ class CSVRepository : public FileRepository{
 				- None
 		*/
 
-		Victim getOneVictimFromFile(std::string lineContent) override;
+		Victim getOneVictimFromFile(std::string lineContent);
 		/*
 			Determines a victim object from some given text
 			Input:

@@ -1,6 +1,7 @@
 #include "userInterface.h"
 #include <iostream>
 #include <string>
+#include <Windows.h>
 
 UserInterface::UserInterface() {
 	loadAdministratorModeContent();
@@ -51,7 +52,7 @@ void UserInterface::loadAssistantModeContent() {
 }
 
 void UserInterface::displayVictim(const Victim& currentVictim) {
-	std::cout << currentVictim << "\n";
+	std::cout << currentVictim.getCSVRepresentation() << "\n";
 }
 
 void UserInterface::addVictimInterface(ArgumentList argumentList) {
@@ -150,6 +151,7 @@ void UserInterface::myListInterface(ArgumentList argumentList){
 
 	try {
 		// open the file in a program
+		//ShellExecuteA(NULL, "open", this->actionController.getMylistPath().c_str(), NULL, NULL, SW_SHOWNORMAL);
 		savedVictimList = this->actionController.getSavedVictims();
 		for (auto victim : savedVictimList) {
 			displayVictim(victim);

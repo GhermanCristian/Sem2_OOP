@@ -66,7 +66,16 @@ std::string Victim::getCSVRepresentation() const{
 }
 
 std::string Victim::getHTMLRepresentation() const{
-	return std::string();
+	std::string victimRepresentation = "";
+
+	victimRepresentation += "\t\t<tr>\n";
+	victimRepresentation += ("\t\t\t<td>" + this->getName() + "</td>\n");
+	victimRepresentation += ("\t\t\t<td>" + this->getPlaceOfOrigin() + "</td>\n");
+	victimRepresentation += ("\t\t\t<td>" + std::to_string(this->getAge()) + "</td>\n");
+	victimRepresentation += ("\t\t\t<td>" + this->getPhotographLink() + "</td>\n");
+	victimRepresentation += "\t\t</tr>\n";
+
+	return victimRepresentation;
 }
 
 Victim::~Victim(){

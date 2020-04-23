@@ -49,7 +49,7 @@ void TestController::DeleteVictim_CorrectInput_DeletesVictim() {
 }
 
 void TestController::SaveVictim_EmptyRepository_ThrowsError() {
-	/*Controller newController;
+	Controller newController;
 
 	try {
 		newController.saveVictim("vasile");
@@ -57,11 +57,11 @@ void TestController::SaveVictim_EmptyRepository_ThrowsError() {
 	}
 	catch (...) {
 		assert(true);
-	}*/
+	}
 }
 
 void TestController::SaveVictim_InexistingVictim_ThrowsError() {
-	/*Controller newController;
+	Controller newController;
 
 	newController.addVictim("vasile", "place", 123, "photo");
 
@@ -71,7 +71,7 @@ void TestController::SaveVictim_InexistingVictim_ThrowsError() {
 	}
 	catch (...) {
 		assert(true);
-	}*/
+	}
 }
 
 void TestController::GetFilteredEntries_EmptyRepository_NoOutput() {
@@ -96,8 +96,8 @@ void TestController::GetFilteredEntries_FilledRepository_CorrectNumberOfElements
 }
 
 void TestController::GetSavedVictims_MultipleValidSaves_CorrectNumberOfElements() {
-	/*Controller newController;
-	std::vector <Victim>* savedVictims;
+	Controller newController;
+	std::vector <Victim> savedVictims;
 
 	newController.addVictim("vasile", "place", 123, "photo");
 	newController.addVictim("vasile1", "place", 123, "photo");
@@ -110,7 +110,7 @@ void TestController::GetSavedVictims_MultipleValidSaves_CorrectNumberOfElements(
 	newController.saveVictim("vasile3");
 
 	savedVictims = newController.getSavedVictims();
-	assert(savedVictims->size() == 3);*/
+	assert(savedVictims.size() == 3);
 }
 
 void TestController::NextVictim_EmptyRepository_ThrowsError() {

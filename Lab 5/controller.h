@@ -9,6 +9,7 @@ class Controller {
 		Repository* victimRepository;
 		Repository* savedVictims; //mylist
 		VictimIterator victimIterator;
+		std::string mylistFilePath;
 
 	public:
 		Controller();
@@ -113,6 +114,8 @@ class Controller {
 		*/
 
 		std::vector <Victim> getSavedVictims();
+
+		std::string getMylistPath();
 
 		~Controller();
 		/*

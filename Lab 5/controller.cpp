@@ -18,12 +18,14 @@ void Controller::setSavedVictimsFileLocation(std::string myListLocation){
 
 	std::string lastFourCharacters = myListLocation.substr(locationLength - 4, 4);
 	if (lastFourCharacters == ".txt" or lastFourCharacters == ".csv") {
+		this->mylistFilePath = myListLocation;
 		delete this->savedVictims;
 		this->savedVictims = new CSVRepository(myListLocation);
 	}
 
 	std::string lastFiveCharacters = myListLocation.substr(locationLength - 5, 5);
 	if (lastFiveCharacters == ".html") {
+		this->mylistFilePath = myListLocation;
 		delete this->savedVictims;
 		this->savedVictims = new HTMLRepository(myListLocation);
 	}
@@ -76,6 +78,10 @@ void Controller::saveVictim(std::string victimName){
 std::vector <Victim> Controller::getSavedVictims(){
 	std::vector <Victim> allVictims = savedVictims->getAllEntries();
 	return allVictims;
+}
+
+std::string Controller::getMylistPath(){
+	return this->mylistFilePath;
 }
 
 Controller::~Controller() {

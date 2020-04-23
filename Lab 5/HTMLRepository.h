@@ -32,16 +32,7 @@ class HTMLRepository : public FileRepository{
 				- None
 		*/
 
-		Victim getOneVictimFromFile(std::string lineContent) override;
-		/*
-			Determines a victim object from some given text
-			Input:
-				- The text which contains the Victim data
-			Output:
-				- Returns a Victim with the given properties
-			Throws:
-				- Exception, if the text is invalid
-		*/
+		std::string processLine(std::string line);
 
 		std::vector<Victim> loadFromFile() override;
 		/*

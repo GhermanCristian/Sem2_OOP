@@ -21,17 +21,6 @@ class FileRepository : public Repository{
 				- None
 		*/
 
-		virtual Victim getOneVictimFromFile(std::string lineContent) = 0;
-		/*
-			Determines a victim object from some given text
-			Input:
-				- The text which contains the Victim data
-			Output:
-				- Returns a Victim with the given properties
-			Throws:
-				- Exception, if the text is invalid
-		*/
-
 		virtual std::vector<Victim> loadFromFile() = 0;
 		/*
 			Loads all the data from a file

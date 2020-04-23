@@ -1,4 +1,5 @@
 #include "HTMLRepository.h"
+#include <iostream>
 
 HTMLRepository::HTMLRepository() : FileRepository() {
 	this->filePath = TEMPORARY_HTML_FILE_NAME;
@@ -29,25 +30,55 @@ bool HTMLRepository::createFile(std::string filePath){
 	return true;
 }
 
-Victim HTMLRepository::getOneVictimFromFile(std::string lineContent){
-	return Victim();
+std::string HTMLRepository::processLine(std::string line){
+	int lineLength = line.length();
+	int IGNORED_STARTING_CHARACTERS = 7;
+	int IGNORED_ENDING_CHARACTERS = 5;
+
+	line = line.substr(IGNORED_STARTING_CHARACTERS, lineLength - IGNORED_STARTING_CHARACTERS);
+	line.erase(lineLength - IGNORED_ENDING_CHARACTERS - IGNORED_STARTING_CHARACTERS, IGNORED_ENDING_CHARACTERS);
+	
+	return line;
 }
 
 std::vector<Victim> HTMLRepository::loadFromFile(){
 	std::vector <Victim> allData;
-	std::string currentLine;
+	std::string ignoredContent;
+	std::string victimName;
+	std::string placeOfOrigin;
+	std::string victimAge;
+	std::string photographLink;
 	std::fstream fileStream(this->filePath, std::fstream::in);
 
-	// in the case in which the file is empty, loadVictim will not throw an exception bc the program won't even
-	// reach that point (it doesn't enter the while loop)
-	while (0) {
-		try {
-			allData.push_back(getOneVictimFromFile(currentLine));
+	int IGNORED_LINES_COUNT = 13;
+	for (int i = 0; i < IGNORED_LINES_COUNT; i++) {
+		// this happens when the file is empty (there is nothing to read => getline 'is' false)
+		if (!getline(fileStream, ignoredContent)) {
+			return allData;
 		}
-		catch (...) {
-			fileStream.close();
-			throw ValidationException("Invalid victim line");
+	}
+
+	while (1) {
+		getline(fileStream, ignoredContent); // <tr>
+		if (ignoredContent == "\t\t</table>") {
+			break;
 		}
+
+		getline(fileStream, victimName);
+		victimName = processLine(victimName);
+
+		getline(fileStream, placeOfOrigin);
+		placeOfOrigin = processLine(placeOfOrigin);
+
+		getline(fileStream, victimAge);
+		victimAge = processLine(victimAge);
+
+		getline(fileStream, photographLink);
+		photographLink = processLine(photographLink);
+
+		allData.push_back(Victim{victimName, placeOfOrigin, stoi(victimAge), photographLink});
+
+		getline(fileStream, ignoredContent); // </tr>
 	}
 
 	fileStream.close();
@@ -58,13 +89,25 @@ void HTMLRepository::saveToFile(const std::vector<Victim>& currentData){
 	std::string currentLine;
 	std::ofstream out(this->filePath);
 
-	// write the 'header' part (title, html.. tags) 
-
+	out << "<!DOCTYPE html>\n";
+	out << "<html>\n";
+	out << "\t<head>\n";
+	out << "\t\t<title>Victims</title>\n";
+	out << "\t</head>\n";
+	out << "\t<body>\n";
+	out << "\t\t<table border = \"1\">\n";
+	out << "\t\t<tr>\n";
+	out << "\t\t\t<td><b>Name</b></td>\n";
+	out << "\t\t\t<td><b>Location</b></td>\n";
+	out << "\t\t\t<td><b>Age</b></td>\n";
+	out << "\t\t\t<td><b>Photo</b></td>\n";
+	out << "\t\t</tr>\n";
 	for (auto currentVictim : currentData) {
-		out << currentVictim.getHTMLRepresentation() << "\n";
+		out << currentVictim.getHTMLRepresentation();
 	}
-
-	// write the 'footer' part (close the above tags)
+	out << "\t\t</table>\n";
+	out << "\t</body>\n";
+	out << "</html>";
 
 	out.close();
 }
