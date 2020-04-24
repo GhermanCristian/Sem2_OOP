@@ -9,7 +9,13 @@ class Controller {
 		Repository* victimRepository;
 		Repository* savedVictims; //mylist
 		VictimIterator victimIterator;
-		std::string mylistFilePath;
+		std::string mylistFilePath; // i need direct access to this for opening the file in an external program
+
+		std::string TXT_FILE_EXTENSION;
+		std::string CSV_FILE_EXTENSION;
+		std::string HTML_FILE_EXTENSION;
+
+		std::string getFileExtension(const std::string& fileLocation);
 
 	public:
 		Controller();

@@ -36,6 +36,7 @@ std::string HTMLRepository::processLine(std::string line){
 	int IGNORED_ENDING_CHARACTERS = 5;
 
 	line = line.substr(IGNORED_STARTING_CHARACTERS, lineLength - IGNORED_STARTING_CHARACTERS);
+	// we have removed IGNORED_STARTING_CHARACTERS, so the length get modified as well
 	line.erase(lineLength - IGNORED_ENDING_CHARACTERS - IGNORED_STARTING_CHARACTERS, IGNORED_ENDING_CHARACTERS);
 	
 	return line;
@@ -44,10 +45,7 @@ std::string HTMLRepository::processLine(std::string line){
 std::vector<Victim> HTMLRepository::loadFromFile(){
 	std::vector <Victim> allData;
 	std::string ignoredContent;
-	std::string victimName;
-	std::string placeOfOrigin;
-	std::string victimAge;
-	std::string photographLink;
+	std::string victimName, placeOfOrigin, victimAge, photographLink;
 	std::fstream fileStream(this->filePath, std::fstream::in);
 
 	int IGNORED_LINES_COUNT = 13;
@@ -60,19 +58,16 @@ std::vector<Victim> HTMLRepository::loadFromFile(){
 
 	while (1) {
 		getline(fileStream, ignoredContent); // <tr>
-		if (ignoredContent == "\t\t</table>") {
+		if (ignoredContent == "\t\t</table>") { // this line marks the end of the table, so we don't have any Victims left to read
 			break;
 		}
 
 		getline(fileStream, victimName);
 		victimName = processLine(victimName);
-
 		getline(fileStream, placeOfOrigin);
 		placeOfOrigin = processLine(placeOfOrigin);
-
 		getline(fileStream, victimAge);
 		victimAge = processLine(victimAge);
-
 		getline(fileStream, photographLink);
 		photographLink = processLine(photographLink);
 

@@ -54,13 +54,10 @@ Victim& Victim::operator=(const Victim& originalVictim){
 std::string Victim::getCSVRepresentation() const{
 	std::string victimRepresentation = "";
 
-	victimRepresentation += this->getName();
-	victimRepresentation += ", ";
-	victimRepresentation += this->getPlaceOfOrigin();
-	victimRepresentation += ", ";
-	victimRepresentation += std::to_string(this->getAge());
-	victimRepresentation += ", ";
-	victimRepresentation += this->getPhotographLink();
+	victimRepresentation += (this->getName() + ", ");
+	victimRepresentation += (this->getPlaceOfOrigin() + ", ");
+	victimRepresentation += (std::to_string(this->getAge()) + ", ");
+	victimRepresentation += (this->getPhotographLink() + ", ");
 
 	return victimRepresentation;
 }

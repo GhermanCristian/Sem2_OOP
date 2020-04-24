@@ -4,29 +4,57 @@
 Controller::Controller() {
 	this->victimRepository = new MemoryRepository();
 	this->savedVictims = new MemoryRepository();
+
+	this->TXT_FILE_EXTENSION = ".txt";
+	this->CSV_FILE_EXTENSION = ".csv";
+	this->HTML_FILE_EXTENSION = ".html";
+}
+
+std::string Controller::getFileExtension(const std::string& fileLocation){
+	int locationLength = fileLocation.length();
+	const int TXT_EXTENSION_LENGTH = 4;
+	const int HTML_EXTENSION_LENGTH = 5;
+
+	std::string lastFourCharacters = fileLocation.substr(locationLength - TXT_EXTENSION_LENGTH, TXT_EXTENSION_LENGTH);
+	if (lastFourCharacters == TXT_FILE_EXTENSION or lastFourCharacters == CSV_FILE_EXTENSION) {
+		return lastFourCharacters;
+	}
+
+	std::string lastFiveCharacters = fileLocation.substr(locationLength - HTML_EXTENSION_LENGTH, HTML_EXTENSION_LENGTH);
+	if (lastFiveCharacters == HTML_FILE_EXTENSION) {
+		return lastFiveCharacters;
+	}
+
+	throw ValidationException("Invalid file type");
 }
 
 void Controller::setRepositoryFileLocation(std::string repositoryFileLocation){
+	std::string fileExtension = getFileExtension(repositoryFileLocation);
+
+	// if we reach this point => the validation went well => the type is valid
 	delete this->victimRepository;
-	// right now the main repo is only CSV, so we assume by default that the file location is a csv file
-	// we might have to do sth like in set saved victims
-	this->victimRepository = new CSVRepository(repositoryFileLocation);
+
+	if (fileExtension == TXT_FILE_EXTENSION or fileExtension == CSV_FILE_EXTENSION) {
+		this->victimRepository = new CSVRepository(repositoryFileLocation);
+	}
+
+	else if (fileExtension == HTML_FILE_EXTENSION) {
+		this->victimRepository = new HTMLRepository(repositoryFileLocation);
+	}
 }
 
 void Controller::setSavedVictimsFileLocation(std::string myListLocation){
-	int locationLength = myListLocation.length();
+	std::string fileExtension = getFileExtension(myListLocation);
 
-	std::string lastFourCharacters = myListLocation.substr(locationLength - 4, 4);
-	if (lastFourCharacters == ".txt" or lastFourCharacters == ".csv") {
-		this->mylistFilePath = myListLocation;
-		delete this->savedVictims;
+	// if we reach this point => the validation went well => the type is valid
+	this->mylistFilePath = myListLocation;
+	delete this->savedVictims;
+
+	if (fileExtension == TXT_FILE_EXTENSION or fileExtension == CSV_FILE_EXTENSION) {
 		this->savedVictims = new CSVRepository(myListLocation);
 	}
 
-	std::string lastFiveCharacters = myListLocation.substr(locationLength - 5, 5);
-	if (lastFiveCharacters == ".html") {
-		this->mylistFilePath = myListLocation;
-		delete this->savedVictims;
+	else if (fileExtension == HTML_FILE_EXTENSION) {
 		this->savedVictims = new HTMLRepository(myListLocation);
 	}
 }
