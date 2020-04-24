@@ -8,7 +8,20 @@ class FileRepository : public Repository{
 		bool createdTemporaryFile; // this is set to true when the repository is initiated with no path, in which
 								   // case the program automatically creates a file, which is deleted at the end
 
-		virtual bool createFile(std::string filePath) = 0;
+		virtual bool isInRepository(const std::vector<Victim>& currentVector, std::string victimName, int possiblePosition = INEXISTENT_POSITION);
+		/*
+			Checks if the victim on the given position is the same as the one that we look for
+			Input:
+				- A Victim's name
+				- The position on which the Victim is supossed to be (-1 by default, in which case we determine it ourselves)
+			Output:
+				- True, if the two Victims correspond
+				- False, otherwise
+			Throws:
+				- None
+		*/
+
+		virtual bool createFile(std::string filePath);
 		/*
 			Creates a file with a given name, if it doesn't exist
 			Input:
@@ -43,18 +56,6 @@ class FileRepository : public Repository{
 				- None
 		*/
 
-		virtual Victim getVictimByName(std::string victimName, int possiblePosition = INEXISTENT_POSITION) = 0;
-		/*
-			Returns the victim with a given name
-			Input:
-				- The Victim's name
-				- The position on which the Victim is supossed to be (-1 by default, in which case we determine it ourselves)
-			Output:
-				- The Victim with the given name
-			Throws:
-				- Exception, if the victim doesn't exist
-		*/
-
 	public:
 		FileRepository();
 		/*
@@ -78,7 +79,7 @@ class FileRepository : public Repository{
 				- None
 		*/
 
-		virtual void add(const Victim& newVictim) = 0;
+		virtual void add(const Victim& newVictim);
 		/*
 			Adds a new Victim to the repository
 			Input:
@@ -89,7 +90,7 @@ class FileRepository : public Repository{
 				- Exception, if the victim already is in the repository
 		*/
 
-		virtual void update(const Victim& newVictim) = 0;
+		virtual void update(const Victim& newVictim);
 		/*
 			Updates a Victim from the repository
 			Input:
@@ -100,7 +101,7 @@ class FileRepository : public Repository{
 				- Exception, if the victim wasn't in the repository
 		*/
 
-		virtual void erase(std::string victimName) = 0;
+		virtual void erase(std::string victimName);
 		/*
 			Deletes a victim from the repository
 			Input:
@@ -111,7 +112,7 @@ class FileRepository : public Repository{
 				- Exception, if the victim wasn't in the repository
 		*/
 
-		virtual std::vector <Victim> getAllEntries() = 0;
+		virtual std::vector <Victim> getAllEntries();
 		/*
 			Returns the data in the repository
 			Input:
@@ -122,7 +123,7 @@ class FileRepository : public Repository{
 				- None
 		*/
 
-		virtual std::vector <Victim> getFilteredEntries(const Filter& currentFilter) = 0;
+		virtual std::vector <Victim> getFilteredEntries(const Filter& currentFilter);
 		/*
 			Determines a list of all the victims which pass the given filter
 			Input:
@@ -131,6 +132,18 @@ class FileRepository : public Repository{
 				- Returns a std::vector which contains the victims that have passed the filter
 			Throws:
 				- None
+		*/
+
+		virtual Victim getVictimByName(std::string victimName, int possiblePosition = INEXISTENT_POSITION);
+		/*
+			Returns the victim with a given name
+			Input:
+				- The Victim's name
+				- The position on which the Victim is supossed to be (-1 by default, in which case we determine it ourselves)
+			Output:
+				- The Victim with the given name
+			Throws:
+				- Exception, if the victim doesn't exist
 		*/
 
 		virtual ~FileRepository();
