@@ -15,7 +15,8 @@ class TestController {
 		void NextVictim_EmptyRepository_ThrowsError();
 		void NextVictim_OneCall_CorrectVictim();
 		void NextVictim_MultipleCalls_CorrectOutput();
-		void SetRepositoryFileLocation_NonexistentFile_FileCreated();
+		void SetRepositoryFileLocation_NonexistentFile_TXTFileCreated();
+		void SetSavedVictimsFileLocation_NonexistentFile_HTMLFileCreated();
 
 	public:
 		void runAllTests();

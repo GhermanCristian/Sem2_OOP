@@ -2,7 +2,7 @@
 #include "fileRepository.h"
 
 class HTMLRepository : public FileRepository{
-	//friend class TestHTMLRepository;
+	friend class TestHTMLRepository;
 	private:
 		std::string TEMPORARY_HTML_FILE_NAME = "temporaryFile.html";
 
@@ -33,5 +33,7 @@ class HTMLRepository : public FileRepository{
 	public:
 		HTMLRepository();
 		HTMLRepository(std::string filePath);
+
+		~HTMLRepository();
 };
 

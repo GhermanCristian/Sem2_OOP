@@ -12,7 +12,8 @@ void TestController::runAllTests(){
 	NextVictim_EmptyRepository_ThrowsError();
 	NextVictim_OneCall_CorrectVictim();
 	NextVictim_MultipleCalls_CorrectOutput();
-	SetRepositoryFileLocation_NonexistentFile_FileCreated();
+	SetRepositoryFileLocation_NonexistentFile_TXTFileCreated();
+	SetSavedVictimsFileLocation_NonexistentFile_HTMLFileCreated();
 }
 
 void TestController::AddVictim_CorrectInput_AddsVictim() {
@@ -155,8 +156,14 @@ void TestController::NextVictim_MultipleCalls_CorrectOutput() {
 	assert(newVictim1 == newVictim);
 }
 
-void TestController::SetRepositoryFileLocation_NonexistentFile_FileCreated() {
+void TestController::SetRepositoryFileLocation_NonexistentFile_TXTFileCreated() {
 	Controller newController;
 	newController.setRepositoryFileLocation("definitely_a_new_file.txt");
 	remove("definitely_a_new_file.txt"); // this is not considered to be a "temporary" file, so it is not deleted automatically
+}
+
+void TestController::SetSavedVictimsFileLocation_NonexistentFile_HTMLFileCreated(){
+	Controller newController;
+	newController.setSavedVictimsFileLocation("definitely_a_new_file.html");
+	remove("definitely_a_new_file.html");
 }

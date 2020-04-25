@@ -1,23 +1,23 @@
 #include "testRepository.h"
 
 void TestMemoryRepository::runAllTests(){
-	this->AddToMemoryRepository_DuplicateElement_ThrowsError();
-	this->AddToMemoryRepository_EmptyMemoryRepositoryMultipleInputs_AddedInTheCorrectOrder();
-	this->UpdateInMemoryRepository_InexistentElement_ThrowsError();
-	this->UpdateInMemoryRepository_ExistingElement_SuccessfulUpdate();
-	this->DeleteFromMemoryRepository_InexistentElement_ThrowsError();
-	this->DeleteFromMemoryRepository_EmptyMemoryRepository_ThrowsError();
-	this->DeleteFromMemoryRepository_FilledMemoryRepository_SuccessfulDeletion();
-	this->IsInMemoryRepository_EmptyMemoryRepository_NotFound();
-	this->IsInMemoryRepository_InvalidPosition_NotFound();
-	this->IsInMemoryRepository_ElementExists_ElementFound();
-	this->IsInMemoryRepository_NonExistingElement_ElementNotFound();
+	this->Add_DuplicateElement_ThrowsError();
+	this->Add_EmptyMemoryRepositoryMultipleInputs_AddedInTheCorrectOrder();
+	this->Update_InexistentElement_ThrowsError();
+	this->Update_ExistingElement_SuccessfulUpdate();
+	this->Erase_InexistentElement_ThrowsError();
+	this->Erase_EmptyMemoryRepository_ThrowsError();
+	this->Erase_FilledMemoryRepository_SuccessfulDeletion();
+	this->IsInRepository_EmptyMemoryRepository_NotFound();
+	this->IsInRepository_InvalidPosition_NotFound();
+	this->IsInRepository_ElementExists_ElementFound();
+	this->IsInRepository_NonExistingElement_ElementNotFound();
 	this->GetVictimByName_NonExistingVictim_ThrowsException();
 	this->GetVictimByName_ExistingVicitm_ReturnsVictim();
-	this->GetFilteredEntriesMemoryRepository_EmptyMemoryRepository_NoOutput();
-	this->GetFilteredEntriesMemoryRepository_FilledMemoryRepository_CorrectNumberOfElements();
-	this->GetFilteredEntriesMemoryRepository_NothingThroughFilter_NoOutput();
-	this->GetFilteredEntriesMemoryRepository_NoPlaceOfOrigin_CorrectNumberOfElements();
+	this->GetFilteredEntries_EmptyMemoryRepository_NoOutput();
+	this->GetFilteredEntries_FilledMemoryRepository_CorrectNumberOfElements();
+	this->GetFilteredEntries_NothingThroughFilter_NoOutput();
+	this->GetFilteredEntries_NoPlaceOfOrigin_CorrectNumberOfElements();
 	//this->MemoryRepositoryAssignmentOperator_FilledMemoryRepository_CorrectCopy();
 	//this->MemoryRepositoryCopyConstructor_FilledMemoryRepository_CorrectCopy();
 	this->GetAllEntries_EmptyMemoryRepository_NoOutput();
@@ -26,37 +26,37 @@ void TestMemoryRepository::runAllTests(){
 }
 
 void TestCSVRepository::runAllTests(){
-	this->CSVRepositoryConstructor_InexistentFile_FileCreated();
-	this->CSVRepositoryConstructor_InexistentFile_NoOutput();
-	this->LoadFromCSVFile_EmptyFile_NoOutput();
-	this->LoadFromCSVFile_FilledFile_CorrectNumberOfObjects();
-	this->LoadFromCSVFile_FilledFile_CorrectObjects();
-	this->LoadFromCSVFile_InvalidLine_ThrowsError();
-	this->SaveToCSVFile_EmptyData_NoOutput();
-	this->SaveToCSVFile_FilledData_CorrectNumberOfObjects();
-	this->SaveToCSVFile_FilledData_CorrectObjects();
-	this->AddToCSVRepository_DuplicateElement_ThrowsError();
-	this->AddToCSVRepository_EmptyCSVRepositoryMultipleInputs_AddedInTheCorrectOrder();
-	this->UpdateInCSVRepository_InexistentElement_ThrowsError();
-	this->UpdateInCSVRepository_ExistentElement_CorrectUpdate();
-	this->DeleteFromCSVRepository_InexistentElement_ThrowsError();
-	this->DeleteFromCSVRepository_EmptyCSVRepository_ThrowsError();
-	this->DeleteFromCSVRepository_FilledCSVRepository_SuccessfulDeletion();
-	this->IsInCSVRepository_EmptyCSVRepository_NotFound();
-	this->IsInCSVRepository_InvalidPosition_NotFound();
-	this->IsInCSVRepository_ElementExists_ElementFound();
-	this->IsInCSVRepository_NonExistingElement_ElementNotFound();
+	this->RepositoryConstructor_InexistentFile_FileCreated();
+	this->RepositoryConstructor_InexistentFile_NoOutput();
+	this->LoadFromFile_EmptyFile_NoOutput();
+	this->LoadFromFile_FilledFile_CorrectNumberOfObjects();
+	this->LoadFromFile_FilledFile_CorrectObjects();
+	this->LoadFromFile_InvalidLine_ThrowsError();
+	this->SaveToFile_EmptyData_NoOutput();
+	this->SaveToFile_FilledData_CorrectNumberOfObjects();
+	this->SaveToFile_FilledData_CorrectObjects();
+	this->Add_DuplicateElement_ThrowsError();
+	this->Add_EmptyCSVRepositoryMultipleInputs_AddedInTheCorrectOrder();
+	this->Update_InexistentElement_ThrowsError();
+	this->Update_ExistentElement_CorrectUpdate();
+	this->Erase_InexistentElement_ThrowsError();
+	this->Erase_EmptyCSVRepository_ThrowsError();
+	this->Erase_FilledCSVRepository_SuccessfulDeletion();
+	this->IsInRepository_EmptyCSVRepository_NotFound();
+	this->IsInRepository_InvalidPosition_NotFound();
+	this->IsInRepository_ElementExists_ElementFound();
+	this->IsInRepository_NonExistingElement_ElementNotFound();
 	this->GetFilteredEntries_EmptyCSVRepository_NoOutput();
 	this->GetFilteredEntries_FilledCSVRepository_CorrectNumberOfElements();
 	this->GetFilteredEntriesCSVRepository_NothingThroughFilter_NoOutput();
 	this->GetFilteredEntriesCSVRepository_NoPlaceOfOrigin_CorrectNumberOfElements();
 	//this->CSVRepositoryAssignmentOperator_FilledCSVRepository_CorrectCopy();
 	//this->CSVRepositoryCopyConstructor_FilledCSVRepository_CorrectCopy();
-	this->GetAllEntriesCSVRepository_EmptyCSVRepository_NoOutput();
-	this->GetAllEntriesCSVRepository_FilledCSVRepository_CorrectNumberOfElements();
+	this->GetAllEntries_EmptyCSVRepository_NoOutput();
+	this->GetAllEntries_FilledCSVRepository_CorrectNumberOfElements();
 }
 
-void TestMemoryRepository::AddToMemoryRepository_DuplicateElement_ThrowsError() {
+void TestMemoryRepository::Add_DuplicateElement_ThrowsError() {
 	MemoryRepository newRepository;
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
 
@@ -70,7 +70,7 @@ void TestMemoryRepository::AddToMemoryRepository_DuplicateElement_ThrowsError() 
 	}
 }
 
-void TestMemoryRepository::AddToMemoryRepository_EmptyMemoryRepositoryMultipleInputs_AddedInTheCorrectOrder() {
+void TestMemoryRepository::Add_EmptyMemoryRepositoryMultipleInputs_AddedInTheCorrectOrder() {
 	MemoryRepository newRepository;
 	std::vector <Victim> pointerToData;
 
@@ -88,7 +88,7 @@ void TestMemoryRepository::AddToMemoryRepository_EmptyMemoryRepositoryMultipleIn
 	}
 }
 
-void TestMemoryRepository::UpdateInMemoryRepository_InexistentElement_ThrowsError() {
+void TestMemoryRepository::Update_InexistentElement_ThrowsError() {
 	MemoryRepository newRepository;
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
 	Victim newVictim1{ "vasileeee", "newplace", 1233, "newphoto.jpg" };
@@ -103,7 +103,7 @@ void TestMemoryRepository::UpdateInMemoryRepository_InexistentElement_ThrowsErro
 	}
 }
 
-void TestMemoryRepository::UpdateInMemoryRepository_ExistingElement_SuccessfulUpdate() {
+void TestMemoryRepository::Update_ExistingElement_SuccessfulUpdate() {
 	MemoryRepository newRepository;
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
 	Victim newVictim1{ "vasile", "newplace", 1233, "newphoto.jpg" };
@@ -113,7 +113,7 @@ void TestMemoryRepository::UpdateInMemoryRepository_ExistingElement_SuccessfulUp
 	assert(newRepository.getAllEntries()[0] == newVictim1);
 }
 
-void TestMemoryRepository::DeleteFromMemoryRepository_InexistentElement_ThrowsError() {
+void TestMemoryRepository::Erase_InexistentElement_ThrowsError() {
 	MemoryRepository newRepository;
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
 
@@ -127,7 +127,7 @@ void TestMemoryRepository::DeleteFromMemoryRepository_InexistentElement_ThrowsEr
 	}
 }
 
-void TestMemoryRepository::DeleteFromMemoryRepository_EmptyMemoryRepository_ThrowsError() {
+void TestMemoryRepository::Erase_EmptyMemoryRepository_ThrowsError() {
 	MemoryRepository newRepository;
 
 	try {
@@ -139,7 +139,7 @@ void TestMemoryRepository::DeleteFromMemoryRepository_EmptyMemoryRepository_Thro
 	}
 }
 
-void TestMemoryRepository::DeleteFromMemoryRepository_FilledMemoryRepository_SuccessfulDeletion() {
+void TestMemoryRepository::Erase_FilledMemoryRepository_SuccessfulDeletion() {
 	MemoryRepository newRepository;
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
 
@@ -148,17 +148,17 @@ void TestMemoryRepository::DeleteFromMemoryRepository_FilledMemoryRepository_Suc
 	assert(newRepository.getAllEntries().size() == 0);
 }
 
-void TestMemoryRepository::IsInMemoryRepository_EmptyMemoryRepository_NotFound() {
+void TestMemoryRepository::IsInRepository_EmptyMemoryRepository_NotFound() {
 	MemoryRepository newRepository;
 	assert(newRepository.isInRepository("vasile") == false);
 }
 
-void TestMemoryRepository::IsInMemoryRepository_InvalidPosition_NotFound() {
+void TestMemoryRepository::IsInRepository_InvalidPosition_NotFound() {
 	MemoryRepository newRepository;
 	assert(newRepository.isInRepository("vasile", 1) == false);
 }
 
-void TestMemoryRepository::IsInMemoryRepository_ElementExists_ElementFound() {
+void TestMemoryRepository::IsInRepository_ElementExists_ElementFound() {
 	MemoryRepository newRepository;
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
 
@@ -166,7 +166,7 @@ void TestMemoryRepository::IsInMemoryRepository_ElementExists_ElementFound() {
 	assert(newRepository.isInRepository("vasile") == true);
 }
 
-void TestMemoryRepository::IsInMemoryRepository_NonExistingElement_ElementNotFound() {
+void TestMemoryRepository::IsInRepository_NonExistingElement_ElementNotFound() {
 	MemoryRepository newRepository;
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
 
@@ -194,7 +194,7 @@ void TestMemoryRepository::GetVictimByName_ExistingVicitm_ReturnsVictim() {
 	assert(newRepository.getVictimByName("vasile") == newVictim);
 }
 
-void TestMemoryRepository::GetFilteredEntriesMemoryRepository_EmptyMemoryRepository_NoOutput() {
+void TestMemoryRepository::GetFilteredEntries_EmptyMemoryRepository_NoOutput() {
 	MemoryRepository newRepository;
 	FilterPlaceOfOriginAndYoungerThan currentFilter{ "location", 222 };
 	std::vector <Victim> newVector = newRepository.getFilteredEntries(currentFilter);
@@ -202,7 +202,7 @@ void TestMemoryRepository::GetFilteredEntriesMemoryRepository_EmptyMemoryReposit
 	assert(newVector.size() == 0);
 }
 
-void TestMemoryRepository::GetFilteredEntriesMemoryRepository_FilledMemoryRepository_CorrectNumberOfElements() {
+void TestMemoryRepository::GetFilteredEntries_FilledMemoryRepository_CorrectNumberOfElements() {
 	MemoryRepository newRepository;
 	std::vector <Victim> newVector;
 	FilterPlaceOfOriginAndYoungerThan currentFilter{ "place", 124 };
@@ -223,7 +223,7 @@ void TestMemoryRepository::GetFilteredEntriesMemoryRepository_FilledMemoryReposi
 	assert(newVector.size() == 3);
 }
 
-void TestMemoryRepository::GetFilteredEntriesMemoryRepository_NothingThroughFilter_NoOutput() {
+void TestMemoryRepository::GetFilteredEntries_NothingThroughFilter_NoOutput() {
 	MemoryRepository newRepository;
 	std::vector <Victim> newVector;
 	FilterPlaceOfOriginAndYoungerThan currentFilter{ "place", 123 };
@@ -244,7 +244,7 @@ void TestMemoryRepository::GetFilteredEntriesMemoryRepository_NothingThroughFilt
 	assert(newVector.size() == 0);
 }
 
-void TestMemoryRepository::GetFilteredEntriesMemoryRepository_NoPlaceOfOrigin_CorrectNumberOfElements() {
+void TestMemoryRepository::GetFilteredEntries_NoPlaceOfOrigin_CorrectNumberOfElements() {
 	MemoryRepository newRepository;
 	std::vector <Victim> newVector;
 	FilterPlaceOfOriginAndYoungerThan currentFilter{ "", 1 };
@@ -327,31 +327,31 @@ void TestMemoryRepository::GetAllEntries_FilledMemoryRepository_CorrectElements(
 	assert(pointerToData[0] == newVictim and pointerToData[1] == newVictim1 and pointerToData[2] == newVictim2);
 }
 
-void TestCSVRepository::CSVRepositoryConstructor_InexistentFile_FileCreated() {
+void TestCSVRepository::RepositoryConstructor_InexistentFile_FileCreated() {
 	CSVRepository newRepository;
 	assert(newRepository.createFile("totally_new_file.txt") == true);
 	remove("totally_new_file.txt");
 }
 
-void TestCSVRepository::CSVRepositoryConstructor_InexistentFile_NoOutput() {
+void TestCSVRepository::RepositoryConstructor_InexistentFile_NoOutput() {
 	CSVRepository newRepository;
 	std::vector <Victim> repositoryData = newRepository.loadFromFile();
 	assert(repositoryData.size() == 0);
 }
 
-void TestCSVRepository::LoadFromCSVFile_EmptyFile_NoOutput() {
+void TestCSVRepository::LoadFromFile_EmptyFile_NoOutput() {
 	CSVRepository newRepository;
 	std::vector <Victim> repositoryData = newRepository.loadFromFile();
 	assert(repositoryData.size() == 0);
 }
 
-void TestCSVRepository::LoadFromCSVFile_FilledFile_CorrectNumberOfObjects() {
+void TestCSVRepository::LoadFromFile_FilledFile_CorrectNumberOfObjects() {
 	CSVRepository newRepository("testData1.txt");
 	std::vector <Victim> repositoryData = newRepository.loadFromFile();
 	assert(repositoryData.size() == 10);
 }
 
-void TestCSVRepository::LoadFromCSVFile_FilledFile_CorrectObjects() {
+void TestCSVRepository::LoadFromFile_FilledFile_CorrectObjects() {
 	CSVRepository newRepository("testData1.txt");
 	std::vector <Victim> repositoryData = newRepository.loadFromFile();
 	Victim victim1{ "Cena John", "Roma", 20, "photo122.jpg" };
@@ -359,7 +359,7 @@ void TestCSVRepository::LoadFromCSVFile_FilledFile_CorrectObjects() {
 	assert(repositoryData[1] == victim1 and repositoryData[4] == victim2);
 }
 
-void TestCSVRepository::LoadFromCSVFile_InvalidLine_ThrowsError() {
+void TestCSVRepository::LoadFromFile_InvalidLine_ThrowsError() {
 	/*CSVRepository newRepository;
 	std::vector <Victim> repositoryData;
 	newRepository.add(Victim{ "name, location, sth else", "some other name, loc, else", 123, "do, whatever" });
@@ -373,7 +373,7 @@ void TestCSVRepository::LoadFromCSVFile_InvalidLine_ThrowsError() {
 	}*/
 }
 
-void TestCSVRepository::SaveToCSVFile_EmptyData_NoOutput() {
+void TestCSVRepository::SaveToFile_EmptyData_NoOutput() {
 	CSVRepository newRepository;
 	std::vector <Victim> repositoryData; // this can be the aftermath of add, remove, del etc
 	newRepository.saveToFile(repositoryData);
@@ -382,7 +382,7 @@ void TestCSVRepository::SaveToCSVFile_EmptyData_NoOutput() {
 	assert(repositoryData.size() == 0);
 }
 
-void TestCSVRepository::SaveToCSVFile_FilledData_CorrectNumberOfObjects() {
+void TestCSVRepository::SaveToFile_FilledData_CorrectNumberOfObjects() {
 	CSVRepository newRepository("testData2.txt");
 	std::vector <Victim> repositoryData;
 
@@ -398,7 +398,7 @@ void TestCSVRepository::SaveToCSVFile_FilledData_CorrectNumberOfObjects() {
 	remove("testData2.txt");
 }
 
-void TestCSVRepository::SaveToCSVFile_FilledData_CorrectObjects() {
+void TestCSVRepository::SaveToFile_FilledData_CorrectObjects() {
 	CSVRepository newRepository("testData2.txt");
 	std::vector <Victim> repositoryData;
 	Victim victim1{ "Nelson Judeteanu", "Itcani", 45, "photo11.jpg" };
@@ -417,7 +417,7 @@ void TestCSVRepository::SaveToCSVFile_FilledData_CorrectObjects() {
 	remove("testData2.txt");
 }
 
-void TestCSVRepository::AddToCSVRepository_DuplicateElement_ThrowsError() {
+void TestCSVRepository::Add_DuplicateElement_ThrowsError() {
 	CSVRepository newRepository;
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
 
@@ -431,7 +431,7 @@ void TestCSVRepository::AddToCSVRepository_DuplicateElement_ThrowsError() {
 	}
 }
 
-void TestCSVRepository::AddToCSVRepository_EmptyCSVRepositoryMultipleInputs_AddedInTheCorrectOrder() {
+void TestCSVRepository::Add_EmptyCSVRepositoryMultipleInputs_AddedInTheCorrectOrder() {
 	CSVRepository newRepository;
 	std::vector <Victim> pointerToData;
 
@@ -449,7 +449,7 @@ void TestCSVRepository::AddToCSVRepository_EmptyCSVRepositoryMultipleInputs_Adde
 	}
 }
 
-void TestCSVRepository::UpdateInCSVRepository_InexistentElement_ThrowsError() {
+void TestCSVRepository::Update_InexistentElement_ThrowsError() {
 	CSVRepository newRepository;
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
 	Victim newVictim1{ "vasileeee", "newplace", 1233, "newphoto.jpg" };
@@ -464,7 +464,7 @@ void TestCSVRepository::UpdateInCSVRepository_InexistentElement_ThrowsError() {
 	}
 }
 
-void TestCSVRepository::UpdateInCSVRepository_ExistentElement_CorrectUpdate() {
+void TestCSVRepository::Update_ExistentElement_CorrectUpdate() {
 	CSVRepository newRepository;
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
 	Victim newVictim1{ "vasile", "newplace", 1233, "newphoto.jpg" };
@@ -474,7 +474,7 @@ void TestCSVRepository::UpdateInCSVRepository_ExistentElement_CorrectUpdate() {
 	assert(newRepository.getAllEntries()[0] == newVictim1);
 }
 
-void TestCSVRepository::DeleteFromCSVRepository_InexistentElement_ThrowsError() {
+void TestCSVRepository::Erase_InexistentElement_ThrowsError() {
 	CSVRepository newRepository;
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
 
@@ -488,7 +488,7 @@ void TestCSVRepository::DeleteFromCSVRepository_InexistentElement_ThrowsError() 
 	}
 }
 
-void TestCSVRepository::DeleteFromCSVRepository_EmptyCSVRepository_ThrowsError() {
+void TestCSVRepository::Erase_EmptyCSVRepository_ThrowsError() {
 	CSVRepository newRepository;
 
 	try {
@@ -500,7 +500,7 @@ void TestCSVRepository::DeleteFromCSVRepository_EmptyCSVRepository_ThrowsError()
 	}
 }
 
-void TestCSVRepository::DeleteFromCSVRepository_FilledCSVRepository_SuccessfulDeletion() {
+void TestCSVRepository::Erase_FilledCSVRepository_SuccessfulDeletion() {
 	CSVRepository newRepository;
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
 
@@ -509,21 +509,21 @@ void TestCSVRepository::DeleteFromCSVRepository_FilledCSVRepository_SuccessfulDe
 	assert(newRepository.getAllEntries().size() == 0);
 }
 
-void TestCSVRepository::IsInCSVRepository_EmptyCSVRepository_NotFound() {
+void TestCSVRepository::IsInRepository_EmptyCSVRepository_NotFound() {
 	CSVRepository newRepository;
 	std::vector <Victim> currentData = newRepository.getAllEntries();
 
 	assert(newRepository.isInRepository(currentData, "vasile") == false);
 }
 
-void TestCSVRepository::IsInCSVRepository_InvalidPosition_NotFound() {
+void TestCSVRepository::IsInRepository_InvalidPosition_NotFound() {
 	CSVRepository newRepository;
 	std::vector <Victim> currentData = newRepository.getAllEntries();
 
 	assert(newRepository.isInRepository(currentData, "vasile", 1) == false);
 }
 
-void TestCSVRepository::IsInCSVRepository_ElementExists_ElementFound() {
+void TestCSVRepository::IsInRepository_ElementExists_ElementFound() {
 	CSVRepository newRepository;
 	std::vector <Victim> currentData;
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
@@ -533,7 +533,7 @@ void TestCSVRepository::IsInCSVRepository_ElementExists_ElementFound() {
 	assert(newRepository.isInRepository(currentData, "vasile") == true);
 }
 
-void TestCSVRepository::IsInCSVRepository_NonExistingElement_ElementNotFound() {
+void TestCSVRepository::IsInRepository_NonExistingElement_ElementNotFound() {
 	CSVRepository newRepository;
 	std::vector <Victim> currentData;
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
@@ -621,14 +621,14 @@ void TestCSVRepository::GetFilteredEntriesCSVRepository_NoPlaceOfOrigin_CorrectN
 //	;
 //}
 
-void TestCSVRepository::GetAllEntriesCSVRepository_EmptyCSVRepository_NoOutput() {
+void TestCSVRepository::GetAllEntries_EmptyCSVRepository_NoOutput() {
 	CSVRepository newRepository;
 	std::vector <Victim> pointerToData = newRepository.getAllEntries();
 
 	assert(pointerToData.size() == 0);
 }
 
-void TestCSVRepository::GetAllEntriesCSVRepository_FilledCSVRepository_CorrectNumberOfElements() {
+void TestCSVRepository::GetAllEntries_FilledCSVRepository_CorrectNumberOfElements() {
 	CSVRepository newRepository;
 	Victim newVictim{ "vasile", "place", 123, "photo.jpg" };
 	Victim newVictim1{ "vasilee", "place", 123, "photo.jpg" };
@@ -640,4 +640,96 @@ void TestCSVRepository::GetAllEntriesCSVRepository_FilledCSVRepository_CorrectNu
 
 	std::vector <Victim> pointerToData = newRepository.getAllEntries();
 	assert(pointerToData.size() == 3);
+}
+
+void TestHTMLRepository::HTMLRepositoryConstructor_NonexistentFile_FileCreated(){
+	HTMLRepository currentRepository;
+	assert(currentRepository.createFile("totally_new_file.html") == true);
+	remove("totally_new_file.html");
+}
+
+void TestHTMLRepository::HTMLRepositoryConstructor_ExistingFile_FileOpenedSuccessfully() {
+	HTMLRepository currentRepository;
+	assert(currentRepository.createFile("testData1.html") == true);
+}
+
+void TestHTMLRepository::LoadFromFile_EmptyFile_NoOutput(){
+	HTMLRepository currentRepository;
+	std::vector <Victim> currentData;
+	currentData = currentRepository.loadFromFile();
+
+	assert(currentData.size() == 0);
+}
+
+void TestHTMLRepository::LoadFromFile_FilledFile_CorrectNumberOfObjects(){
+	HTMLRepository currentRepository("testData1.html");
+	std::vector <Victim> currentData;
+	currentData = currentRepository.loadFromFile();
+
+	assert(currentData.size() == 3);
+}
+
+void TestHTMLRepository::LoadFromFile_FilledFile_CorrectObjects(){
+	HTMLRepository currentRepository("testData1.html");
+	std::vector <Victim> currentData;
+	Victim newVictim0{ "Amore", "Piata Marasti", 22, "photo151.jpg" };
+	Victim newVictim1{ "Cena John", "Roma", 20, "photo122.jpg" };
+	Victim newVictim2{ "Ernest", "Burdujeni respect", 31, "photo113.jpg" };
+	currentData = currentRepository.loadFromFile();
+
+	assert(currentData[0] == newVictim0 and currentData[1] == newVictim1 and currentData[2] == newVictim2);
+}
+
+void TestHTMLRepository::SaveToFile_EmptyData_NoOutput(){
+	HTMLRepository currentRepository;
+	std::vector <Victim> currentData;
+	currentRepository.saveToFile(currentData);
+
+	currentData = currentRepository.loadFromFile();
+	assert(currentData.size() == 0);
+}
+
+void TestHTMLRepository::SaveToFile_FilledData_CorrectNumberOfObjects(){
+	HTMLRepository currentRepository;
+	std::vector <Victim> currentData;
+	Victim newVictim0{ "Amore", "Piata Marasti", 22, "photo151.jpg" };
+	Victim newVictim1{ "Cena John", "Roma", 20, "photo122.jpg" };
+	Victim newVictim2{ "Ernest", "Burdujeni respect", 31, "photo113.jpg" };
+
+	currentData.push_back(newVictim0);
+	currentData.push_back(newVictim1);
+	currentData.push_back(newVictim2);
+
+	currentRepository.saveToFile(currentData);
+	currentData = currentRepository.loadFromFile();
+
+	assert(currentData.size() == 3);
+}
+
+void TestHTMLRepository::SaveToFile_FilledData_CorrectObjects(){
+	HTMLRepository currentRepository;
+	std::vector <Victim> currentData;
+	Victim newVictim0{ "Amore", "Piata Marasti", 22, "photo151.jpg" };
+	Victim newVictim1{ "Cena John", "Roma", 20, "photo122.jpg" };
+	Victim newVictim2{ "Ernest", "Burdujeni respect", 31, "photo113.jpg" };
+
+	currentData.push_back(newVictim0);
+	currentData.push_back(newVictim1);
+	currentData.push_back(newVictim2);
+
+	currentRepository.saveToFile(currentData);
+	currentData = currentRepository.loadFromFile();
+
+	assert(currentData[0] == newVictim0 and currentData[1] == newVictim1 and currentData[2] == newVictim2);
+}
+
+void TestHTMLRepository::runAllTests(){
+	this->HTMLRepositoryConstructor_NonexistentFile_FileCreated();
+	this->HTMLRepositoryConstructor_ExistingFile_FileOpenedSuccessfully();
+	this->LoadFromFile_EmptyFile_NoOutput();
+	this->LoadFromFile_FilledFile_CorrectNumberOfObjects();
+	this->LoadFromFile_FilledFile_CorrectObjects();
+	this->SaveToFile_EmptyData_NoOutput();
+	this->SaveToFile_FilledData_CorrectNumberOfObjects();
+	this->SaveToFile_FilledData_CorrectObjects();
 }

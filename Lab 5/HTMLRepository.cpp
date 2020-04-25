@@ -87,3 +87,8 @@ void HTMLRepository::saveToFile(const std::vector<Victim>& currentData){
 	out.close();
 }
 
+HTMLRepository::~HTMLRepository() {
+	if (createdTemporaryFile == true) {
+		remove(TEMPORARY_HTML_FILE_NAME.c_str());
+	}
+}

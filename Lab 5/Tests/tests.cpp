@@ -6,4 +6,5 @@ void runAllTests() {
 	TestCSVRepository().runAllTests();
 	TestController().runAllTests();
 	TestInputValidator().runAllTests();
+	TestHTMLRepository().runAllTests();
 }
