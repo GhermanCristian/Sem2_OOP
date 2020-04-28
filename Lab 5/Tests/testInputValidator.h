@@ -26,6 +26,8 @@ class TestInputValidator {
 		void CSVFileVictimValidator_CorrectInput_ReturnsVictimProperties();
 		void FileLocationValidator_InvalidInput_ThrowsException();
 		void FileLocationValidator_CorrectInput_ReturnsFileLocation();
+		void MyListLocationValidator_InvalidInput_ThrowsException();
+		void MyListLocationValidator_CorrectInput_ReturnsFileLocation();
 
 	public:
 		void runAllTests();

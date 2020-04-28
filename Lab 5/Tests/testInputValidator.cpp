@@ -24,6 +24,8 @@ void TestInputValidator::runAllTests(){
 	this->CSVFileVictimValidator_CorrectInput_ReturnsVictimProperties();
 	this->FileLocationValidator_InvalidInput_ThrowsException();
 	this->FileLocationValidator_CorrectInput_ReturnsFileLocation();
+	this->MyListLocationValidator_InvalidInput_ThrowsException();
+	this->MyListLocationValidator_CorrectInput_ReturnsFileLocation();
 }
 
 void TestInputValidator::AddVictimValidator_InvalidInput_ReturnsErrorCode(){
@@ -248,6 +250,26 @@ void TestInputValidator::FileLocationValidator_InvalidInput_ThrowsException(){
 void TestInputValidator::FileLocationValidator_CorrectInput_ReturnsFileLocation(){
 	std::string validInput = "fileLocation c:\\cartofi.txt";
 	std::string fileLocation = this->inputValidator.fileLocationValidator(validInput);
+	std::string expectedLocation = "c:\\cartofi.txt";
+
+	assert(fileLocation == expectedLocation);
+}
+
+void TestInputValidator::MyListLocationValidator_InvalidInput_ThrowsException(){
+	std::string invalidInput = "cdcd:\\";
+
+	try {
+		this->inputValidator.myListLocationValidator(invalidInput);
+		assert(false);
+	}
+	catch (...) {
+		assert(true);
+	}
+}
+
+void TestInputValidator::MyListLocationValidator_CorrectInput_ReturnsFileLocation(){
+	std::string validInput = "mylistLocation c:\\cartofi.txt";
+	std::string fileLocation = this->inputValidator.myListLocationValidator(validInput);
 	std::string expectedLocation = "c:\\cartofi.txt";
 
 	assert(fileLocation == expectedLocation);

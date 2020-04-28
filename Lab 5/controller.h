@@ -16,6 +16,15 @@ class Controller {
 		std::string HTML_FILE_EXTENSION;
 
 		std::string getFileExtension(const std::string& fileLocation);
+		/*
+			Determines the file extension of the current file location
+			Input:
+				- The file location
+			Output:
+				- The file extension
+			Throws:
+				- ValidationException, if the fileLocation is invalid
+		*/
 
 	public:
 		Controller();
@@ -41,6 +50,15 @@ class Controller {
 		*/
 
 		void setSavedVictimsFileLocation(std::string myListLocation);
+		/*
+			Sets the location for the myList repository
+			Input:
+				- The location where the list will be
+			Output:
+				- The file is opened (and created if it didn't exist)
+			Throws:
+				- None
+		*/
 
 		void addVictim(std::string victimName, std::string placeOfOrigin, int age, std::string photographLink);
 		/*
@@ -120,8 +138,26 @@ class Controller {
 		*/
 
 		std::vector <Victim> getSavedVictims();
+		/*
+			Determines the list of saved victims
+			Input:
+				- None
+			Output:
+				- Returns a list with the victims
+			Throws:
+				- None
+		*/
 
 		std::string getMylistPath();
+		/*
+			Determines the path of the current myList repository
+			Input:
+				- None
+			Output:
+				- Returns the current path
+			Throws:
+				- None
+		*/
 
 		~Controller();
 		/*

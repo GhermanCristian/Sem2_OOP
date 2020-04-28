@@ -137,7 +137,26 @@ class Victim {
 		*/
 
 		std::string getCSVRepresentation() const;
+		/*
+
+			Input:
+				-
+			Output:
+				-
+			Throws:
+				-
+		*/
+
 		std::string getHTMLRepresentation() const;
+		/*
+
+			Input:
+				-
+			Output:
+				-
+			Throws:
+				-
+		*/
 
 		~Victim();
 		/*

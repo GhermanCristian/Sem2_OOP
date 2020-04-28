@@ -7,6 +7,15 @@ class HTMLRepository : public FileRepository{
 		std::string TEMPORARY_HTML_FILE_NAME = "temporaryFile.html";
 
 		std::string processLine(std::string line);
+		/*
+
+			Input:
+				-
+			Output:
+				-
+			Throws:
+				-
+		*/
 
 		std::vector<Victim> loadFromFile() override;
 		/*
@@ -32,8 +41,37 @@ class HTMLRepository : public FileRepository{
 
 	public:
 		HTMLRepository();
+		/*
+
+			Input:
+				-
+			Output:
+				-
+			Throws:
+				-
+		*/
+
 		HTMLRepository(std::string filePath);
+		/*
+
+			Input:
+				-
+			Output:
+				-
+			Throws:
+				-
+		*/
 
 		~HTMLRepository();
+		/*
+
+			Input:
+				-
+			Output:
+				-
+			Throws:
+				-
+		*/
+
 };
 

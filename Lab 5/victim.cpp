@@ -57,7 +57,7 @@ std::string Victim::getCSVRepresentation() const{
 	victimRepresentation += (this->getName() + ", ");
 	victimRepresentation += (this->getPlaceOfOrigin() + ", ");
 	victimRepresentation += (std::to_string(this->getAge()) + ", ");
-	victimRepresentation += (this->getPhotographLink() + ", ");
+	victimRepresentation += (this->getPhotographLink());
 
 	return victimRepresentation;
 }

@@ -151,7 +151,7 @@ void UserInterface::myListInterface(ArgumentList argumentList){
 
 	try {
 		// open the file in a program
-		ShellExecuteA(NULL, "open", this->actionController.getMylistPath().c_str(), NULL, NULL, SW_SHOWNORMAL);
+		//ShellExecuteA(NULL, "open", this->actionController.getMylistPath().c_str(), NULL, NULL, SW_SHOWNORMAL);
 		savedVictimList = this->actionController.getSavedVictims();
 		for (auto victim : savedVictimList) {
 			displayVictim(victim);

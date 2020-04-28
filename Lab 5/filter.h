@@ -1,8 +1,7 @@
 #pragma once
 #include "victim.h"
 
-class Filter
-{
+class Filter{
 	public:
 		virtual bool isPassed(const Victim& currentVictim) const = 0;
 		/*
