@@ -1,0 +1,6 @@
+helicopter, id: 0, isPrivate: 0
+helicopter, id: 1, isPrivate: 1
+helicopter, id: 2, isPrivate: 0
+helicopter, id: 3, isPrivate: 0
+plane, id: 7, isPrivate: 1, wingType: monoplane
+plane, id: 8, isPrivate: 0, wingType: biplane

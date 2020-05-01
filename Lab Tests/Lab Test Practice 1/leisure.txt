@@ -1,0 +1,5 @@
+helicopter, id: 1, isPrivate: 1
+hot air balloon, id: 4, weightLimit: 43
+hot air balloon, id: 5, weightLimit: 65
+hot air balloon, id: 6, weightLimit: 90
+plane, id: 8, isPrivate: 0, wingType: biplane
