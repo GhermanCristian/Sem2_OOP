@@ -1,0 +1,5 @@
+#pragma once
+
+void AddRefrigerator_NewRefrigerator_RefrigeratorAdded();
+void AddRefrigerator_ExistingRefrigerator_ThrowsException();
+void GetAppliancesSortedByWeight_CorrectInput_AppliancesSorted();
