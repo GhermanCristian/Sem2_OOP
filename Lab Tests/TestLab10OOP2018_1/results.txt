@@ -1,0 +1,8 @@
+Date: 2000.01.01, BMIValue: 20.500000, ResultOK ?1
+Date: 2000.01.02, BMIValue: 10.500000, ResultOK ?0
+Date: 2000.01.03, BMIValue: 30.100000, ResultOK ?0
+Date: 2000.02.01, BMIValue: 19.200000, ResultOK ?1
+Date: 2000.01.01, SystolicValue: 80, DiastolicValue: 70, ResultOK ?0
+Date: 2000.01.02, SystolicValue: 100, DiastolicValue: 90, ResultOK ?0
+Date: 2000.01.03, SystolicValue: 90, DiastolicValue: 90, ResultOK ?0
+Date: 2000.02.01, SystolicValue: 102, DiastolicValue: 99, ResultOK ?0
