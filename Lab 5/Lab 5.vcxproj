@@ -85,6 +85,7 @@
     <ClCompile Include="customExceptions.cpp" />
     <ClCompile Include="fileRepository.cpp" />
     <ClCompile Include="filter.cpp" />
+    <ClCompile Include="GUI.cpp" />
     <ClCompile Include="HTMLRepository.cpp" />
     <ClCompile Include="inputValidator.cpp" />
     <ClCompile Include="Lab5.cpp" />
@@ -115,6 +116,7 @@
     <ClInclude Include="customExceptions.h" />
     <ClInclude Include="fileRepository.h" />
     <ClInclude Include="filter.h" />
+    <ClInclude Include="GUI.h" />
     <ClInclude Include="HTMLRepository.h" />
     <ClInclude Include="inputValidator.h" />
     <ClInclude Include="memoryRepository.h" />
