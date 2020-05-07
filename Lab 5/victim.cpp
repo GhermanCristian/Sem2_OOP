@@ -38,7 +38,7 @@ Victim::Victim(const Victim& originalVictim){
 }
 
 bool Victim::operator==(const Victim& newVictim){
-	return (this->age == newVictim.age and this->name == newVictim.name and this->placeOfOrigin == newVictim.placeOfOrigin and this->photographLink == newVictim.photographLink);
+	return (this->age == newVictim.age && this->name == newVictim.name && this->placeOfOrigin == newVictim.placeOfOrigin && this->photographLink == newVictim.photographLink);
 }
 
 Victim& Victim::operator=(const Victim& originalVictim){

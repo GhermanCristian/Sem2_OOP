@@ -10,7 +10,7 @@ void VictimIterator::setNumberOfElements(int numberOfElements){
 }
 
 bool VictimIterator::isPositionValid(){
-	return (0 <= currentPosition and currentPosition < numberOfElements);
+	return (0 <= currentPosition && currentPosition < numberOfElements);
 }
 
 void VictimIterator::setNextPosition(){

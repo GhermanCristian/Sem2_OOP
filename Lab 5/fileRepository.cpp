@@ -15,14 +15,14 @@ bool FileRepository::isInRepository(const std::vector<Victim>& currentVector, st
 	if (possiblePosition == INEXISTENT_POSITION) {
 		possiblePosition = findPosition(currentVector, victimName);
 	}
-	return possiblePosition >= 0 and possiblePosition < currentVector.size() and currentVector[possiblePosition].getName() == victimName;
+	return possiblePosition >= 0 && possiblePosition < currentVector.size() && currentVector[possiblePosition].getName() == victimName;
 }
 
 bool FileRepository::createFile(std::string filePath){
 	FILE* currentFile;
 	errno_t functionReturnValue = fopen_s(&currentFile, filePath.c_str(), "a");
 
-	if (currentFile == 0 or functionReturnValue != 0) {
+	if (currentFile == 0 || functionReturnValue != 0) {
 		return false;
 	}
 

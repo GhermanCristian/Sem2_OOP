@@ -324,7 +324,7 @@ void TestMemoryRepository::GetAllEntries_FilledMemoryRepository_CorrectElements(
 	newRepository.add(newVictim2);
 
 	std::vector <Victim> pointerToData = newRepository.getAllEntries();
-	assert(pointerToData[0] == newVictim and pointerToData[1] == newVictim1 and pointerToData[2] == newVictim2);
+	assert(pointerToData[0] == newVictim && pointerToData[1] == newVictim1 && pointerToData[2] == newVictim2);
 }
 
 void TestCSVRepository::RepositoryConstructor_InexistentFile_FileCreated() {
@@ -356,7 +356,7 @@ void TestCSVRepository::LoadFromFile_FilledFile_CorrectObjects() {
 	std::vector <Victim> repositoryData = newRepository.loadFromFile();
 	Victim victim1{ "Cena John", "Roma", 20, "photo122.jpg" };
 	Victim victim2{ "John Cena", "Paris", 21, "photo41.jpg" };
-	assert(repositoryData[1] == victim1 and repositoryData[4] == victim2);
+	assert(repositoryData[1] == victim1 && repositoryData[4] == victim2);
 }
 
 void TestCSVRepository::LoadFromFile_InvalidLine_ThrowsError() {
@@ -412,7 +412,7 @@ void TestCSVRepository::SaveToFile_FilledData_CorrectObjects() {
 	newRepository.saveToFile(repositoryData);
 
 	repositoryData = newRepository.loadFromFile();
-	assert(repositoryData[0] == victim1 and repositoryData[1] == victim2 and repositoryData[2] == victim3);
+	assert(repositoryData[0] == victim1 && repositoryData[1] == victim2 && repositoryData[2] == victim3);
 
 	remove("testData2.txt");
 }
@@ -677,7 +677,7 @@ void TestHTMLRepository::LoadFromFile_FilledFile_CorrectObjects(){
 	Victim newVictim2{ "Ernest", "Burdujeni respect", 31, "photo113.jpg" };
 	currentData = currentRepository.loadFromFile();
 
-	assert(currentData[0] == newVictim0 and currentData[1] == newVictim1 and currentData[2] == newVictim2);
+	assert(currentData[0] == newVictim0 && currentData[1] == newVictim1 && currentData[2] == newVictim2);
 }
 
 void TestHTMLRepository::SaveToFile_EmptyData_NoOutput(){
@@ -720,7 +720,7 @@ void TestHTMLRepository::SaveToFile_FilledData_CorrectObjects(){
 	currentRepository.saveToFile(currentData);
 	currentData = currentRepository.loadFromFile();
 
-	assert(currentData[0] == newVictim0 and currentData[1] == newVictim1 and currentData[2] == newVictim2);
+	assert(currentData[0] == newVictim0 && currentData[1] == newVictim1 && currentData[2] == newVictim2);
 }
 
 void TestHTMLRepository::runAllTests(){

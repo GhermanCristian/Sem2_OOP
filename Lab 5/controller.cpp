@@ -16,7 +16,7 @@ std::string Controller::getFileExtension(const std::string& fileLocation){
 	const int HTML_EXTENSION_LENGTH = 5;
 
 	std::string lastFourCharacters = fileLocation.substr(locationLength - TXT_EXTENSION_LENGTH, TXT_EXTENSION_LENGTH);
-	if (lastFourCharacters == TXT_FILE_EXTENSION or lastFourCharacters == CSV_FILE_EXTENSION) {
+	if (lastFourCharacters == TXT_FILE_EXTENSION || lastFourCharacters == CSV_FILE_EXTENSION) {
 		return lastFourCharacters;
 	}
 
@@ -34,7 +34,7 @@ void Controller::setRepositoryFileLocation(std::string repositoryFileLocation){
 	// if we reach this point => the validation went well => the type is valid
 	delete this->victimRepository;
 
-	if (fileExtension == TXT_FILE_EXTENSION or fileExtension == CSV_FILE_EXTENSION) {
+	if (fileExtension == TXT_FILE_EXTENSION || fileExtension == CSV_FILE_EXTENSION) {
 		this->victimRepository = new CSVRepository(repositoryFileLocation);
 	}
 
@@ -50,7 +50,7 @@ void Controller::setSavedVictimsFileLocation(std::string myListLocation){
 	this->mylistFilePath = myListLocation;
 	delete this->savedVictims;
 
-	if (fileExtension == TXT_FILE_EXTENSION or fileExtension == CSV_FILE_EXTENSION) {
+	if (fileExtension == TXT_FILE_EXTENSION || fileExtension == CSV_FILE_EXTENSION) {
 		this->savedVictims = new CSVRepository(myListLocation);
 	}
 

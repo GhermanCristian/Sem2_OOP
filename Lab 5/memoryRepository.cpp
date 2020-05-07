@@ -9,7 +9,7 @@ bool MemoryRepository::isInRepository(std::string victimName, int possiblePositi
 	if (possiblePosition == INEXISTENT_POSITION) {
 		possiblePosition = findPosition(this->data, victimName);
 	}
-	return possiblePosition >= 0 and possiblePosition < this->data.size() and this->data[possiblePosition].getName() == victimName;
+	return possiblePosition >= 0 && possiblePosition < this->data.size() && this->data[possiblePosition].getName() == victimName;
 }
 
 Victim MemoryRepository::getVictimByName(std::string victimName, int possiblePosition) {
