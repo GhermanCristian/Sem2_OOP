@@ -8,6 +8,7 @@ class Controller {
 	private:
 		Repository* victimRepository;
 		Repository* savedVictims; //mylist
+
 		VictimIterator victimIterator;
 		std::string mylistFilePath; // i need direct access to this for opening the file in an external program
 
