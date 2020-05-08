@@ -21,6 +21,10 @@ void GUI::initializeGUI() {
 	QWidget* fileLocationAreaWidget = new QWidget{};
 	QFormLayout* fileLocationAreaLayout = new QFormLayout{ fileLocationAreaWidget };
 
+	this->menuActionModeA = new QAction{ "&Mode A", this };
+	this->menuActionModeB = new QAction{ "&Mode B", this };
+	this->menuActionDataRepresentation = new QAction{ "&Data representation", this };
+	this->menuToolbar = new QToolBar{};
 	this->victimListWidget = new QListWidget{};
 	this->lineEditVictimName = new QLineEdit{};
 	this->lineEditVictimPlace = new QLineEdit{};
@@ -31,6 +35,10 @@ void GUI::initializeGUI() {
 	this->updateVictimButton = new QPushButton{ "Update victim" };
 	this->deleteVictimButton = new QPushButton{ "Delete victim" };
 	this->fileLocationButton = new QPushButton{ "Set file location" };
+
+	this->menuToolbar->addAction(menuActionModeA);
+	this->menuToolbar->addAction(menuActionModeB);
+	this->menuToolbar->addAction(menuActionDataRepresentation);
 
 	this->victimListWidget->setSelectionMode(QAbstractItemView::SingleSelection);
 
@@ -51,6 +59,7 @@ void GUI::initializeGUI() {
 	labelFileLocation->setBuddy(lineEditFileLocation);
 	fileLocationAreaLayout->addRow(labelFileLocation, lineEditFileLocation);
 
+	mainLayout->addWidget(this->menuToolbar);
 	mainLayout->addWidget(this->victimListWidget);
 	mainLayout->addWidget(textBoxAreaWidget);
 	mainLayout->addWidget(buttonAreaWidget);
