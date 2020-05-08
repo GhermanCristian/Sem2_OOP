@@ -2,9 +2,11 @@
 #include <QLabel>
 #include <qboxlayout.h>
 #include <QFormLayout>
+#include <qdebug.h>
 
-void GUI::initializeGUI() {
-	QVBoxLayout* mainLayout = new QVBoxLayout{ this };
+QWidget* GUI::initializeWidgetModeA(){
+	QWidget* modeAWidget = new QWidget;
+	QVBoxLayout* modeALayout = new QVBoxLayout{ modeAWidget };
 
 	QLabel* labelVictimName = new QLabel{ "&Victim name:" };
 	QLabel* labelVictimPlace = new QLabel{ "&Victim place of origin:" };
@@ -21,31 +23,30 @@ void GUI::initializeGUI() {
 	QWidget* fileLocationAreaWidget = new QWidget{};
 	QFormLayout* fileLocationAreaLayout = new QFormLayout{ fileLocationAreaWidget };
 
-	this->menuActionModeA = new QAction{ "&Mode A", this };
-	this->menuActionModeB = new QAction{ "&Mode B", this };
-	this->menuActionDataRepresentation = new QAction{ "&Data representation", this };
-	this->menuToolbar = new QToolBar{};
+	QToolBar* modeAToolbar = new QToolBar{};
+
 	this->victimListWidget = new QListWidget{};
+
 	this->lineEditVictimName = new QLineEdit{};
 	this->lineEditVictimPlace = new QLineEdit{};
 	this->lineEditVictimAge = new QLineEdit{};
 	this->lineEditVictimPhotograph = new QLineEdit{};
 	this->lineEditFileLocation = new QLineEdit{};
+
 	this->addVictimButton = new QPushButton{ "Add victim" };
 	this->updateVictimButton = new QPushButton{ "Update victim" };
 	this->deleteVictimButton = new QPushButton{ "Delete victim" };
 	this->fileLocationButton = new QPushButton{ "Set file location" };
 
-	this->menuToolbar->addAction(menuActionModeA);
-	this->menuToolbar->addAction(menuActionModeB);
-	this->menuToolbar->addAction(menuActionDataRepresentation);
+	modeAToolbar->addAction(menuActionModeA);
+	modeAToolbar->addAction(menuActionModeB);
+	modeAToolbar->addAction(menuActionDataRepresentation);
 
 	this->victimListWidget->setSelectionMode(QAbstractItemView::SingleSelection);
 
 	buttonAreaLayout->addWidget(this->addVictimButton, 0, 0, 1, 1);
 	buttonAreaLayout->addWidget(this->updateVictimButton, 0, 1, 1, 1);
 	buttonAreaLayout->addWidget(this->deleteVictimButton, 1, 0, 1, 1);
-	buttonAreaLayout->addWidget(this->fileLocationButton, 2, 0, 1, 2);
 
 	labelVictimName->setBuddy(lineEditVictimName);
 	labelVictimPlace->setBuddy(lineEditVictimPlace);
@@ -59,11 +60,50 @@ void GUI::initializeGUI() {
 	labelFileLocation->setBuddy(lineEditFileLocation);
 	fileLocationAreaLayout->addRow(labelFileLocation, lineEditFileLocation);
 
-	mainLayout->addWidget(this->menuToolbar);
-	mainLayout->addWidget(this->victimListWidget);
-	mainLayout->addWidget(textBoxAreaWidget);
-	mainLayout->addWidget(buttonAreaWidget);
-	mainLayout->addWidget(fileLocationAreaWidget);
+	modeALayout->addWidget(modeAToolbar);
+	modeALayout->addWidget(this->victimListWidget);
+	modeALayout->addWidget(textBoxAreaWidget);
+	modeALayout->addWidget(buttonAreaWidget);
+	modeALayout->addWidget(fileLocationAreaWidget);
+	modeALayout->addWidget(this->fileLocationButton);
+
+	return modeAWidget;
+}
+
+QWidget* GUI::initializeWidgetModeB(){
+	QWidget* modeBWidget = new QWidget;
+	QVBoxLayout* modeBLayout = new QVBoxLayout{ modeBWidget };
+
+	QToolBar* modeBToolbar = new QToolBar;
+	modeBToolbar->addAction(menuActionModeA);
+	modeBToolbar->addAction(menuActionModeB);
+	modeBToolbar->addAction(menuActionDataRepresentation);
+
+	modeBLayout->addWidget(modeBToolbar);
+
+	return modeBWidget;
+}
+
+void GUI::initializeGUI() {
+	QWidget* mainWidget = new QWidget;
+	QVBoxLayout* mainLayout = new QVBoxLayout;
+
+	this->allWidgets = new QStackedWidget{};
+	this->menuActionModeA = new QAction{ "&Mode A", this };
+	this->menuActionModeB = new QAction{ "&Mode B", this };
+	this->menuActionDataRepresentation = new QAction{ "&Data representation", this };
+
+	QWidget* modeAWidget = initializeWidgetModeA();
+	QWidget* modeBWidget = initializeWidgetModeB();
+	this->allWidgets->addWidget(modeAWidget);
+	this->allWidgets->addWidget(modeBWidget);
+	mainLayout->addWidget(allWidgets);
+	setLayout(mainLayout);
+}
+
+void GUI::connectSignalsAndSlots(){
+	QObject::connect(this->menuActionModeA, &QAction::triggered, this, [this]() {this->allWidgets->setCurrentIndex(0); });
+	QObject::connect(this->menuActionModeB, &QAction::triggered, this, [this]() {this->allWidgets->setCurrentIndex(1); });
 }
 
 void GUI::populateVictimList(){
@@ -92,5 +132,6 @@ void GUI::populateVictimList(){
 
 GUI::GUI(){
 	this->initializeGUI();
+	this->connectSignalsAndSlots();
 	this->populateVictimList();
 }
