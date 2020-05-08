@@ -42,6 +42,11 @@ class GUI : public QWidget{
 		QWidget* initializeWidgetModeB();
 		void changeToModeA();
 		void changeToModeB();
+
+		void addVictim();
+		void updateVictim();
+		void deleteVictim();
+
 		void initializeGUI();
 		void connectSignalsAndSlots();
 		void populateVictimList();

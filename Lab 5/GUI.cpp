@@ -131,6 +131,32 @@ void GUI::changeToModeB(){
 	this->populateMyList();
 }
 
+void GUI::addVictim(){
+	std::string victimName = this->lineEditVictimName->text().toStdString();
+	std::string victimPlace = this->lineEditVictimPlace->text().toStdString();
+	int victimAge = stoi(this->lineEditVictimAge->text().toStdString());
+	std::string victimPhotograph = this->lineEditVictimPhotograph->text().toStdString();
+
+	this->actionController.addVictim(victimName, victimPlace, victimAge, victimPhotograph);
+	this->populateVictimList();
+}
+
+void GUI::updateVictim(){
+	std::string newVictimName = this->lineEditVictimName->text().toStdString();
+	std::string newVictimPlace = this->lineEditVictimPlace->text().toStdString();
+	int newVictimAge = stoi(this->lineEditVictimAge->text().toStdString());
+	std::string newVictimPhotograph = this->lineEditVictimPhotograph->text().toStdString();
+
+	this->actionController.updateVictim(newVictimName, newVictimPlace, newVictimAge, newVictimPhotograph);
+	this->populateVictimList();
+}
+
+void GUI::deleteVictim(){
+	std::string victimName = this->lineEditVictimName->text().toStdString();
+	this->actionController.deleteVictim(victimName);
+	this->populateVictimList();
+}
+
 void GUI::initializeGUI() {
 	QWidget* mainWidget = new QWidget;
 	QVBoxLayout* mainLayout = new QVBoxLayout;
@@ -157,6 +183,9 @@ void GUI::initializeGUI() {
 void GUI::connectSignalsAndSlots(){
 	QObject::connect(this->menuActionModeA, &QAction::triggered, this, [this]() {this->changeToModeA(); });
 	QObject::connect(this->menuActionModeB, &QAction::triggered, this, [this]() {this->changeToModeB(); });
+	QObject::connect(this->addVictimButton, &QPushButton::clicked, this, [this]() {this->addVictim(); });
+	QObject::connect(this->updateVictimButton, &QPushButton::clicked, this, [this]() {this->updateVictim(); });
+	QObject::connect(this->deleteVictimButton, &QPushButton::clicked, this, [this]() {this->deleteVictim(); });
 }
 
 void GUI::populateVictimList(){
