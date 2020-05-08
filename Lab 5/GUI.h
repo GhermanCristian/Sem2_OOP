@@ -18,25 +18,34 @@ class GUI : public QWidget{
 		QAction* menuActionDataRepresentation;
 
 		QListWidget* victimListWidget;
+		QListWidget* myListWidget;
 
 		QLineEdit* lineEditVictimName;
 		QLineEdit* lineEditVictimPlace;
 		QLineEdit* lineEditVictimAge;
 		QLineEdit* lineEditVictimPhotograph;
 		QLineEdit* lineEditFileLocation;
+		QLineEdit* lineEditSaveVictim;
+		QLineEdit* lineEditFilterVictimPlace;
+		QLineEdit* lineEditFilterVictimAge;
 		QLineEdit* lineEditMyListLocation;
 
 		QPushButton* addVictimButton;
 		QPushButton* updateVictimButton;
 		QPushButton* deleteVictimButton;
 		QPushButton* fileLocationButton;
+		QPushButton* saveVictimButton;
+		QPushButton* filterVictimsButton;
 		QPushButton* myListLocationButton;
 
 		QWidget* initializeWidgetModeA();
 		QWidget* initializeWidgetModeB();
+		void changeToModeA();
+		void changeToModeB();
 		void initializeGUI();
 		void connectSignalsAndSlots();
 		void populateVictimList();
+		void populateMyList();
 
 	public:
 		GUI();
