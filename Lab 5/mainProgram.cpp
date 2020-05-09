@@ -8,7 +8,7 @@
 #include <crtdbg.h>
 
 int main(int argc, char** argv) {
-	runAllTests();
+	//runAllTests();
 
 	QApplication a(argc, argv);
 	GUI userInterface;

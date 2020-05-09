@@ -1,5 +1,4 @@
 #include "GUI.h"
-#include <QLabel>
 #include <qboxlayout.h>
 #include <QFormLayout>
 #include <qdebug.h>
@@ -7,6 +6,8 @@
 QWidget* GUI::initializeWidgetModeA(){
 	QWidget* modeAWidget = new QWidget;
 	QVBoxLayout* modeALayout = new QVBoxLayout{ modeAWidget };
+
+	QToolBar* modeAToolbar = new QToolBar{};
 
 	QLabel* labelVictimName = new QLabel{ "&Victim's name:" };
 	QLabel* labelVictimPlace = new QLabel{ "&Victim's place of origin:" };
@@ -22,8 +23,6 @@ QWidget* GUI::initializeWidgetModeA(){
 
 	QWidget* fileLocationAreaWidget = new QWidget{};
 	QFormLayout* fileLocationAreaLayout = new QFormLayout{ fileLocationAreaWidget };
-
-	QToolBar* modeAToolbar = new QToolBar{};
 
 	this->lineEditVictimName = new QLineEdit{};
 	this->lineEditVictimPlace = new QLineEdit{};
@@ -62,6 +61,7 @@ QWidget* GUI::initializeWidgetModeA(){
 	modeALayout->addWidget(buttonAreaWidget);
 	modeALayout->addWidget(fileLocationAreaWidget);
 	modeALayout->addWidget(this->fileLocationButton);
+	modeALayout->addWidget(this->labelErrorMessageModeA);
 
 	return modeAWidget;
 }
@@ -117,6 +117,7 @@ QWidget* GUI::initializeWidgetModeB(){
 	modeBLayout->addWidget(filterVictimsButton);
 	modeBLayout->addWidget(myListLocationWidget);
 	modeBLayout->addWidget(myListLocationButton);
+	modeBLayout->addWidget(this->labelErrorMessageModeB);
 
 	return modeBWidget;
 }
@@ -131,42 +132,78 @@ void GUI::changeToModeB(){
 	this->populateMyList();
 }
 
-void GUI::addVictim(){
-	std::string victimName = this->lineEditVictimName->text().toStdString();
-	std::string victimPlace = this->lineEditVictimPlace->text().toStdString();
-	int victimAge = stoi(this->lineEditVictimAge->text().toStdString());
-	std::string victimPhotograph = this->lineEditVictimPhotograph->text().toStdString();
+void GUI::displayErrorMessage(const std::string& errorMessage) {
+	this->labelErrorMessageModeA->setText(QString::fromStdString(errorMessage));
+	this->labelErrorMessageModeB->setText(QString::fromStdString(errorMessage));
+	this->errorMessageTimer->start(2000);
+}
 
-	this->actionController.addVictim(victimName, victimPlace, victimAge, victimPhotograph);
-	this->populateVictimList();
+void GUI::removeErrorMessage(){
+	this->labelErrorMessageModeA->setText("");
+	this->labelErrorMessageModeB->setText("");
+}
+
+void GUI::addVictim(){
+	try {
+		std::string victimName = this->inputValidator.generalNonEmptyStringValidator(this->lineEditVictimName->text().toStdString());
+		std::string victimPlace = this->inputValidator.generalNonEmptyStringValidator(this->lineEditVictimPlace->text().toStdString());
+		int victimAge = this->inputValidator.generalNumberValidator(this->lineEditVictimAge->text().toStdString());
+		std::string victimPhotograph = this->inputValidator.generalNonEmptyStringValidator(this->lineEditVictimPhotograph->text().toStdString());
+
+		this->actionController.addVictim(victimName, victimPlace, victimAge, victimPhotograph);
+		this->populateVictimList();
+	}
+	catch (const std::exception& currentException) {
+		this->displayErrorMessage(currentException.what());
+	}
 }
 
 void GUI::updateVictim(){
-	std::string newVictimName = this->lineEditVictimName->text().toStdString();
-	std::string newVictimPlace = this->lineEditVictimPlace->text().toStdString();
-	int newVictimAge = stoi(this->lineEditVictimAge->text().toStdString());
-	std::string newVictimPhotograph = this->lineEditVictimPhotograph->text().toStdString();
+	try {
+		std::string newVictimName = this->inputValidator.generalNonEmptyStringValidator(this->lineEditVictimName->text().toStdString());
+		std::string newVictimPlace = this->inputValidator.generalNonEmptyStringValidator(this->lineEditVictimPlace->text().toStdString());
+		int newVictimAge = this->inputValidator.generalNumberValidator(this->lineEditVictimAge->text().toStdString());
+		std::string newVictimPhotograph = this->inputValidator.generalNonEmptyStringValidator(this->lineEditVictimPhotograph->text().toStdString());
 
-	this->actionController.updateVictim(newVictimName, newVictimPlace, newVictimAge, newVictimPhotograph);
-	this->populateVictimList();
+		this->actionController.updateVictim(newVictimName, newVictimPlace, newVictimAge, newVictimPhotograph);
+		this->populateVictimList();
+	}
+	catch (const std::exception& currentException) {
+		this->displayErrorMessage(currentException.what());
+	}
 }
 
 void GUI::deleteVictim(){
-	std::string victimName = this->lineEditVictimName->text().toStdString();
-	this->actionController.deleteVictim(victimName);
-	this->populateVictimList();
+	try {
+		std::string victimName = this->inputValidator.generalNonEmptyStringValidator(this->lineEditVictimName->text().toStdString());
+		this->actionController.deleteVictim(victimName);
+		this->populateVictimList();
+	}
+	catch (const std::exception& currentException) {
+		this->displayErrorMessage(currentException.what());
+	}
 }
 
 void GUI::setFileLocation(){
-	std::string fileLocation = this->lineEditFileLocation->text().toStdString();
-	this->actionController.setRepositoryFileLocation(fileLocation);
-	this->populateVictimList();
+	try {
+		std::string fileLocation = this->inputValidator.generalNonEmptyStringValidator(this->lineEditFileLocation->text().toStdString());
+		this->actionController.setRepositoryFileLocation(fileLocation);
+		this->populateVictimList();
+	}
+	catch (const std::exception& currentException) {
+		this->displayErrorMessage(currentException.what());
+	}
 }
 
 void GUI::saveVictim(){
-	std::string victimName = this->lineEditSaveVictim->text().toStdString();
-	this->actionController.saveVictim(victimName);
-	this->populateMyList();
+	try {
+		std::string victimName = this->inputValidator.generalNonEmptyStringValidator(this->lineEditSaveVictim->text().toStdString());
+		this->actionController.saveVictim(victimName);
+		this->populateMyList();
+	}
+	catch (const std::exception& currentException) {
+		this->displayErrorMessage(currentException.what());
+	}
 }
 
 void GUI::filterVictims(){
@@ -174,7 +211,7 @@ void GUI::filterVictims(){
 }
 
 void GUI::setMyListLocation(){
-	std::string myListLocation = this->lineEditMyListLocation->text().toStdString();
+	std::string myListLocation = this->inputValidator.generalNonEmptyStringValidator(this->lineEditMyListLocation->text().toStdString());
 	this->actionController.setSavedVictimsFileLocation(myListLocation);
 	this->populateMyList();
 }
@@ -192,6 +229,10 @@ void GUI::initializeGUI() {
 	this->victimListWidget->setSelectionMode(QAbstractItemView::SingleSelection);
 	this->myListWidget = new QListWidget{};
 	this->myListWidget->setSelectionMode(QAbstractItemView::SingleSelection);
+	this->labelErrorMessageModeA = new QLabel{};
+	this->labelErrorMessageModeB = new QLabel{};
+	this->errorMessageTimer = new QTimer{};
+	this->errorMessageTimer->setSingleShot(true);
 
 	QWidget* modeAWidget = initializeWidgetModeA(); // these functions need the QActions from the menu to be initialised
 	QWidget* modeBWidget = initializeWidgetModeB();
@@ -212,6 +253,8 @@ void GUI::connectSignalsAndSlots(){
 	QObject::connect(this->saveVictimButton, &QPushButton::clicked, this, [this]() {this->saveVictim(); });
 	QObject::connect(this->filterVictimsButton, &QPushButton::clicked, this, [this]() {this->filterVictims(); });
 	QObject::connect(this->myListLocationButton, &QPushButton::clicked, this, [this]() {this->setMyListLocation(); });
+
+	QObject::connect(this->errorMessageTimer, &QTimer::timeout, this, [this]() {this->removeErrorMessage(); });
 }
 
 void GUI::populateVictimList(){

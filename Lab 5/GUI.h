@@ -6,10 +6,14 @@
 #include <QStackedWidget>
 #include <qtoolbar.h>
 #include "controller.h"
+#include <qtimer.h>
+#include <qlabel.h>
+#include "inputValidator.h"
 
 class GUI : public QWidget{
 	private:
 		Controller actionController;
+		InputValidator inputValidator;
 
 		QStackedWidget* allWidgets;
 
@@ -38,10 +42,17 @@ class GUI : public QWidget{
 		QPushButton* filterVictimsButton;
 		QPushButton* myListLocationButton;
 
+		QLabel* labelErrorMessageModeA;
+		QLabel* labelErrorMessageModeB;
+		QTimer* errorMessageTimer;
+
 		QWidget* initializeWidgetModeA();
 		QWidget* initializeWidgetModeB();
 		void changeToModeA();
 		void changeToModeB();
+
+		void displayErrorMessage(const std::string& errorMessage);
+		void removeErrorMessage();
 
 		void addVictim();
 		void updateVictim();

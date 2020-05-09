@@ -187,6 +187,9 @@ class InputValidator {
 				- Exception, if the input is invalid
 		*/
 
+		std::string generalNonEmptyStringValidator(std::string userInput);
+		int generalNumberValidator(std::string userInput);
+
 		~InputValidator();
 		/*
 			Destructor for the InputValidator type

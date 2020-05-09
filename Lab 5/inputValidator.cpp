@@ -44,12 +44,10 @@ ArgumentList InputValidator::addVictimInputValidator(std::string userInput) {
 	if (validInput == false) {
 		throw ValidationException("Invalid input for add");
 	}
-	else {
-		addArgumentList.list[NAME_POSITION] = stringMatch.str(FIRST_ARGUMENT_REGEX_POSITION);
-		addArgumentList.list[PLACE_OF_ORIGIN_POSITION] = stringMatch.str(SECOND_ARGUMENT_REGEX_POSITION);
-		addArgumentList.list[AGE_POSITION] = stringMatch.str(THIRD_ARGUMENT_REGEX_POSITION);
-		addArgumentList.list[PHOTOGRAPH_POSITION] = stringMatch.str(FOURTH_ARGUMENT_REGEX_POSITION);
-	}
+	addArgumentList.list[NAME_POSITION] = stringMatch.str(FIRST_ARGUMENT_REGEX_POSITION);
+	addArgumentList.list[PLACE_OF_ORIGIN_POSITION] = stringMatch.str(SECOND_ARGUMENT_REGEX_POSITION);
+	addArgumentList.list[AGE_POSITION] = stringMatch.str(THIRD_ARGUMENT_REGEX_POSITION);
+	addArgumentList.list[PHOTOGRAPH_POSITION] = stringMatch.str(FOURTH_ARGUMENT_REGEX_POSITION);
 
 	return addArgumentList;
 }
@@ -93,12 +91,10 @@ ArgumentList InputValidator::updateVictimInputValidator(std::string userInput) {
 	if (validInput == false) {
 		throw ValidationException("Invalid input for update");
 	}
-	else {
-		updateArgumentList.list[NAME_POSITION] = stringMatch.str(FIRST_ARGUMENT_REGEX_POSITION);
-		updateArgumentList.list[PLACE_OF_ORIGIN_POSITION] = stringMatch.str(SECOND_ARGUMENT_REGEX_POSITION);
-		updateArgumentList.list[AGE_POSITION] = stringMatch.str(THIRD_ARGUMENT_REGEX_POSITION);
-		updateArgumentList.list[PHOTOGRAPH_POSITION] = stringMatch.str(FOURTH_ARGUMENT_REGEX_POSITION);
-	}
+	updateArgumentList.list[NAME_POSITION] = stringMatch.str(FIRST_ARGUMENT_REGEX_POSITION);
+	updateArgumentList.list[PLACE_OF_ORIGIN_POSITION] = stringMatch.str(SECOND_ARGUMENT_REGEX_POSITION);
+	updateArgumentList.list[AGE_POSITION] = stringMatch.str(THIRD_ARGUMENT_REGEX_POSITION);
+	updateArgumentList.list[PHOTOGRAPH_POSITION] = stringMatch.str(FOURTH_ARGUMENT_REGEX_POSITION);
 
 	return updateArgumentList;
 }
@@ -122,9 +118,7 @@ ArgumentList InputValidator::deleteVictimInputValidator(std::string userInput) {
 	if (validInput == false) {
 		throw ValidationException("Invalid input for delete");
 	}
-	else {
-		deleteArgumentList.list[NAME_POSITION] = stringMatch.str(FIRST_ARGUMENT_REGEX_POSITION);
-	}
+	deleteArgumentList.list[NAME_POSITION] = stringMatch.str(FIRST_ARGUMENT_REGEX_POSITION);
 
 	return deleteArgumentList;
 }
@@ -142,10 +136,6 @@ ArgumentList InputValidator::listAllInputValidator(std::string userInput) {
 	if (validInput == false) {
 		throw ValidationException("Invalid input for listAll");
 	}
-	else {
-		;
-	}
-	
 	return listAllArgumentList;
 }
 
@@ -163,10 +153,6 @@ ArgumentList InputValidator::nextVictimInputValidator(std::string userInput)
 	if (validInput == false) {
 		throw ValidationException("Invalid input for nextVictim");
 	}
-	else {
-		;
-	}
-
 	return nextVictimArgumentList;
 }
 
@@ -190,9 +176,7 @@ ArgumentList InputValidator::saveVictimInputValidator(std::string userInput)
 	if (validInput == false) {
 		throw ValidationException("Invalid input for saveVictim");
 	}
-	else {
-		saveVictimArgumentList.list[NAME_POSITION] = stringMatch.str(FIRST_ARGUMENT_REGEX_POSITION);
-	}
+	saveVictimArgumentList.list[NAME_POSITION] = stringMatch.str(FIRST_ARGUMENT_REGEX_POSITION);
 
 	return saveVictimArgumentList;
 }
@@ -224,10 +208,8 @@ ArgumentList InputValidator::listFilteredInputValidator(std::string userInput)
 	if (validInput == false) {
 		throw ValidationException("Invalid input for listFiltered");
 	}
-	else {
-		listFilteredArgumentList.list[NAME_POSITION] = stringMatch.str(FIRST_ARGUMENT_REGEX_POSITION);
-		listFilteredArgumentList.list[PLACE_OF_ORIGIN_POSITION] = stringMatch.str(SECOND_ARGUMENT_REGEX_POSITION);
-	}
+	listFilteredArgumentList.list[NAME_POSITION] = stringMatch.str(FIRST_ARGUMENT_REGEX_POSITION);
+	listFilteredArgumentList.list[PLACE_OF_ORIGIN_POSITION] = stringMatch.str(SECOND_ARGUMENT_REGEX_POSITION);
 
 	return listFilteredArgumentList;
 }
@@ -246,10 +228,6 @@ ArgumentList InputValidator::myListInputValidator(std::string userInput)
 	if (validInput == false) {
 		throw ValidationException("Invalid input for myList");
 	}
-	else {
-		;
-	}
-
 	return myListArgumentList;
 }
 
@@ -307,12 +285,10 @@ ArgumentList InputValidator::CSVFileVictimValidator(std::string victimLine){
 	if (validInput == false) {
 		throw ValidationException("Invalid input for CSVFileValidator");
 	}
-	else {
-		victimPropertiesArgumentList.list[NAME_POSITION] = stringMatch.str(FIRST_ARGUMENT_REGEX_POSITION);
-		victimPropertiesArgumentList.list[PLACE_OF_ORIGIN_POSITION] = stringMatch.str(SECOND_ARGUMENT_REGEX_POSITION);
-		victimPropertiesArgumentList.list[AGE_POSITION] = stringMatch.str(THIRD_ARGUMENT_REGEX_POSITION);
-		victimPropertiesArgumentList.list[PHOTOGRAPH_POSITION] = stringMatch.str(FOURTH_ARGUMENT_REGEX_POSITION);
-	}
+	victimPropertiesArgumentList.list[NAME_POSITION] = stringMatch.str(FIRST_ARGUMENT_REGEX_POSITION);
+	victimPropertiesArgumentList.list[PLACE_OF_ORIGIN_POSITION] = stringMatch.str(SECOND_ARGUMENT_REGEX_POSITION);
+	victimPropertiesArgumentList.list[AGE_POSITION] = stringMatch.str(THIRD_ARGUMENT_REGEX_POSITION);
+	victimPropertiesArgumentList.list[PHOTOGRAPH_POSITION] = stringMatch.str(FOURTH_ARGUMENT_REGEX_POSITION);
 
 	return victimPropertiesArgumentList;
 }
@@ -337,9 +313,7 @@ std::string InputValidator::fileLocationValidator(std::string userInput){
 	if (validInput == false) {
 		throw ValidationException("Invalid file location");
 	}
-	else {
-		return stringMatch.str(FIRST_ARGUMENT_REGEX_POSITION);
-	}
+	return stringMatch.str(FIRST_ARGUMENT_REGEX_POSITION);
 }
 
 std::string InputValidator::myListLocationValidator(std::string userInput){
@@ -362,9 +336,25 @@ std::string InputValidator::myListLocationValidator(std::string userInput){
 	if (validInput == false) {
 		throw ValidationException("Invalid file location");
 	}
-	else {
-		return stringMatch.str(FIRST_ARGUMENT_REGEX_POSITION);
+	return stringMatch.str(FIRST_ARGUMENT_REGEX_POSITION);
+}
+
+std::string InputValidator::generalNonEmptyStringValidator(std::string userInput){
+	if (userInput.length() == 0) {
+		throw ValidationException("Invalid string");
 	}
+	return userInput;
+}
+
+int InputValidator::generalNumberValidator(std::string userInput){
+	std::regex generalNumberPattern("[0-9]+");
+	std::smatch stringMatch;
+	bool validInput = std::regex_search(userInput, stringMatch, generalNumberPattern);
+
+	if (validInput == false) {
+		throw ValidationException("Invalid number");
+	}
+	return stoi(userInput);
 }
 
 InputValidator::~InputValidator(){
