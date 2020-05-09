@@ -19,7 +19,7 @@ QWidget* GUI::initializeWidgetModeA(){
 	QFormLayout* textBoxesAreaLayout = new QFormLayout{ textBoxesAreaWidget };
 
 	QWidget* buttonAreaWidget = new QWidget{};
-	QGridLayout* buttonAreaLayout = new QGridLayout{ buttonAreaWidget };
+	QHBoxLayout* buttonAreaLayout = new QHBoxLayout{ buttonAreaWidget };
 
 	QWidget* fileLocationAreaWidget = new QWidget{};
 	QFormLayout* fileLocationAreaLayout = new QFormLayout{ fileLocationAreaWidget };
@@ -39,9 +39,9 @@ QWidget* GUI::initializeWidgetModeA(){
 	modeAToolbar->addAction(menuActionModeB);
 	modeAToolbar->addAction(menuActionDataRepresentation);
 
-	buttonAreaLayout->addWidget(this->addVictimButton, 0, 0);
-	buttonAreaLayout->addWidget(this->updateVictimButton, 0, 1);
-	buttonAreaLayout->addWidget(this->deleteVictimButton, 0, 2);
+	buttonAreaLayout->addWidget(this->addVictimButton);
+	buttonAreaLayout->addWidget(this->updateVictimButton);
+	buttonAreaLayout->addWidget(this->deleteVictimButton);
 
 	labelVictimName->setBuddy(lineEditVictimName);
 	labelVictimPlace->setBuddy(lineEditVictimPlace);
@@ -123,24 +123,56 @@ QWidget* GUI::initializeWidgetModeB(){
 }
 
 void GUI::changeToModeA(){
-	this->allWidgets->setCurrentIndex(0);
+	this->allWidgets->setCurrentIndex(MODE_A_WIDGET_INDEX);
 	this->populateVictimList();
 }
 
 void GUI::changeToModeB(){
-	this->allWidgets->setCurrentIndex(1);
+	this->allWidgets->setCurrentIndex(MODE_B_WIDGET_INDEX);
 	this->populateMyList();
 }
 
 void GUI::displayErrorMessage(const std::string& errorMessage) {
 	this->labelErrorMessageModeA->setText(QString::fromStdString(errorMessage));
 	this->labelErrorMessageModeB->setText(QString::fromStdString(errorMessage));
-	this->errorMessageTimer->start(2000);
+	this->errorMessageTimer->start(ERROR_MESSAGE_DISPLAY_TIME);
 }
 
 void GUI::removeErrorMessage(){
-	this->labelErrorMessageModeA->setText("");
+	this->labelErrorMessageModeA->setText(""); // sets the content to an empty string <=> removes it
 	this->labelErrorMessageModeB->setText("");
+}
+
+int GUI::getCurrentIndexInVictimList(){
+	if (this->victimListWidget->count() == 0) {
+		return -1;
+	}
+
+	const int FIRST_INDEX_LIST_POSITION = 0;
+	QModelIndexList victimIndex = this->victimListWidget->selectionModel()->selectedIndexes();
+	if (victimIndex.size() == 0) {
+		this->lineEditVictimName->clear();
+		this->lineEditVictimPlace->clear();
+		this->lineEditVictimAge->clear();
+		this->lineEditVictimPhotograph->clear();
+		return -1;
+	}
+
+	return victimIndex.at(FIRST_INDEX_LIST_POSITION).row();
+}
+
+void GUI::changedVictimInList(){
+	int victimIndex = getCurrentIndexInVictimList();
+	std::vector <Victim> allVictims = this->actionController.getAllVictims();
+
+	if (victimIndex == -1 || victimIndex >= allVictims.size()) {
+		return;
+	}
+
+	this->lineEditVictimName->setText(QString::fromStdString(allVictims[victimIndex].getName()));
+	this->lineEditVictimPlace->setText(QString::fromStdString(allVictims[victimIndex].getPlaceOfOrigin()));
+	this->lineEditVictimAge->setText(QString().setNum(allVictims[victimIndex].getAge()));
+	this->lineEditVictimPhotograph->setText(QString::fromStdString(allVictims[victimIndex].getPhotographLink()));
 }
 
 void GUI::addVictim(){
@@ -255,10 +287,12 @@ void GUI::connectSignalsAndSlots(){
 	QObject::connect(this->myListLocationButton, &QPushButton::clicked, this, [this]() {this->setMyListLocation(); });
 
 	QObject::connect(this->errorMessageTimer, &QTimer::timeout, this, [this]() {this->removeErrorMessage(); });
+
+	QObject::connect(this->victimListWidget, &QListWidget::itemSelectionChanged, this, [this]() {this->changedVictimInList(); });
 }
 
 void GUI::populateVictimList(){
-	QFont listFont{ "Arial", 12 }; // TO-DO: use constants
+	QFont listFont{ QString::fromStdString(LIST_FONT_NAME), LIST_FONT_SIZE };
 
 	if (this->victimListWidget->count() > 0) {
 		this->victimListWidget->clear();
@@ -273,12 +307,12 @@ void GUI::populateVictimList(){
 	}
 
 	if (this->victimListWidget->count() > 0) {
-		this->victimListWidget->setCurrentRow(0);
+		this->victimListWidget->setCurrentRow(FIRST_ROW_INDEX);
 	}
 }
 
 void GUI::populateMyList(){
-	QFont listFont{ "Arial", 12 }; // TO-DO: use constants
+	QFont listFont{ QString::fromStdString(LIST_FONT_NAME), LIST_FONT_SIZE }; // TO-DO: use constants
 
 	if (this->myListWidget->count() > 0) {
 		this->myListWidget->clear();
@@ -293,7 +327,7 @@ void GUI::populateMyList(){
 	}
 
 	if (this->myListWidget->count() > 0) {
-		this->myListWidget->setCurrentRow(0);
+		this->myListWidget->setCurrentRow(FIRST_ROW_INDEX);
 	}
 }
 
@@ -302,8 +336,8 @@ GUI::GUI(){
 	this->connectSignalsAndSlots();
 
 	// have the program open with these default lists
-	this->actionController.setRepositoryFileLocation("data.txt");
-	this->actionController.setSavedVictimsFileLocation("mylist.txt");
+	this->actionController.setRepositoryFileLocation(DEFAULT_REPOSITORY_LOCATION);
+	this->actionController.setSavedVictimsFileLocation(DEFAULT_MYLIST_LOCATION);
 
 	this->populateVictimList();
 	this->populateMyList();
