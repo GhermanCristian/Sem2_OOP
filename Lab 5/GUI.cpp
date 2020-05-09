@@ -157,6 +157,28 @@ void GUI::deleteVictim(){
 	this->populateVictimList();
 }
 
+void GUI::setFileLocation(){
+	std::string fileLocation = this->lineEditFileLocation->text().toStdString();
+	this->actionController.setRepositoryFileLocation(fileLocation);
+	this->populateVictimList();
+}
+
+void GUI::saveVictim(){
+	std::string victimName = this->lineEditSaveVictim->text().toStdString();
+	this->actionController.saveVictim(victimName);
+	this->populateMyList();
+}
+
+void GUI::filterVictims(){
+	//
+}
+
+void GUI::setMyListLocation(){
+	std::string myListLocation = this->lineEditMyListLocation->text().toStdString();
+	this->actionController.setSavedVictimsFileLocation(myListLocation);
+	this->populateMyList();
+}
+
 void GUI::initializeGUI() {
 	QWidget* mainWidget = new QWidget;
 	QVBoxLayout* mainLayout = new QVBoxLayout;
@@ -186,6 +208,10 @@ void GUI::connectSignalsAndSlots(){
 	QObject::connect(this->addVictimButton, &QPushButton::clicked, this, [this]() {this->addVictim(); });
 	QObject::connect(this->updateVictimButton, &QPushButton::clicked, this, [this]() {this->updateVictim(); });
 	QObject::connect(this->deleteVictimButton, &QPushButton::clicked, this, [this]() {this->deleteVictim(); });
+	QObject::connect(this->fileLocationButton, &QPushButton::clicked, this, [this]() {this->setFileLocation(); });
+	QObject::connect(this->saveVictimButton, &QPushButton::clicked, this, [this]() {this->saveVictim(); });
+	QObject::connect(this->filterVictimsButton, &QPushButton::clicked, this, [this]() {this->filterVictims(); });
+	QObject::connect(this->myListLocationButton, &QPushButton::clicked, this, [this]() {this->setMyListLocation(); });
 }
 
 void GUI::populateVictimList(){
@@ -194,10 +220,6 @@ void GUI::populateVictimList(){
 	if (this->victimListWidget->count() > 0) {
 		this->victimListWidget->clear();
 	}
-
-	// this is here only temporarily; i need to implement the user's ability to set/change the location
-	// aka implement the fileLocation button
-	this->actionController.setRepositoryFileLocation("data.txt"); 
 
 	std::vector <Victim> allVictims = this->actionController.getAllVictims();
 	for (auto currentVictim : allVictims) {
@@ -219,10 +241,6 @@ void GUI::populateMyList(){
 		this->myListWidget->clear();
 	}
 
-	// this is here only temporarily; i need to implement the user's ability to set/change the location
-	// aka implement the fileLocation button
-	this->actionController.setSavedVictimsFileLocation("mylist.txt");
-
 	std::vector <Victim> savedVictims = this->actionController.getSavedVictims();
 	for (auto currentVictim : savedVictims) {
 		QString victimText = QString::fromStdString(currentVictim.getCSVRepresentation());
@@ -239,6 +257,11 @@ void GUI::populateMyList(){
 GUI::GUI(){
 	this->initializeGUI();
 	this->connectSignalsAndSlots();
+
+	// have the program open with these default lists
+	this->actionController.setRepositoryFileLocation("data.txt");
+	this->actionController.setSavedVictimsFileLocation("mylist.txt");
+
 	this->populateVictimList();
 	this->populateMyList();
 }

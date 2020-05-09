@@ -46,6 +46,10 @@ class GUI : public QWidget{
 		void addVictim();
 		void updateVictim();
 		void deleteVictim();
+		void setFileLocation();
+		void saveVictim();
+		void filterVictims();
+		void setMyListLocation();
 
 		void initializeGUI();
 		void connectSignalsAndSlots();
