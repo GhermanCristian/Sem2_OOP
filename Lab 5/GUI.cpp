@@ -122,6 +122,50 @@ QWidget* GUI::initializeWidgetModeB(){
 	return modeBWidget;
 }
 
+QtCharts::QChartView* GUI::createBarChart(){
+	QtCharts::QBarSet* set1 = new QtCharts::QBarSet("name 1");
+	QtCharts::QBarSet* set2 = new QtCharts::QBarSet("name 2");
+	*set1 << 1;
+	*set2 << 1.5;
+	QtCharts::QBarSeries* barSeries = new QtCharts::QBarSeries;
+	barSeries->append(set1);
+	barSeries->append(set2);
+	QtCharts::QChart* dataRepresentationChart = new QtCharts::QChart;
+	dataRepresentationChart->addSeries(barSeries);
+	dataRepresentationChart->setTitle("Victims by place of origin");
+	dataRepresentationChart->setAnimationOptions(QtCharts::QChart::SeriesAnimations);
+	QtCharts::QBarCategoryAxis* axisX = new QtCharts::QBarCategoryAxis();
+	dataRepresentationChart->addAxis(axisX, Qt::AlignBottom);
+	barSeries->attachAxis(axisX);
+
+	QtCharts::QValueAxis* axisY = new QtCharts::QValueAxis();
+	axisY->setRange(0, 5);
+	dataRepresentationChart->addAxis(axisY, Qt::AlignLeft);
+	barSeries->attachAxis(axisY);
+	dataRepresentationChart->legend()->setVisible(true);
+	dataRepresentationChart->legend()->setAlignment(Qt::AlignBottom);
+	QtCharts::QChartView* chartView = new QtCharts::QChartView{ dataRepresentationChart };
+	chartView->setRenderHint(QPainter::Antialiasing);
+
+	return chartView;
+}
+
+QWidget* GUI::initializeWidgetDataRepresentation(){
+	QWidget* dataRepresentationWidget = new QWidget{};
+	QVBoxLayout* dataRepresentationLayout = new QVBoxLayout{ dataRepresentationWidget };
+	QToolBar* dataRepresentationToolbar = new QToolBar;
+	QtCharts::QChartView* chartView = createBarChart();
+
+	dataRepresentationToolbar->addAction(menuActionModeA);
+	dataRepresentationToolbar->addAction(menuActionModeB);
+	dataRepresentationToolbar->addAction(menuActionDataRepresentation);
+
+	dataRepresentationLayout->addWidget(dataRepresentationToolbar);
+	dataRepresentationLayout->addWidget(chartView);
+
+	return dataRepresentationWidget;
+}
+
 void GUI::changeToModeA(){
 	this->allWidgets->setCurrentIndex(MODE_A_WIDGET_INDEX);
 	this->populateVictimList();
@@ -130,6 +174,10 @@ void GUI::changeToModeA(){
 void GUI::changeToModeB(){
 	this->allWidgets->setCurrentIndex(MODE_B_WIDGET_INDEX);
 	this->populateMyList();
+}
+
+void GUI::changeToDataRepresentation(){
+	this->allWidgets->setCurrentIndex(DATA_REPRESENTATION_WIDGET_INDEX);
 }
 
 void GUI::displayErrorMessage(const std::string& errorMessage) {
@@ -268,9 +316,11 @@ void GUI::initializeGUI() {
 
 	QWidget* modeAWidget = initializeWidgetModeA(); // these functions need the QActions from the menu to be initialised
 	QWidget* modeBWidget = initializeWidgetModeB();
+	QWidget* dataRepresentationWidget = initializeWidgetDataRepresentation();
 
 	this->allWidgets->addWidget(modeAWidget);
 	this->allWidgets->addWidget(modeBWidget);
+	this->allWidgets->addWidget(dataRepresentationWidget);
 	mainLayout->addWidget(allWidgets);
 	setLayout(mainLayout);
 }
@@ -278,6 +328,8 @@ void GUI::initializeGUI() {
 void GUI::connectSignalsAndSlots(){
 	QObject::connect(this->menuActionModeA, &QAction::triggered, this, [this]() {this->changeToModeA(); });
 	QObject::connect(this->menuActionModeB, &QAction::triggered, this, [this]() {this->changeToModeB(); });
+	QObject::connect(this->menuActionDataRepresentation, &QAction::triggered, this, [this]() {this->changeToDataRepresentation(); });
+
 	QObject::connect(this->addVictimButton, &QPushButton::clicked, this, [this]() {this->addVictim(); });
 	QObject::connect(this->updateVictimButton, &QPushButton::clicked, this, [this]() {this->updateVictim(); });
 	QObject::connect(this->deleteVictimButton, &QPushButton::clicked, this, [this]() {this->deleteVictim(); });
@@ -335,7 +387,6 @@ GUI::GUI(){
 	this->initializeGUI();
 	this->connectSignalsAndSlots();
 
-	// have the program open with these default lists
 	this->actionController.setRepositoryFileLocation(DEFAULT_REPOSITORY_LOCATION);
 	this->actionController.setSavedVictimsFileLocation(DEFAULT_MYLIST_LOCATION);
 

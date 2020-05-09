@@ -1,14 +1,20 @@
 #pragma once
+#include "inputValidator.h"
+#include "controller.h"
 #include <qwidget.h>
 #include <QListWidget>
 #include <qpushbutton.h>
 #include <qlineedit.h>
 #include <QStackedWidget>
 #include <qtoolbar.h>
-#include "controller.h"
 #include <qtimer.h>
 #include <qlabel.h>
-#include "inputValidator.h"
+#include <QtCharts/qchart.h>
+#include <QtCharts/qbarseries.h>
+#include <QtCharts/qbarset.h>
+#include <QtCharts/qbarcategoryaxis.h>
+#include <QtCharts/qvalueaxis.h>
+#include <QtCharts/qchartview.h>
 
 class GUI : public QWidget{
 	private:
@@ -60,8 +66,11 @@ class GUI : public QWidget{
 
 		QWidget* initializeWidgetModeA();
 		QWidget* initializeWidgetModeB();
+		QtCharts::QChartView* createBarChart();
+		QWidget* initializeWidgetDataRepresentation();
 		void changeToModeA();
 		void changeToModeB();
+		void changeToDataRepresentation();
 
 		void displayErrorMessage(const std::string& errorMessage);
 		void removeErrorMessage();
