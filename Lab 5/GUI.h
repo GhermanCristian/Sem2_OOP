@@ -51,6 +51,7 @@ class GUI : public QWidget{
 
 		QListWidget* victimListWidget;
 		QListWidget* myListWidget;
+		QListWidget* filteredListWidget;
 
 		QLineEdit* lineEditVictimName;
 		QLineEdit* lineEditVictimPlace;

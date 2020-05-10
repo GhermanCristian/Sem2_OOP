@@ -68,7 +68,11 @@ QWidget* GUI::initializeWidgetModeA(){
 
 QWidget* GUI::initializeWidgetModeB(){
 	QWidget* modeBWidget = new QWidget;
-	QVBoxLayout* modeBLayout = new QVBoxLayout{ modeBWidget };
+	QWidget* leftSideWidget = new QWidget;
+
+	QVBoxLayout* leftSideLayout = new QVBoxLayout{ leftSideWidget };
+	QHBoxLayout* modeBLayout = new QHBoxLayout{ modeBWidget };
+
 	QToolBar* modeBToolbar = new QToolBar;
 
 	QLabel* labelSaveVictim = new QLabel{"&Victim's name:"};
@@ -109,15 +113,18 @@ QWidget* GUI::initializeWidgetModeB(){
 	labelMyListLocation->setBuddy(lineEditMyListLocation);
 	myListLocationLayout->addRow(labelMyListLocation, lineEditMyListLocation);
 
-	modeBLayout->addWidget(modeBToolbar);
-	modeBLayout->addWidget(this->myListWidget);
-	modeBLayout->addWidget(saveVictimWidget);
-	modeBLayout->addWidget(saveVictimButton);
-	modeBLayout->addWidget(filterVictimsWidget);
-	modeBLayout->addWidget(filterVictimsButton);
-	modeBLayout->addWidget(myListLocationWidget);
-	modeBLayout->addWidget(myListLocationButton);
-	modeBLayout->addWidget(this->labelErrorMessageModeB);
+	leftSideLayout->addWidget(modeBToolbar);
+	leftSideLayout->addWidget(this->myListWidget);
+	leftSideLayout->addWidget(saveVictimWidget);
+	leftSideLayout->addWidget(saveVictimButton);
+	leftSideLayout->addWidget(filterVictimsWidget);
+	leftSideLayout->addWidget(filterVictimsButton);
+	leftSideLayout->addWidget(myListLocationWidget);
+	leftSideLayout->addWidget(myListLocationButton);
+	leftSideLayout->addWidget(this->labelErrorMessageModeB);
+
+	modeBLayout->addWidget(leftSideWidget);
+	modeBLayout->addWidget(filteredListWidget);
 
 	return modeBWidget;
 }
@@ -175,12 +182,10 @@ QWidget* GUI::initializeWidgetDataRepresentation(){
 
 void GUI::changeToModeA(){
 	this->allWidgets->setCurrentIndex(MODE_A_WIDGET_INDEX);
-	//this->populateVictimList();
 }
 
 void GUI::changeToModeB(){
 	this->allWidgets->setCurrentIndex(MODE_B_WIDGET_INDEX);
-	//this->populateMyList();
 }
 
 void GUI::changeToDataRepresentation(){
@@ -240,7 +245,6 @@ void GUI::addVictim(){
 		this->actionController.addVictim(victimName, victimPlace, victimAge, victimPhotograph);
 		std::vector<Victim> allVictims = this->actionController.getAllVictims();
 		this->populateList(this->victimListWidget, allVictims);
-		//this->populateVictimList();
 		this->populateBarSeries();
 	}
 	catch (const std::exception& currentException) {
@@ -258,7 +262,6 @@ void GUI::updateVictim(){
 		this->actionController.updateVictim(newVictimName, newVictimPlace, newVictimAge, newVictimPhotograph);
 		std::vector<Victim> allVictims = this->actionController.getAllVictims();
 		this->populateList(this->victimListWidget, allVictims);
-		//this->populateVictimList();
 		this->populateBarSeries();
 	}
 	catch (const std::exception& currentException) {
@@ -272,7 +275,6 @@ void GUI::deleteVictim(){
 		this->actionController.deleteVictim(victimName);
 		std::vector<Victim> allVictims = this->actionController.getAllVictims();
 		this->populateList(this->victimListWidget, allVictims);
-		//this->populateVictimList();
 		this->populateBarSeries();
 	}
 	catch (const std::exception& currentException) {
@@ -286,7 +288,6 @@ void GUI::setFileLocation(){
 		this->actionController.setRepositoryFileLocation(fileLocation);
 		std::vector<Victim> allVictims = this->actionController.getAllVictims();
 		this->populateList(this->victimListWidget, allVictims);
-		//this->populateVictimList();
 		this->populateBarSeries();
 	}
 	catch (const std::exception& currentException) {
@@ -300,7 +301,6 @@ void GUI::saveVictim(){
 		this->actionController.saveVictim(victimName);
 		std::vector<Victim> savedVictims = this->actionController.getSavedVictims();
 		this->populateList(this->myListWidget, savedVictims);
-		//this->populateMyList();
 	}
 	catch (const std::exception& currentException) {
 		this->displayErrorMessage(currentException.what());
@@ -308,15 +308,27 @@ void GUI::saveVictim(){
 }
 
 void GUI::filterVictims(){
-	//
+	try {
+		std::string victimPlaceOfOrigin = this->lineEditFilterVictimPlace->text().toStdString();
+		int victimAge = this->inputValidator.generalNumberValidator(this->lineEditFilterVictimAge->text().toStdString());
+		std::vector<Victim> filteredVictims = this->actionController.getFilteredVictims(victimPlaceOfOrigin, victimAge);
+		this->populateList(this->filteredListWidget, filteredVictims);
+	}
+	catch (const std::exception& currentException) {
+		this->displayErrorMessage(currentException.what());
+	}
 }
 
 void GUI::setMyListLocation(){
-	std::string myListLocation = this->inputValidator.generalNonEmptyStringValidator(this->lineEditMyListLocation->text().toStdString());
-	this->actionController.setSavedVictimsFileLocation(myListLocation);
-	std::vector<Victim> savedVictims = this->actionController.getSavedVictims();
-	this->populateList(this->myListWidget, savedVictims);
-	//this->populateMyList();
+	try {
+		std::string myListLocation = this->inputValidator.generalNonEmptyStringValidator(this->lineEditMyListLocation->text().toStdString());
+		this->actionController.setSavedVictimsFileLocation(myListLocation);
+		std::vector<Victim> savedVictims = this->actionController.getSavedVictims();
+		this->populateList(this->myListWidget, savedVictims);
+	}
+	catch (const std::exception& currentException) {
+		this->displayErrorMessage(currentException.what());
+	}
 }
 
 void GUI::initializeGUI() {
@@ -332,6 +344,8 @@ void GUI::initializeGUI() {
 	this->victimListWidget->setSelectionMode(QAbstractItemView::SingleSelection);
 	this->myListWidget = new QListWidget{};
 	this->myListWidget->setSelectionMode(QAbstractItemView::SingleSelection);
+	this->filteredListWidget = new QListWidget{};
+	this->filteredListWidget->setSelectionMode(QAbstractItemView::SingleSelection);
 	this->labelErrorMessageModeA = new QLabel{};
 	this->labelErrorMessageModeB = new QLabel{};
 	this->errorMessageTimer = new QTimer{};
@@ -407,8 +421,6 @@ GUI::GUI(){
 
 	std::vector<Victim> allVictims = this->actionController.getAllVictims();
 	this->populateList(this->victimListWidget, allVictims);
-	//this->populateVictimList();
 	std::vector<Victim> savedVictims = this->actionController.getSavedVictims();
 	this->populateList(this->myListWidget, savedVictims);
-	//this->populateMyList();
 }
