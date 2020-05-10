@@ -238,7 +238,9 @@ void GUI::addVictim(){
 		std::string victimPhotograph = this->inputValidator.generalNonEmptyStringValidator(this->lineEditVictimPhotograph->text().toStdString());
 
 		this->actionController.addVictim(victimName, victimPlace, victimAge, victimPhotograph);
-		this->populateVictimList();
+		std::vector<Victim> allVictims = this->actionController.getAllVictims();
+		this->populateList(this->victimListWidget, allVictims);
+		//this->populateVictimList();
 		this->populateBarSeries();
 	}
 	catch (const std::exception& currentException) {
@@ -254,7 +256,9 @@ void GUI::updateVictim(){
 		std::string newVictimPhotograph = this->inputValidator.generalNonEmptyStringValidator(this->lineEditVictimPhotograph->text().toStdString());
 
 		this->actionController.updateVictim(newVictimName, newVictimPlace, newVictimAge, newVictimPhotograph);
-		this->populateVictimList();
+		std::vector<Victim> allVictims = this->actionController.getAllVictims();
+		this->populateList(this->victimListWidget, allVictims);
+		//this->populateVictimList();
 		this->populateBarSeries();
 	}
 	catch (const std::exception& currentException) {
@@ -266,7 +270,9 @@ void GUI::deleteVictim(){
 	try {
 		std::string victimName = this->inputValidator.generalNonEmptyStringValidator(this->lineEditVictimName->text().toStdString());
 		this->actionController.deleteVictim(victimName);
-		this->populateVictimList();
+		std::vector<Victim> allVictims = this->actionController.getAllVictims();
+		this->populateList(this->victimListWidget, allVictims);
+		//this->populateVictimList();
 		this->populateBarSeries();
 	}
 	catch (const std::exception& currentException) {
@@ -278,7 +284,9 @@ void GUI::setFileLocation(){
 	try {
 		std::string fileLocation = this->inputValidator.generalNonEmptyStringValidator(this->lineEditFileLocation->text().toStdString());
 		this->actionController.setRepositoryFileLocation(fileLocation);
-		this->populateVictimList();
+		std::vector<Victim> allVictims = this->actionController.getAllVictims();
+		this->populateList(this->victimListWidget, allVictims);
+		//this->populateVictimList();
 		this->populateBarSeries();
 	}
 	catch (const std::exception& currentException) {
@@ -290,7 +298,9 @@ void GUI::saveVictim(){
 	try {
 		std::string victimName = this->inputValidator.generalNonEmptyStringValidator(this->lineEditSaveVictim->text().toStdString());
 		this->actionController.saveVictim(victimName);
-		this->populateMyList();
+		std::vector<Victim> savedVictims = this->actionController.getSavedVictims();
+		this->populateList(this->myListWidget, savedVictims);
+		//this->populateMyList();
 	}
 	catch (const std::exception& currentException) {
 		this->displayErrorMessage(currentException.what());
@@ -304,7 +314,9 @@ void GUI::filterVictims(){
 void GUI::setMyListLocation(){
 	std::string myListLocation = this->inputValidator.generalNonEmptyStringValidator(this->lineEditMyListLocation->text().toStdString());
 	this->actionController.setSavedVictimsFileLocation(myListLocation);
-	this->populateMyList();
+	std::vector<Victim> savedVictims = this->actionController.getSavedVictims();
+	this->populateList(this->myListWidget, savedVictims);
+	//this->populateMyList();
 }
 
 void GUI::initializeGUI() {
@@ -354,43 +366,22 @@ void GUI::connectSignalsAndSlots(){
 	QObject::connect(this->victimListWidget, &QListWidget::itemSelectionChanged, this, [this]() {this->changedVictimInList(); });
 }
 
-void GUI::populateVictimList(){
+void GUI::populateList(QListWidget* listWidget, const std::vector<Victim>& victimList){
 	QFont listFont{ QString::fromStdString(LIST_FONT_NAME), LIST_FONT_SIZE };
 
-	if (this->victimListWidget->count() > 0) {
-		this->victimListWidget->clear();
+	if (listWidget->count() > 0) {
+		listWidget->clear();
 	}
 
-	std::vector <Victim> allVictims = this->actionController.getAllVictims();
-	for (auto currentVictim : allVictims) {
+	for (auto currentVictim : victimList) {
 		QString victimText = QString::fromStdString(currentVictim.getCSVRepresentation());
 		QListWidgetItem* victimItem = new QListWidgetItem{ victimText };
 		victimItem->setFont(listFont);
-		this->victimListWidget->addItem(victimItem);
+		listWidget->addItem(victimItem);
 	}
 
-	if (this->victimListWidget->count() > 0) {
-		this->victimListWidget->setCurrentRow(FIRST_ROW_INDEX);
-	}
-}
-
-void GUI::populateMyList(){
-	QFont listFont{ QString::fromStdString(LIST_FONT_NAME), LIST_FONT_SIZE }; // TO-DO: use constants
-
-	if (this->myListWidget->count() > 0) {
-		this->myListWidget->clear();
-	}
-
-	std::vector <Victim> savedVictims = this->actionController.getSavedVictims();
-	for (auto currentVictim : savedVictims) {
-		QString victimText = QString::fromStdString(currentVictim.getCSVRepresentation());
-		QListWidgetItem* victimItem = new QListWidgetItem{ victimText };
-		victimItem->setFont(listFont);
-		this->myListWidget->addItem(victimItem);
-	}
-
-	if (this->myListWidget->count() > 0) {
-		this->myListWidget->setCurrentRow(FIRST_ROW_INDEX);
+	if (listWidget->count() > 0) {
+		listWidget->setCurrentRow(FIRST_ROW_INDEX);
 	}
 }
 
@@ -414,6 +405,10 @@ GUI::GUI(){
 	this->initializeGUI();
 	this->connectSignalsAndSlots();
 
-	this->populateVictimList();
-	this->populateMyList();
+	std::vector<Victim> allVictims = this->actionController.getAllVictims();
+	this->populateList(this->victimListWidget, allVictims);
+	//this->populateVictimList();
+	std::vector<Victim> savedVictims = this->actionController.getSavedVictims();
+	this->populateList(this->myListWidget, savedVictims);
+	//this->populateMyList();
 }

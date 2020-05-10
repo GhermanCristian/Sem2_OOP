@@ -100,8 +100,7 @@ class GUI : public QWidget{
 
 		void initializeGUI();
 		void connectSignalsAndSlots();
-		void populateVictimList();
-		void populateMyList();
+		void populateList(QListWidget* listWidget, const std::vector<Victim>& victimList);
 		void populateBarSeries();
 
 	public:
