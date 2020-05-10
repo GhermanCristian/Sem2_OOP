@@ -123,25 +123,32 @@ QWidget* GUI::initializeWidgetModeB(){
 }
 
 QtCharts::QChartView* GUI::createBarChart(){
-	QtCharts::QBarSet* set1 = new QtCharts::QBarSet("name 1");
-	QtCharts::QBarSet* set2 = new QtCharts::QBarSet("name 2");
-	*set1 << 1;
-	*set2 << 1.5;
-	QtCharts::QBarSeries* barSeries = new QtCharts::QBarSeries;
-	barSeries->append(set1);
-	barSeries->append(set2);
 	QtCharts::QChart* dataRepresentationChart = new QtCharts::QChart;
+	QFont* axisTitleFont = new QFont{ QString::fromStdString(AXIS_TITLE_FONT_NAME), AXIS_TITLE_FONT_SIZE };
+	QFont* chartTitleFont = new QFont{ QString::fromStdString(CHART_TITLE_FONT_NAME), CHART_TITLE_FONT_SIZE };
+	QFont* axisLabelFont = new QFont{ QString::fromStdString(AXIS_LABEL_FONT_NAME), AXIS_LABEL_FONT_SIZE };
+	QFont* legendFont = new QFont{ QString::fromStdString(LEGEND_FONT_NAME), LEGEND_FONT_SIZE };
+
+	const int AXIS_MINIMUM_VALUE = 0;
+	const int AXIS_MAXIMUM_VALUE = 5;
+
+	this->barSeries = new QtCharts::QBarSeries;
+	this->populateBarSeries();
+	
 	dataRepresentationChart->addSeries(barSeries);
 	dataRepresentationChart->setTitle("Victims by place of origin");
 	dataRepresentationChart->setAnimationOptions(QtCharts::QChart::SeriesAnimations);
-	QtCharts::QBarCategoryAxis* axisX = new QtCharts::QBarCategoryAxis();
-	dataRepresentationChart->addAxis(axisX, Qt::AlignBottom);
-	barSeries->attachAxis(axisX);
 
 	QtCharts::QValueAxis* axisY = new QtCharts::QValueAxis();
-	axisY->setRange(0, 5);
+	axisY->setRange(AXIS_MINIMUM_VALUE, AXIS_MAXIMUM_VALUE);
+	axisY->setLabelsFont(*axisLabelFont);
+	axisY->setTitleText("Number of victims");
+	axisY->setTitleFont(*axisTitleFont);
+	axisY->applyNiceNumbers();
 	dataRepresentationChart->addAxis(axisY, Qt::AlignLeft);
 	barSeries->attachAxis(axisY);
+	dataRepresentationChart->setTitleFont(*chartTitleFont);
+	dataRepresentationChart->legend()->setFont(*legendFont);
 	dataRepresentationChart->legend()->setVisible(true);
 	dataRepresentationChart->legend()->setAlignment(Qt::AlignBottom);
 	QtCharts::QChartView* chartView = new QtCharts::QChartView{ dataRepresentationChart };
@@ -168,12 +175,12 @@ QWidget* GUI::initializeWidgetDataRepresentation(){
 
 void GUI::changeToModeA(){
 	this->allWidgets->setCurrentIndex(MODE_A_WIDGET_INDEX);
-	this->populateVictimList();
+	//this->populateVictimList();
 }
 
 void GUI::changeToModeB(){
 	this->allWidgets->setCurrentIndex(MODE_B_WIDGET_INDEX);
-	this->populateMyList();
+	//this->populateMyList();
 }
 
 void GUI::changeToDataRepresentation(){
@@ -193,7 +200,7 @@ void GUI::removeErrorMessage(){
 
 int GUI::getCurrentIndexInVictimList(){
 	if (this->victimListWidget->count() == 0) {
-		return -1;
+		return LIST_INDEX_ERROR_CODE;
 	}
 
 	const int FIRST_INDEX_LIST_POSITION = 0;
@@ -203,7 +210,7 @@ int GUI::getCurrentIndexInVictimList(){
 		this->lineEditVictimPlace->clear();
 		this->lineEditVictimAge->clear();
 		this->lineEditVictimPhotograph->clear();
-		return -1;
+		return LIST_INDEX_ERROR_CODE;
 	}
 
 	return victimIndex.at(FIRST_INDEX_LIST_POSITION).row();
@@ -213,7 +220,7 @@ void GUI::changedVictimInList(){
 	int victimIndex = getCurrentIndexInVictimList();
 	std::vector <Victim> allVictims = this->actionController.getAllVictims();
 
-	if (victimIndex == -1 || victimIndex >= allVictims.size()) {
+	if (victimIndex == LIST_INDEX_ERROR_CODE || victimIndex >= allVictims.size()) {
 		return;
 	}
 
@@ -232,6 +239,7 @@ void GUI::addVictim(){
 
 		this->actionController.addVictim(victimName, victimPlace, victimAge, victimPhotograph);
 		this->populateVictimList();
+		this->populateBarSeries();
 	}
 	catch (const std::exception& currentException) {
 		this->displayErrorMessage(currentException.what());
@@ -247,6 +255,7 @@ void GUI::updateVictim(){
 
 		this->actionController.updateVictim(newVictimName, newVictimPlace, newVictimAge, newVictimPhotograph);
 		this->populateVictimList();
+		this->populateBarSeries();
 	}
 	catch (const std::exception& currentException) {
 		this->displayErrorMessage(currentException.what());
@@ -258,6 +267,7 @@ void GUI::deleteVictim(){
 		std::string victimName = this->inputValidator.generalNonEmptyStringValidator(this->lineEditVictimName->text().toStdString());
 		this->actionController.deleteVictim(victimName);
 		this->populateVictimList();
+		this->populateBarSeries();
 	}
 	catch (const std::exception& currentException) {
 		this->displayErrorMessage(currentException.what());
@@ -269,6 +279,7 @@ void GUI::setFileLocation(){
 		std::string fileLocation = this->inputValidator.generalNonEmptyStringValidator(this->lineEditFileLocation->text().toStdString());
 		this->actionController.setRepositoryFileLocation(fileLocation);
 		this->populateVictimList();
+		this->populateBarSeries();
 	}
 	catch (const std::exception& currentException) {
 		this->displayErrorMessage(currentException.what());
@@ -383,12 +394,25 @@ void GUI::populateMyList(){
 	}
 }
 
-GUI::GUI(){
-	this->initializeGUI();
-	this->connectSignalsAndSlots();
+void GUI::populateBarSeries(){
+	if (this->barSeries->count() > 0) {
+		this->barSeries->clear();
+	}
 
+	std::map<std::string, int> victimCountByPlaceOfOrigin = this->actionController.getVictimCountByPlaceOfOrigin();
+	for (auto currentPlaceOfOrigin : victimCountByPlaceOfOrigin) {
+		QtCharts::QBarSet* barSet = new QtCharts::QBarSet(QString::fromStdString(currentPlaceOfOrigin.first));
+		*barSet << currentPlaceOfOrigin.second;
+		barSeries->append(barSet);
+	}
+}
+
+GUI::GUI(){
 	this->actionController.setRepositoryFileLocation(DEFAULT_REPOSITORY_LOCATION);
 	this->actionController.setSavedVictimsFileLocation(DEFAULT_MYLIST_LOCATION);
+
+	this->initializeGUI();
+	this->connectSignalsAndSlots();
 
 	this->populateVictimList();
 	this->populateMyList();

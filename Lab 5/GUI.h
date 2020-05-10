@@ -1,6 +1,7 @@
 #pragma once
 #include "inputValidator.h"
 #include "controller.h"
+#include <map>
 #include <qwidget.h>
 #include <QListWidget>
 #include <qpushbutton.h>
@@ -27,8 +28,17 @@ class GUI : public QWidget{
 
 		const std::string LIST_FONT_NAME = "Arial";
 		const int LIST_FONT_SIZE = 11;
+		const std::string AXIS_TITLE_FONT_NAME = "Arial";
+		const int AXIS_TITLE_FONT_SIZE = 14;
+		const std::string CHART_TITLE_FONT_NAME = "Verdana";
+		const int CHART_TITLE_FONT_SIZE = 14;
+		const std::string AXIS_LABEL_FONT_NAME = "Arial";
+		const int AXIS_LABEL_FONT_SIZE = 14;
+		const std::string LEGEND_FONT_NAME = "Candara";
+		const int LEGEND_FONT_SIZE = 14;
 
 		const int FIRST_ROW_INDEX = 0;
+		const int LIST_INDEX_ERROR_CODE = -1;
 
 		Controller actionController;
 		InputValidator inputValidator;
@@ -64,6 +74,8 @@ class GUI : public QWidget{
 		QLabel* labelErrorMessageModeB;
 		QTimer* errorMessageTimer;
 
+		QtCharts::QBarSeries* barSeries;
+
 		QWidget* initializeWidgetModeA();
 		QWidget* initializeWidgetModeB();
 		QtCharts::QChartView* createBarChart();
@@ -90,6 +102,7 @@ class GUI : public QWidget{
 		void connectSignalsAndSlots();
 		void populateVictimList();
 		void populateMyList();
+		void populateBarSeries();
 
 	public:
 		GUI();

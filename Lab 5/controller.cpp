@@ -112,6 +112,22 @@ std::string Controller::getMylistPath(){
 	return this->mylistFilePath;
 }
 
+std::map<std::string, int> Controller::getVictimCountByPlaceOfOrigin(){
+	std::map<std::string, int> victimsByPlaceOfOrigin;
+	std::vector<Victim> allVictims = this->victimRepository->getAllEntries();
+
+	for (auto currentVictim : allVictims) {
+		if (victimsByPlaceOfOrigin.count(currentVictim.getPlaceOfOrigin()) > 0) {
+			victimsByPlaceOfOrigin[currentVictim.getPlaceOfOrigin()]++;
+		}
+		else {
+			victimsByPlaceOfOrigin[currentVictim.getPlaceOfOrigin()] = 1;
+		}
+	}
+
+	return victimsByPlaceOfOrigin;
+}
+
 Controller::~Controller() {
 	delete this->victimRepository;
 	delete this->savedVictims;

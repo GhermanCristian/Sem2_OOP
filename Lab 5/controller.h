@@ -1,4 +1,5 @@
 #pragma once
+#include <map>
 #include "memoryRepository.h"
 #include "CSVRepository.h"
 #include "HTMLRepository.h"
@@ -159,6 +160,8 @@ class Controller {
 			Throws:
 				- None
 		*/
+
+		std::map<std::string, int> getVictimCountByPlaceOfOrigin();
 
 		~Controller();
 		/*
