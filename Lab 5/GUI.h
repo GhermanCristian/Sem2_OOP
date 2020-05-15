@@ -22,6 +22,8 @@ class GUI : public QWidget{
 		const int MODE_B_WIDGET_INDEX = 1;
 		const int DATA_REPRESENTATION_WIDGET_INDEX = 2;
 		const int ERROR_MESSAGE_DISPLAY_TIME = 2000; // in miliseconds
+		const int FILTERED_LIST_WIDGET_HEIGHT = 400;
+		const int NEXT_VICTIM_LABEL_HEIGHT = 50;
 
 		const std::string LIST_FONT_NAME = "Arial";
 		const int LIST_FONT_SIZE = 11;
@@ -64,9 +66,12 @@ class GUI : public QWidget{
 		QPushButton* updateVictimButton;
 		QPushButton* deleteVictimButton;
 		QPushButton* fileLocationButton;
+		QPushButton* nextVictimButton;
 		QPushButton* saveVictimButton;
 		QPushButton* filterVictimsButton;
 		QPushButton* myListLocationButton;
+
+		QLabel* nextVictimLabel;
 
 		QLabel* labelErrorMessageModeA;
 		QLabel* labelErrorMessageModeB;
@@ -92,6 +97,7 @@ class GUI : public QWidget{
 		void updateVictim();
 		void deleteVictim();
 		void setFileLocation();
+		void nextVictim();
 		void saveVictim();
 		void filterVictims();
 		void setMyListLocation();

@@ -93,6 +93,11 @@ QWidget* GUI::initializeWidgetModeB(){
 	modeBToolbar->addAction(menuActionModeB);
 	modeBToolbar->addAction(menuActionDataRepresentation);
 
+	this->nextVictimLabel = new QLabel{};
+	this->nextVictimLabel->setFixedHeight(NEXT_VICTIM_LABEL_HEIGHT);
+	this->nextVictimLabel->setFont(QFont(QString::fromStdString(LIST_FONT_NAME), LIST_FONT_SIZE));
+
+	this->nextVictimButton = new QPushButton{ "Next victim" };
 	this->saveVictimButton = new QPushButton{ "Save victim" };
 	this->filterVictimsButton = new QPushButton{ "Filter victims" };
 	this->myListLocationButton = new QPushButton{ "Set myList location" };
@@ -115,6 +120,8 @@ QWidget* GUI::initializeWidgetModeB(){
 
 	leftSideLayout->addWidget(modeBToolbar);
 	leftSideLayout->addWidget(this->myListWidget);
+	leftSideLayout->addWidget(this->nextVictimLabel);
+	leftSideLayout->addWidget(this->nextVictimButton);
 	leftSideLayout->addWidget(saveVictimWidget);
 	leftSideLayout->addWidget(saveVictimButton);
 	leftSideLayout->addWidget(filterVictimsWidget);
@@ -124,7 +131,7 @@ QWidget* GUI::initializeWidgetModeB(){
 	leftSideLayout->addWidget(this->labelErrorMessageModeB);
 
 	modeBLayout->addWidget(leftSideWidget);
-	modeBLayout->addWidget(filteredListWidget);
+	modeBLayout->addWidget(this->filteredListWidget);
 
 	return modeBWidget;
 }
@@ -295,6 +302,17 @@ void GUI::setFileLocation(){
 	}
 }
 
+void GUI::nextVictim(){
+	try {
+		Victim currentVictim = this->actionController.getNextVictim();
+		this->nextVictimLabel->setText(QString::fromStdString(currentVictim.getCSVRepresentation()));
+		this->lineEditSaveVictim->setText(QString::fromStdString(currentVictim.getName()));
+	}
+	catch (const std::exception& currentException) {
+		this->displayErrorMessage(currentException.what());
+	}
+}
+
 void GUI::saveVictim(){
 	try {
 		std::string victimName = this->inputValidator.generalNonEmptyStringValidator(this->lineEditSaveVictim->text().toStdString());
@@ -346,6 +364,7 @@ void GUI::initializeGUI() {
 	this->myListWidget->setSelectionMode(QAbstractItemView::SingleSelection);
 	this->filteredListWidget = new QListWidget{};
 	this->filteredListWidget->setSelectionMode(QAbstractItemView::SingleSelection);
+	this->filteredListWidget->setFixedHeight(FILTERED_LIST_WIDGET_HEIGHT);
 	this->labelErrorMessageModeA = new QLabel{};
 	this->labelErrorMessageModeB = new QLabel{};
 	this->errorMessageTimer = new QTimer{};
@@ -371,6 +390,7 @@ void GUI::connectSignalsAndSlots(){
 	QObject::connect(this->updateVictimButton, &QPushButton::clicked, this, [this]() {this->updateVictim(); });
 	QObject::connect(this->deleteVictimButton, &QPushButton::clicked, this, [this]() {this->deleteVictim(); });
 	QObject::connect(this->fileLocationButton, &QPushButton::clicked, this, [this]() {this->setFileLocation(); });
+	QObject::connect(this->nextVictimButton, &QPushButton::clicked, this, [this]() {this->nextVictim(); });
 	QObject::connect(this->saveVictimButton, &QPushButton::clicked, this, [this]() {this->saveVictim(); });
 	QObject::connect(this->filterVictimsButton, &QPushButton::clicked, this, [this]() {this->filterVictims(); });
 	QObject::connect(this->myListLocationButton, &QPushButton::clicked, this, [this]() {this->setMyListLocation(); });
