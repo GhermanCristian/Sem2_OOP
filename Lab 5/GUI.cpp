@@ -400,6 +400,8 @@ void GUI::populateList(QListWidget* listWidget, const std::vector<Victim>& victi
 }
 
 void GUI::populateBarSeries(){
+	// found a bug with this when creating a new bar from scratch <=> empty starting repo
+	// (so basically in_memory)
 	if (this->barSeries->count() > 0) {
 		this->barSeries->clear();
 	}
@@ -408,14 +410,14 @@ void GUI::populateBarSeries(){
 	for (auto currentPlaceOfOrigin : victimCountByPlaceOfOrigin) {
 		QtCharts::QBarSet* barSet = new QtCharts::QBarSet(QString::fromStdString(currentPlaceOfOrigin.first));
 		*barSet << currentPlaceOfOrigin.second;
-		barSeries->append(barSet);
+		this->barSeries->append(barSet);
 	}
 }
 
 GUI::GUI(){
-	this->actionController.setRepositoryFileLocation(DEFAULT_REPOSITORY_LOCATION);
-	this->actionController.setSavedVictimsFileLocation(DEFAULT_MYLIST_LOCATION);
-
+	// the repository locations need to be set before calling initialize GUI
+	// right now they are loaded at run-time from a file
+	// if that changes, we can go back to calling setRepositoryLocation and setMyListLocation with default values
 	this->initializeGUI();
 	this->connectSignalsAndSlots();
 

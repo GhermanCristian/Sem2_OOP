@@ -2,12 +2,46 @@
 #include <iostream>
 
 Controller::Controller() {
-	this->victimRepository = new MemoryRepository();
-	this->savedVictims = new MemoryRepository();
+	this->loadRepositoryType();
 
 	this->TXT_FILE_EXTENSION = ".txt";
 	this->CSV_FILE_EXTENSION = ".csv";
 	this->HTML_FILE_EXTENSION = ".html";
+}
+
+void Controller::loadRepositoryType(){
+	const std::string CONFIGURATION_FILE_LOCATION = "settings.properties";
+	const std::string DEFAULT_REPOSITORY_CSV_LOCATION = "data.txt";
+	const std::string DEFAULT_MYLIST_CSV_LOCATION = "mylist.txt";
+	const std::string DEFAULT_REPOSITORY_HTML_LOCATION = "data.html";
+	const std::string DEFAULT_MYLIST_HTML_LOCATION = "mylist.html";
+	std::fstream inputStream(CONFIGURATION_FILE_LOCATION);
+	std::string currentLine;
+
+	// we skip over the comment lines <=> those which begin with ';'
+	while (std::getline(inputStream, currentLine)) {
+		if (currentLine.front() != ';') {
+			break; 
+		}
+	}
+
+	if (currentLine.find("html") != std::string::npos) {
+		this->victimRepository = new HTMLRepository(DEFAULT_REPOSITORY_HTML_LOCATION);
+		this->savedVictims = new HTMLRepository(DEFAULT_MYLIST_HTML_LOCATION);
+	}
+
+	else if (currentLine.find("csv") != std::string::npos) {
+		this->victimRepository = new CSVRepository(DEFAULT_REPOSITORY_CSV_LOCATION);
+		this->savedVictims = new CSVRepository(DEFAULT_MYLIST_CSV_LOCATION);
+	}
+
+	// in_memory, or if the configuration file is corrupted
+	else {
+		this->victimRepository = new MemoryRepository();
+		this->savedVictims = new MemoryRepository();
+	}
+
+	inputStream.close();
 }
 
 std::string Controller::getFileExtension(const std::string& fileLocation){

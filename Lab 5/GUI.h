@@ -1,7 +1,6 @@
 #pragma once
 #include "inputValidator.h"
 #include "controller.h"
-#include <map>
 #include <qwidget.h>
 #include <QListWidget>
 #include <qpushbutton.h>
@@ -19,12 +18,10 @@
 
 class GUI : public QWidget{
 	private:
-		const std::string DEFAULT_REPOSITORY_LOCATION = "data.txt";
-		const std::string DEFAULT_MYLIST_LOCATION = "mylist.txt";
 		const int MODE_A_WIDGET_INDEX = 0;
 		const int MODE_B_WIDGET_INDEX = 1;
 		const int DATA_REPRESENTATION_WIDGET_INDEX = 2;
-		const int ERROR_MESSAGE_DISPLAY_TIME = 2000;
+		const int ERROR_MESSAGE_DISPLAY_TIME = 2000; // in miliseconds
 
 		const std::string LIST_FONT_NAME = "Arial";
 		const int LIST_FONT_SIZE = 11;

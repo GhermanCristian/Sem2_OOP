@@ -28,6 +28,17 @@ class Controller {
 				- ValidationException, if the fileLocation is invalid
 		*/
 
+		void loadRepositoryType();
+		/*
+			
+			Input:
+				-
+			Output:
+				-
+			Throws:
+				-
+		*/
+
 	public:
 		Controller();
 		/*
@@ -162,6 +173,15 @@ class Controller {
 		*/
 
 		std::map<std::string, int> getVictimCountByPlaceOfOrigin();
+		/*
+			Filters all victims by their place of origin
+			Input:
+				- None
+			Output:
+				- Each location is associated an integer, representing the number of victims from that location
+			Throws:
+				- None
+		*/
 
 		~Controller();
 		/*
