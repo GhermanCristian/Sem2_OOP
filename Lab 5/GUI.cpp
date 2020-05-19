@@ -63,6 +63,11 @@ QWidget* GUI::initializeWidgetModeA(){
 	modeALayout->addWidget(this->fileLocationButton);
 	modeALayout->addWidget(this->labelErrorMessageModeA);
 
+	if (this->actionController.isInMemoryRepository() == true) {
+		fileLocationAreaWidget->hide();
+		fileLocationButton->hide();
+	}
+
 	return modeAWidget;
 }
 
@@ -132,6 +137,11 @@ QWidget* GUI::initializeWidgetModeB(){
 
 	modeBLayout->addWidget(leftSideWidget);
 	modeBLayout->addWidget(this->filteredListWidget);
+
+	if (this->actionController.isInMemoryRepository() == true) {
+		myListLocationWidget->hide();
+		myListLocationButton->hide();
+	}
 
 	return modeBWidget;
 }

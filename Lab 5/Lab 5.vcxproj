@@ -131,6 +131,15 @@
     <ClInclude Include="victim.h" />
     <ClInclude Include="victimIterator.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="data.html" />
+    <None Include="mylist.html" />
+    <None Include="settings.properties" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="data.txt" />
+    <Text Include="mylist.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
     <Import Project="$(QtMsBuild)\qt.targets" />

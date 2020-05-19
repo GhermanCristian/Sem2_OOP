@@ -18,6 +18,8 @@ void Controller::loadRepositoryType(){
 	std::fstream inputStream(CONFIGURATION_FILE_LOCATION);
 	std::string currentLine;
 
+	this->isMemoryRepository = false;
+
 	// we skip over the comment lines <=> those which begin with ';'
 	while (std::getline(inputStream, currentLine)) {
 		if (currentLine.front() != ';') {
@@ -37,6 +39,7 @@ void Controller::loadRepositoryType(){
 
 	// in_memory, or if the configuration file is corrupted
 	else {
+		this->isMemoryRepository = true;
 		this->victimRepository = new MemoryRepository();
 		this->savedVictims = new MemoryRepository();
 	}
@@ -160,6 +163,10 @@ std::map<std::string, int> Controller::getVictimCountByPlaceOfOrigin(){
 	}
 
 	return victimsByPlaceOfOrigin;
+}
+
+bool Controller::isInMemoryRepository(){
+	return this->isMemoryRepository;
 }
 
 Controller::~Controller() {

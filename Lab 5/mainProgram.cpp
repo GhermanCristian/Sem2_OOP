@@ -12,6 +12,7 @@ int main(int argc, char** argv) {
 
 	QApplication a(argc, argv);
 	GUI userInterface;
+	userInterface.setWindowTitle("Mihai Traistariu");
 	userInterface.show();
 	return a.exec();
 }

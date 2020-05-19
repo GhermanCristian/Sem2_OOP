@@ -179,4 +179,23 @@
       <Filter>Header Files\Interface</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="data.html">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="mylist.html">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="settings.properties">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="data.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="mylist.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+  </ItemGroup>
 </Project>
