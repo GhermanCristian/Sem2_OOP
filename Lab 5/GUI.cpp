@@ -2,6 +2,7 @@
 #include <qboxlayout.h>
 #include <QFormLayout>
 #include <qdebug.h>
+#include <Windows.h>
 
 QWidget* GUI::initializeWidgetModeA(){
 	QWidget* modeAWidget = new QWidget;
@@ -106,6 +107,7 @@ QWidget* GUI::initializeWidgetModeB(){
 	this->saveVictimButton = new QPushButton{ "Save victim" };
 	this->filterVictimsButton = new QPushButton{ "Filter victims" };
 	this->myListLocationButton = new QPushButton{ "Set myList location" };
+	this->openExternalProgramButton = new QPushButton{ "Open with external application" };
 
 	this->lineEditSaveVictim = new QLineEdit{};
 	this->lineEditFilterVictimPlace = new QLineEdit{};
@@ -130,9 +132,10 @@ QWidget* GUI::initializeWidgetModeB(){
 	leftSideLayout->addWidget(saveVictimWidget);
 	leftSideLayout->addWidget(saveVictimButton);
 	leftSideLayout->addWidget(filterVictimsWidget);
-	leftSideLayout->addWidget(filterVictimsButton);
+	leftSideLayout->addWidget(this->filterVictimsButton);
 	leftSideLayout->addWidget(myListLocationWidget);
-	leftSideLayout->addWidget(myListLocationButton);
+	leftSideLayout->addWidget(this->myListLocationButton);
+	leftSideLayout->addWidget(this->openExternalProgramButton);
 	leftSideLayout->addWidget(this->labelErrorMessageModeB);
 
 	modeBLayout->addWidget(leftSideWidget);
@@ -140,7 +143,8 @@ QWidget* GUI::initializeWidgetModeB(){
 
 	if (this->actionController.isInMemoryRepository() == true) {
 		myListLocationWidget->hide();
-		myListLocationButton->hide();
+		this->myListLocationButton->hide();
+		this->openExternalProgramButton->hide();
 	}
 
 	return modeBWidget;
@@ -359,6 +363,10 @@ void GUI::setMyListLocation(){
 	}
 }
 
+void GUI::openExternalProgram(){
+	ShellExecuteA(NULL, "open", this->actionController.getMylistPath().c_str(), NULL, NULL, SW_SHOWNORMAL);
+}
+
 void GUI::initializeGUI() {
 	QWidget* mainWidget = new QWidget;
 	QVBoxLayout* mainLayout = new QVBoxLayout;
@@ -404,6 +412,7 @@ void GUI::connectSignalsAndSlots(){
 	QObject::connect(this->saveVictimButton, &QPushButton::clicked, this, [this]() {this->saveVictim(); });
 	QObject::connect(this->filterVictimsButton, &QPushButton::clicked, this, [this]() {this->filterVictims(); });
 	QObject::connect(this->myListLocationButton, &QPushButton::clicked, this, [this]() {this->setMyListLocation(); });
+	QObject::connect(this->openExternalProgramButton, &QPushButton::clicked, this, [this]() {this->openExternalProgram(); });
 
 	QObject::connect(this->errorMessageTimer, &QTimer::timeout, this, [this]() {this->removeErrorMessage(); });
 

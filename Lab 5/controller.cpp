@@ -30,11 +30,13 @@ void Controller::loadRepositoryType(){
 	if (currentLine.find("html") != std::string::npos) {
 		this->victimRepository = new HTMLRepository(DEFAULT_REPOSITORY_HTML_LOCATION);
 		this->savedVictims = new HTMLRepository(DEFAULT_MYLIST_HTML_LOCATION);
+		this->mylistFilePath = DEFAULT_MYLIST_HTML_LOCATION;
 	}
 
 	else if (currentLine.find("csv") != std::string::npos) {
 		this->victimRepository = new CSVRepository(DEFAULT_REPOSITORY_CSV_LOCATION);
 		this->savedVictims = new CSVRepository(DEFAULT_MYLIST_CSV_LOCATION);
+		this->mylistFilePath = DEFAULT_MYLIST_CSV_LOCATION;
 	}
 
 	// in_memory, or if the configuration file is corrupted

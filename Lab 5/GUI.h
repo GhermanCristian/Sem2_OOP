@@ -70,6 +70,7 @@ class GUI : public QWidget{
 		QPushButton* saveVictimButton;
 		QPushButton* filterVictimsButton;
 		QPushButton* myListLocationButton;
+		QPushButton* openExternalProgramButton;
 
 		QLabel* nextVictimLabel;
 
@@ -101,6 +102,7 @@ class GUI : public QWidget{
 		void saveVictim();
 		void filterVictims();
 		void setMyListLocation();
+		void openExternalProgram();
 
 		void initializeGUI();
 		void connectSignalsAndSlots();
