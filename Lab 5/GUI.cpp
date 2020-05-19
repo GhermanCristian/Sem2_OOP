@@ -400,23 +400,23 @@ void GUI::initializeGUI() {
 }
 
 void GUI::connectSignalsAndSlots(){
-	QObject::connect(this->menuActionModeA, &QAction::triggered, this, [this]() {this->changeToModeA(); });
-	QObject::connect(this->menuActionModeB, &QAction::triggered, this, [this]() {this->changeToModeB(); });
-	QObject::connect(this->menuActionDataRepresentation, &QAction::triggered, this, [this]() {this->changeToDataRepresentation(); });
+	QObject::connect(this->menuActionModeA, &QAction::triggered, this, &GUI::changeToModeA);
+	QObject::connect(this->menuActionModeB, &QAction::triggered, this, &GUI::changeToModeB);
+	QObject::connect(this->menuActionDataRepresentation, &QAction::triggered, this, &GUI::changeToDataRepresentation);
 
-	QObject::connect(this->addVictimButton, &QPushButton::clicked, this, [this]() {this->addVictim(); });
-	QObject::connect(this->updateVictimButton, &QPushButton::clicked, this, [this]() {this->updateVictim(); });
-	QObject::connect(this->deleteVictimButton, &QPushButton::clicked, this, [this]() {this->deleteVictim(); });
-	QObject::connect(this->fileLocationButton, &QPushButton::clicked, this, [this]() {this->setFileLocation(); });
-	QObject::connect(this->nextVictimButton, &QPushButton::clicked, this, [this]() {this->nextVictim(); });
-	QObject::connect(this->saveVictimButton, &QPushButton::clicked, this, [this]() {this->saveVictim(); });
-	QObject::connect(this->filterVictimsButton, &QPushButton::clicked, this, [this]() {this->filterVictims(); });
-	QObject::connect(this->myListLocationButton, &QPushButton::clicked, this, [this]() {this->setMyListLocation(); });
-	QObject::connect(this->openExternalProgramButton, &QPushButton::clicked, this, [this]() {this->openExternalProgram(); });
+	QObject::connect(this->addVictimButton, &QPushButton::clicked, this, &GUI::addVictim);
+	QObject::connect(this->updateVictimButton, &QPushButton::clicked, this, &GUI::updateVictim);
+	QObject::connect(this->deleteVictimButton, &QPushButton::clicked, this, &GUI::deleteVictim);
+	QObject::connect(this->fileLocationButton, &QPushButton::clicked, this, &GUI::setFileLocation);
+	QObject::connect(this->nextVictimButton, &QPushButton::clicked, this, &GUI::nextVictim);
+	QObject::connect(this->saveVictimButton, &QPushButton::clicked, this, &GUI::saveVictim);
+	QObject::connect(this->filterVictimsButton, &QPushButton::clicked, this, &GUI::filterVictims);
+	QObject::connect(this->myListLocationButton, &QPushButton::clicked, this, &GUI::setMyListLocation);
+	QObject::connect(this->openExternalProgramButton, &QPushButton::clicked, this, &GUI::openExternalProgram);
 
-	QObject::connect(this->errorMessageTimer, &QTimer::timeout, this, [this]() {this->removeErrorMessage(); });
+	QObject::connect(this->errorMessageTimer, &QTimer::timeout, this, &GUI::removeErrorMessage);
 
-	QObject::connect(this->victimListWidget, &QListWidget::itemSelectionChanged, this, [this]() {this->changedVictimInList(); });
+	QObject::connect(this->victimListWidget, &QListWidget::itemSelectionChanged, this, &GUI::changedVictimInList);
 }
 
 void GUI::populateList(QListWidget* listWidget, const std::vector<Victim>& victimList){
