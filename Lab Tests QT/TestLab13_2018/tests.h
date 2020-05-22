@@ -1,0 +1,4 @@
+#pragma once
+
+void getUnpaidBillsCostForCompany_InexistentCompany_NoOutput();
+void getUnpaidBillsCostForCompany_ExistentCompany_CorrectOutput();

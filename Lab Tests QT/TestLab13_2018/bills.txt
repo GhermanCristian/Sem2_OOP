@@ -1,0 +1,5 @@
+company1; abc; 100.2; false
+company2 3; abcd s; 100.3; false
+company4 6; abce d; 100.4; true
+company7 2; abcf; 100.5; true
+company1 1 1; abcww w; 100.6; false
