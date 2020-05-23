@@ -1,0 +1,7 @@
+category1 | name1 | 5
+category11 | name 2 | 4
+category 41 | name 3 | 2
+category 31 | name4 | 1
+category 11 | name 5 | 52
+category 1 | name6 | 53
+category123 | name8 | 54
