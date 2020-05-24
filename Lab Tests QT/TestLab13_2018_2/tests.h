@@ -1,0 +1,5 @@
+#pragma once
+
+void GetTotalDurationWithGivenPriority_NoPriorityMatched_NoOutput();
+void GetTotalDurationWithGivenPriority_EmptyRepository_NoOutput();
+void GetTotalDurationWithGivenPriority_FilledRepository_CorrectDuration();
