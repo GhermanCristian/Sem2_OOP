@@ -58,15 +58,24 @@ void GUI::populateList(QListWidget* listWidget, const std::vector<Task>& entityL
 	for (auto currentEntity : entityList) {
 		QString entityText = QString::fromStdString(currentEntity.toString());
 		QListWidgetItem* listItem = new QListWidgetItem{ entityText };
-
+		
 		if (currentEntity.getPriority() == MAXIMUM_PRIORITY) {
 			listItem->setFont(boldedListFont);
+			//listItem->setBackgroundColor("gray");
 		}
 		else {
 			listItem->setFont(normalListFont);
 		}
 		
 		listWidget->addItem(listItem);
+	}
+
+	for (int i = 0; i < listWidget->count(); i++) {
+		QListWidgetItem* currentItem = listWidget->item(i);
+		Task currentTask = this->actionController.getAllEntities()[i];
+		if (currentTask.getPriority() == MAXIMUM_PRIORITY) {
+			currentItem->setBackgroundColor("gray");
+		}	
 	}
 
 	// check if it's not empty <=> there are elements to be selected
