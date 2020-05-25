@@ -1,0 +1,6 @@
+manuf 3 | rabla | 2019 | grey
+manuf 3 | cazan | 2014 | black
+manuf 1 | rabla | 2014 | blue
+manuf 2 | rabla | 2011 | red
+manuf 1 | rabla rau | 2012 | blue
+manuf 2 | furia alba | 2017 | orange

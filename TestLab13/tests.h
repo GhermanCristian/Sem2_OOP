@@ -1,0 +1,5 @@
+#pragma once
+
+void GetNumberOfCarsByManufacturer_NonExistentManufacturer_NoOutput();
+void GetNumberOfCarsByManufacturer_ExistentManufacturer_CorrectNumberOfCars();
+void GetNumberOfCarsByManufacturer_NoData_NoOutput();
