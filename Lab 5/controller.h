@@ -31,13 +31,13 @@ class Controller {
 
 		void loadRepositoryType();
 		/*
-			
+			Reads the repository type from a file
 			Input:
 				-
 			Output:
-				-
+				- The repository types are set
 			Throws:
-				-
+				- None
 		*/
 
 	public:

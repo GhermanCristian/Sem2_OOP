@@ -99,6 +99,12 @@ QWidget* GUI::initializeWidgetModeB(){
 	modeBToolbar->addAction(menuActionModeB);
 	modeBToolbar->addAction(menuActionDataRepresentation);
 
+	this->mylistTableModel = new CustomTableModel{ this->actionController };
+	this->mylistTableView = new QTableView{};
+	this->mylistTableView->setModel(this->mylistTableModel);
+	this->mylistTableView->resizeColumnsToContents();
+	this->mylistTableView->resizeRowsToContents();
+
 	this->nextVictimLabel = new QLabel{};
 	this->nextVictimLabel->setFixedHeight(NEXT_VICTIM_LABEL_HEIGHT);
 	this->nextVictimLabel->setFont(QFont(QString::fromStdString(LIST_FONT_NAME), LIST_FONT_SIZE));
@@ -108,6 +114,7 @@ QWidget* GUI::initializeWidgetModeB(){
 	this->filterVictimsButton = new QPushButton{ "Filter victims" };
 	this->myListLocationButton = new QPushButton{ "Set myList location" };
 	this->openExternalProgramButton = new QPushButton{ "Open with external application" };
+	this->showMylistButton = new QPushButton{ "Show mylist" };
 
 	this->lineEditSaveVictim = new QLineEdit{};
 	this->lineEditFilterVictimPlace = new QLineEdit{};
@@ -126,9 +133,9 @@ QWidget* GUI::initializeWidgetModeB(){
 	myListLocationLayout->addRow(labelMyListLocation, lineEditMyListLocation);
 
 	leftSideLayout->addWidget(modeBToolbar);
-	leftSideLayout->addWidget(this->myListWidget);
 	leftSideLayout->addWidget(this->nextVictimLabel);
 	leftSideLayout->addWidget(this->nextVictimButton);
+	leftSideLayout->addWidget(this->showMylistButton);
 	leftSideLayout->addWidget(saveVictimWidget);
 	leftSideLayout->addWidget(saveVictimButton);
 	leftSideLayout->addWidget(filterVictimsWidget);
@@ -207,6 +214,7 @@ void GUI::changeToModeA(){
 
 void GUI::changeToModeB(){
 	this->allWidgets->setCurrentIndex(MODE_B_WIDGET_INDEX);
+	//this->mylistTableView->show();
 }
 
 void GUI::changeToDataRepresentation(){
@@ -367,6 +375,10 @@ void GUI::openExternalProgram(){
 	ShellExecuteA(NULL, "open", this->actionController.getMylistPath().c_str(), NULL, NULL, SW_SHOWNORMAL);
 }
 
+void GUI::showMylist(){
+	this->mylistTableView->show();
+}
+
 void GUI::initializeGUI() {
 	QWidget* mainWidget = new QWidget;
 	QVBoxLayout* mainLayout = new QVBoxLayout;
@@ -382,7 +394,7 @@ void GUI::initializeGUI() {
 	this->myListWidget->setSelectionMode(QAbstractItemView::SingleSelection);
 	this->filteredListWidget = new QListWidget{};
 	this->filteredListWidget->setSelectionMode(QAbstractItemView::SingleSelection);
-	this->filteredListWidget->setFixedHeight(FILTERED_LIST_WIDGET_HEIGHT);
+	//this->filteredListWidget->setFixedHeight(FILTERED_LIST_WIDGET_HEIGHT);
 	this->labelErrorMessageModeA = new QLabel{};
 	this->labelErrorMessageModeB = new QLabel{};
 	this->errorMessageTimer = new QTimer{};
@@ -413,6 +425,7 @@ void GUI::connectSignalsAndSlots(){
 	QObject::connect(this->filterVictimsButton, &QPushButton::clicked, this, &GUI::filterVictims);
 	QObject::connect(this->myListLocationButton, &QPushButton::clicked, this, &GUI::setMyListLocation);
 	QObject::connect(this->openExternalProgramButton, &QPushButton::clicked, this, &GUI::openExternalProgram);
+	QObject::connect(this->showMylistButton, &QPushButton::clicked, this, &GUI::showMylist);
 
 	QObject::connect(this->errorMessageTimer, &QTimer::timeout, this, &GUI::removeErrorMessage);
 

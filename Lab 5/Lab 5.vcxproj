@@ -84,6 +84,7 @@
     <ClCompile Include="controller.cpp" />
     <ClCompile Include="CSVRepository.cpp" />
     <ClCompile Include="customExceptions.cpp" />
+    <ClCompile Include="customTableModel.cpp" />
     <ClCompile Include="fileRepository.cpp" />
     <ClCompile Include="filter.cpp" />
     <ClCompile Include="GUI.cpp" />
@@ -115,6 +116,7 @@
     <ClInclude Include="controller.h" />
     <ClInclude Include="CSVRepository.h" />
     <ClInclude Include="customExceptions.h" />
+    <ClInclude Include="customTableModel.h" />
     <ClInclude Include="fileRepository.h" />
     <ClInclude Include="filter.h" />
     <ClInclude Include="GUI.h" />

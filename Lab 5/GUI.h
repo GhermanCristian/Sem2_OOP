@@ -15,6 +15,8 @@
 #include <QtCharts/qbarcategoryaxis.h>
 #include <QtCharts/qvalueaxis.h>
 #include <QtCharts/qchartview.h>
+#include "customTableModel.h"
+#include <qtableview.h>
 
 class GUI : public QWidget{
 	private:
@@ -71,8 +73,12 @@ class GUI : public QWidget{
 		QPushButton* filterVictimsButton;
 		QPushButton* myListLocationButton;
 		QPushButton* openExternalProgramButton;
+		QPushButton* showMylistButton;
 
 		QLabel* nextVictimLabel;
+
+		CustomTableModel* mylistTableModel;
+		QTableView* mylistTableView;
 
 		QLabel* labelErrorMessageModeA;
 		QLabel* labelErrorMessageModeB;
@@ -103,6 +109,7 @@ class GUI : public QWidget{
 		void filterVictims();
 		void setMyListLocation();
 		void openExternalProgram();
+		void showMylist();
 
 		void initializeGUI();
 		void connectSignalsAndSlots();
