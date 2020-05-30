@@ -343,11 +343,25 @@ void GUI::setFileLocation(){
 }
 
 void GUI::undoModeA(){
-	;
+	try {
+		this->actionController.undoModeA();
+		std::vector<Victim> allVictims = this->actionController.getAllVictims();
+		this->populateList(this->victimListWidget, allVictims);
+	}
+	catch (const std::exception& currentException) {
+		this->displayErrorMessage(currentException.what());
+	}
 }
 
 void GUI::redoModeA(){
-	;
+	try {
+		this->actionController.redoModeA();
+		std::vector<Victim> allVictims = this->actionController.getAllVictims();
+		this->populateList(this->victimListWidget, allVictims);
+	}
+	catch (const std::exception& currentException) {
+		this->displayErrorMessage(currentException.what());
+	}
 }
 
 void GUI::nextVictim(){

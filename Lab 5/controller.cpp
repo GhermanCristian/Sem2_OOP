@@ -9,6 +9,28 @@ Controller::Controller() {
 	this->HTML_FILE_EXTENSION = ".html";
 }
 
+void Controller::undoLastAction(std::vector<std::unique_ptr<Action>>& currentUndoStack, std::vector<std::unique_ptr<Action>>& currentRedoStack) {
+	if (currentUndoStack.size() == 0) {
+		throw std::exception("No undos left");
+	}
+
+	std::unique_ptr<Action> currentAction = move(currentUndoStack.back());
+	currentAction->executeUndo();
+	currentRedoStack.push_back(move(currentAction));
+	currentUndoStack.pop_back();
+}
+
+void Controller::redoLastAction(std::vector<std::unique_ptr<Action>>& currentUndoStack, std::vector<std::unique_ptr<Action>>& currentRedoStack) {
+	if (currentRedoStack.size() == 0) {
+		throw std::exception("No redos left");
+	}
+
+	std::unique_ptr<Action> currentAction = move(currentRedoStack.back());
+	currentAction->executeRedo();
+	currentUndoStack.push_back(move(currentAction));
+	currentRedoStack.pop_back();
+}
+
 void Controller::loadRepositoryType(){
 	const std::string CONFIGURATION_FILE_LOCATION = "settings.properties";
 	const std::string DEFAULT_REPOSITORY_CSV_LOCATION = "data.txt";
@@ -101,15 +123,29 @@ void Controller::setSavedVictimsFileLocation(std::string myListLocation){
 void Controller::addVictim(std::string victimName, std::string placeOfOrigin, int age, std::string photographLink){
 	Victim newVictim{ victimName, placeOfOrigin, age, photographLink };
 	this->victimRepository->add(newVictim);
+
+	std::unique_ptr<Action> currentAction = std::make_unique<AddAction>(this->victimRepository, newVictim);
+	this->undoStackModeA.push_back(move(currentAction));
+	this->redoStackModeA.clear();
 }
 
 void Controller::updateVictim(std::string victimName, std::string newPlaceOfOrigin, int newAge, std::string newPhotographLink){
 	Victim newVictim{ victimName, newPlaceOfOrigin, newAge, newPhotographLink };
+	Victim oldVictim = this->victimRepository->getVictimByName(victimName);
 	this->victimRepository->update(newVictim);
+
+	std::unique_ptr<Action> currentAction = std::make_unique<UpdateAction>(this->victimRepository, oldVictim, newVictim);
+	this->undoStackModeA.push_back(move(currentAction));
+	this->redoStackModeA.clear();
 }
 
 void Controller::deleteVictim(std::string victimName){
+	Victim deletedVictim = this->victimRepository->getVictimByName(victimName);
 	this->victimRepository->erase(victimName);
+
+	std::unique_ptr<Action> currentAction = std::make_unique<DeleteAction>(this->victimRepository, deletedVictim);
+	this->undoStackModeA.push_back(move(currentAction));
+	this->redoStackModeA.clear();
 }
 
 std::vector <Victim> Controller::getAllVictims(){
@@ -169,6 +205,22 @@ std::map<std::string, int> Controller::getVictimCountByPlaceOfOrigin(){
 
 bool Controller::isInMemoryRepository(){
 	return this->isMemoryRepository;
+}
+
+void Controller::undoModeA(){
+	this->undoLastAction(this->undoStackModeA, this->redoStackModeA);
+}
+
+void Controller::redoModeA(){
+	this->redoLastAction(this->undoStackModeA, this->redoStackModeA);
+}
+
+void Controller::undoModeB(){
+	this->undoLastAction(this->undoStackModeB, this->redoStackModeB);
+}
+
+void Controller::redoModeB(){
+	this->redoLastAction(this->undoStackModeB, this->redoStackModeB);
 }
 
 Controller::~Controller() {

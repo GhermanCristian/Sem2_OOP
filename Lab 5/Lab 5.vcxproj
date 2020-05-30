@@ -81,6 +81,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="action.cpp" />
     <ClCompile Include="controller.cpp" />
     <ClCompile Include="CSVRepository.cpp" />
     <ClCompile Include="customExceptions.cpp" />
@@ -113,6 +114,7 @@
     <QtRcc Include="Lab5.qrc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="action.h" />
     <ClInclude Include="controller.h" />
     <ClInclude Include="CSVRepository.h" />
     <ClInclude Include="customExceptions.h" />

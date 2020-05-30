@@ -64,6 +64,9 @@
     <ClCompile Include="customTableModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="action.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resource Files">
@@ -182,6 +185,9 @@
       <Filter>Header Files\Interface</Filter>
     </ClInclude>
     <ClInclude Include="customTableModel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="action.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

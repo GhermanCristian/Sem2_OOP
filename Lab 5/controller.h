@@ -4,12 +4,19 @@
 #include "CSVRepository.h"
 #include "HTMLRepository.h"
 #include "victimIterator.h"
+#include "action.h"
+#include <memory>
 
 class Controller {
 	private:
 		Repository* victimRepository;
 		Repository* savedVictims; //mylist
 		bool isMemoryRepository;
+
+		std::vector<std::unique_ptr<Action>> undoStackModeA;
+		std::vector<std::unique_ptr<Action>> redoStackModeA;
+		std::vector<std::unique_ptr<Action>> undoStackModeB;
+		std::vector<std::unique_ptr<Action>> redoStackModeB;
 
 		VictimIterator victimIterator;
 		std::string mylistFilePath; // i need direct access to this for opening the file in an external program
@@ -39,6 +46,9 @@ class Controller {
 			Throws:
 				- None
 		*/
+
+		void undoLastAction(std::vector<std::unique_ptr<Action>>& currentUndoStack, std::vector<std::unique_ptr<Action>>& currentRedoStack);
+		void redoLastAction(std::vector<std::unique_ptr<Action>>& currentUndoStack, std::vector<std::unique_ptr<Action>>& currentRedoStack);
 
 	public:
 		Controller();
@@ -185,6 +195,11 @@ class Controller {
 		*/
 
 		bool isInMemoryRepository();
+
+		void undoModeA();
+		void redoModeA();
+		void undoModeB();
+		void redoModeB();
 
 		~Controller();
 		/*
