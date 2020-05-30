@@ -17,6 +17,7 @@
 #include <QtCharts/qchartview.h>
 #include "customTableModel.h"
 #include <qtableview.h>
+#include <qset.h>
 
 class GUI : public QWidget{
 	private:
@@ -45,6 +46,9 @@ class GUI : public QWidget{
 		InputValidator inputValidator;
 
 		QStackedWidget* allWidgets;
+		bool pressedCTRLKey;
+		bool pressedZKey;
+		bool pressedYKey;
 
 		QAction* menuActionModeA;
 		QAction* menuActionModeB;
@@ -103,6 +107,8 @@ class GUI : public QWidget{
 
 		int getCurrentIndexInVictimList();
 		void changedVictimInList();
+
+		bool eventFilter(QObject* object, QEvent* event) override;
 
 		void addVictim();
 		void updateVictim();

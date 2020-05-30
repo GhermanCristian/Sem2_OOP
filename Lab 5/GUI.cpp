@@ -282,6 +282,46 @@ void GUI::changedVictimInList(){
 	this->lineEditVictimPhotograph->setText(QString::fromStdString(allVictims[victimIndex].getPhotographLink()));
 }
 
+bool GUI::eventFilter(QObject* object, QEvent* currentEvent){
+	if (currentEvent->type() == QEvent::KeyPress) {
+		QKeyEvent* pressedKey = (QKeyEvent*)currentEvent;
+		if (pressedKey->key() == Qt::Key_Control) {
+			this->pressedCTRLKey = true;
+		}
+		if (pressedKey->key() == Qt::Key_Y) {
+			this->pressedYKey = true;
+		}
+		if (pressedKey->key() == Qt::Key_Z) {
+			this->pressedZKey = true;
+		}
+
+		if (this->pressedCTRLKey) {
+			if (this->pressedZKey) { // CTRL-Z - undo
+				if (this->allWidgets->currentIndex() == MODE_A_WIDGET_INDEX) {
+					this->undoModeA();
+				}
+				else if (this->allWidgets->currentIndex() == MODE_B_WIDGET_INDEX) {
+					this->undoModeB();
+				}
+				this->pressedCTRLKey = this->pressedZKey = false; // reset the pressed key values
+			}
+			else if (this->pressedYKey) { // CTRL-Y - redo
+				if (this->allWidgets->currentIndex() == MODE_A_WIDGET_INDEX) {
+					this->redoModeA();
+				}
+				else if (this->allWidgets->currentIndex() == MODE_B_WIDGET_INDEX) {
+					this->redoModeB();
+				}
+				this->pressedCTRLKey = this->pressedYKey = false; // reset the pressed key values
+			}
+		}
+
+		return true;
+	}
+
+	return false;
+}
+
 void GUI::addVictim(){
 	try {
 		std::string victimName = this->inputValidator.generalNonEmptyStringValidator(this->lineEditVictimName->text().toStdString());
@@ -420,11 +460,21 @@ void GUI::showMylist(){
 }
 
 void GUI::undoModeB(){
-	;
+	try {
+		this->actionController.undoModeB();
+	}
+	catch (const std::exception& currentException) {
+		this->displayErrorMessage(currentException.what());
+	}
 }
 
 void GUI::redoModeB(){
-	;
+	try {
+		this->actionController.redoModeB();
+	}
+	catch (const std::exception& currentException) {
+		this->displayErrorMessage(currentException.what());
+	}
 }
 
 void GUI::initializeGUI() {
@@ -441,8 +491,7 @@ void GUI::initializeGUI() {
 	this->myListWidget = new QListWidget{};
 	this->myListWidget->setSelectionMode(QAbstractItemView::SingleSelection);
 	this->filteredListWidget = new QListWidget{};
-	this->filteredListWidget->setSelectionMode(QAbstractItemView::SingleSelection);
-	//this->filteredListWidget->setFixedHeight(FILTERED_LIST_WIDGET_HEIGHT);
+	this->filteredListWidget->setSelectionMode(QAbstractItemView::SingleSelection);;
 	this->labelErrorMessageModeA = new QLabel{};
 	this->labelErrorMessageModeB = new QLabel{};
 	this->errorMessageTimer = new QTimer{};
@@ -457,6 +506,8 @@ void GUI::initializeGUI() {
 	this->allWidgets->addWidget(dataRepresentationWidget);
 	mainLayout->addWidget(allWidgets);
 	setLayout(mainLayout);
+
+	this->installEventFilter(this);
 }
 
 void GUI::connectSignalsAndSlots(){
@@ -529,4 +580,8 @@ GUI::GUI(){
 	this->populateList(this->victimListWidget, allVictims);
 	std::vector<Victim> savedVictims = this->actionController.getSavedVictims();
 	this->populateList(this->myListWidget, savedVictims);
+
+	this->pressedCTRLKey = false;
+	this->pressedZKey = false;
+	this->pressedYKey = false;
 }
