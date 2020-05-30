@@ -55,7 +55,6 @@ class GUI : public QWidget{
 		QAction* menuActionDataRepresentation;
 
 		QListWidget* victimListWidget;
-		QListWidget* myListWidget;
 		QListWidget* filteredListWidget;
 
 		QLineEdit* lineEditVictimName;

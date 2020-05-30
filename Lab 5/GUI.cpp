@@ -419,8 +419,8 @@ void GUI::saveVictim(){
 	try {
 		std::string victimName = this->inputValidator.generalNonEmptyStringValidator(this->lineEditSaveVictim->text().toStdString());
 		this->actionController.saveVictim(victimName);
-		std::vector<Victim> savedVictims = this->actionController.getSavedVictims();
-		this->populateList(this->myListWidget, savedVictims);
+		//std::vector<Victim> savedVictims = this->actionController.getSavedVictims();
+		//here we should do something like update the table model
 	}
 	catch (const std::exception& currentException) {
 		this->displayErrorMessage(currentException.what());
@@ -443,8 +443,8 @@ void GUI::setMyListLocation(){
 	try {
 		std::string myListLocation = this->inputValidator.generalNonEmptyStringValidator(this->lineEditMyListLocation->text().toStdString());
 		this->actionController.setSavedVictimsFileLocation(myListLocation);
-		std::vector<Victim> savedVictims = this->actionController.getSavedVictims();
-		this->populateList(this->myListWidget, savedVictims);
+		//std::vector<Victim> savedVictims = this->actionController.getSavedVictims();
+		//here we should do something like update the table model
 	}
 	catch (const std::exception& currentException) {
 		this->displayErrorMessage(currentException.what());
@@ -488,8 +488,6 @@ void GUI::initializeGUI() {
 
 	this->victimListWidget = new QListWidget{};
 	this->victimListWidget->setSelectionMode(QAbstractItemView::SingleSelection);
-	this->myListWidget = new QListWidget{};
-	this->myListWidget->setSelectionMode(QAbstractItemView::SingleSelection);
 	this->filteredListWidget = new QListWidget{};
 	this->filteredListWidget->setSelectionMode(QAbstractItemView::SingleSelection);;
 	this->labelErrorMessageModeA = new QLabel{};
@@ -579,7 +577,6 @@ GUI::GUI(){
 	std::vector<Victim> allVictims = this->actionController.getAllVictims();
 	this->populateList(this->victimListWidget, allVictims);
 	std::vector<Victim> savedVictims = this->actionController.getSavedVictims();
-	this->populateList(this->myListWidget, savedVictims);
 
 	this->pressedCTRLKey = false;
 	this->pressedZKey = false;

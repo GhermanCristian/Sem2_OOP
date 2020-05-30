@@ -53,12 +53,14 @@ void Controller::loadRepositoryType(){
 		this->victimRepository = new HTMLRepository(DEFAULT_REPOSITORY_HTML_LOCATION);
 		this->savedVictims = new HTMLRepository(DEFAULT_MYLIST_HTML_LOCATION);
 		this->mylistFilePath = DEFAULT_MYLIST_HTML_LOCATION;
+		this->repositoryFilePath = DEFAULT_REPOSITORY_HTML_LOCATION;
 	}
 
 	else if (currentLine.find("csv") != std::string::npos) {
 		this->victimRepository = new CSVRepository(DEFAULT_REPOSITORY_CSV_LOCATION);
 		this->savedVictims = new CSVRepository(DEFAULT_MYLIST_CSV_LOCATION);
 		this->mylistFilePath = DEFAULT_MYLIST_CSV_LOCATION;
+		this->repositoryFilePath = DEFAULT_REPOSITORY_CSV_LOCATION;
 	}
 
 	// in_memory, or if the configuration file is corrupted
@@ -66,6 +68,8 @@ void Controller::loadRepositoryType(){
 		this->isMemoryRepository = true;
 		this->victimRepository = new MemoryRepository();
 		this->savedVictims = new MemoryRepository();
+		this->mylistFilePath = "";
+		this->repositoryFilePath = "";
 	}
 
 	inputStream.close();
@@ -93,6 +97,8 @@ void Controller::setRepositoryFileLocation(std::string repositoryFileLocation){
 	std::string fileExtension = getFileExtension(repositoryFileLocation);
 
 	// if we reach this point => the validation went well => the type is valid
+
+	this->repositoryFilePath = repositoryFileLocation;
 	delete this->victimRepository;
 
 	if (fileExtension == TXT_FILE_EXTENSION || fileExtension == CSV_FILE_EXTENSION) {
@@ -176,6 +182,10 @@ Victim Controller::getNextVictim(){
 void Controller::saveVictim(std::string victimName){
 	Victim savedVictim = victimRepository->getVictimByName(victimName);
 	savedVictims->add(savedVictim);
+
+	std::unique_ptr<Action> currentAction = std::make_unique<SaveAction>(this->savedVictims, savedVictim);
+	this->undoStackModeB.push_back(move(currentAction));
+	this->redoStackModeB.clear();
 }
 
 std::vector <Victim> Controller::getSavedVictims(){

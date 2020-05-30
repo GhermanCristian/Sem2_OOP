@@ -41,3 +41,14 @@ class UpdateAction : public Action {
 		void executeRedo() override;
 };
 
+// SaveAction basically does the same thing as AddAction, but I'll still keep both in case 'save' changes in the future
+class SaveAction : public Action {
+	private:
+		Repository*& currentRepository;
+		Victim savedVictim;
+
+	public:
+		SaveAction(Repository*& currentRepository, Victim savedVictim);
+		void executeUndo() override;
+		void executeRedo() override;
+};

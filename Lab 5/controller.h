@@ -20,6 +20,7 @@ class Controller {
 
 		VictimIterator victimIterator;
 		std::string mylistFilePath; // i need direct access to this for opening the file in an external program
+		std::string repositoryFilePath;
 
 		std::string TXT_FILE_EXTENSION;
 		std::string CSV_FILE_EXTENSION;

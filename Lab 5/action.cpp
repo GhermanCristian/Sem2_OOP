@@ -1,6 +1,6 @@
 #include "action.h"
 
-AddAction::AddAction(Repository*& currentRepository, Victim addedVictim) : currentRepository(currentRepository){
+AddAction::AddAction(Repository*& currentRepository, Victim addedVictim) : currentRepository(currentRepository) {
 	this->addedVictim = addedVictim;
 }
 
@@ -35,4 +35,16 @@ void UpdateAction::executeUndo(){
 
 void UpdateAction::executeRedo(){
 	this->currentRepository->update(this->newVictim);
+}
+
+SaveAction::SaveAction(Repository*& currentRepository, Victim savedVictim) : currentRepository(currentRepository) {
+	this->savedVictim = savedVictim;
+}
+
+void SaveAction::executeUndo(){
+	this->currentRepository->erase(this->savedVictim.getName());
+}
+
+void SaveAction::executeRedo(){
+	this->currentRepository->add(this->savedVictim);
 }
