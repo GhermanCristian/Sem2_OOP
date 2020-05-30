@@ -25,6 +25,9 @@ QWidget* GUI::initializeWidgetModeA(){
 	QWidget* fileLocationAreaWidget = new QWidget{};
 	QFormLayout* fileLocationAreaLayout = new QFormLayout{ fileLocationAreaWidget };
 
+	QWidget* undoRedoAreaWidget = new QWidget{};
+	QHBoxLayout* undoRedoAreaLayout = new QHBoxLayout{ undoRedoAreaWidget };
+
 	this->lineEditVictimName = new QLineEdit{};
 	this->lineEditVictimPlace = new QLineEdit{};
 	this->lineEditVictimAge = new QLineEdit{};
@@ -35,6 +38,8 @@ QWidget* GUI::initializeWidgetModeA(){
 	this->updateVictimButton = new QPushButton{ "Update victim" };
 	this->deleteVictimButton = new QPushButton{ "Delete victim" };
 	this->fileLocationButton = new QPushButton{ "Set file location" };
+	this->undoModeAButton = new QPushButton{ "Undo" };
+	this->redoModeAButton = new QPushButton{ "Redo" };
 
 	modeAToolbar->addAction(menuActionModeA);
 	modeAToolbar->addAction(menuActionModeB);
@@ -43,6 +48,9 @@ QWidget* GUI::initializeWidgetModeA(){
 	buttonAreaLayout->addWidget(this->addVictimButton);
 	buttonAreaLayout->addWidget(this->updateVictimButton);
 	buttonAreaLayout->addWidget(this->deleteVictimButton);
+
+	undoRedoAreaLayout->addWidget(this->undoModeAButton);
+	undoRedoAreaLayout->addWidget(this->redoModeAButton);
 
 	labelVictimName->setBuddy(lineEditVictimName);
 	labelVictimPlace->setBuddy(lineEditVictimPlace);
@@ -62,6 +70,7 @@ QWidget* GUI::initializeWidgetModeA(){
 	modeALayout->addWidget(buttonAreaWidget);
 	modeALayout->addWidget(fileLocationAreaWidget);
 	modeALayout->addWidget(this->fileLocationButton);
+	modeALayout->addWidget(undoRedoAreaWidget);
 	modeALayout->addWidget(this->labelErrorMessageModeA);
 
 	if (this->actionController.isInMemoryRepository() == true) {
@@ -95,6 +104,9 @@ QWidget* GUI::initializeWidgetModeB(){
 	QWidget* myListLocationWidget = new QWidget{};
 	QFormLayout* myListLocationLayout = new QFormLayout{ myListLocationWidget };
 
+	QWidget* undoRedoAreaWidget = new QWidget{};
+	QHBoxLayout* undoRedoAreaLayout = new QHBoxLayout{ undoRedoAreaWidget };
+
 	modeBToolbar->addAction(menuActionModeA);
 	modeBToolbar->addAction(menuActionModeB);
 	modeBToolbar->addAction(menuActionDataRepresentation);
@@ -115,6 +127,8 @@ QWidget* GUI::initializeWidgetModeB(){
 	this->myListLocationButton = new QPushButton{ "Set myList location" };
 	this->openExternalProgramButton = new QPushButton{ "Open with external application" };
 	this->showMylistButton = new QPushButton{ "Show mylist" };
+	this->undoModeBButton = new QPushButton{ "Undo" };
+	this->redoModeBButton = new QPushButton{ "Redo" };
 
 	this->lineEditSaveVictim = new QLineEdit{};
 	this->lineEditFilterVictimPlace = new QLineEdit{};
@@ -132,6 +146,9 @@ QWidget* GUI::initializeWidgetModeB(){
 	labelMyListLocation->setBuddy(lineEditMyListLocation);
 	myListLocationLayout->addRow(labelMyListLocation, lineEditMyListLocation);
 
+	undoRedoAreaLayout->addWidget(this->undoModeBButton);
+	undoRedoAreaLayout->addWidget(this->redoModeBButton);
+
 	leftSideLayout->addWidget(modeBToolbar);
 	leftSideLayout->addWidget(this->nextVictimLabel);
 	leftSideLayout->addWidget(this->nextVictimButton);
@@ -143,6 +160,7 @@ QWidget* GUI::initializeWidgetModeB(){
 	leftSideLayout->addWidget(myListLocationWidget);
 	leftSideLayout->addWidget(this->myListLocationButton);
 	leftSideLayout->addWidget(this->openExternalProgramButton);
+	leftSideLayout->addWidget(undoRedoAreaWidget);
 	leftSideLayout->addWidget(this->labelErrorMessageModeB);
 
 	modeBLayout->addWidget(leftSideWidget);
@@ -324,6 +342,14 @@ void GUI::setFileLocation(){
 	}
 }
 
+void GUI::undoModeA(){
+	;
+}
+
+void GUI::redoModeA(){
+	;
+}
+
 void GUI::nextVictim(){
 	try {
 		Victim currentVictim = this->actionController.getNextVictim();
@@ -379,6 +405,14 @@ void GUI::showMylist(){
 	this->mylistTableView->show();
 }
 
+void GUI::undoModeB(){
+	;
+}
+
+void GUI::redoModeB(){
+	;
+}
+
 void GUI::initializeGUI() {
 	QWidget* mainWidget = new QWidget;
 	QVBoxLayout* mainLayout = new QVBoxLayout;
@@ -420,12 +454,16 @@ void GUI::connectSignalsAndSlots(){
 	QObject::connect(this->updateVictimButton, &QPushButton::clicked, this, &GUI::updateVictim);
 	QObject::connect(this->deleteVictimButton, &QPushButton::clicked, this, &GUI::deleteVictim);
 	QObject::connect(this->fileLocationButton, &QPushButton::clicked, this, &GUI::setFileLocation);
+	QObject::connect(this->undoModeAButton, &QPushButton::clicked, this, &GUI::undoModeA);
+	QObject::connect(this->redoModeAButton, &QPushButton::clicked, this, &GUI::redoModeA);
 	QObject::connect(this->nextVictimButton, &QPushButton::clicked, this, &GUI::nextVictim);
 	QObject::connect(this->saveVictimButton, &QPushButton::clicked, this, &GUI::saveVictim);
 	QObject::connect(this->filterVictimsButton, &QPushButton::clicked, this, &GUI::filterVictims);
 	QObject::connect(this->myListLocationButton, &QPushButton::clicked, this, &GUI::setMyListLocation);
 	QObject::connect(this->openExternalProgramButton, &QPushButton::clicked, this, &GUI::openExternalProgram);
 	QObject::connect(this->showMylistButton, &QPushButton::clicked, this, &GUI::showMylist);
+	QObject::connect(this->undoModeBButton, &QPushButton::clicked, this, &GUI::undoModeB);
+	QObject::connect(this->redoModeBButton, &QPushButton::clicked, this, &GUI::redoModeB);
 
 	QObject::connect(this->errorMessageTimer, &QTimer::timeout, this, &GUI::removeErrorMessage);
 

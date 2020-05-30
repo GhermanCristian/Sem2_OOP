@@ -68,12 +68,16 @@ class GUI : public QWidget{
 		QPushButton* updateVictimButton;
 		QPushButton* deleteVictimButton;
 		QPushButton* fileLocationButton;
+		QPushButton* undoModeAButton;
+		QPushButton* redoModeAButton;
 		QPushButton* nextVictimButton;
 		QPushButton* saveVictimButton;
 		QPushButton* filterVictimsButton;
 		QPushButton* myListLocationButton;
 		QPushButton* openExternalProgramButton;
 		QPushButton* showMylistButton;
+		QPushButton* undoModeBButton;
+		QPushButton* redoModeBButton;
 
 		QLabel* nextVictimLabel;
 
@@ -104,12 +108,16 @@ class GUI : public QWidget{
 		void updateVictim();
 		void deleteVictim();
 		void setFileLocation();
+		void undoModeA();
+		void redoModeA();
 		void nextVictim();
 		void saveVictim();
 		void filterVictims();
 		void setMyListLocation();
 		void openExternalProgram();
 		void showMylist();
+		void undoModeB();
+		void redoModeB();
 
 		void initializeGUI();
 		void connectSignalsAndSlots();

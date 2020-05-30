@@ -19,10 +19,11 @@ int CustomTableModel::columnCount(const QModelIndex& parent) const{
 QVariant CustomTableModel::data(const QModelIndex& index, int role) const{
 	int row = index.row();
 	int column = index.column();
-	std::vector<Victim> mylist = this->actionController.getSavedVictims();
-	Victim currentVictim = mylist[row];
-
+	
 	if (role == Qt::DisplayRole) {
+		std::vector<Victim> mylist = this->actionController.getSavedVictims();
+		Victim currentVictim = mylist[row];
+
 		if (column == 0) {
 			return QString::fromStdString(currentVictim.getName());
 		}
@@ -67,6 +68,10 @@ QVariant CustomTableModel::headerData(int section, Qt::Orientation orientation, 
 	}
 
 	return QVariant{};
+}
+
+bool CustomTableModel::setData(const QModelIndex& index, const QVariant& value, int role){
+	return false;
 }
 
 Qt::ItemFlags CustomTableModel::flags(const QModelIndex& index) const{
