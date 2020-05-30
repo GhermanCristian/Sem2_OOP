@@ -8,7 +8,9 @@
 #include <crtdbg.h>
 
 int main(int argc, char** argv) {
-	//runAllTests();
+	//runAllTests(); // for now DON'T run the tests, because the controller is loading the repo locations from a file
+	// regargdless of it being a test controller or the actual controller used in the program exec
+	// so the data is messed up
 
 	QApplication a(argc, argv);
 	GUI userInterface;

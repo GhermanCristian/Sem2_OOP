@@ -419,8 +419,7 @@ void GUI::saveVictim(){
 	try {
 		std::string victimName = this->inputValidator.generalNonEmptyStringValidator(this->lineEditSaveVictim->text().toStdString());
 		this->actionController.saveVictim(victimName);
-		//std::vector<Victim> savedVictims = this->actionController.getSavedVictims();
-		//here we should do something like update the table model
+		this->mylistTableModel->updateInternalData();
 	}
 	catch (const std::exception& currentException) {
 		this->displayErrorMessage(currentException.what());
@@ -443,8 +442,7 @@ void GUI::setMyListLocation(){
 	try {
 		std::string myListLocation = this->inputValidator.generalNonEmptyStringValidator(this->lineEditMyListLocation->text().toStdString());
 		this->actionController.setSavedVictimsFileLocation(myListLocation);
-		//std::vector<Victim> savedVictims = this->actionController.getSavedVictims();
-		//here we should do something like update the table model
+		this->mylistTableModel->updateInternalData();
 	}
 	catch (const std::exception& currentException) {
 		this->displayErrorMessage(currentException.what());
@@ -462,6 +460,7 @@ void GUI::showMylist(){
 void GUI::undoModeB(){
 	try {
 		this->actionController.undoModeB();
+		this->mylistTableModel->updateInternalData();
 	}
 	catch (const std::exception& currentException) {
 		this->displayErrorMessage(currentException.what());
@@ -471,6 +470,7 @@ void GUI::undoModeB(){
 void GUI::redoModeB(){
 	try {
 		this->actionController.redoModeB();
+		this->mylistTableModel->updateInternalData();
 	}
 	catch (const std::exception& currentException) {
 		this->displayErrorMessage(currentException.what());

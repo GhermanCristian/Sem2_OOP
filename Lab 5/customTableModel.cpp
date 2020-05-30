@@ -1,7 +1,7 @@
 #include "customTableModel.h"
 
 CustomTableModel::CustomTableModel(Controller& actionController, QObject* parent) : QAbstractTableModel{ parent }, actionController{ actionController }{
-	this->elementCount = this->actionController.getSavedVictims().size();
+	this->victimCount = this->actionController.getSavedVictims().size();
 }
 
 CustomTableModel::~CustomTableModel(){
@@ -9,11 +9,11 @@ CustomTableModel::~CustomTableModel(){
 }
 
 int CustomTableModel::rowCount(const QModelIndex& parent) const{
-	return this->actionController.getSavedVictims().size();
+	return this->victimCount;
 }
 
 int CustomTableModel::columnCount(const QModelIndex& parent) const{
-	return 4;
+	return NUMBER_OF_COLUMNS;
 }
 
 QVariant CustomTableModel::data(const QModelIndex& index, int role) const{
@@ -24,13 +24,13 @@ QVariant CustomTableModel::data(const QModelIndex& index, int role) const{
 		std::vector<Victim> mylist = this->actionController.getSavedVictims();
 		Victim currentVictim = mylist[row];
 
-		if (column == 0) {
+		if (column == VICTIM_NAME_HEADER_COLUMN) {
 			return QString::fromStdString(currentVictim.getName());
 		}
-		if (column == 1) {
+		if (column == PLACE_OF_ORIGIN_HEADER_COLUMN) {
 			return QString::fromStdString(currentVictim.getPlaceOfOrigin());
 		}
-		if (column == 2) {
+		if (column == VICTIM_AGE_HEADER_COLUMN) {
 			return QString::number(currentVictim.getAge());
 		}
 		return QString::fromStdString(currentVictim.getPhotographLink());
@@ -48,13 +48,13 @@ QVariant CustomTableModel::data(const QModelIndex& index, int role) const{
 QVariant CustomTableModel::headerData(int section, Qt::Orientation orientation, int role) const{
 	if (role == Qt::DisplayRole) {
 		if (orientation == Qt::Horizontal) {
-			if (section == 0) {
+			if (section == VICTIM_NAME_HEADER_COLUMN) {
 				return QString{ "Victim name" };
 			}
-			if (section == 1) {
+			if (section == PLACE_OF_ORIGIN_HEADER_COLUMN) {
 				return QString{ "Place of origin" };
 			}
-			if (section == 2) {
+			if (section == VICTIM_AGE_HEADER_COLUMN) {
 				return QString{ "Age" };
 			}
 			return QString{ "Photograph" };
@@ -70,10 +70,11 @@ QVariant CustomTableModel::headerData(int section, Qt::Orientation orientation, 
 	return QVariant{};
 }
 
-bool CustomTableModel::setData(const QModelIndex& index, const QVariant& value, int role){
-	return false;
-}
-
 Qt::ItemFlags CustomTableModel::flags(const QModelIndex& index) const{
 	return Qt::ItemIsSelectable | Qt::ItemIsEnabled;
+}
+
+void CustomTableModel::updateInternalData(){
+	this->victimCount = this->actionController.getSavedVictims().size(); // update the row count
+	endResetModel(); // this emits the signal that the model has been updated
 }
