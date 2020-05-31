@@ -4,6 +4,15 @@
 #include <qdebug.h>
 #include <Windows.h>
 
+void GUI::initializeTableView(){
+	this->mylistTableModel = new CustomTableModel{ this->actionController };
+	this->mylistTableView = new QTableView{};
+	this->mylistTableView->setModel(this->mylistTableModel);
+	this->mylistTableView->setItemDelegate(new CustomDelegate());
+	this->mylistTableView->resizeRowsToContents();
+	this->mylistTableView->resizeColumnsToContents();
+}
+
 QWidget* GUI::initializeWidgetModeA(){
 	QWidget* modeAWidget = new QWidget;
 	QVBoxLayout* modeALayout = new QVBoxLayout{ modeAWidget };
@@ -111,12 +120,7 @@ QWidget* GUI::initializeWidgetModeB(){
 	modeBToolbar->addAction(menuActionModeB);
 	modeBToolbar->addAction(menuActionDataRepresentation);
 
-	this->mylistTableModel = new CustomTableModel{ this->actionController };
-	this->mylistTableView = new QTableView{};
-	this->mylistTableView->setModel(this->mylistTableModel);
-	this->mylistTableView->setItemDelegate(new CustomDelegate());
-	this->mylistTableView->resizeRowsToContents();
-	this->mylistTableView->resizeColumnsToContents();
+	this->initializeTableView();
 
 	this->nextVictimLabel = new QLabel{};
 	this->nextVictimLabel->setFixedHeight(NEXT_VICTIM_LABEL_HEIGHT);
@@ -238,6 +242,11 @@ void GUI::changeToModeB(){
 
 void GUI::changeToDataRepresentation(){
 	this->allWidgets->setCurrentIndex(DATA_REPRESENTATION_WIDGET_INDEX);
+}
+
+void GUI::notifyModel(){
+	this->mylistTableModel->updateInternalData();
+	this->mylistTableView->resizeRowsToContents();
 }
 
 void GUI::displayErrorMessage(const std::string& errorMessage) {
@@ -420,8 +429,7 @@ void GUI::saveVictim(){
 	try {
 		std::string victimName = this->inputValidator.generalNonEmptyStringValidator(this->lineEditSaveVictim->text().toStdString());
 		this->actionController.saveVictim(victimName);
-		this->mylistTableModel->updateInternalData();
-		this->mylistTableView->resizeRowsToContents();
+		this->notifyModel();
 	}
 	catch (const std::exception& currentException) {
 		this->displayErrorMessage(currentException.what());
@@ -444,8 +452,7 @@ void GUI::setMyListLocation(){
 	try {
 		std::string myListLocation = this->inputValidator.generalNonEmptyStringValidator(this->lineEditMyListLocation->text().toStdString());
 		this->actionController.setSavedVictimsFileLocation(myListLocation);
-		this->mylistTableModel->updateInternalData();
-		this->mylistTableView->resizeRowsToContents();
+		this->notifyModel();
 	}
 	catch (const std::exception& currentException) {
 		this->displayErrorMessage(currentException.what());
@@ -463,8 +470,7 @@ void GUI::showMylist(){
 void GUI::undoModeB(){
 	try {
 		this->actionController.undoModeB();
-		this->mylistTableModel->updateInternalData();
-		this->mylistTableView->resizeRowsToContents();
+		this->notifyModel();
 	}
 	catch (const std::exception& currentException) {
 		this->displayErrorMessage(currentException.what());
@@ -474,8 +480,7 @@ void GUI::undoModeB(){
 void GUI::redoModeB(){
 	try {
 		this->actionController.redoModeB();
-		this->mylistTableModel->updateInternalData();
-		this->mylistTableView->resizeRowsToContents();
+		this->notifyModel();
 	}
 	catch (const std::exception& currentException) {
 		this->displayErrorMessage(currentException.what());

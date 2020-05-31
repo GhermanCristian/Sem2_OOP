@@ -93,6 +93,7 @@ class GUI : public QWidget{
 
 		QtCharts::QBarSeries* barSeries;
 
+		void initializeTableView();
 		QWidget* initializeWidgetModeA();
 		QWidget* initializeWidgetModeB();
 		QtCharts::QChartView* createBarChart();
@@ -100,6 +101,8 @@ class GUI : public QWidget{
 		void changeToModeA();
 		void changeToModeB();
 		void changeToDataRepresentation();
+
+		void notifyModel();
 
 		void displayErrorMessage(const std::string& errorMessage);
 		void removeErrorMessage();

@@ -65,7 +65,7 @@
       <Filter>Source Files\Controller</Filter>
     </ClCompile>
     <ClCompile Include="customDelegate.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Interface</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -186,7 +186,7 @@
       <Filter>Header Files\Interface</Filter>
     </ClInclude>
     <ClInclude Include="customDelegate.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Interface</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -3,6 +3,8 @@
 #include "controller.h"
 #include <qfont.h>
 #include <qdebug.h>
+#include <qcolor.h>
+#include <qbrush.h>
 
 class CustomTableModel : public QAbstractTableModel{
 	private:
