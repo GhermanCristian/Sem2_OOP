@@ -1,6 +1,7 @@
 #pragma once
 #include "inputValidator.h"
 #include "controller.h"
+#include "customDelegate.h"
 #include <qwidget.h>
 #include <QListWidget>
 #include <qpushbutton.h>
@@ -25,7 +26,6 @@ class GUI : public QWidget{
 		const int MODE_B_WIDGET_INDEX = 1;
 		const int DATA_REPRESENTATION_WIDGET_INDEX = 2;
 		const int ERROR_MESSAGE_DISPLAY_TIME = 2000; // in miliseconds
-		const int FILTERED_LIST_WIDGET_HEIGHT = 400;
 		const int NEXT_VICTIM_LABEL_HEIGHT = 50;
 
 		const std::string LIST_FONT_NAME = "Arial";

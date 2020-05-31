@@ -1,5 +1,4 @@
 #include "Tests/tests.h"
-#include "Lab5.h"
 #include <QtWidgets/QApplication>
 #include "GUI.h"
 

@@ -1,16 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Lab5.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="mainProgram.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="victim.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="victimIterator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="controller.cpp">
@@ -61,10 +55,16 @@
     <ClCompile Include="GUI.cpp">
       <Filter>Source Files\Interface</Filter>
     </ClCompile>
-    <ClCompile Include="customTableModel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="action.cpp">
+      <Filter>Source Files\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="customTableModel.cpp">
+      <Filter>Source Files\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="victimIterator.cpp">
+      <Filter>Source Files\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="customDelegate.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -89,9 +89,6 @@
       <Extensions>ui</Extensions>
       <ParseFiles>true</ParseFiles>
     </Filter>
-    <Filter Include="Tests">
-      <UniqueIdentifier>{aa75c39d-1aa0-435e-b946-55116e58e319}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Controller">
       <UniqueIdentifier>{ed93858f-3cd4-474d-884d-9acfe8bdd268}</UniqueIdentifier>
     </Filter>
@@ -113,11 +110,9 @@
     <Filter Include="Source Files\Interface">
       <UniqueIdentifier>{3916f70b-6da8-4b90-85bb-59a0d9bcf711}</UniqueIdentifier>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <QtMoc Include="Lab5.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
+    <Filter Include="Header Files\Tests">
+      <UniqueIdentifier>{aa75c39d-1aa0-435e-b946-55116e58e319}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="Lab5.ui">
@@ -167,27 +162,30 @@
       <Filter>Header Files\Controller</Filter>
     </ClInclude>
     <ClInclude Include="Tests\testController.h">
-      <Filter>Tests</Filter>
+      <Filter>Header Files\Tests</Filter>
     </ClInclude>
     <ClInclude Include="Tests\testInputValidator.h">
-      <Filter>Tests</Filter>
+      <Filter>Header Files\Tests</Filter>
     </ClInclude>
     <ClInclude Include="Tests\testRepository.h">
-      <Filter>Tests</Filter>
+      <Filter>Header Files\Tests</Filter>
     </ClInclude>
     <ClInclude Include="Tests\tests.h">
-      <Filter>Tests</Filter>
+      <Filter>Header Files\Tests</Filter>
     </ClInclude>
     <ClInclude Include="Tests\testVictim.h">
-      <Filter>Tests</Filter>
+      <Filter>Header Files\Tests</Filter>
     </ClInclude>
     <ClInclude Include="GUI.h">
       <Filter>Header Files\Interface</Filter>
     </ClInclude>
-    <ClInclude Include="customTableModel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="action.h">
+      <Filter>Header Files\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="customTableModel.h">
+      <Filter>Header Files\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="customDelegate.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

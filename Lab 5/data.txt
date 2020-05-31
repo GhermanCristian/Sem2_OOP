@@ -1,10 +1,12 @@
-Amore, Piata Marasti, 22, photo151.jpg
-Cena John, Roma, 20, photo122.jpg
-Dragos Gardescu, Burdujeni respect, 30, photo134.jpg
-Ernest, Burdujeni respect, 31, photo113.jpg
-John Cena, Piata Marasti, 21, photo41.jpg
-Mihai Creanga, Burdujeni respect, 19, photo141.jpg
-Nelson Judeteanu, Itcani, 45, photo11.jpg
-Nelson Nationalu, Manhattanstur, 45, photo1412.jpg
-Nelson Planetaru, Obcini, 55, photo13.jpg
-Nicolae Linguraru, Burdujeni respect, 19, photo541.jpg
+Cabral, Roma, 20, photocabral2.jpg
+Cho Low, Burdujeni respect, 30, photociolos1.jpg
+Dorian, Obcini, 55, photopopa1.jpg
+Emi, Piata Marasti, 22, photoboc2.jpg
+John Cena, Piata Marasti, 21, photocena1.jpg
+Mikey H, Deva cred, 34, photomikey1.jpg
+Nelson Judeteanu, Itcani, 45, photonelson1.jpg 
+Nicolae Linguraru, Burdujeni respect, 19, photoguta1.jpg
+Relu, Burdujeni respect, 31, photoconnect1.jpg
+Scarlatescu, Burdujeni respect, 19, photoscarlatescu1.jpg
+Victoras, Manhattanstur, 45, photoponta1.jpg
+Zmaili, Secunda, 1, photozmaili1.jpg

@@ -84,6 +84,7 @@
     <ClCompile Include="action.cpp" />
     <ClCompile Include="controller.cpp" />
     <ClCompile Include="CSVRepository.cpp" />
+    <ClCompile Include="customDelegate.cpp" />
     <ClCompile Include="customExceptions.cpp" />
     <ClCompile Include="customTableModel.cpp" />
     <ClCompile Include="fileRepository.cpp" />
@@ -91,7 +92,6 @@
     <ClCompile Include="GUI.cpp" />
     <ClCompile Include="HTMLRepository.cpp" />
     <ClCompile Include="inputValidator.cpp" />
-    <ClCompile Include="Lab5.cpp" />
     <ClCompile Include="mainProgram.cpp" />
     <ClCompile Include="memoryRepository.cpp" />
     <ClCompile Include="repository.cpp" />
@@ -105,9 +105,6 @@
     <ClCompile Include="victimIterator.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="Lab5.h" />
-  </ItemGroup>
-  <ItemGroup>
     <QtUic Include="Lab5.ui" />
   </ItemGroup>
   <ItemGroup>
@@ -117,6 +114,7 @@
     <ClInclude Include="action.h" />
     <ClInclude Include="controller.h" />
     <ClInclude Include="CSVRepository.h" />
+    <ClInclude Include="customDelegate.h" />
     <ClInclude Include="customExceptions.h" />
     <ClInclude Include="customTableModel.h" />
     <ClInclude Include="fileRepository.h" />

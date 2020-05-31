@@ -114,8 +114,9 @@ QWidget* GUI::initializeWidgetModeB(){
 	this->mylistTableModel = new CustomTableModel{ this->actionController };
 	this->mylistTableView = new QTableView{};
 	this->mylistTableView->setModel(this->mylistTableModel);
-	this->mylistTableView->resizeColumnsToContents();
+	this->mylistTableView->setItemDelegate(new CustomDelegate());
 	this->mylistTableView->resizeRowsToContents();
+	this->mylistTableView->resizeColumnsToContents();
 
 	this->nextVictimLabel = new QLabel{};
 	this->nextVictimLabel->setFixedHeight(NEXT_VICTIM_LABEL_HEIGHT);
@@ -420,6 +421,7 @@ void GUI::saveVictim(){
 		std::string victimName = this->inputValidator.generalNonEmptyStringValidator(this->lineEditSaveVictim->text().toStdString());
 		this->actionController.saveVictim(victimName);
 		this->mylistTableModel->updateInternalData();
+		this->mylistTableView->resizeRowsToContents();
 	}
 	catch (const std::exception& currentException) {
 		this->displayErrorMessage(currentException.what());
@@ -443,6 +445,7 @@ void GUI::setMyListLocation(){
 		std::string myListLocation = this->inputValidator.generalNonEmptyStringValidator(this->lineEditMyListLocation->text().toStdString());
 		this->actionController.setSavedVictimsFileLocation(myListLocation);
 		this->mylistTableModel->updateInternalData();
+		this->mylistTableView->resizeRowsToContents();
 	}
 	catch (const std::exception& currentException) {
 		this->displayErrorMessage(currentException.what());
@@ -461,6 +464,7 @@ void GUI::undoModeB(){
 	try {
 		this->actionController.undoModeB();
 		this->mylistTableModel->updateInternalData();
+		this->mylistTableView->resizeRowsToContents();
 	}
 	catch (const std::exception& currentException) {
 		this->displayErrorMessage(currentException.what());
@@ -471,6 +475,7 @@ void GUI::redoModeB(){
 	try {
 		this->actionController.redoModeB();
 		this->mylistTableModel->updateInternalData();
+		this->mylistTableView->resizeRowsToContents();
 	}
 	catch (const std::exception& currentException) {
 		this->displayErrorMessage(currentException.what());
