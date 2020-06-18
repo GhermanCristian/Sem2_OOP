@@ -1,0 +1,5 @@
+i1 | closed | u4 | u5
+i2 | open | u1 | -
+i3 | closed | u4 | u3
+i4 | open | u1 | -
+i5 | closed | u1 | u5
