@@ -21,13 +21,13 @@ void Repository::loadIssues(std::string filePath){
 	this->issues.clear();
 
 	while (std::getline(inputStream, currentLine)) {
-		int colonPosition = currentLine.find("|");
+		int separatorPosition = currentLine.find("|");
 		int propertyPosition = 0;
 
-		while (colonPosition != std::string::npos) {
-			std::string currentProperty = currentLine.substr(0, colonPosition - 1);
-			currentLine = currentLine.substr(colonPosition + 2, currentLine.length() - colonPosition - 1);
-			colonPosition = currentLine.find("|");
+		while (separatorPosition != std::string::npos) {
+			std::string currentProperty = currentLine.substr(0, separatorPosition - 1);
+			currentLine = currentLine.substr(separatorPosition + 2, currentLine.length() - separatorPosition - 1);
+			separatorPosition = currentLine.find("|");
 
 			if (propertyPosition == DESCRIPTION_POSITION) {
 				description = currentProperty;
@@ -61,13 +61,13 @@ void Repository::loadUsers(std::string filePath){
 	this->users.clear();
 
 	while (std::getline(inputStream, currentLine)) {
-		int colonPosition = currentLine.find("|");
+		int separatorPosition = currentLine.find("|");
 		int propertyPosition = 0;
 
-		while (colonPosition != std::string::npos) {
-			std::string currentProperty = currentLine.substr(0, colonPosition - 1);
-			currentLine = currentLine.substr(colonPosition + 2, currentLine.length() - colonPosition - 1);
-			colonPosition = currentLine.find("|");
+		while (separatorPosition != std::string::npos) {
+			std::string currentProperty = currentLine.substr(0, separatorPosition - 1);
+			currentLine = currentLine.substr(separatorPosition + 2, currentLine.length() - separatorPosition - 1);
+			separatorPosition = currentLine.find("|");
 
 			if (propertyPosition == NAME_POSITION) {
 				name = currentProperty;
@@ -103,7 +103,7 @@ void Repository::addIssue(Issue newIssue){
 }
 
 void Repository::removeIssueByDescription(std::string description){
-	int issuePosition = -1;
+	int issuePosition = -1; // -1 means the issue has not been found
 	for (int position = 0; position < this->issues.size(); position++) {
 		if (this->issues[position].getDescription() == description && this->issues[position].getStatus() == "closed") {
 			issuePosition = position;

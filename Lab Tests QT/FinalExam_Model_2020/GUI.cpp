@@ -22,9 +22,7 @@ void GUI::solveIssueButtonAction(){
 		this->actionController.solveIssueByDescription(description, solver);
 	}
 	catch (const std::exception& exception) {
-		QMessageBox* errorMessage = new QMessageBox;
-		errorMessage->setText(exception.what());
-		errorMessage->show();
+		QMessageBox::critical(this, "am belit-o", exception.what());
 	}
 }
 
@@ -34,9 +32,7 @@ void GUI::removeIssueButtonAction(){
 		this->actionController.removeIssueByDescription(description);
 	}
 	catch (const std::exception& exception) {
-		QMessageBox* errorMessage = new QMessageBox;
-		errorMessage->setText(exception.what());
-		errorMessage->show();
+		QMessageBox::critical(this, "am belit-o", exception.what());
 	}
 }
 
