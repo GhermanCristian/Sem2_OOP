@@ -1,0 +1,100 @@
+#pragma once
+#include <string>
+#include <iostream>
+
+const double COFFEE_PRICE = 2.5;
+const double TEA_PRICE = 1.5;
+const double MILK_PRICE = 0.5;
+
+class Beverage {
+	protected:
+		std::string description;
+		
+	public:
+		Beverage();
+		Beverage(std::string description);
+		virtual void print();
+		virtual double price() = 0;
+};
+
+class Coffee : public Beverage {
+	public:
+		Coffee();
+		double price() override;
+};
+
+class Tea : public Beverage {
+	public:
+		Tea();
+		double price() override;
+};
+
+class BeverageWithMilk : public Beverage {
+	private:
+		int milkCount;
+		Beverage*& originalBeverage;
+
+	public:
+		BeverageWithMilk(Beverage*& originalBeverage, int milkCount);
+		double price() override;
+		void print();
+};
+
+class BeverageMachine {
+	public:
+		void prepare(std::string beverageType, int milkCount);
+};
+
+Beverage::Beverage(){
+	this->description = "";
+}
+
+Beverage::Beverage(std::string description) {
+	this->description = description;
+}
+
+void Beverage::print(){
+	std::cout << "Desc: " << this->description << "; price = " << this->price() << "\n";
+}
+
+Coffee::Coffee() : Beverage("Coffee") {
+	;
+}
+
+double Coffee::price(){
+	return COFFEE_PRICE;
+}
+
+Tea::Tea() : Beverage("Tea") {
+	;
+}
+
+double Tea::price() {
+	return TEA_PRICE;
+}
+
+BeverageWithMilk::BeverageWithMilk(Beverage*& originalBeverage, int milkCount) : originalBeverage(originalBeverage){
+	this->milkCount = milkCount;
+}
+
+double BeverageWithMilk::price(){
+	return this->originalBeverage->price() + this->milkCount * MILK_PRICE;
+}
+
+void BeverageWithMilk::print(){
+	this->originalBeverage->print();
+	std::cout << "Milk count: " << this->milkCount << "\n";
+	std::cout << "New price: " << this->price() << "\n";
+}
+
+void BeverageMachine::prepare(std::string beverageType, int milkCount) {
+	if (beverageType == "Tea") {
+		Tea().print();
+	}
+	else if (beverageType == "Coffee") {
+		Beverage* coffee = new Coffee;
+		BeverageWithMilk milkCoffee(coffee, milkCount);
+		milkCoffee.print();
+		delete coffee;
+	}
+}

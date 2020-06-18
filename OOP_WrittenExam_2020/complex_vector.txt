@@ -1,0 +1,114 @@
+/*
+	Complex a{}, b(1, 2), c(6, 4), d(b);
+	
+	assert(a.getReal() == 0 && a.getImaginary() == 0);
+	assert(c.getImaginary() == 4);
+	assert(b == d);
+	
+	Complex res1 = c / 2;
+	std::cout << res1 << "\n";
+
+	try {
+		Complex res2 = c / 0;
+	}
+	catch (std::runtime_error& e) {
+		std::cout << e.what() << "\n";
+	}
+
+	Vector<Complex> v2{ std::vector<Complex>{a, b, c, d} };
+	v2.printAll(std::cout);
+	Vector<std::string> v1{ std::vector<std::string>{"hello", "bye"} };
+	v1.printAll(std::cout);
+*/
+
+#pragma once
+#include <string>
+#include <iostream>
+#include <vector>
+
+class Complex {
+	private:
+		int imag;
+		int real;
+
+	public:
+		Complex();
+		Complex(int real, int imag);
+		Complex(const Complex& newComplex);
+		bool operator == (const Complex& newComplex);
+		Complex& operator / (int divisor);
+		Complex& operator = (const Complex& newComplex);
+		int getReal();
+		int getImaginary();
+		friend std::ostream& operator << (std::ostream& outputStream, const Complex& currentComplex);
+};
+
+Complex::Complex(){
+	this->real = 0;
+	this->imag = 0;
+}
+
+Complex::Complex(int real, int imag){
+	this->real = real;
+	this->imag = imag;
+}
+
+Complex::Complex(const Complex& newComplex){
+	this->real = newComplex.real;
+	this->imag = newComplex.imag;
+}
+
+bool Complex::operator==(const Complex& newComplex){
+	return this->imag == newComplex.imag && this->real == newComplex.real;
+}
+
+Complex& Complex::operator/(int divisor){
+	if (divisor == 0) {
+		throw std::runtime_error("Division by zero!");
+	}
+	this->imag /= divisor;
+	this->real /= divisor;
+	return *this;
+}
+
+Complex& Complex::operator=(const Complex& newComplex){
+	this->real = newComplex.real;
+	this->imag = newComplex.imag;
+	return *this;
+}
+
+int Complex::getReal(){
+	return this->real;
+}
+
+int Complex::getImaginary(){
+	return this->imag;
+}
+
+std::ostream& operator<<(std::ostream& outputStream, const Complex& currentComplex){
+	outputStream << currentComplex.real << " + " << currentComplex.imag << "i";
+	return outputStream;
+}
+
+template <typename TElem>
+class Vector {
+	private:
+		std::vector<TElem> elements;
+
+	public:
+		Vector(const std::vector<TElem> newElements);
+		std::ostream& printAll(std::ostream& outputStream);
+};
+
+template<typename TElem>
+inline Vector<TElem>::Vector(const std::vector<TElem> newElements){
+	this->elements = newElements;
+}
+
+template<typename TElem>
+inline std::ostream& Vector<TElem>::printAll(std::ostream& outputStream){
+	for (auto elem : this->elements) {
+		outputStream << elem << " ";
+	}
+	return outputStream;
+}

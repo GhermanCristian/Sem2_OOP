@@ -1,0 +1,111 @@
+/*
+	MenuBar menuBar;
+	
+	Menu fileMenu(NULL, "File");
+	Menu newMenu(NULL, "New");
+	CreateAction* createActionCPP = new CreateAction;
+	CreateAction* createActionText = new CreateAction;
+	Menu cppMenu(createActionCPP, "C++");
+	Menu textMenu(createActionText, "Text");
+
+	newMenu.add(cppMenu);
+	newMenu.add(textMenu);
+	fileMenu.add(newMenu);
+
+	ExitAction* exitAction = new ExitAction;
+	Menu exitMenu(exitAction, "Exit");
+	fileMenu.add(exitMenu);
+
+	Menu aboutMenu(NULL, "About");
+	
+	menuBar.add(fileMenu);
+	menuBar.add(aboutMenu);
+
+	fileMenu.clicked();
+	newMenu.clicked();
+	cppMenu.clicked();
+	exitMenu.clicked();
+
+	delete createActionCPP;
+	delete createActionText;
+	delete exitAction;
+	return 0;
+*/
+
+#pragma once
+#include <iostream>
+#include <string>
+#include <vector>
+
+class Action {
+	public:
+		virtual void execute() = 0;
+};
+
+class CreateAction : public Action {
+	public:
+		void execute() { std::cout << "Create file\n"; };
+};
+
+class ExitAction : public Action {
+	public:
+		void execute() { std::cout << "Exit application\n"; };
+};
+
+class MenuItem {
+	protected:
+		std::string text;
+		Action* action;
+
+	public:
+		MenuItem(Action* action, std::string text);
+		virtual void print() { std::cout << text << "\n"; };
+		void clicked();
+};
+
+class Menu : public MenuItem {
+	private:
+		std::vector<MenuItem> items;
+
+	public:
+		Menu(Action* action, std::string text);
+		void add(MenuItem newMenuItem) { this->items.push_back(newMenuItem); };
+		void print() override;
+};
+
+class MenuBar {
+	private:
+		std::vector<Menu> menus;
+
+	public:
+		void add(Menu newMenu) { this->menus.push_back(newMenu); }
+		void print();
+};
+
+MenuItem::MenuItem(Action* action, std::string text) : action(action){
+	this->text = text;
+}
+
+void MenuItem::clicked(){
+	std::cout << text << "\n"; 
+	if (this->action != NULL) {
+		this->action->execute();
+	}
+}
+
+Menu::Menu(Action* action, std::string text) : MenuItem(action, text){
+	;
+}
+
+void Menu::print(){
+	std::cout << text << "\n";
+	for (auto menuItem : this->items) {
+		menuItem.print();
+	}
+}
+
+void MenuBar::print(){
+	for (auto menu : menus) {
+		menu.print();
+	}
+}

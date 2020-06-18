@@ -1,0 +1,147 @@
+#pragma once
+#include <string>
+#include <iostream>
+
+class Activity {
+    private:
+        std::string activityName;
+        std::string startingTime;
+
+    public:
+        Activity();
+        Activity(std::string activityName, std::string startingTime);
+        friend std::ostream& operator << (std::ostream& outputStream, const Activity& currentActivity);
+        const std::string getStartingTime();
+	bool operator < (const Activity& newActivity);
+};
+
+Activity::Activity(){
+    this->activityName = "";
+    this->startingTime = "";
+}
+
+Activity::Activity(std::string activityName, std::string startingTime) {
+    this->activityName = activityName;
+    this->startingTime = startingTime;
+}
+
+const std::string Activity::getStartingTime(){
+    return this->startingTime;
+}
+
+bool Activity::operator < (const Activity& newActivity){
+    return this->startingTime < newActivity.startingTime;
+}
+
+std::ostream& operator << (std::ostream& outputStream, const Activity& currentActivity) {
+    std::string representation;
+
+    representation += ("Activity ");
+    representation += currentActivity.activityName;
+    representation += (" will take place at ");
+    representation += currentActivity.startingTime;
+    representation += ".";
+
+    outputStream << representation;
+    return outputStream;
+}
+
+const int INITIAL_CAPACITY = 100;
+typedef Activity TElem;
+template <typename TElem>
+class ToDo {
+    private:
+        int capacity; // the total capacity of the vector
+        int numberOfElements; // the number of elements it currently contains
+        TElem* elements; // the actual elements
+
+    public:
+        ToDo();
+        ToDo& operator += (const TElem& newElement);
+        std::ostream& reversePrint(std::ostream& outputStream);
+        /*
+            Prints the activities in reverse order
+            Input:
+                - The stream responsible with displaying the data
+            Output:
+                - Returns the modified stream
+        */
+        ~ToDo();
+
+        class Iterator {
+            private:
+                TElem* position;
+
+            public:
+                Iterator(TElem* position);
+                bool operator != (const Iterator& newIterator) const;
+                TElem operator * () const;
+                typename Iterator& operator ++ ();
+        };
+
+        typename Iterator begin();
+        typename Iterator end();
+};
+
+template <typename TElem>
+ToDo <TElem>::ToDo() {
+    this->capacity = INITIAL_CAPACITY;
+    this->numberOfElements = 0;
+    this->elements = new TElem[this->capacity];
+}
+
+template <typename TElem>
+ToDo<TElem>& ToDo<TElem>::operator += (const TElem& newElement) {
+    /*int position;
+    for (position = this->numberOfElements - 1; position >= 0 and sortByStartingTime(newElement, this->elements[position]); position--) {
+        this->elements[position + 1] = this->elements[position];
+    }
+    this->elements[position + 1] = newElement;
+    this->numberOfElements++;*/
+    this->elements[this->numberOfElements++] = newElement;
+    std::sort(this->elements, this->elements + this->numberOfElements - 1);
+}
+
+template <typename TElem>
+ToDo<TElem>::~ToDo() {
+    delete[] this->elements;
+}
+
+template<typename TElem>
+inline typename ToDo<TElem>::Iterator ToDo<TElem>::begin(){
+    return Iterator(this->elements + 0);
+}
+
+template<typename TElem>
+inline typename ToDo<TElem>::Iterator ToDo<TElem>::end(){
+    return Iterator(this->elements + this->numberOfElements);
+}
+
+template <typename TElem>
+std::ostream& ToDo<TElem>::reversePrint(std::ostream& outputStream) {
+    for (int i = this->numberOfElements - 1; i >= 0; i--) {
+        outputStream << this->elements[i] << "\n";
+    }
+    return outputStream;
+}
+
+template<typename TElem>
+inline ToDo<TElem>::Iterator::Iterator(TElem* position){
+    this->position = position;
+}
+
+template<typename TElem>
+inline bool ToDo<TElem>::Iterator::operator!=(const Iterator& newIterator) const{
+    return this->position != newIterator.position;
+}
+
+template<typename TElem>
+inline TElem ToDo<TElem>::Iterator::operator*() const{
+    return *(this->position);
+}
+
+template<typename TElem>
+inline typename ToDo<TElem>::Iterator& ToDo<TElem>::Iterator::operator++(){
+    this->position++;
+    return *this;
+}
