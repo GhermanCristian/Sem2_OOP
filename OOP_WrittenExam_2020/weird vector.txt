@@ -1,0 +1,41 @@
+#include <string>
+#include <iostream>
+#include <vector>
+
+template <typename TElem>
+class vector {
+	private:
+		std::vector<TElem> v;
+
+	public:
+		vector();
+		vector(TElem t1, TElem t2, TElem t3, TElem t4);
+		int getElemCount() { return v.size(); }
+		std::vector<TElem> getVector() { return this->v; }
+};
+
+template<typename TElem>
+inline vector<TElem>::vector(){
+	;
+}
+
+template<typename TElem>
+inline vector<TElem>::vector(TElem t1, TElem t2, TElem t3, TElem t4){
+	v.push_back(t1);
+	v.push_back(t2);
+	v.push_back(t3);
+	v.push_back(t4);
+}
+
+template<typename TElem>
+TElem fct(vector<TElem> v) {
+	TElem result;
+	if (v.getElemCount() == 0) {
+		throw std::exception("Invalid");
+	}
+	result = v.getVector()[0];
+	for (int pos = 1; pos < v.getVector().size(); pos++) {
+		result += v.getVector()[pos];
+	}
+	return result;
+}

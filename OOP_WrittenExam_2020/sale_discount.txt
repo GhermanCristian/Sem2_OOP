@@ -1,0 +1,79 @@
+#pragma once
+#include <iostream>
+#include <string>
+#include <vector>
+
+class SaleItem {
+	public:
+		int code;
+		double price;
+		SaleItem(int code, double price);
+};
+
+class Sale {
+	public:
+		std::vector<SaleItem> sales;
+		void add(SaleItem s);
+};
+
+class Discount {
+	public:
+		virtual double calc(Sale s) = 0;
+};
+
+class ItemDiscount : public Discount {
+	private:
+		int code;
+		int percentage;
+
+	public:
+		ItemDiscount(int code, int percentage);
+		double calc(Sale s) override;
+};
+
+class SumDiscount : public Discount {
+	private:
+		std::vector<Discount*> discounts;
+
+	public:
+		void add(Discount* d);
+		double calc(Sale s);
+};
+
+SaleItem::SaleItem(int code, double price){
+	this->code = code;
+	this->price = price;
+}
+
+ItemDiscount::ItemDiscount(int code, int percentage){
+	this->code = code;
+	this->percentage = percentage;
+}
+
+double ItemDiscount::calc(Sale s){
+	double discountedPrice = 0.0;
+	for (auto saleItem : s.sales) {
+		if (saleItem.code == this->code) {
+			discountedPrice += saleItem.price * this->percentage / 100;
+		}
+	}
+	return discountedPrice;
+}
+
+void SumDiscount::add(Discount* d){
+	this->discounts.push_back(d);
+}
+
+double SumDiscount::calc(Sale s){
+	double result = 0.0;
+
+	for (auto discount : this->discounts) {
+		result += discount->calc(s);
+	}
+
+	return result;
+}
+
+void Sale::add(SaleItem s){
+	this->sales.push_back(s);
+}
