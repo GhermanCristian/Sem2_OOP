@@ -1,0 +1,81 @@
+#pragma once
+#include <string>
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+class Car {
+	private:
+		std::string name;
+		int price;
+
+	public:
+		Car(std::string name, int price);
+		friend bool operator < (const Car& c1, const Car& c2);
+		friend std::ostream& operator << (std::ostream& outputStream, const Car& newCar);
+};
+
+template <typename T1, typename T2>
+class List {
+	private:
+		std::vector<std::pair<T1, T2>> elements;
+
+	public:
+		void add(T1 firstElem, T2 secondElem);
+		void sortByFirstComponent();
+		/*
+			Sorts the list by the first component (of type T1)
+			Input:
+				- A comparison function must exist for the type T1
+			Output:
+				- If the list is empty, throws an exception
+				- The list is sorted, otherwise
+		*/
+		void sortBySecondComponent();
+		void printReverse(std::ostream& outputStream);
+};
+
+template<typename T1, typename T2>
+inline void List<T1, T2>::add(T1 firstElem, T2 secondElem){
+	elements.push_back(std::make_pair(firstElem, secondElem));
+}
+
+template<typename T1, typename T2>
+inline void List<T1, T2>::sortByFirstComponent(){
+	if (this->elements.size() == 0) {
+		throw std::runtime_error("List is empty!");
+	}
+
+	std::sort(this->elements.begin(), this->elements.end(), [](const std::pair<T1, T2>& a, const std::pair<T1, T2>& b) {
+		return a.first < b.first;
+	});
+}
+
+template<typename T1, typename T2>
+inline void List<T1, T2>::sortBySecondComponent(){
+	std::sort(this->elements.begin(), this->elements.end(), [](const std::pair<T1, T2>& a, const std::pair<T1, T2>& b) {
+		return a.second < b.second;
+	});
+}
+
+template<typename T1, typename T2>
+inline void List<T1, T2>::printReverse(std::ostream& outputStream){
+	for (auto iter = this->elements.rbegin(); iter != this->elements.rend(); iter++) {
+		auto element = *iter;
+		outputStream << element.first << " -> " << element.second << "\n";
+	}
+}
+
+Car::Car(std::string name, int price){
+	this->name = name;
+	this->price = price;
+}
+
+bool operator<(const Car& c1, const Car& c2){
+	return c1.price < c2.price;
+}
+
+std::ostream& operator<<(std::ostream& outputStream, const Car& newCar){
+	outputStream << newCar.name << " " << newCar.price;
+	return outputStream;
+}

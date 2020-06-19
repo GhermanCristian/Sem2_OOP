@@ -12,13 +12,13 @@ class SaleItem {
 
 class Sale {
 	public:
-		std::vector<SaleItem> sales;
-		void add(SaleItem s);
+		std::vector<SaleItem*> sales;
+		void add(SaleItem* s);
 };
 
 class Discount {
 	public:
-		virtual double calc(Sale s) = 0;
+		virtual double calc(Sale* s) = 0;
 };
 
 class ItemDiscount : public Discount {
@@ -28,7 +28,7 @@ class ItemDiscount : public Discount {
 
 	public:
 		ItemDiscount(int code, int percentage);
-		double calc(Sale s) override;
+		double calc(Sale* s) override;
 };
 
 class SumDiscount : public Discount {
@@ -37,34 +37,35 @@ class SumDiscount : public Discount {
 
 	public:
 		void add(Discount* d);
-		double calc(Sale s);
+		double calc(Sale* s);
 };
 
-SaleItem::SaleItem(int code, double price){
+
+SaleItem::SaleItem(int code, double price) {
 	this->code = code;
 	this->price = price;
 }
 
-ItemDiscount::ItemDiscount(int code, int percentage){
+ItemDiscount::ItemDiscount(int code, int percentage) {
 	this->code = code;
 	this->percentage = percentage;
 }
 
-double ItemDiscount::calc(Sale s){
+double ItemDiscount::calc(Sale* s) {
 	double discountedPrice = 0.0;
-	for (auto saleItem : s.sales) {
-		if (saleItem.code == this->code) {
-			discountedPrice += saleItem.price * this->percentage / 100;
+	for (auto saleItem : s->sales) {
+		if (saleItem->code == this->code) {
+			discountedPrice += saleItem->price * this->percentage / 100;
 		}
 	}
 	return discountedPrice;
 }
 
-void SumDiscount::add(Discount* d){
+void SumDiscount::add(Discount* d) {
 	this->discounts.push_back(d);
 }
 
-double SumDiscount::calc(Sale s){
+double SumDiscount::calc(Sale* s) {
 	double result = 0.0;
 
 	for (auto discount : this->discounts) {
@@ -74,6 +75,35 @@ double SumDiscount::calc(Sale s){
 	return result;
 }
 
-void Sale::add(SaleItem s){
+void Sale::add(SaleItem* s) {
 	this->sales.push_back(s);
+}
+
+int main() {
+	SaleItem* si1 = new SaleItem{ 1, 10 };
+	SaleItem* si2 = new SaleItem{ 2, 20 };
+	SaleItem* si3 = new SaleItem{ 3, 30 };
+
+	Sale* s1 = new Sale;
+	s1->add(si1);
+	s1->add(si2);
+	s1->add(si3);
+
+	ItemDiscount* id1 = new ItemDiscount(1, 10);
+	ItemDiscount* id2 = new ItemDiscount(2, 15);
+	SumDiscount* sd1 = new SumDiscount;
+	sd1->add(id1);
+	sd1->add(id2);
+
+	std::cout << sd1->calc(s1) << "\n";
+
+	delete sd1;
+	delete id1;
+	delete id2;
+	delete s1;
+	delete si1;
+	delete si2;
+	delete si3;
+
+	return 0;
 }
