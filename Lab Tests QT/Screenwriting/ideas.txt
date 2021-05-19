@@ -1,0 +1,4 @@
+desc1 | accepted | c1 | 1
+desc2 | proposed | c2 | 3
+desc3 | accepted | c3 | 1
+desc4 | proposed | c4 | 2
