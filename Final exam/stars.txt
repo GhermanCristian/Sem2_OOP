@@ -1,0 +1,7 @@
+star4 | con3 | 1 | 1 | 30
+fcsb1 | con3 | 160 | 160 | 30
+new star ast 4 | con3 | 500 | 500 | 20
+star2 | con2 | 40 | 40 | 30
+star3 | con2 | 80 | 80 | 30
+stea | con2 | 240 | 240 | 40
+star1 | con1 | 120 | 120 | 30
